@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X7 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="512px" height="512px" version="1.1" shape-rendering="geometricPrecision" fill-rule="evenodd" clip-rule="evenodd"
+viewBox="0 0 512 512"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g id="logo">
+
+  <rect id="fondo" fill="#363636" y="-3" width="512" height="512"/>
+  <rect id="mesa1" fill="#FFEE00" x="41" y="31" width="282" height="169"/>
+  <rect id="mesa2" fill="#00CCFF" x="41" y="323" width="282" height="169"/>
+  <rect id="mesa3" fill="#00DFE7" x="445" y="31" width="66.5938" height="168.743"/>
+  <rect id="mesa4" fill="#00CCFF" x="445" y="323" width="66.8671" height="168.743"/>
+  <path id="flecha" fill="#FF0066" d="M231 137l220 131 -81 30 75 118c3,6 2,13 -4,17l-28 18c-6,4 -13,2 -17,-4l-75 -117 -67 65 -23 -258z"/>
+ </g>
+</svg>
