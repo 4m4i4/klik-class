@@ -28,6 +28,7 @@
                     
                     @includeWhen(auth()->user()->paso=='1', 'configurar.paso1')
                     @includeWhen(auth()->user()->paso=='2', 'configurar.paso2')
+                    @includeWhen(auth()->user()->paso=='3', 'configurar.paso3')
                 </div>
             </div>
         </div>

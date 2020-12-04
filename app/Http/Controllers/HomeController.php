@@ -37,28 +37,5 @@ class HomeController extends Controller
         return view('home',compact('user'));
     }
 
-     
-    public function paso1(Request $request, $id)
-    {
-        $user = User::find($id);
-        // dd($user);
-        $pasoo= request('paso');
-        dd($pasoo);
-        $user->paso = $pasoo;
-        //  = request('paso');
-        // if($paso==1)
-
-        $user->save();
-        return redirect()->route('home',compact('user'));
-    }
-    public function paso2()
-    {
-        $user = auth()->user();
-        $user->paso = request('paso');
-        $user->save();
-        return redirect()->route('home',compact('user'));
-    }
-
-
     
 }

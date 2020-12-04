@@ -13,7 +13,8 @@ class SesionController extends Controller
      */
     public function index()
     {
-        //
+        $sesiones = Sesion::get();
+        return view('configurar.sesions.index', compact('sesiones'));
     }
 
     /**
@@ -23,7 +24,7 @@ class SesionController extends Controller
      */
     public function create()
     {
-        return view('configurar.sesiones.create');
+        return view('configurar.sesions.create');
     }
 
     /**
@@ -34,7 +35,23 @@ class SesionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+           // si pasa la validación... no funciona er el formulario modadl
+        if($request->validate([
+                'inicio' =>'required',
+                'fin'=>'required'
+                ])
+            )
+        {   
+            $sesion = new Sesion([
+                'inicio'=>request('inicio'),
+                'fin'=>request('fin') 
+                ]);
+
+            $msn= 'Se ha añadido la hora de la sesión';
+            $sesion->save();
+            return redirect()->route('sesions.index')->with('info', $msn);
+        }
+    
     }
 
     /**
@@ -56,7 +73,8 @@ class SesionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sesion = Sesion::find($id);
+        return view('configurar.sesions.edit', compact( 'sesion'));
     }
 
     /**
@@ -68,7 +86,22 @@ class SesionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+           // si pasa la validación... no funciona er el formulario modadl
+        if($request->validate([
+                'inicio' =>'required',
+                'fin'=>'required'
+                ])
+            )
+        {   
+            $sesion = Sesion::find($id);
+            $sesion->inicio = request('inicio');
+            $sesion->fin = request('fin') ;
+
+            $msn = 'Se ha actualizado la hora de la sesión';
+            $sesion->save();
+
+            return redirect()->route('sesions.index')->with('info', $msn);
+        }
     }
 
     /**

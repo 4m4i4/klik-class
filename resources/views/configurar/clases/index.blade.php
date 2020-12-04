@@ -2,346 +2,174 @@
 
 @section('content')
 
-  <div class="container">
-    <div class = "col-sm-12">
-      @if(session()->get('info'))
-        <div class = "alert alert-info">
-          {{ session()->get('info') }}  
-        </div>
-      @endif
-    </div>
-    <div class = "row">
+<div class="container">
+  <div class = "col-sm-12">
+    @if(session()->get('info'))
+      <div class = "alert alert-info">
+        {{ session()->get('info') }}  
+      </div>
+    @endif
+  </div>
+  <div class = "row">
 
-      <div class = "col-md-12">
-        <div class = "caja">
-          <div class = "caja-header d-flex justify-content-between">
-            <h2>Mi horario de Clases </h2>
-          </div>
-          <div class = "caja-body">
-            <table  class = "tabla table-responsive-sm" id="configurar_horario">
-              <caption>Introducir el horario y las sesiones(Materia, grupo y aula)</caption>
+    <div class = "col-sm-12">
+      <div class = "caja">
+        <div class = "caja-header grid grid-cols-2 justify-between items-center">
+          <h2>Mi horario de Clases </h2>
+            @php $user = auth()->user(); @endphp
+          <form action="{{ route('paso', $user->id) }}" method="POST" class="grid grid-cols-2">
+            @csrf
+            @method('PUT')
+              @if($user->paso == 2)
+                <a href="{{route('sesions.index')}}" class="boton warning-reves mr-2">Cambiar horario</a>
+                <button type="submit" name="paso" title="Ir a paso 3: horario completado" id="paso3" value=3 class="boton secondary-reves ml-2">✅ ¡He acabado! </button>
+              @elseif($user->paso == 3)
+                <button type="submit" name="paso" title="Ir a paso 2:cambiar horario" id="paso2" value=2 class="boton secondary-reves mr-2">Al paso ➋ 👈 ! </button>
+                <a href="{{route('home')}}" class="ml-2 boton warning-reves">👉 Al paso ➌</a>
+              @endif
+          </form>
+        </div>
+        </div>
+        <div class="caja-body">
+          <table class="tabla table-responsive-sm">
+            <caption>Introducir el horario y las sesiones(Materia, grupo y aula)</caption>
+              @php
+                $dias=['Horario','Lunes','Martes','Miercoles','Jueves','Viernes'];
+                  $count=count($dias);
+                  use App\Models\Sesion;
+                  use App\Models\Clase;
+                  $sesiones = Sesion::get();
+                  $clases = Clase::get();
+              @endphp
               <thead>
-                <tr id="cabeceraDias">
-                  <th id="hora_sesion">Horario</th>
-                  <th class="dia">Lunes</th>
-                  <th class="dia">Martes</th>
-                  <th class="dia">Miércoles</th>
-                  <th class="dia">Jueves</th>
-                  <th class="dia">Viernes</th>
+                <tr>
+                  @for ($i = 0; $i < $count; $i++)
+                    <th id={{$dias[$i]}}> {{$dias[$i]}}</th>
+                  @endfor
                 </tr>
               </thead>
-              <tbody id="cuerpo">
-                <tr id="1" class="horas">
-                  <th class="hora_sesion sesion1 grid timegrid-cols-3" id="sesion1">
-                    <button onclick="horarioModal(this.innerHTML)" class="bt_time hora" id="bt_Hora_sesion1">1</button>
-                    <input type="time" id="hIni1"required  name="hIni1" class="" >
-                    <input type="time" id="hFin1"required  name="hFin1" class="" >
-                  </th>
-                  <td class="Lun sesion1" id="Lun_sesion1">
-                    <button class="bt_horario" id="lunes_1" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Mar sesion1" id="Mar_sesion1">
-                    <button class="bt_horario" id="martes_1" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Mie sesion1" id="Mie_sesion1">
-                    <button class="bt_horario" id="miercoles_1" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Jue sesion1" id="Jue_sesion1">
-                    <button class="bt_horario" id="jueves_1" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Vie sesion1" id="Vie_sesion1">
-                    <button class="bt_horario" id="viernes_1" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                </tr>
-                <tr id="2" class="horas">
-                  <th class="hora_sesion sesion2 grid timegrid-cols-3" id="sesion2">
-                    <button onclick="horarioModal(this.innerHTML)" class="bt_time hora" id="bt_Hora_sesion2">2</button>
-                    <input type="time" id="hIni2"required  name="hIni2" class="" >
-                    <input type="time" id="hFin2"required  name="hFin2" class="" >                    
-                  </th>
-                  <td class="Lun sesion2" id="Lun_sesion2">
-                    <button class="bt_horario" id="lunes_2" onclick="claseModal(this.id)">Set</button>
+              <tbody>
+                @foreach ($sesiones as $sesion)
+                  <tr id={{$sesion->id}}>
+                    <th class="text-center">
+                      {{date_format(date_create($sesion->inicio), "H:i")}}
+                      <br>
+                      {{date_format(date_create($sesion->fin), "H:i")}}
+                    </th>
+                      @for ($ii = 1; $ii < $count; $ii++)
+                        <td id={{$sesion->id}}{{$dias[$ii]}}>
+                          @php
+                            $b_clase=$clases->where('sesion_id',$sesion->id)
+                              ->where('dia', $dias[$ii])
+                              ->first();                          
+                          @endphp
 
-                  </td>
-                  <td class="Mar sesion2" id="Mar_sesion2">
-                    <button class="bt_horario" id="martes_2" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Mie sesion2" id="Mie_sesion2">
-                    <button class="bt_horario" id="miercoles_2" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Jue sesion2" id="Jue_sesion2">
-                    <button class="bt_horario" id="jueves_2" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Vie sesion2" id="Vie_sesion2">
-                    <button class="bt_horario" id="viernes_2" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                </tr>
-                <tr id="3" class="horas">
-                  <th class="hora_sesion sesion3 grid timegrid-cols-3" id="sesion3">
-                    <button onclick="horarioModal(this.innerHTML)" class="bt_time hora" id="bt_Hora_sesion3">3</button>
-                    <input type="time" id="hIni3"required  name="hIni3" class="" >
-                    <input type="time" id="hFin3"required  name="hFin3" class="" >
-                  </th>
-                  <td class="Lun sesion3" id="Lun_sesion3">
-                    <button class="bt_horario" id="lunes_3" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Mar sesion3" id="Mar_sesion3">
-                    <button class="bt_horario" id="martes_3" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Mie sesion3" id="Mie_sesion3">
-                    <button class="bt_horario" id="miercoles_3" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Jue sesion3" id="Jue_sesion3">
-                    <button class="bt_horario" id="jueves_3" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Vie sesion3" id="Vie_sesion3">
-                    <button class="bt_horario" id="viernes_3" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                </tr>
-                <tr id="4" class="horas">
-                  <th class="hora_sesion sesion4 grid timegrid-cols-3" id="sesion4">
-                    <button onclick="horarioModal(this.innerHTML)" class="bt_time hora" id="bt_Hora_sesion4">4</button>
-                    <input type="time" id="hIni4"required  name="hIni4" class="" >
-                    <input type="time" id="hFin4"required  name="hFin4" class="" >
-                  </th>
-                  <td class="Lun sesion4" id="Lun_sesion4">
-                    <button class="bt_horario" id="lunes_4" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Mar sesion4" id="Mar_sesion4">
-                    <button class="bt_horario" id="martes_4" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Mie sesion4" id="Mie_sesion4">
-                    <button class="bt_horario" id="miercoles_4" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Jue sesion4" id="Jue_sesion4">
-                    <button class="bt_horario" id="jueves_4" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Vie sesion4" id="Vie_sesion4">
-                    <button class="bt_horario" id="viernes_4" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                </tr>
-                <tr id="5" class="horas">
-                  <th class="hora_sesion sesion5 grid timegrid-cols-3" id="sesion5">
-                    <button onclick="horarioModal(this.innerHTML)" class="bt_time hora" id="bt_Hora_sesion5">5</button>
-                    <input type="time" id="hIni5"required  name="hIni5" class="" >
-                    <input type="time" id="hFin5"required  name="hFin5" class="" >
-                  </th>
-                  <td class="Lun sesion5" id="Lun_sesion5">
-                    <button class="bt_horario" id="lunes_5" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Mar sesion5" id="Mar_sesion5">
-                    <button class="bt_horario" id="martes_5" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Mie sesion5" id="Mie_sesion5">
-                    <button class="bt_horario" id="miercoles_5" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Jue sesion5" id="Jue_sesion5">
-                    <button class="bt_horario" id="jueves_5" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Vie sesion5" id="Vie_sesion5">
-                    <button class="bt_horario" id="viernes_5" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                </tr>
-                <tr id="6" class="horas">
-                  <th class="hora_sesion sesion6 grid timegrid-cols-3" id="sesion6">
-                    <button onclick="horarioModal(this.innerHTML)" class="bt_time hora" id="bt_Hora_sesion6">6</button>                    
-                    <input type="time" id="hIni6"required  name="hIni6" class="" >
-                    <input type="time" id="hFin6"required  name="hFin6" class="" >
-                  </th>
-                  <td class="Lun sesion6" id="Lun_sesion6">
-                    <button class="bt_horario" id="lunes_6" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Mar sesion6" id="Mar_sesion6">
-                    <button class="bt_horario" id="martes_6" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Mie sesion6" id="Mie_sesion6">
-                    <button class="bt_horario" id="miercoles_6" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Jue sesion6" id="Jue_sesion6">
-                    <button class="bt_horario" id="jueves_6" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                  <td class="Vie sesion6" id="Vie_sesion6">
-                    <button class="bt_horario" id="viernes_6" onclick="claseModal(this.id)">Set</button>
-                  </td>
-                </tr>
+                          @if ($b_clase !== null)
+                            <a href="{{ route('clases.edit', $b_clase->id) }}" title="Editar clase id={{ $b_clase->id }}" class="boton naranja small mr-2">
+                            @php
+                               $registro=$b_clase->materia->materia_name;
+                               $mat_name= Str::of($registro)->upper();
+                               $m_arr= Str::of($mat_name)->explode(" ");
+                               $m_name=$m_arr[0];
+                               $m_name=Str::beforeLast($m_arr[0]," ");
+                               $m_grupo=$m_arr[1]." ".$m_arr[2];
+                            @endphp
+                            <span class="text-sm">{{ $m_name}}</span>
+
+                            </a> <span class="text-sm">{{$m_grupo}}</span>
+                          @elseif($b_clase == null)
+                            <button class="boton" id={{$dias[$ii].'_'.$sesion->id}} onclick="claseModal(this.id)">set</button>
+                          @endif
+
+                        </td>
+                      @endfor
+                    
+                  </tr>
+                @endforeach
               </tbody>
-            </table>
+          </table>
 
-            <script>
-            var hsInicio =['00:00'];
-            var hsFin =['00:00'];
-            // var fin = push(function(){
-            //   var yy=document.getElementById("hFin").value;
-            //   return yy;
-            //  });
-            var ini= [];
-            var fin=[];
+          <script>
+              function claseModal(valor_id){
+                let ar_id = valor_id.split('_');
+                let dia_semana = ar_id[0];
+                let num_sesion = ar_id[1];
+                document.getElementById("ver_id").innerHTML = dia_semana+", sesión "+num_sesion ;
+                document.getElementById("dia").value = dia_semana;
+                document.getElementById("sesion_id").value = num_sesion;
+                document.getElementById('ver_modal').style.display = 'block';
+              }
 
-            function horarioModal(valor){
-              document.getElementById("id_sesion").innerHTML="La sesión "+valor;
-              var parent_id = document.getElementById(valor).parentElement.id; 
-              document.getElementById('introducir_horario_modal').style.display='block';
-            }
-            
-            function sesion_ini_fin(){
-              
-             var inicio= (document.getElementById("hInicio").value);
-             var final= (document.getElementById("hFin").value);
-              document.getElementById("hIni"+valor).innerHTML=inicio;
-              document.getElementById("hFin"+valor).innerHTML=final;
-              // var yy=document.getElementById("hFin").value;
-              // console.log(y);
-              // console.log(yy);
-              // hsInicio.push(y);
-              // hsFin.push(yy);
-              console.log(inicio);
-              console.log(final);
-            }
-            
-            function claseModal(valor_id){
-              let ar_id = valor_id.split('_');
-              let dia_semana = ar_id[0];
-              let num_sesion = ar_id[1];
-              document.getElementById("verid").innerHTML=dia_semana+", sesión "+num_sesion ;
-              document.getElementById("dia").value=dia_semana;
-              document.getElementById("sesion_id").value= num_sesion;
-              document.getElementById('ver_modal').style.display='block';
-            }
-            </script>
+    
+           </script>
+        
 
-            <div id="introducir_horario_modal" class="modal">
-              <div class="modal-content p_x15 animate-zoom" style="max-width:320px">
-                <div class= "center p_y p_right">
-                  <span onclick="document.getElementById('introducir_horario_modal').style.display='none'" class="boton xlarge danger d_topright" title="Cerrar">&times; </span>
-                  <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle m_t">
-                </div>
-
-
-                <form class="p_x15 p_y15" method="get" >
-                    {{-- action="{{ route('store_clasesHorario', $materia->id) }}"> --}}
-                  @csrf
-                   {{-- @method('PUT') --}}
-                  
-                    <p id="id_sesion"><p>
-                    <div class="p_y  grid grid-cols-2 justify-between">
-                      <div class="hora">
-
-                        <label for="hInicio"><b>Empieza:</b></label>
-                        <input type="time" id="hInicio"required  name="hInicio" class="d_block m_b" >
+          <div id="ver_modal" class="modal">
+             
+            <div class="modal-content p_x15 animate-zoom" style="max-width:320px">
+              <div class= "center p_y p_right">
+                <span onclick="document.getElementById('ver_modal').style.display='none'" class="boton xlarge danger d_topright" title="Cerrar">&times; </span>
+                <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle m_t">
+              </div>
+              <form class="p_x15" method="POST" action="{{ route('clases.store') }}">
+                  @csrf 
+                  <div class="p_y15">
+                    <p id="ver_id"></p>  
+                    <div class="m_y grid grid-cols-2 justify-between">
+                      <div class="mr-2">
+                        <label for="sesion_id"><b>Sesión</b></label>
+                        <input type="text" id="sesion_id" name="sesion_id" readonly class="hidden" >
                       </div>
-                      <div class="hora">
-                        <label for="hFin"><b>Acaba: </b></label>
-                        <input type="time" id="hFin"required  name="hFin" class="d_block m_b" >
+                      <div class="ml-2">
+                        <label for="dia"><b>Día</b></label>
+                        <input type="text" id="dia" name="dia" readonly required class="hidden">
                       </div>
                     </div>
-                    <button onclick="sesion_ini_fin()" class="boton d_block m_b15 blue" type="submit">Guardar</button>
-                  {{-- </div> --}}
-                </form>
-
-                <div class=" p_x15 p_y light-grey">
-                  <button onclick="document.getElementById('introducir_horario_modal').style.display='none'" type="button" class=" boton danger">Cancel</button>
-                </div>
-              </div>
-            </div>
-
-
-
-            <div id="ver_modal" class="modal">
-             
-              <div class="modal-content p_x15 animate-zoom" style="max-width:320px">
-                <div class= "center p_y p_right">
-                  <span onclick="document.getElementById('ver_modal').style.display='none'" class="boton xlarge danger d_topright" title="Cerrar">&times; </span>
-                  <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle m_t">
-                </div>
-                <form class="p_x15" method="POST" action="{{ route('clases.store') }}">
-                  @csrf
-                   
-                  <div class="p_y15">
-                    <p id="verid"></p>
-                    <div class=" grid grid-cols-2 justify-between">
-                      <div class="mr-1">
+                    <div class="m_y grid grid-cols-1 justify-between">
+                      <div class="mr-1">{{-- materia_name --}}
                         <label for="materia_id"><b>Materia</b></label>
-                        <select  class="d_block" name="materia_id" value="{{ old('materia_id') }}" id="materia_id">
+                        <select  class="d_block" name="materia_id" value="{{ old('materia_id') }}" id="materia_id" onchange="getSelected()">
                           @foreach ($materias as $materia)
-                            <option value={{$materia->id}}>{{$materia->materia_name}}
+                            <option value={{$materia->id}}>
+                              {{$materia->materia_name}}
                             </option>
                           @endforeach
                         </select>
                       </div>
-                      <div class="ml-1">
-                        <label for="aula_id"><b>Aula</b></label>
-                        <select class="d_block" name="aula_id" value="{{ old('aula_id') }}" id="aula_id" >
+                      <div class="ml-1">{{-- aula_name --}}
+                        <label for="aula_id"><b>Aula</b></label> 
+                        <input type="text" id="que_aula" value=""/>
+                      </div>
+                        
+
+                        {{-- <select class="d_block" name="aula_id" value="{{ old('aula_id') }}" id="aula_id" >
                           @foreach ($aulas as $aula)
                             <option value={{$aula->id}}>{{$aula->aula_name}}
                             </option>
                           @endforeach
-                        </select>
-                      </div>
-                    </div>
-                    {{-- <div class="d_block m_y">
-
-                    </div> --}}
-
-                    <div class=" m_y grid grid-cols-2 justify-between">
-                      <div class="mr-1">
-                      <label for="dia"><b>Día</b></label>
-                      <input type="text" id="dia" name="dia" required class="d_block">
-                      </div>
-                      <div class="ml-1">
-                        <label for="sesion_id"><b>Sesión</b></label>
-                        <input type="text" id="sesion_id" name="sesion_id" class="d_block" >
-
-
-
+                        </select> --}}
                       </div>
                     </div>
                     <button class="boton d_block blue" type="submit">Guardar</button>
                   </div>
-                </form>
-
-                {{-- <form class="p_x15" method="POST" action="{{ route('store_clasesHorario') }}">
-                  @csrf
-                   
-                  <div class="p_y15">
-                    <p id="verid"></p>
-                    <label for="materia_id"><b>Selecciona la materia</b></label>
-                    <select id="materia_id">
-                      @foreach ($materias as $materia)
-                        <option value={{$materia->id}}>{{$materia->materia_name}}
-                        </option>
-                          
-                      @endforeach
-                    </select>
-                  </div>
-                  <div class="p_y">
-                    <label for="dia"><b>Día de la semana</b></label>
-                    <input type="text" id="dia" name="dia" required class="d_block m_b">
-                    <label for="hora_inicio"><b>Hora de Inicio</b></label>
-                    <input type="time" id="hora_inicio" name="hora_inicio"  required class="d_block m_b" >
-                    <label for="hora_fin"><b>Hora Final</b></label>
-                    <input type="time" id="hora_fin" name="hora_fin" required class="d_block m_b" >
-            
-                    <button class="boton d_block blue" type="submit">Guardar</button>
-                  </div>
-                </form> --}}
-
-                <div class=" p_x15 p_y light-grey">
-                  <button onclick="document.getElementById('ver_modal').style.display='none'" type="button" class=" boton danger">Cancel</button>
-                </div>
+              </form>         
+              
+              <div class=" p_x15 p_y light-grey">
+                <button onclick="document.getElementById('ver_modal').style.display='none'" type="button" class=" boton danger">Cancel</button>
               </div>
-            </div>
+            </div>  {{--  fin modal-content --}}
+          </div> {{--  fin modal --}}
 
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
+        </div>  {{--  fin caja-body --}}
+      </div> {{--  fin caja --}}
+    </div> {{-- fin col-sm-12 --}}
+  </div>  {{-- fin row --}}
 
 @endsection
+<script>
 
-            
+                function getSelected(){
+                var x = document.getElementById("materia_id").value;
+                document.getElementById('que_aula').value =  x;
+              }
+</script>

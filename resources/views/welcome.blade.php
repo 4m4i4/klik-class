@@ -25,19 +25,31 @@
             .bg-white{--bg-opacity:1;background-color:#fff;background-color:rgba(255,255,255,var(--bg-opacity))}
             .bg-gray-100{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247,250,252,var(--bg-opacity))}
             .border-gray-200{--border-opacity:1;border-color:#edf2f7;border-color:rgba(237,242,247,var(--border-opacity))}
+
             /*  */
+            .botones{
+                border:2px solid #404040; border-radius: 5px
+            }
+            .botones:hover{
+                background-color:#404040; color:#fff022; 
+                transition: all,1s;
+            }
             .border-t{border-top-width:1px}
             .flex{display:flex}
             .grid{display:grid}
             .hidden{display:none}
             .items-center{align-items:center}
             .justify-center{justify-content:center}
+            .justify-between{justify-content:space-between}
+            .items-start{align-items:start}
+            .items-end{align-items:end}
             .font-semibold{font-weight:600}
             .h-5{height:1.25rem}
             .h-8{height:2rem}
             .h-16{height:4rem}
             .text-sm{font-size:.875rem}
             .text-lg{font-size:1.125rem}
+            .text-xl{font-size:2rem}
             .leading-7{line-height:1.75rem}
             .mx-auto{margin-left:auto;margin-right:auto}
             .m-1{margin:.25rem}
@@ -47,6 +59,7 @@
             .ml-2{margin-left:.5rem}
             .mt-4{margin-top:1rem}
             .ml-4{margin-left:1rem}
+            .m-4{margin:1rem}
             .mt-8{margin-top:2rem}
             .ml-12{margin-left:3rem}
             .-mt-px{margin-top:-1px}
@@ -57,6 +70,7 @@
             .py-4{padding-top:1rem;padding-bottom:1rem}
             .px-6{padding-left:1.5rem;padding-right:1.5rem}
             .pt-8{padding-top:2rem}
+            .pt-16{padding-top:4rem}
             .fixed{position:fixed}
             .relative{position:relative}
             .top-0{top:0}
@@ -76,8 +90,9 @@
             .w-8{width:2rem}
             .w-auto{width:auto}
             .d_inline{display:inline}
+            .block{display:block}
             .circle {border-radius:50%}
-            .grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}
+            /* .grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))} */
             @media (min-width:640px){
                 .sm\:rounded-lg{border-radius:.5rem}
                 .sm\:block{display:block}
@@ -105,6 +120,8 @@
                 .dark\:border-gray-700{--border-opacity:1;border-color:#4a5568;border-color:rgba(74,85,104,var(--border-opacity))}
                 .dark\:text-white{--text-opacity:1;color:#fff;color:rgba(255,255,255,var(--text-opacity))}
                 .dark\:text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}}
+
+
         </style>
 
         <style>
@@ -114,126 +131,27 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center ">
-            {{-- sm:pt-0 --}}
-            @if (Route::has('login'))
-                <div class=" fixed top-0 right-0 px-6 py-4 sm:block ">
+        <div class="grid justify-center items-center min-h-screen max-w-6xl mx-auto bg-gray-100 dark:bg-gray-900 ">
+
+            <div class="pt-8 grid justify-center items-end">
+                <img src="/images/klikClass_logo.svg" alt = "logo" width = "100" height = "100" class="circle mx-auto"/>
+                <div class="py-4 text-center text-xl leading-7 font-semibold ">Klik-Class</div>
+                
+                @if (Route::has('login'))
                     @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 ">Home</a>
+                        <div>
+                            <a href="{{ url('/home') }}" class="text-gray-700 block m-4 text-center botones ">Home</a>
+                        </div>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 ">{{ __('Login') }}</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 ">{{ __('Register') }}</a>
-                        @endif
+                        <div>
+                            <a href="{{ route('login') }}" class="block m-4 text-center botones">{{ __('Login') }}</a>
+                
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="block m-4 text-center botones">{{ __('Register') }}</a>
+                            @endif
+                        </div>    
                     @endif
-                </div>
-            @endif
-
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex  pt-8  justify-center">
-                    
-                    <img src="/images/klikClass_logo.svg" alt = "logo" width = "100" height = "100" class="circle"/>
-                    <div class="flex ml-4 justify-center items-center text-lg leading-7 font-semibold " style= "align-content: center">Klik-Class</div>
-                        
-                </div>
-
-                {{-- <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div class="grid grid-cols-1 md:grid-cols-3 ">
-                        <div class="p-6 m-1" style="background-color:hsl(204, 45%, 95%)">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-700">
-                                    <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                </svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel.com/docs" class="text-gray-900 dark:text-white">Primer paso</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    .... .. ...... ..... .....
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l  m-1"  style="background-color:hsl(204, 45%, 95%)">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-700">
-                                    <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
-                                    <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laracasts.com" class=" text-gray-900 dark:text-white">Segundo paso</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    ...... ........ ..... ....... ........... ............ ........ ........... ............ ............ ..... ....... ........ ........... .. ....... ... ......... ........... ... .... .... ... ........... .......
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700  md:border-t-0 md:border-l  m-1" style="background-color:hsl(204, 45%, 95%)">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-700">
-                                    <path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
-                                </svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel-news.com/" class=" text-gray-900 dark:text-white">Tercer paso</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    ........... ....... ........... ............ ..........
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="p-6  m-1 border-t border-gray-200 dark:border-gray-700 md:border-l">
-                        <div class="flex items-center">
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500">
-                                <path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <div class="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">Cuarto</div>
-                        </div>
-
-                        <div class="ml-12">
-                            <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                ........... ....... ........... ............ ........ ........... ............ ............... ..... ....... ........... .. .................. ..... ....... ........... .. ................ ............... ..... ....... ........... .. ...........
-                            </div>
-                            <div class="mt-4 text-gray-600 dark:text-gray-400 text-sm">
-                                ...... ........ ....... ........... .. ............ ...... ..... ....... ........... .. .. ..... ..... ....... ........... .. ......  ....  ........ ... ....... ........... ..... ....... ........ ........... .. ....... ... ......... ........... ... .... .... ... .........
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 sm:text-left">
-                        <div class="flex items-center">
-                            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="-mt-px w-5 h-5 text-gray-400">
-                                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-
-                            <a href="https://laravel.bigcartel.com" class="ml-1 underline">
-                                Shop
-                            </a>
-
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="ml-4 -mt-px w-5 h-5 text-gray-400">
-                                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
-
-                            <a href="https://github.com/sponsors/taylorotwell" class="ml-1 underline">
-                                Sponsor
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                        Build v{{ Illuminate\Foundation\Application::VERSION }}
-                    </div>
-                </div> --}}
-
-
+                @endif
             </div>
         </div>
     </body>

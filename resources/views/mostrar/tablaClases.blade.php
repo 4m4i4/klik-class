@@ -9,17 +9,19 @@
           {{ session()->get('info') }}  
         </div>
       @endif
+
     </div>
     <div class = "row">
 
       <div class = "col-md-12">
         <div class = "caja">
-          <div class = "caja-header d-flex justify-content-between">
-            <h2>Tabla de Clases </h2>
+          <div class = "caja-header grid grid-cols-2 justify-between items-center">
+            <h2>Tabla de sesiones </h2>
+
           </div>
           <div class = "caja-body">
             <table  class = "tabla table-responsive-sm" id="configurar_horario">
-              <caption>Introducir el horario y las sesiones(Materia, grupo y aula)</caption>
+              <caption>Introducir las sesiones</caption>
               @php
                   $dias=['Horario','Lunes','Martes','Miercoles','Jueves','Viernes'];
                   $count=count($dias);

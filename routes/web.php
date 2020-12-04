@@ -19,19 +19,8 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Route::get('/userHome/{id}', [App\Http\Controllers\HomeController::class, 'userHome'])->name('userHome');
-// Route::get('/home', function() {
-//      return Redirect::route('userHome');
-// });
-// Route::post('/home', function(){
-//     return view('home');
-// });
-// Route::get('/home', function () {
-//     return view('configurar/paso1');
-// });
-// Route::get('configurar/paso2', function () {
-//     return view('configurar/paso2');
-// });
+
+
 Route::get('sesiones', function () {
     return view('sesiones.index');
 });
@@ -51,10 +40,9 @@ Route::put('configurar/materias/{id}',[App\Http\Controllers\MateriaController::c
 Route::delete('configurar/materias/{id}',[App\Http\Controllers\MateriaController::class, 'destroy'])->name('materias.destroy');
 
 // Route::resource('materias','MateriaController');
-Route::put('home/{user}',[App\Http\Controllers\MateriaController::class, 'paso'])->name('paso');
-// Route::put('/home/{id}', [App\Http\Controllers\HomeController::class, 'paso1'])->name('paso1');
-// Route::put('configurar/materias/index', [App\Http\Controllers\HomeController::class, 'paso2'])->name('paso2');
+Route::put('home/paso/{user:paso}',[App\Http\Controllers\MateriaController::class, 'paso'])->name('paso');
 
+Route::get('home/paso/{user:paso}',[App\Http\Controllers\MateriaController::class, 'paso'])->name('home.paso');
 // AulaController
 
 Route::get('configurar/aulas/index',[App\Http\Controllers\AulaController::class, 'index'])->name('index_aulas');
@@ -64,6 +52,13 @@ Route::get('configurar/aulas/{id}/edit',[App\Http\Controllers\AulaController::cl
 Route::put('configurar/aulas/{id}/edit',[App\Http\Controllers\AulaController::class, 'update'])->name('aulas.update');
 Route::delete('configurar/aulas/{id}/edit',[App\Http\Controllers\AulaController::class, 'destroy'])->name('aulas.destroy');
 
+
+Route::get('configurar/sesions/index',[App\Http\Controllers\SesionController::class, 'index'])->name('sesions.index');
+Route::get('configurar/sesions/create',[App\Http\Controllers\SesionController::class, 'create'])->name('sesions.create');
+Route::post('configurar/sesions/create',[App\Http\Controllers\SesionController::class, 'store'])->name('sesions.store');
+Route::get('configurar/sesions/{id}/edit',[App\Http\Controllers\SesionController::class, 'edit'])->name('sesions.edit');
+Route::put('configurar/sesions/{id}/edit',[App\Http\Controllers\SesionController::class, 'update'])->name('sesions.update');
+
 // ClaseController
 Route::get('configurar/clases/index',[App\Http\Controllers\ClaseController::class, 'index'])->name('clases.index');
 Route::get('configurar/clases/create',[App\Http\Controllers\ClaseController::class, 'create'])->name('clases.create');
@@ -72,6 +67,8 @@ Route::get('configurar/clases/{id}/edit',[App\Http\Controllers\ClaseController::
 Route::put('configurar/clases/{id}/edit',[App\Http\Controllers\ClaseController::class, 'update'])->name('clases.update');
 Route::delete('configurar/clases/{id}/edit',[App\Http\Controllers\ClaseController::class, 'destroy'])->name('clases.destroy');
 
+
+Route::put('home/{user}',[App\Http\Controllers\ClaseController::class, 'paso'])->name('paso');
 
 // EstudianteController
 Route::get('configurar/estudiantes/index', [App\Http\Controllers\EstudianteController::class, 'index'])->name('estudiantes.index');

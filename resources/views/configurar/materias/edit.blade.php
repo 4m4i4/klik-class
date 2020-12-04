@@ -6,11 +6,20 @@
       <a href="{{route('materias.index')}}" class="boton xlarge danger d_topright" title="Cerrar">&times; </a>
       <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle m_t">
     </div>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+          <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
     <form class="p_x15" action="{{route('materias.update', $materia->id) }}" method="POST" >
       @csrf
       @method('PUT')
         <div class="p_y15">
-          <label for="materia_name"><b>Materia</b></label>
+          <label for="materia_name"><b>{{__('Subject')}}</b></label>
           <input type="text" class="d_block m_b" name="materia_name" autofocus value="{{ $materia->materia_name }}" required>
           
           <details>

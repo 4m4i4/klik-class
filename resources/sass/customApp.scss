@@ -253,8 +253,8 @@ footer {
     position: absolute;
     right: 0;
     top:0;
-     display: flex;
-     flex-direction: row;
+    display: flex;
+    flex-direction: row;
     // margin-top: .5rem;
    
     // color: #000;
@@ -1778,10 +1778,10 @@ h3 {
 .tabla {
     width: 100%;
     margin-bottom: 1rem;
-    .boton {
-        margin-top: .25rem;
-        margin-bottom: .25rem;
-    }
+    // .boton {
+    //     margin-top: .25rem;
+    //     margin-bottom: .25rem;
+    // }
 }
 table thead th{
     text-align: left;
@@ -1804,25 +1804,27 @@ tbody > tr > td > form {
     margin-bottom: 0;
 }
 
-@media (max-width: 640px) {
+@media (min-width: 320px) {
     table {
+        // display: block;
+  width: 100%;
         font-family: $f-condensed;
-        font-size: .8rem;
+        font-size: 1rem;
     }
 }
 
 @media (min-width: 641px) {
     table td{
         font-family: $f-condensed;
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 }
-// .table-responsive {
-//   display: block;
-//   width: 100%;
-//   overflow-x: auto;
-//   -webkit-overflow-scrolling: touch;
-// }
+.tabla-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 
 table .timegrid-cols-3
  {
@@ -1900,7 +1902,7 @@ border:0 solid red
 .boton {
     // display: inline-block;
         // box-sizing: border-box;
-    margin: 4px 2px .5rem 2px;
+    margin: .5rem 2px;
     padding:5px 16px;
     border-radius: .2rem;
     font-family: $f-sans-serif;
@@ -2146,11 +2148,7 @@ border:0 solid red
   from{transform:scale(0)} to{transform:scale(1)}
   }
 
-
-
 .xlarge{font-size:24px}
-
-
 
 .d_topright{
     position:absolute;

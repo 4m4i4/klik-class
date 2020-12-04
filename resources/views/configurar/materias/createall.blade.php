@@ -9,8 +9,8 @@
         <form class="p_x15" method="POST" action="{{ route('materias.storeall') }}">
         @csrf
           <div class="p_y15">
-            <label for= "materiasall"><b>Introduce todas tus clases</b></label>
-            <textarea class="d_block m_b" autofocus  name="materiasall" placeholder="Mate 1C bach,ética 2c eso," required></textarea>
+            <label for= "createall"><b>Introduce todas tus clases</b></label>
+            <textarea class="d_block m_b" autofocus  name="createall" placeholder="Mate 1C bach,ética 2c eso," required></textarea>
 
             <details>
               <summary>Mira cómo: </summary>

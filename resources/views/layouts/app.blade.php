@@ -39,8 +39,8 @@
 
                 <!--FOOTER: Sin desarrollar)-->
         <footer>
-            @php
-            $h= now();
+            {{-- @php
+
                 function fecha($fecha){
                     $date = date_create("$fecha");
                     $meses = ['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
@@ -51,12 +51,23 @@
                 }
                 function hora($hora){
                     $date = date_create("$hora");
-                    $hora = date_format($date, "H:i");
-                    return $hora;
+                    $laHora = date_format($date, "H:i");
+                    return $laHora;
                 }
-            @endphp
+            @endphp --}}
             <div class="page-footer">
-              {{hora($h)}}  <a href= "#"> {{fecha($h)}}</a>
+                @php 
+                    $meses = ['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];                
+                    $h= now(); 
+                    $date = date_create("$h");
+                    $ddia = date_format($date, "d");
+                    $dmes = $meses[date_format($date, "n")];
+                    $danio = date_format($date, "Y");
+                    $fecha =  $ddia." de ". $dmes. " de ".$danio;
+                    $laHora = date_format($date, "H:i");
+                @endphp
+              {{-- {{hora($h)}} <a href= "#"> {{fecha($h)}}</a> --}}
+              {{$laHora}}  <a href= "#"> {{$fecha}}</a>
             </div>
         </footer>
 

@@ -5,12 +5,13 @@ use App\Models\Materia;
 use App\Models\Aula;
 use App\Models\Sesion;
 use App\Models\Clase;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClaseController extends Controller
 {
     
-    public $horasSesiones = [];
     /**
      * Display a listing of the resource.
      *
@@ -18,13 +19,9 @@ class ClaseController extends Controller
      */
     public function index()
     {
-        // $clases = Clase::get();
         $materias = Materia::get();
         $aulas= Aula::get();
-        // return view('mostrar.horarioClases',compact('clases'));
-            return view('configurar.clases.index', compact('materias','aulas'));
-        // return view('mostrar.horarioClases');
-                // return view('mostrar.horarioClases');
+               return view('configurar.clases.index', compact('materias','aulas'));
     }
 
     /**
@@ -85,8 +82,8 @@ class ClaseController extends Controller
      */
     public function edit($id)
     {
-        $clase = Clase::find($id);
-        return view('configurar.clases.edit', compact( 'clase'));    }
+        $b_clase = Clase::find($id);
+        return view('configurar.clases.edit', compact( 'b_clase'));    }
 
     /**
      * Update the specified resource in storage.
@@ -113,7 +110,14 @@ class ClaseController extends Controller
             return redirect()->route('clases.index')->with('info', 'Clase actualizada');
          }
     }
-
+    public function paso(User $user)
+    {
+        $user->paso = request('paso');
+        $user->save();
+        $mensaje = "paso 2"  ;
+        if($user->paso == 3) $mensaje = "paso 3";
+        return redirect( url()->previous())->with('success', $mensaje."Pasooooo, pasitos de Gesmar");
+    }
     /**
      * Remove the specified resource from storage.
      *
