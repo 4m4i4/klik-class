@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
 
     <!-- Styles -->
-    <link href="{{ asset('css/appCopy.css') }}" type="text/css" rel="stylesheet">
+    {{-- <link href="{{ asset('css/appCopy.css') }}" type="text/css" rel="stylesheet"> --}}
     <link href="{{ asset('css/customApp.css') }}" type="text/css"  rel="stylesheet">
 
 </head>
@@ -39,22 +39,7 @@
 
                 <!--FOOTER: Sin desarrollar)-->
         <footer>
-            {{-- @php
-
-                function fecha($fecha){
-                    $date = date_create("$fecha");
-                    $meses = ['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-                    $dia = date_format($date, "d");
-                    $mes = $meses[date_format($date, "n")];
-                    $anio = date_format($date, "Y");
-                    return $dia." de ". $mes. " de ".$anio;
-                }
-                function hora($hora){
-                    $date = date_create("$hora");
-                    $laHora = date_format($date, "H:i");
-                    return $laHora;
-                }
-            @endphp --}}
+        
             <div class="page-footer">
                 @php 
                     $meses = ['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];                
@@ -72,6 +57,7 @@
         </footer>
 
     </div>
+    <!--FIN: App -->
         <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" type="text/js"></script>
 

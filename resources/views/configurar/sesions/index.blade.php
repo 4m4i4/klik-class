@@ -3,7 +3,7 @@
 @section('content')
 
   <div class="container">
-    <div class = "col-sm-12">
+    <div class = "col-sm-12 text-center">
       @if(session()->get('info'))
         <div class = "alert alert-info">
           {{ session()->get('info') }}  
@@ -29,6 +29,7 @@
               <a href="{{ route('home') }}" class="ml-2 boton secondary" class = "boton secondary">✅ ¡He acabado! </a>
             </div>
           </div>
+        </div>
           <div class = "caja-body">
             <table  class = "tabla table-responsive-sm" id="configurar_horario">
               <caption>¿A qué hora empieza y a qué hora acaba cada clase? (sin recreos).</br> </caption>
@@ -44,15 +45,13 @@
                 @foreach ($sesiones as $sesion)
                 <tr id={{$sesion->id}}>
                   <th class="text-center">
-                    <a href="{{route('sesions.edit',$sesion->id)}}" style="background-color:rgb(195, 226, 253)">
-                      {{date_format(date_create($sesion->inicio), "H:i")}}
+                    <a href="{{route('sesions.edit',$sesion->id)}}" class="btn warning-reves" >📝 {{date_format(date_create($sesion->inicio), "H:i")}}
                        |  
                       {{date_format(date_create($sesion->fin), "H:i")}}
                     </a>
                   </th>
                   @for ($ii = 1; $ii < $count; $ii++)
                     <td id = {{$sesion->id}}{{$dias[$ii]}}>
-                      
                     </td>
                   @endfor
                 </tr>
@@ -67,11 +66,10 @@
   </div> {{-- fin container --}}
 
   <div id="crear_sesiones" class="modal">
-    <div class="modal-content p_x15 animate-zoom" style="max-width:320px">
-    <div class= "center p_y p_right">
-
+    <div class="modal-content animate-zoom" style="max-width:320px">
+    <div class= "center py-4">
       <span onclick="document.getElementById('crear_sesiones').style.display='none'" class="boton xlarge danger d_topright" title="Cerrar">&times; </span>
-      <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle m_t">
+      <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle mt-4">
     </div>
     @if ($errors->any())
       <div class="alert alert-danger">
@@ -82,10 +80,10 @@
         </ul>
       </div>
     @endif
-    <form class="p_x15" method="post" action="{{ route('sesions.store') }}">
+    <form class="px-4" method="POST" action="{{ route('sesions.store') }}">
       @csrf
         <p id="id_sesion"><p>
-        <div class="p_y" >
+        <div class="py-6" >
           <h3>Crear Sesión {{ $num_sesiones+1}}</h3>
         </div>
         <div class="grid grid-cols-2 justify-between">
@@ -98,9 +96,11 @@
             <input type="time" id="fin" name="fin" class="d_block m_b" >
           </div>
         </div>
-        <button class="boton d_block blue" type="submit">Guardar</button>
+        <div class="py-4">
+          <button class="boton d_block blue" type="submit">Guardar</button>
+        </div>
     </form>
-    <div class=" p_x15 p_y light-grey">
+    <div class="px-4 py-3 light-grey">
       <button onclick="document.getElementById('crear_sesiones').style.display='none'" type="button" class=" boton danger">Cancel</button>
     </div>
   </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Materia;
 use App\Models\Aula;
 use App\Models\Clase;
+use App\Models\Estudiante;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;

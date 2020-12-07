@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Estudiante;
+use App\Models\Materia;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class EstudianteController extends Controller
@@ -13,7 +15,9 @@ class EstudianteController extends Controller
      */
     public function index()
     {
-        //
+        $estudiantes=Estudiante::get();
+        $materias=Materia::get();
+        return view('configurar.estudiantes.index',compact('estudiantes', 'materias'));
     }
 
     /**
@@ -23,7 +27,7 @@ class EstudianteController extends Controller
      */
     public function create()
     {
-        //
+        return view('configurar.estudiantes.create');
     }
 
     /**
@@ -34,7 +38,28 @@ class EstudianteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cadena = request('lista_completa');
+        $materia_id = request('materia_id');
+        $arrApellidosNombre = Str::of($cadena)->explode(";");
+        $num_estudiantes = count($arrApellidosNombre);
+
+        for ($i=0; $i <$num_estudiantes; $i++) { 
+            $estudiante = Str::of( $arrApellidosNombre[$i])->explode(",");
+            $apellidos = $estudiante[0];
+            $nombre = $estudiante[1];
+            $nombre_completo = $nombre." ".$apellidos;
+            
+
+            $estudiante = new Estudiante([
+                'nombre'=>$nombre,
+                'apellidos'=>$apellidos,
+                'nombre_completo'=>$nombre_completo,
+                'materia_id'=>$materia_id
+            ]);
+            $mns_estudiantes ='Se han añadido todos los Estudiantes';
+            $estudiante->save();
+        }
+        return redirect()->route('estudiantes.index')->with('success', $mns_estudiantes);
     }
 
     /**

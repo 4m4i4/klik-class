@@ -2,10 +2,10 @@
 
 @section('content')
 
-  <div class="modal-content p_x15 animate-zoom" style="max-width:320px">
-    <div class= "center p_y p_right">
+  <div class="modal-content animate-zoom" style="max-width:320px">
+    <div class= "center py-4">
       <a href="{{route('sesions.index')}}" class="boton xlarge danger d_topright" title="Cerrar">&times; </a>
-      <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle m_t">
+      <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle mt-4">
     </div>
       @if ($errors->any())
         <div class="alert alert-danger">
@@ -16,26 +16,28 @@
           </ul>
         </div>
       @endif
-    <form action="{{route('sesions.update', $sesion->id) }}" method="POST" class="p_x15" >
+    <form class="px-4" action="{{route('sesions.update', $sesion->id) }}" method="POST"  >
       @csrf
       @method('PUT')
-        <div class="p_y" >
+        <div class="py-4" >
           <h3>Editar Sesión {{ $sesion->id }}</h3>
         </div>
-        <div class="grid grid-cols-2 justify-between">
-          <div>
+        <div class="grid grid-cols-2 py-4 justify-between">
+          <div class="mr-1">
             <label for="inicio"><b>Empieza:</b></label>
             <input type="time" id="inicio"  name="inicio" value="{{date_format(date_create($sesion->inicio), "H:i")}}" class="d_block" >
           </div>
-          <div>
+          <div class="ml-1">
             <label for="fin"><b>Acaba: </b></label>
             <input type="time" id="fin" name="fin" value="{{date_format(date_create($sesion->fin), "H:i")}}" class="d_block" >
           </div>
         </div>
-        <button type="submit" class=" m_b boton d_block blue" >Actualizar</button>
+        <div class="py-4">
+          <button type="submit" class=" m_b boton d_block blue" >Actualizar</button>
+        </div>
     </form>
 
-    <div class=" p_x15 p_y light-grey">
+    <div class="px-4 py-4 light-grey">
       <a href="{{route('sesions.index')}}" title="Cancelar y volver al índice" class=" boton danger">Cancelar</a>
     </div>
 

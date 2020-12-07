@@ -17,8 +17,8 @@ class AulaController extends Controller
      */
     public function index()
     {
-        $aulas = Aula::get();
-        return view('configurar.aulas',compact('aulas'));
+        $aula = Aula::get();
+        return view('configurar.aulas.index',compact('aula'));
     }
 
     /**

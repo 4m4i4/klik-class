@@ -28,10 +28,12 @@
 
             /*  */
             .botones{
-                border:2px solid #404040; border-radius: 5px
+                border:2px solid hsl(0, 0%, 75%);  border-radius: 5px
             }
             .botones:hover{
-                background-color:#404040; color:#fff022; 
+                background-color:#6e6e6e;
+                color:#fff;
+                 /* color:#fff022;  */
                 transition: all,1s;
             }
             .border-t{border-top-width:1px}
@@ -58,6 +60,7 @@
             .mr-2{margin-right:.5rem}
             .ml-2{margin-left:.5rem}
             .mt-4{margin-top:1rem}
+            .my-4{margin-top:1rem;margin-bottom:1rem}
             .ml-4{margin-left:1rem}
             .m-4{margin:1rem}
             .mt-8{margin-top:2rem}
@@ -67,7 +70,9 @@
             .min-h-screen{min-height:100vh}
             .overflow-hidden{overflow:hidden}
             .p-6{padding:1.5rem}
+            .py-2{padding-top:.25rem;padding-bottom:.25rem}
             .py-4{padding-top:1rem;padding-bottom:1rem}
+            .px-4{padding-left:1rem;padding-right:1rem}
             .px-6{padding-left:1.5rem;padding-right:1.5rem}
             .pt-8{padding-top:2rem}
             .pt-16{padding-top:4rem}
@@ -140,14 +145,14 @@
                 @if (Route::has('login'))
                     @auth
                         <div>
-                            <a href="{{ url('/home') }}" class="text-gray-700 block m-4 text-center botones ">Home</a>
+                            <a href="{{ url('/home') }}" class="text-gray-500 block py-2 px-4 text-lg m-4 text-center botones ">Home</a>
                         </div>
                     @else
                         <div>
-                            <a href="{{ route('login') }}" class="block m-4 text-center botones">{{ __('Login') }}</a>
+                            <a href="{{ route('login') }}" class="block py-2 px-4 text-lg m-4 text-center botones">{{ __('Login') }}</a>
                 
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="block m-4 text-center botones">{{ __('Register') }}</a>
+                                <a href="{{ route('register') }}" class="block py-2 px-4 text-lg m-4 text-center botones">{{ __('Register') }}</a>
                             @endif
                         </div>    
                     @endif

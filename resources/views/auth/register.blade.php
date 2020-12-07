@@ -2,76 +2,51 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="caja">
-                <div class="caja-header">{{ __('Register') }}</div>
 
-                <div class="caja-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+    <div class="modal-content animate-zoom" style="max-width:320px">
+      <div class= "center py-4">
+        <a href="/"  class="boton xlarge danger d_topright" title="Cerrar">&times; </a>
+        <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle mt-4">
+      </div>
+      <div class="px-6 caja-header"><h3>{{ __('Register') }}</h3></div>
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+      <form  class="px-6"method="POST" action="{{ route('register') }}">
+        @csrf
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="boton primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+          <div class="py-6 mt-4">
+            <label for="name"><b>{{ __('Name') }}</b></label>
+            <input id="name" type="text" class="d_block"  name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+            @error('name')
+              <small class="t_red">* {{ $message }}</small><br>
+            @enderror
+          </div>
+          <div class="py-6 mt-4">
+            <label for="email"><b>{{ __('E-Mail Address') }}</b></label>
+            <input id="email" type="email" class="d_block" name="email" value="{{ old('email') }}" required autocomplete="email">
+            @error('email')
+             <small class="t_red">* {{ $message }}</small><br>
+            @enderror
+          </div>
+          <div class="py-6 mt-4">
+            <label for="password" ><b>{{ __('Password') }}</b></label>
+            <input id="password" type="password" class="d_block" name="password" required autocomplete="new-password">
+            @error('password')
+             <small class="t_red">* {{ $message }}</small><br>
+            @enderror
+          </div>
+          <div class="py-6 mt-4">
+            <label for="password-confirm" "><b>{{ __('Confirm Password') }}</b></label>
+            <input id="password-confirm" type="password" class="d_block" name="password_confirmation" required autocomplete="new-password">
+          </div>
+          <div class="py-6 my-4">
+            <button type="submit" class="boton d_block blue">{{ __('Register') }}
+            </button>
+          </div>
+      </form>
+    
+    <div class="px-6 py-4 mt-4 light-grey">
+        <a href="/"  title="Volver a la página anterior" class=" boton my-4 danger">Cancelar</a>
     </div>
+  </div>
 </div>
 @endsection

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-  <div class = "col-sm-12">
+  <div class = "col-sm-12 text-center">
     @if(session()->get('info'))
       <div class = "alert alert-info">
         {{ session()->get('info') }}  
@@ -29,17 +29,17 @@
               @endif
           </form>
         </div>
-        </div>
-        <div class="caja-body">
+      </div>
+        <div class="caja-body py-4">
           <table class="tabla table-responsive-sm">
             <caption>Introducir el horario y las sesiones(Materia, grupo y aula)</caption>
               @php
                 $dias=['Horario','Lunes','Martes','Miercoles','Jueves','Viernes'];
-                  $count=count($dias);
-                  use App\Models\Sesion;
-                  use App\Models\Clase;
-                  $sesiones = Sesion::get();
-                  $clases = Clase::get();
+                $count=count($dias);
+                use App\Models\Sesion;
+                use App\Models\Clase;
+                $sesiones = Sesion::get();
+                $clases = Clase::get();
               @endphp
               <thead>
                 <tr>
@@ -65,7 +65,7 @@
                           @endphp
 
                           @if ($b_clase !== null)
-                            <a href="{{ route('clases.edit', $b_clase->id) }}" title="Editar clase id={{ $b_clase->id }}" class="boton naranja small mr-2">
+                            <a href="{{ route('clases.edit', $b_clase->id) }}" title="Editar clase id={{ $b_clase->id }}" class="btn naranja small mr-2">
                             @php
                                $registro=$b_clase->materia->materia_name;
                                $mat_name= Str::of($registro)->upper();
@@ -78,7 +78,7 @@
 
                             </a> <span class="text-sm">{{$m_grupo}}</span>
                           @elseif($b_clase == null)
-                            <button class="boton" id={{$dias[$ii].'_'.$sesion->id}} onclick="claseModal(this.id)">set</button>
+                            <button class="btn" id={{$dias[$ii].'_'.$sesion->id}} onclick="claseModal(this.id)">set</button>
                           @endif
 
                         </td>
@@ -90,44 +90,41 @@
           </table>
 
           <script>
-              function claseModal(valor_id){
-                let ar_id = valor_id.split('_');
-                let dia_semana = ar_id[0];
-                let num_sesion = ar_id[1];
-                document.getElementById("ver_id").innerHTML = dia_semana+", sesión "+num_sesion ;
-                document.getElementById("dia").value = dia_semana;
-                document.getElementById("sesion_id").value = num_sesion;
-                document.getElementById('ver_modal').style.display = 'block';
-              }
 
-    
+   
            </script>
         
 
           <div id="ver_modal" class="modal">
              
-            <div class="modal-content p_x15 animate-zoom" style="max-width:320px">
-              <div class= "center p_y p_right">
+            <div class="modal-content animate-zoom" style="max-width:320px">
+              <div class= "center py-4">
                 <span onclick="document.getElementById('ver_modal').style.display='none'" class="boton xlarge danger d_topright" title="Cerrar">&times; </span>
-                <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle m_t">
+                <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle mt-4">
               </div>
-              <form class="p_x15" method="POST" action="{{ route('clases.store') }}">
-                  @csrf 
-                  <div class="p_y15">
+              <form class="px-4" method="POST" action="{{ route('clases.store') }}">
+                @csrf 
+                  <div class="py-6">
                     <p id="ver_id"></p>  
                     <div class="m_y grid grid-cols-2 justify-between">
                       <div class="mr-2">
-                        <label for="sesion_id"><b>Sesión</b></label>
-                        <input type="text" id="sesion_id" name="sesion_id" readonly class="hidden" >
+                        <label for="sesion_id">
+                          <b>Sesión</b>
+                        </label>
+                        <input type="text" id="sesion_id" name="sesion_id" readonly class="d_block" >
                       </div>
                       <div class="ml-2">
-                        <label for="dia"><b>Día</b></label>
-                        <input type="text" id="dia" name="dia" readonly required class="hidden">
+                        <label for="dia">
+                          <b>Día</b>
+                        </label>
+                        <input type="text" id="dia" name="dia" readonly required class="d_block">
                       </div>
                     </div>
-                    <div class="m_y grid grid-cols-1 justify-between">
-                      <div class="mr-1">{{-- materia_name --}}
-                        <label for="materia_id"><b>Materia</b></label>
+                    <div class="grid grid-cols-1 justify-between">
+                      <div class="py-2">{{-- materia_name --}}
+                        <label for="materia_id">
+                          <b>Materia</b>
+                        </label>
                         <select  class="d_block" name="materia_id" value="{{ old('materia_id') }}" id="materia_id" onchange="getSelected()">
                           @foreach ($materias as $materia)
                             <option value={{$materia->id}}>
@@ -136,9 +133,11 @@
                           @endforeach
                         </select>
                       </div>
-                      <div class="ml-1">{{-- aula_name --}}
-                        <label for="aula_id"><b>Aula</b></label> 
-                        <input type="text" id="que_aula" value=""/>
+                      <div class="py-2">{{-- aula_name --}}
+                        <label for="aula_id">
+                          <b>Aula</b>
+                        </label> 
+                        <input type="text" name="aula_id" id="aula_id" value=""/>
                       </div>
                         
 
@@ -148,13 +147,15 @@
                             </option>
                           @endforeach
                         </select> --}}
-                      </div>
+                      
                     </div>
+                  </div>
+                  <div class="py-4">
                     <button class="boton d_block blue" type="submit">Guardar</button>
                   </div>
-              </form>         
+              </form>
               
-              <div class=" p_x15 p_y light-grey">
+              <div class="px-4 py-3 light-grey">
                 <button onclick="document.getElementById('ver_modal').style.display='none'" type="button" class=" boton danger">Cancel</button>
               </div>
             </div>  {{--  fin modal-content --}}
@@ -167,9 +168,17 @@
 
 @endsection
 <script>
-
-                function getSelected(){
-                var x = document.getElementById("materia_id").value;
-                document.getElementById('que_aula').value =  x;
+              function claseModal(valor_id){
+                let ar_id = valor_id.split('_');
+                let dia_semana = ar_id[0];
+                let num_sesion = ar_id[1];
+                document.getElementById("ver_id").innerHTML = dia_semana+", sesión "+num_sesion ;
+                document.getElementById("dia").value = dia_semana;
+                document.getElementById("sesion_id").value = num_sesion;
+                document.getElementById('ver_modal').style.display = 'block';
               }
+  function getSelected(){
+    var x = document.getElementById("materia_id").value;
+    document.getElementById('aula_id').value =  x;
+  }
 </script>
