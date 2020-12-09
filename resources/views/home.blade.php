@@ -5,10 +5,12 @@
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden ashadow sm:rounded-lg">
                 <div class="p-6  m-1  border-gray-200 dark:border-gray-700 md:border-l">
-                    <div class="flex items-center">
-                        <div class="text-lg leading-7 text-gray-600 dark:text-white">
-                            <h2>{{ __('Entering course data') }} :  {{ __('You are in step') }} {{(auth()->user()->paso)}}</h2>
-                        </div>
+                    <div class="text-lg leading-7 text-gray-600 dark:text-white">
+                        {{-- <div class=""> --}}
+                            <h2 class="text-center pasos-title-2">{{ __('Create course')}}. {{ __('Step')}} {{(auth()->user()->paso)}}</h2>
+                            <p class="text-6 my-2 text-center">{{ __('Entering course data') }}</p>
+                         
+                        {{-- </div> --}}
                     </div>
 
                     <div class="ml-12">

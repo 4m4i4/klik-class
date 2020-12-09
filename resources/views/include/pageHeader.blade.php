@@ -14,16 +14,22 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <nav class="menu">
-        <a class="navbar-brand nav-sup active" href="{{ url('/') }}">
+        <a class="navbar-brand smallCaps nav-sup active" href="{{ url('/') }}">
           {{ config('app.name', 'Laravel') }}
         </a>
 
+
         <div class="collapse navbar-collapse" id="navbarMenuCategorias">
             <!-- Left Side Of Navbar -->
+           @if(auth()->user()!==null && auth()->user()->paso ==4)
+            <a class="nav-sup" href="#">Personalizar</a>
+            <a class="nav-sup" href="#">Exportar</a>
+            @endif              
+    
           <ul class="navbar-nav mr-auto menu-colapsable">
-            <a class="nav-sub" href="{{route('materias.index')}}">Materias</a>
-            <a class="nav-sub" href="{{route('clases.index')}}">Horario</a>
-            <a class="nav-sub" href="{{route('estudiantes.index')}}">item3</a>
+    
+{{-- 
+            <a class="nav-sup  nav-sub" href="{{route('estudiantes.index')}}">item3</a> --}}
 
           </ul>
         </div>
@@ -52,10 +58,22 @@
                 </a>
 
                 <div class="dropdown-menu-right dropdown-menu"aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Uno</a>
-                  <a class="dropdown-item" href="{{route('clases.create')}}">Crear clase</a>
-                  <a class="dropdown-item" href="#">Tres</a>
-                  <a class="dropdown-item" href="{{ route('logout') }}"
+                  <a class="dropdown-item btn" href="#">Favoritos</a>
+                  <a class="dropdown-item btn warning-reves" href="#">Mi perfil</a>
+                  <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
+                   @csrf
+                   @method("PUT")
+                  <button type="submit" class="d_block warning">Sumar paso </button>
+                  </form>
+
+                  <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
+                   @csrf
+                   @method("PUT")
+                  <button type="submit" class="d_block secondary">Restar paso</button>
+                  </form>
+                  <a class="dropdown-item btn warning-reves" href="{{route('materias.index')}}">Materias</a>
+                  <a class="dropdown-item btn warning-reves" href="{{route('clases.index')}}">Horario</a>    
+                  <a class="dropdown-item btn" href="{{ route('logout') }}"
                      onclick="event.preventDefault();
                                    document.getElementById('logout-form').submit();">
                       {{ __('Logout') }}

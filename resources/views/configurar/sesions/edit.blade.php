@@ -16,12 +16,13 @@
           </ul>
         </div>
       @endif
-    <form class="px-4" action="{{route('sesions.update', $sesion->id) }}" method="POST"  >
+    <div class="px-6 caja-header text-center"><h3><strong>Modificar horario de la sesión  {{ $sesion->id }}</strong></h3></div>
+    <form class="px-6" action="{{route('sesions.update', $sesion->id) }}" method="POST"  >
       @csrf
       @method('PUT')
-        <div class="py-4" >
+        {{-- <div class="py-4" >
           <h3>Editar Sesión {{ $sesion->id }}</h3>
-        </div>
+        </div> --}}
         <div class="grid grid-cols-2 py-4 justify-between">
           <div class="mr-1">
             <label for="inicio"><b>Empieza:</b></label>
@@ -32,12 +33,12 @@
             <input type="time" id="fin" name="fin" value="{{date_format(date_create($sesion->fin), "H:i")}}" class="d_block" >
           </div>
         </div>
-        <div class="py-4">
-          <button type="submit" class=" m_b boton d_block blue" >Actualizar</button>
+        <div class="py-6 my-4">
+          <button type="submit" class=" mb-4 boton d_block blue" >Actualizar</button>
         </div>
     </form>
 
-    <div class="px-4 py-4 light-grey">
+    <div class="px-6 py-4 mt-4 light-grey">
       <a href="{{route('sesions.index')}}" title="Cancelar y volver al índice" class=" boton danger">Cancelar</a>
     </div>
 

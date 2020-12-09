@@ -5,12 +5,16 @@
       <span onclick="document.getElementById('crear_aula').style.display='none'" class="boton xlarge danger d_topright" title="Cerrar">&times; </span>
       <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle mt-4">
     </div>
-
-    <form class="px-4" method="POST" action="{{ route('aulas.store') }}">
+    <div class="px-6 caja-header text-center">
+      <h3>
+        <strong>Introducir aula </strong>
+      </h3>
+    </div>
+    <form class="px-6" method="POST" action="{{ route('aulas.store') }}">
       @csrf
         <div class="py-6">
           <label for="aula_name"><b>Aula</b></label>
-          <input type="text" class="d_block" placeholder="Nombre del aula" autofocus  name="aula_name" required>
+          <input type="text" class="d_block" placeholder="Nombre del aula" autofocus  name="aula_name" value="{{ old('aula_name') }}"  required>
           @error('aula_name')
             <small class="t_red">* {{ $message }}</small><br>
           @enderror
@@ -31,7 +35,7 @@
           </div>
           
           
-        <div class="py-4">
+        <div class="py-6 my-4">
           <button type="submit" class="boton d_block primary">Guardar</button>
         </div>
     </form>

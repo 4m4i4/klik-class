@@ -15,7 +15,12 @@
           </ul>
         </div>
       @endif
-    <form class="px-4" action="{{route('clases.update', $b_clase->id) }}" method="POST" >
+    <div class="px-6 caja-header text-center">
+      <h3>
+        <strong>Modificar clase</strong>
+      </h3>
+    </div>
+    <form class="px-6" action="{{route('clases.update', $b_clase->id) }}" method="POST" >
       @csrf
       @method('PUT')
         <div class="py-6">
@@ -58,13 +63,13 @@
             <input type="text"  id="sesion_id" class="d_block" name="sesion_id"  required value=""  >
           </div>
         </div>
-        <div class="py-4">
+        <div class="py-6 my-4">
           <button type="submit" class="boton d_block blue" >Actualizar</button>
         </div>
         
     </form>
   </div>  
-    <div class="px-4 py-4 light-grey">
+    <div class="px-6 py-4 mt-4 light-grey">
       <a href="{{route('clases.index')}}"  title="Cancelar y volver al índice" class=" boton danger">Cancelar</a>
     </div>
 

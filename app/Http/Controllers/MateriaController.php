@@ -215,7 +215,7 @@ class MateriaController extends Controller
              return redirect( url()->previous())->with('success', $mensaje. " ..... pasitos de Gesmar");
         }
         elseif($user->paso > 1) {$mensaje = "paso 2";
- return redirect()->route('home/paso', compact('user'))->with('success', $mensaje. "...Pasooooo, pasitos de Gesmar");}
+        return redirect()->route('home/paso', compact('user'))->with('success', $mensaje. "...Pasooooo, pasitos de Gesmar");}
 
                
     }

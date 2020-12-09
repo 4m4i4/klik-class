@@ -5,8 +5,8 @@
           <span onclick="document.getElementById('crear_materiaAll').style.display='none'" class="boton xlarge danger d_topright" title="Cerrar">&times; </span>
           <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle mt-4">
         </div>
-
-        <form class="px-4" method="POST" action="{{ route('materias.storeall') }}">
+        <div class="px-6 caja-header text-center"><h3><strong>Introducir todas las materias </strong></h3></div>
+        <form class="px-6" method="POST" action="{{ route('materias.storeall') }}">
         @csrf
           <div class="py-6">
             <label for= "createall"><b>Introduce todas tus materias</b></label>
@@ -24,12 +24,12 @@
                 <p class="pt-1"><strong>Letras</strong> (A-Z, a-z) y <strong>Números</strong>(0-9) <br><strong>Sin tildes </strong> ni caracteres especiales </p>
               </details>
             </div>
-          <div class="py-4">
+          <div class="py-4 my-4">
             <button class="boton d_block blue" type="submit">Guardar todas</button>
           </div>
         </form>
 
-        <div class=" px-4 py-3 light-grey">
+        <div class="px-6 py-4 mt-4 light-grey">
           <button onclick="document.getElementById('crear_materiaAll').style.display='none'" type="button" class=" boton danger">Cancel</button>
         </div>
 

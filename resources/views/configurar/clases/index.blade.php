@@ -24,8 +24,8 @@
                 <a href="{{route('sesions.index')}}" class="boton warning-reves mr-2">Cambiar horario</a>
                 <button type="submit" name="paso" title="Ir a paso 3: horario completado" id="paso3" value=3 class="boton secondary-reves ml-2">✅ ¡He acabado! </button>
               @elseif($user->paso == 3)
-                <button type="submit" name="paso" title="Ir a paso 2:cambiar horario" id="paso2" value=2 class="boton secondary-reves mr-2">Al paso ➋ 👈 ! </button>
-                <a href="{{route('home')}}" class="ml-2 boton warning-reves">👉 Al paso ➌</a>
+                <button type="submit" name="paso" title="Ir a paso 2:cambiar horario" id="paso2" value=2 class="boton secondary-reves mr-2">Al paso 2 👈 ! </button>
+                <a href="{{route('home')}}" class="ml-2 boton warning-reves">👉 Al paso 3</a>
               @endif
           </form>
         </div>
@@ -100,13 +100,18 @@
             <div class="modal-content animate-zoom" style="max-width:320px">
               <div class= "center py-4">
                 <span onclick="document.getElementById('ver_modal').style.display='none'" class="boton xlarge danger d_topright" title="Cerrar">&times; </span>
-                <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle mt-4">
+                <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle mt-6">
               </div>
-              <form class="px-4" method="POST" action="{{ route('clases.store') }}">
+              <div class="px-6 my-6 caja-header text-center">
+                <h3>
+                  <strong>Introducir materia: <span id="ver_id"></span></strong>
+                </h3>
+              </div>
+              <form class="px-6" method="POST" action="{{ route('clases.store') }}">
                 @csrf 
-                  <div class="py-6">
-                    <p id="ver_id"></p>  
-                    <div class="m_y grid grid-cols-2 justify-between">
+                  <div class="">
+                    
+                    <div class="my-4 grid grid-cols-2 justify-between">
                       <div class="mr-2">
                         <label for="sesion_id">
                           <b>Sesión</b>
@@ -137,7 +142,7 @@
                         <label for="aula_id">
                           <b>Aula</b>
                         </label> 
-                        <input type="text" name="aula_id" id="aula_id" value=""/>
+                        <input type="text" class="d_block" name="aula_id" id="aula_id" value=""/>
                       </div>
                         
 
@@ -150,12 +155,12 @@
                       
                     </div>
                   </div>
-                  <div class="py-4">
+                  <div class="py-4 mb-4">
                     <button class="boton d_block blue" type="submit">Guardar</button>
                   </div>
               </form>
               
-              <div class="px-4 py-3 light-grey">
+              <div class="px-6 py-4 mt-4 light-grey">
                 <button onclick="document.getElementById('ver_modal').style.display='none'" type="button" class=" boton danger">Cancel</button>
               </div>
             </div>  {{--  fin modal-content --}}

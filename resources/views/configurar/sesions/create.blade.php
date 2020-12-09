@@ -21,23 +21,27 @@
       $sesiones = Sesion::get();
       $num_sesiones= $sesiones->count();
     @endphp
+    <p id="id_sesion"><p>
+        <
+    <div class="px-6 py-6 caja-header text-center">
+      <h3>
+        <strong>Introducir horario de sesión {{ $num_sesiones+1}}</strong>
+      </h3>
+    </div>
     <form class="px-6" method="post" action="{{ route('sesions.store') }}">
       @csrf
-        <p id="id_sesion"><p>
-        <div class="py-6" >
-          <h3>Crear Sesión {{ $num_sesiones+1}}</h3>
-        </div>
+        
         <div class="py-4  grid grid-cols-2 justify-between">
           <div class="mr-1">
             <label for="inicio"><b>Empieza:</b></label>
-            <input type="time" id="inicio"  name="inicio" class="d_block" >
+            <input type="time" id="inicio" value="{{ old('inicio') }}" name="inicio" class="d_block" >
           </div>
           <div class="ml-1">
             <label for="fin"><b>Acaba: </b></label>
-            <input type="time" id="fin" name="fin" class="d_block" >
+            <input type="time" id="fin" value="{{ old('fin') }}" name="fin" class="d_block" >
           </div>
         </div>
-        <div class="py-4">
+        <div class="py-6 my-4">
           <button class="boton d_block blue" type="submit">Guardar</button>
         </div>
         {{-- <button onsubmit="document.getElementById('crear_sesiones').style.display='block'" class="boton d_block m_b15 blue" type="submit">Guardar</button> --}}

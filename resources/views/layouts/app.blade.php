@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
 
     <!-- Styles -->
-    {{-- <link href="{{ asset('css/appCopy.css') }}" type="text/css" rel="stylesheet"> --}}
+
     <link href="{{ asset('css/customApp.css') }}" type="text/css"  rel="stylesheet">
 
 </head>
@@ -49,10 +49,11 @@
                     $dmes = $meses[date_format($date, "n")];
                     $danio = date_format($date, "Y");
                     $fecha =  $ddia." de ". $dmes. " de ".$danio;
+                    $diaMes=  $ddia." de ". $dmes;
                     $laHora = date_format($date, "H:i");
                 @endphp
               {{-- {{hora($h)}} <a href= "#"> {{fecha($h)}}</a> --}}
-              {{$laHora}}  <a href= "#"> {{$fecha}}</a>
+              {{$laHora}} ...  <a href= "#"> {{$diaMes}}</a> ...   PASO. @if(auth()->user()!==null) {{auth()->user()->paso}} )@endif
             </div>
         </footer>
 

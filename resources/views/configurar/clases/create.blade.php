@@ -3,9 +3,10 @@
   <div class="modal-content animate-zoom" style="max-width:320px">
     <div class= "center py-4">
       <a href="{{route('clases.index')}}" class="boton xlarge danger d_topright" title="Cerrar">&times; </a>
-      <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle m_t">
+      <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle mt-4">
     </div>
-    <form class="px-4" method="POST" action="{{ route('clases.store') }}">
+    <div class="px-6 caja-header"><h3>Introducir clase</h3></div>
+    <form class="px-6" method="POST" action="{{ route('clases.store') }}">
       @csrf
       @php
         use App\Models\Materia;
@@ -42,21 +43,23 @@
         <div class=" grid grid-cols-2 justify-between">
           <div class="mr-1">
             <label for="dia"><b>Día de la semana</b></label>
-            <input type="text" id="dia" name="dia" required class="d_block">
+            <input type="text" id="dia" name="dia" value="{{ old('dia') }}" required class="d_block">
           </div>
             
 
           <div class="mr-1">
             <label for="sesion_id"><b>Sesión</b></label>
-            <input type="text"  name="sesion_id" class="d_block" >
+            <input type="text"  name="sesion_id" value="{{ old('sesion_id') }}" class="d_block" >
           </div>
 
         </div>
-        <button class="boton d_block blue" type="submit">Guardar</button>
+        <div class="py-6 my-4">
+          <button class="boton d_block blue" type="submit">Guardar</button>
+        </div>
       </div>
     </form>
 
-    <div class=" p_x15 p_y light-grey">
+      <div class="px-6 py-4 mt-4 light-grey">
       <a href="{{route('clases.index')}}" type="button" class=" boton danger">Cancelar</a>
     </div>
   </div>

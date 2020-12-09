@@ -67,6 +67,9 @@ Route::get('configurar/clases/{id}/edit',[App\Http\Controllers\ClaseController::
 Route::put('configurar/clases/{id}/edit',[App\Http\Controllers\ClaseController::class, 'update'])->name('clases.update');
 Route::delete('configurar/clases/{id}/edit',[App\Http\Controllers\ClaseController::class, 'destroy'])->name('clases.destroy');
 
+Route::put('home/pasoMenos/{id}',[App\Http\Controllers\PasoController::class, 'updatePasoMenos'])->name('home.updatePasoMenos');
+Route::put('home/{id}',[App\Http\Controllers\PasoController::class, 'updatePasoMas'])->name('home.updatePasoMas');
+
 
 Route::put('home/{user}',[App\Http\Controllers\ClaseController::class, 'paso'])->name('paso');
 

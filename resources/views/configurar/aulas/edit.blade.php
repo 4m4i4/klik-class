@@ -5,6 +5,11 @@
       <span onclick="document.getElementById('editar_aula').style.display='none'" class="boton xlarge danger d_topright" title="Cerrar">&times; </span>
       <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle mt-4">
     </div>
+    <div class="px-6 caja-header  text-center">
+      <h3>
+        <strong>Modificar aula </strong>
+      </h3>
+    </div>
     <form class="px-6" method="POST" action="{{ route('aulas.update', $aula->id) }}">
       @csrf
       @method('PUT')
@@ -29,7 +34,7 @@
               <input type="number" class=" m_b20"  name="num_mesas"  min="1" max="30" autofocus required value="{{ $aula->num_mesas }}">
             </div>
           </div>
-          <div class="py-4">
+          <div class="py-4 my-4">
             <button type="submit" class="boton d_block primary">Guardar</button>
           </div>
         </div>
