@@ -14,35 +14,39 @@
 
       <div class = "col-sm-12">
         <div class = "caja">
-          <div class = "caja-header grid grid-cols-2 justify-between items-center">
-            <h2>{{ __('My subjects')}}</h2>
+          <div class = "caja-header grid grid-cols-2-auto  items-center">
+            <h2>{{ __('My Subjects')}}</h2>
             
               @php
                 $user = auth()->user();  
               @endphp
-              <form method="POST" action="{{ route('paso', $user->paso) }}">
-                @csrf
-                @method('PUT')
-                <div class= "grid grid-cols-2">
+               <div class= "grid grid-cols-2 justify-right">
                   @if($user->paso == 1)
-                    <a href="#" class="mr-2 boton warning-reves" onclick="document.getElementById('crear_materia').style.display='block'">{{ __('Add')}} ✚</a>
+                    <button class="mx-6 boton warning-reves"  title= "crear materia"  onclick="document.getElementById('crear_materia').style.display='block'">{{ __('Add')}} ✚</button>  
+                    <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
+                      @csrf
+                      @method("PUT")
+                        <button type="submit" title= "Ir a paso 2: Lista de materias completada" class="ml-2 boton secondary-reves">✅ ¡He acabado! </button>
+                    </form>
                   
-                    <button type="submit" name="paso" id ="paso2" value=2 title= "pasar a paso 2:Lista de materias completada" class="ml-2 boton secondary-reves">✅ ¡He acabado! </button>
                   @endif
                   @if($user->paso == 2)
-                    <a href="{{route('sesions.index')}}" class="ml-2 boton secondary-reves">{{ __('Add')}} {{ __('Timetable')}} ⏩</a>
-                    <button type="submit" name="paso" value=1 title="Volver al primer paso" class="ml-2 boton fucsia">
-                       {{ __('Go to') }} {{ __('First step') }}
-                    </button> 
+
+                    <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
+                      @csrf
+                      @method("PUT")
+                        <button type="submit" title="Volver al primer paso" class="mx-6 btn warning"> {{ __('Go to') }} {{ __('Step') }} 1
+                        </button> 
+                    </form>
+                    <a href="{{route('home')}}" class="ml-2 btn primary">✅ ¡He acabado! </a>
 
                   @endif
-                    {{-- <a href="#" onclick="document.getElementById('crear_sesiones').style.display='block'"class="boton secondary">{{ __('Add')}} {{ __('Timetable')}} ⏩</a> --}}
                   @if($user->paso > '2')
-                 
-                    <a href="{{ route('home') }}" class=" btn primary">Adelante!! ⏩</a>
+                  <span></span>
+                    <a href="{{ route('home') }}" class=" btn primary">✅ ¡He acabado! </a>
                   @endif
                 </div>
-              </form>
+
             </div>
           </div>
 
@@ -92,11 +96,11 @@
                           @endphp
                             ✅ {{ $materia->grupo }}: {{ $countStudents}} estudiantes
                           @php
-                          $aula= DB::table('aulas')->where('aula_name',$materia->grupo)->first();
+                          $esteAula= DB::table('aulas')->where('aula_name',$materia->grupo)->first();
                           @endphp
                           </td>
                           <td><!-- Aula -->
-                             <a href="#"> {{ $materia->grupo}}</a>
+                             <a href="{{ route('aulas.edit', $aula->id) }}" title = "Edita columnas, filas y mesas del aula= {{ $aula->id }}" class = "btn naranja">📝 {{ $aula->aula_name}}</a>
                           </td>
                         @endif
                       @endif

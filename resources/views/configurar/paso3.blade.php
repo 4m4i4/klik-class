@@ -44,9 +44,9 @@
     </div>
   </div>
 
-  <div id="crear_materia" class="modal">
+  {{-- <div id="crear_materia" class="modal">
     @include('configurar/materias/create')
-  </div>
+  </div> --}}
 
 
 @show

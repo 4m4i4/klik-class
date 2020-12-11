@@ -1,9 +1,9 @@
 @extends('layouts.app')
-{{-- @section('sesions.create') --}}
-@section('content')
+@section('sesions.create')
+{{-- @section('content') --}}
   <div class="modal-content  animate-zoom" style="max-width:320px">
     <div class= "center py-4">
-       {{-- <a href="{{route('sesions.index')}}" class="boton xlarge danger d_topright" title="Cerrar">&times; </a> --}}
+       <a href="{{route('sesions.index')}}" class="boton xlarge danger d_topright" title="Cerrar">&times; </a>
       <span onclick="document.getElementById('crear_sesiones').style.display='none'" class="boton xlarge danger d_topright" title="Cerrar">&times; </span>
       <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle mt-4">
     </div>
@@ -22,7 +22,7 @@
       $num_sesiones= $sesiones->count();
     @endphp
     <p id="id_sesion"><p>
-        <
+        
     <div class="px-6 py-6 caja-header text-center">
       <h3>
         <strong>Introducir horario de sesión {{ $num_sesiones+1}}</strong>
@@ -54,5 +54,5 @@
       <button onclick="document.getElementById('crear_sesiones').style.display='none'" type="button" class=" boton danger">Cancel</button>
     </div>
   </div>
-{{-- @show --}}
-@endsection
+@show
+{{-- @endsection --}}

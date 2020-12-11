@@ -78,7 +78,7 @@
 
                             </a> <span class="text-sm">{{$m_grupo}}</span>
                           @elseif($b_clase == null)
-                            <button class="btn" id={{$dias[$ii].'_'.$sesion->id}} onclick="claseModal(this.id)">set</button>
+                            <button class="btn blue" id={{$dias[$ii].'_'.$sesion->id}} onclick="claseModal(this.id)">set</button>
                           @endif
 
                         </td>

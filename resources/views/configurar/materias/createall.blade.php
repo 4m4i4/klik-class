@@ -5,11 +5,11 @@
           <span onclick="document.getElementById('crear_materiaAll').style.display='none'" class="boton xlarge danger d_topright" title="Cerrar">&times; </span>
           <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle mt-4">
         </div>
-        <div class="px-6 caja-header text-center"><h3><strong>Introducir todas las materias </strong></h3></div>
+        <div class="px-6 caja-header text-center"><h3><strong>Introduce todas las materias </strong></h3></div>
         <form class="px-6" method="POST" action="{{ route('materias.storeall') }}">
         @csrf
           <div class="py-6">
-            <label for= "createall"><b>Introduce todas tus materias</b></label>
+            <label for= "createall"><b></b></label>
             <textarea class="d_block" placeholder="ingles 1c bach,etica 2c eso,etc" autofocus  name="createall"  required></textarea>
             @error('createall')
               <small class="t_red">* {{ $message }}</small><br>

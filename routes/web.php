@@ -45,7 +45,7 @@ Route::put('home/paso/{user:paso}',[App\Http\Controllers\MateriaController::clas
 Route::get('home/paso/{user:paso}',[App\Http\Controllers\MateriaController::class, 'paso'])->name('home.paso');
 // AulaController
 
-Route::get('configurar/aulas/index',[App\Http\Controllers\AulaController::class, 'index'])->name('index_aulas');
+Route::get('configurar/aulas/index',[App\Http\Controllers\AulaController::class, 'index'])->name('aulas.index');
 Route::get('configurar/aulas/create',[App\Http\Controllers\AulaController::class, 'create'])->name('aulas.create');
 Route::post('configurar/aulas/create',[App\Http\Controllers\AulaController::class, 'store'])->name('aulas.store');
 Route::get('configurar/aulas/{id}/edit',[App\Http\Controllers\AulaController::class, 'edit'])->name('aulas.edit');

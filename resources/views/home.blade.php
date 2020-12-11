@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mb-8">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden ashadow sm:rounded-lg">
+            <div class="mt-4 bg-white dark:bg-gray-800 overflow-hidden ashadow sm:rounded-lg">
                 <div class="p-6  m-1  border-gray-200 dark:border-gray-700 md:border-l">
                     <div class="text-lg leading-7 text-gray-600 dark:text-white">
                         {{-- <div class=""> --}}
@@ -25,8 +25,8 @@
                     </div>
                 </div>                    
 
-@endsection
-@section('pasitos')
+            @endsection
+            @section('pasitos')
 
                 <div class="grid grid-cols-1 md:grid-cols-3">
                     

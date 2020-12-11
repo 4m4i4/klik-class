@@ -38,6 +38,7 @@ class EstudianteController extends Controller
      */
     public function store(Request $request)
     {
+         
         $cadena = request('lista_completa');
         $materia_id = request('materia_id');
         $arrApellidosNombre = Str::of($cadena)->explode(";");
@@ -56,8 +57,11 @@ class EstudianteController extends Controller
                 'nombre_completo'=>$nombre_completo,
                 'materia_id'=>$materia_id
             ]);
+            // if($estudiante->validate(['nombre_completo'=>'unique:estudiantes']))
+            // {   
             $mns_estudiantes ='Se han añadido todos los Estudiantes';
             $estudiante->save();
+            // }
         }
         return redirect()->route('estudiantes.index')->with('success', $mns_estudiantes);
     }
