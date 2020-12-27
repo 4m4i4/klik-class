@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Models;
+use App\Models\Materia;
+use App\Models\Aula;
+use App\Models\Sesion;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,8 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'paso',
-   
-
+        'modo'
     ];
 
     /**
@@ -43,4 +45,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function materias(){
+        return $this->hasMany(Materia::class);
+    }
+
+    public function clases(){
+        return $this->hasMany(Clase::class);
+    }
+
+    public function sesions(){
+        return $this->hasMany(Sesion::class);
+    }
+    
+    public function aulas(){
+        return $this->hasMany(Aula::class);
+    }
 }

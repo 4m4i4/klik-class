@@ -68,7 +68,7 @@ return [
     */
 
     // 'timezone' => 'Europe/Berlin',
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/berlin',
 
     /*
     |--------------------------------------------------------------------------

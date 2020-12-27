@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Sesion;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
 class SesionController extends Controller
@@ -44,7 +47,8 @@ class SesionController extends Controller
         {   
             $sesion = new Sesion([
                 'inicio'=>request('inicio'),
-                'fin'=>request('fin') 
+                'fin'=>request('fin'),
+                'user_id'=>request('user_id')
                 ]);
 
             $msn= 'Se ha añadido la hora de la sesión';
@@ -96,6 +100,7 @@ class SesionController extends Controller
             $sesion = Sesion::find($id);
             $sesion->inicio = request('inicio');
             $sesion->fin = request('fin') ;
+            $sesion->user_id = request('user_id');
 
             $msn = 'Se ha actualizado la hora de la sesión';
             $sesion->save();

@@ -164,6 +164,7 @@ return [
         'gender'                => 'género',
         'hour'                  => 'hora',
         'last_name'             => 'apellido',
+        'materia_name'          => 'materia',
         'message'               => 'mensaje',
         'minute'                => 'minuto',
         'mobile'                => 'móvil',

@@ -1,7 +1,4 @@
-@extends('layouts.app')
-
-@section('tablas')
-  <div class="nomodal top-0">
+<div class="nomodal top-0">
     <div class="modal-content animate-zoom">
       <div class= "text-center mb-4">
         <svg width="358px" height="107px" viewBox="0 0 512 152">
@@ -14,25 +11,3 @@
           </g>
         </svg>
       </div>
-      <div class="form-header px-6 caja-header text-center">
-        <h3 class="form-title">@yield('form-title')></h3>
-      </div>
-      <div class="form-body">@yield('form-content')</div>
-
-      <div class="px-6 py-4 mt-6 light-grey">
-        <a href="/" title="Volver a la página anterior" class="d_inline boton danger">Cancelar</a>
-      </div>
-    </div>
-  </div>
-
-{{-- 
-<div class="modal-dialog" role="document">
-    esto es una prueba
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">@yield('title')</h5>
-        </div>
-        <div class="modal-body">@yield('content')</div>
-        <div class="modal-footer">@yield('footer')</div>
-    </div>
-</div> --}}

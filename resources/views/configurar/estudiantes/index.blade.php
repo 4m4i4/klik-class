@@ -1,90 +1,79 @@
+{{-- estudiantes.index --}}
 @extends('layouts.app')
 
-@section('content')
+@section('tablas')
 
   <div class="container">
-    <div class = "col-sm-12 text-center">
-      @if(session()->get('success'))
-        <div class = "alert alert-info">
+
+    @if(session()->get('success'))
+        <div class = "text-center alert alert-info">
           {{ session()->get('success') }}  
         </div>
-      @endif
-    </div>
-    <div class = "row">
+    @endif
+    <div class = "">
 
-      <div class = "col-sm-12">
-        <div class = "caja">
-          <div class = "caja-header grid grid-cols-2 justify-between items-center">
-            <h2>{{ __('My students')}}</h2>
-            <a href="{{route('materias.index')}}" class="btn secondary">Añadir otro grupo</a>
-              
-            </div>
+      <div class="caja">  <!-- CABECERA estudiantes -->
+        <div class = "caja-header">
+          <div class = "grid grid-cols-3-fr items-center">
+                @php
+                  $user = auth()->user();  
+                @endphp
+            <h2>{{ __('My')}} {{ __('Students')}}</h2>
+            <a href="{{route('materias.index')}}" class="btn secondary">
+            <span class="ico-shadow"> 👈 </span>Atrás</a><div>
+            <label for="materia_id"></label>
+            <select  class="d_block" name="materia_id" value="{{ old('materia_id') }}" id="materia_id">
+              <option value=0>" materia"</option>
+               @foreach ($materias as $materia)
+                            <option value={{$materia->id}}>{{$materia->materia_name}}</option>
+                @endforeach 
+            </select></div>
+                  
+
           </div>
-
-          <div class = "caja-body">
-            <table class = "tabla table-responsive-sm">
-              <thead>
-                <tr>
+        </div>
+      </div>       <!-- fin de CABECERA estudiantes -->
+      <div class="caja">  <!--body-TABLA estudiantes -->
+        <div class = "caja-body">
+          <table class = "tabla table-responsive mx-auto">
+            <thead>
+              <tr>
                   <th>Id</th>
                   <th>{{ __('Name') }}</th>
                   <th>{{ __('Surnames') }}</th>
                   <th>{{ __('Full name') }}</th>
                   <th>{{ __('Subject') }}</th>
-                  
+              </tr>
+            </thead>
+            <tbody>
 
-                </tr>
-              </thead>
-              <tbody>
-
-                @foreach ( $estudiantes as $estudiante)
-                  <tr>
-                    <td><!-- -id -->
+              @foreach ($estudiantes as $estudiante)
+                <tr>
+                  <td><!-- -id -->
                         {{ $estudiante->id }}
-                    </td>
-                    <td><!-- Nombre -->
+                  </td>
+                  <td><!-- Nombre -->
                         {{$estudiante->nombre }}
-                    </td>
-                    <td><!-- Apellidos -->
+                  </td>
+                  <td><!-- Apellidos -->
                          {{$estudiante->apellidos }}
-                    </td>
-                    <td><!-- Nombre completo -->
+                  </td>
+                  <td><!-- Nombre completo -->
                       {{$estudiante->nombre_completo }}
-                    </td>
-                    <td><!-- Materia -->
+                  </td>
+                  <td><!-- Materia -->
                       {{$estudiante->materia->materia_name }}
-                    </td>
-                  </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
+                  </td>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
-      </div>
-      {{-- <script>
-              function estudiantesModal(valor_id){
-                let ar_id = valor_id.split('_');
-                let grupo = ar_id[0];
-                let materia_id = ar_id[1];
-                document.getElementById("ver_materia_id").innerHTML = grupo+", materia id: "+materia_id ;
-                // document.getElementById("dia").value = dia_semana;
-                document.getElementById("materia_id").value = materia_id;
-                document.getElementById('crear_estudiantes').style.display = 'block';
-              }
-
-    
-           </script> --}}
-
-      {{-- <div id="crear_materia" class="modal">
-        @include('configurar/materias/create')
-      </div>
-
-      <div id="crear_sesiones" class="modal">
-        @include('configurar/sesions/create')
-      </div>
-      <div id="crear_estudiantes" class="modal">
-        @include('configurar/estudiantes/create')
-      </div> --}}
+      </div>      <!-- fin de body-TABLA estudiantes -->
     </div>
+    {{-- <div class="justify-center flex caja ">
+        {{ $estudiantes->onEachSide(5)->links() }}
+    </div> --}}
+
   </div>
-        
 @endsection

@@ -15,11 +15,14 @@ class CreateAulasTable extends Migration
     {
         Schema::create('aulas', function (Blueprint $table) {
             $table->id();
-            $table->char('aula_name', 10);
+            $table->string('aula_name', 10);
             $table->tinyInteger('num_columnas')->default(5);
             $table->tinyInteger('num_filas')->default(5);
             $table->tinyInteger('num_mesas')->default(25);
-
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users'); 
             $table->timestamps();
         });
     }

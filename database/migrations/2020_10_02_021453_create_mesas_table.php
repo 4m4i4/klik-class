@@ -18,15 +18,14 @@ class CreateMesasTable extends Migration
             $table->tinyInteger('columna');
             $table->tinyInteger('fila');
             $table->boolean('is_ocupada')
-                  ->nullable()->default(false);
+                  ->default(false);
             $table->unsignedBigInteger('clase_id');
             $table->foreign('clase_id')
                   ->references('id')->on('clases');
             $table->unsignedBigInteger('aula_id');
             $table->foreign('aula_id')
                   ->references('id')->on('aulas');
-            $table->unsignedBigInteger('estudiante_id')
-                  ->nullable();
+            $table->unsignedBigInteger('estudiante_id');
             $table->foreign('estudiante_id')
                   ->references('id')->on('estudiantes');
             $table->timestamps();

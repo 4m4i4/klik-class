@@ -5,11 +5,14 @@ use App\Models\Aula;
 use App\Models\Clase;
 use App\Models\Mesa;
 use App\Models\Materia;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
 class AulaController extends Controller
 {
+    use AuthenticatesUsers;
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +20,11 @@ class AulaController extends Controller
      */
     public function index()
     {
-        $aula = Aula::get();
-        return view('configurar.aulas.index',compact('aula'));
+        if(Auth::check()){
+            $user = Auth::user()->id; 
+        $aulas = Aula::where('user_id',$user)->with('user')->get();
+        return view('configurar.aulas.index',compact('aulas'));
+        }
     }
 
     /**
@@ -52,10 +58,10 @@ class AulaController extends Controller
                 'num_columnas'=>request('num_columnas'),
                 'num_filas'=>request('num_filas'),
                 'num_mesas'=>request('num_mesas'),
-                 
+                'user_id'=>request('user_id')
              ]);
              $aula->save();
-             return redirect()->route('aulas.index')->with('success', 'Aula añadida');
+             return redirect()->route('materias.index');
          }
     }
 
@@ -91,21 +97,23 @@ class AulaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request);
         if($request->validate([
-                'aula_name' =>'required|string',
-                'num_columnas' =>'required',
-                'num_filas' =>'required',
-                'num_mesas' =>'required',
+            'aula_name' =>'required|string',
+            'num_columnas' =>'required',
+            'num_filas' =>'required',
+            'num_mesas' =>'required',
             ])
          )
          {
-            $aula = Aula::find('$id');
+            $aula = Aula::find($id);
             $aula->aula_name = request('aula_name');
             $aula->num_columnas = request('num_columnas');
             $aula->num_filas = request('num_filas');
             $aula->num_mesas = request('num_mesas');
+            $aula->user_id = request('user_id');
             $aula->save();
-            return redirect()->route('aulas.index')->with('success', 'Aula actualizada');
+            return redirect()->route('aulas.index');
          }
     }
 

@@ -15,9 +15,9 @@ class CreateEstudiantesTable extends Migration
     {
         Schema::create('estudiantes', function (Blueprint $table) {
             $table->id();
-            $table->char('nombre',20);
-            $table->char('apellidos',40);
-            $table->char('nombre_completo',40);
+            $table->string('nombre',20);
+            $table->string('apellidos',40);
+            $table->string('nombre_completo',50)->unique();
             $table->unsignedBigInteger('materia_id');
             $table->foreign('materia_id')
                   ->references('id')
