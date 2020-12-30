@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Models;
-use App\Models\Materia;
-use App\Models\Aula;
-use App\Models\Mesa;
+// use App\Models\Materia;
+// use App\Models\Aula;
+// use App\Models\Mesa;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,6 +26,6 @@ class Estudiante extends Model
 
     public function mesa()
     {
-        return $this->hasOne(Mesa::class);
+        return $this->hasOne('App\Models\Mesa');
     }
 }

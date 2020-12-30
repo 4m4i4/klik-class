@@ -72,8 +72,10 @@ class AulaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {   
+        $user = Auth::user()->id;
+        $aula = Aula::where('user_id',$user)->find($id);
+        return view('configurar.aulas.show',compact('aula'));
     }
 
     /**
@@ -113,7 +115,7 @@ class AulaController extends Controller
             $aula->num_mesas = request('num_mesas');
             $aula->user_id = request('user_id');
             $aula->save();
-            return redirect()->route('aulas.index');
+            return redirect()->route('materias.index');
          }
     }
 

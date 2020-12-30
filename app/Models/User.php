@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Models;
-use App\Models\Materia;
-use App\Models\Aula;
-use App\Models\Sesion;
+// use App\Models\Materia;
+// use App\Models\Aula;
+// use App\Models\Sesion;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,18 +47,18 @@ class User extends Authenticatable
     ];
 
     public function materias(){
-        return $this->hasMany(Materia::class);
+        return $this->hasMany('App\Models\Materia');
     }
 
     public function clases(){
-        return $this->hasMany(Clase::class);
+        return $this->hasMany('App\Models\Clase');
     }
 
     public function sesions(){
-        return $this->hasMany(Sesion::class);
+        return $this->hasMany('App\Models\Sesion');
     }
     
     public function aulas(){
-        return $this->hasMany(Aula::class);
+        return $this->hasMany('App\Models\Aula');
     }
 }

@@ -1,13 +1,59 @@
-        var acaba=true;        
-        function acabar(){
-            var boton=document.getElementById('prueba');
-            boton.style.backgroundColor="red";
-            boton.innerHTML="Acabado";
-            acaba = false;
-            document.enviar.var_php.value=acaba;
-            document.enviar.submit();
-            
-        }
+
+
+
+var myVar = setInterval(myTimer, 1000);
+function myTimer() {
+    var d = new Date();
+    document.getElementById("khoraes").innerHTML = d.toLocaleTimeString();
+}
+
+
+function configuraFecha(){
+var x= document.getElementById("configFecha").value;
+fFecha(x);
+}
+
+function fFecha(x){
+  var fecha;
+  var h = new Date();
+  var local = h.toLocaleDateString();
+  var d = h.getDate();
+  var m = h.getMonth();
+  var y = h.getFullYear();
+  var dias = ["DOMINGO","LUNES", "MARTES", "MIÉRCOLES","JUEVES","VIERNES","SÁBADO"];
+  var dia = h.getDay();
+  var meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+  switch (x) {
+    case 0:
+      fecha = d+" de "+meses[m];  // 29 de febrero
+      break;
+    case 1:
+      fecha = d+" de "+meses[m]+" - "+dias[dia];  // 29 de febrero - Martes
+      break;
+    case 2:
+      fecha = dias[dia]+" - "+d+" de "+meses[m];  // Martes - 29 de febrero
+      break;
+    case 3:
+      fecha =  d+" de "+meses[m]+" de "+y;  // 29 de febrero de 1890
+      break;
+    case 4:
+      fecha = d+" / "+m+" / "+y+"  ,  "+dias[dia];  //29 / 02 / 1890 Martes 
+      break;
+    case 5:
+      fecha = local; //  29/02/1890 
+      break;
+    case 6:
+      fecha = local+"  "+dias[dia]; //  29/02/1890 Martes 
+      break;
+    default:
+      fecha = dias[dia]+", "+d+" de "+meses[m]+" de "+y;  // Martes, 29 de febrero de 1890
+      break;
+  }
+document.getElementById("kdiaes").innerHTML =fecha;
+
+}
+
 
 function crearElemParent(parent, elem, attr, text){
   let elemento = document.createElement(elem);
@@ -33,6 +79,61 @@ function crearChildColection(parent,elem,attr,text,arr){
     parent.appendChild(elemento);
   }
 }
+var columnas;
+var filas;
+
+
+function crearMesas(columnas, filas) {
+let clase= document.getElementById("clase");
+clase.setAttribute("class","grid grid-cols-"+columnas+"-auto");
+  let index = 0;
+  for (let i = 0; i < columnas; i++) {
+    for (let ii = 0; ii < filas; ii++) {
+      let mesa = document.createElement("DIV");
+      mesa.setAttribute("class", "mesa mesa-"+columnas);
+      let id = index + "";  // recoger el valor actual del index
+      // atribuir identificador a cada elemento mesa
+      mesa.setAttribute('id', id + "mesa");
+      crearBoton(mesa, "A", index);
+      crearBoton(mesa, "B", index);
+      aula.appendChild(mesa);
+      index++;
+    }
+  }
+}
+
+
+function crearBoton(parent, text, id) {
+    // crear el botón con la propiedad "A" y la clase propiedad_A
+    let x = document.createElement("BUTTON");
+    let xt = document.createTextNode(text);
+    x.appendChild(xt);    // añadir el texto al botón
+    let prop_a = document.createAttribute("class");
+    prop_a.value = "propiedad_" + text;
+    x.attributes.setNamedItem(prop_a);
+    x.classList.add("bt_mesa");
+    // atribuir identificador a cada botón
+    x.setAttribute('id', id + text);
+    // añadir clase para visualizar los botones activados
+    x.setAttribute("onclick", 'this.classList.add ("active")');
+    // añadir el botón al elemento antecesor
+    parent.appendChild(x);
+}
+
+function desabilita(id){
+    let dni = id;
+    console.log(dni);
+    let m = document.getElementById(dni + "");
+    // m.classList.add ("falta");
+    m.setAttribute("disabled","true");
+    let bt_A = document.getElementById(dni + "A");
+    bt_A.setAttribute("disabled","true");
+    let bt_B = document.getElementById(dni + "B");
+    bt_B.setAttribute("disabled","true");
+}
+
+
+
 
 function configurarHorario(){
   let weekDays = ["Horario", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
@@ -123,3 +224,16 @@ function configurarHorario(){
   }
   aula.appendChild(tablaHorarios);
  }        
+
+
+
+        var acaba=true;        
+        function acabar(){
+            var boton=document.getElementById('prueba');
+            boton.style.backgroundColor="red";
+            boton.innerHTML="Acabado";
+            acaba = false;
+            document.enviar.var_php.value=acaba;
+            document.enviar.submit();
+            
+        }

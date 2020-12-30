@@ -8,7 +8,7 @@
     <div class="flex">
       <div class="ml-1 text-lg leading-7 font-semibold">
         <p class="text-gray-800 dark:text-white">{{ __('First step') }}</p>
-        <h3 class="pasos-title-2">📚 {{ __('My') }} {{ __('Subjects') }}  </h3>
+        <h3 class="pasos-title-2"><span class="ico-shadow">📚 </span>{{ __('My') }} {{ __('Subjects') }}  </h3>
       </div>
     </div>
 
@@ -25,7 +25,7 @@
     <div class="flex">
       <div class="ml-1 text-lg leading-7 font-semibold">
        <p class="text-gray-800 dark:text-white"> {{ __('Second step') }} </p>
-       <h3 class="pasos-title-2">📅  {{ __('My')}} {{ __('Timetable')}}</h3>
+       <h3 class="pasos-title-2"><span class="ico-shadow">📅  </span>{{ __('My')}} {{ __('Timetable')}}</h3>
       </div>
     </div>
 
@@ -38,7 +38,7 @@
     <div class="flex">
       <div class="ml-1 text-lg leading-7 font-semibold">
         <p class=" text-gray-800 dark:text-white">{{__('Third step')}}:</p>
-        <h3 class="pasos-title-2">😶 {{ __('My') }} {{ __('Groups') }}</h3>
+        <h3 class="pasos-title-2"><span class="ico-shadow">😶 </span>{{ __('My') }} {{ __('Groups') }}</h3>
       </div>
     </div>
 

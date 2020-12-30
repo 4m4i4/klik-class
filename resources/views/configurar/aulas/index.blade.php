@@ -19,7 +19,7 @@
               @php
                   $user = auth()->user();  
               @endphp            
-            <h2>Mis Aulas</h2>
+            <h2 class="ml-4" >Mis Aulas</h2>
             <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
                   @csrf
                   @method("PUT")
@@ -29,7 +29,7 @@
             <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                   @csrf
                   @method("PUT")
-                    <button type="submit" title= "Siguiente"  class="mx-6 btn blue">✅ </span> Siguiente  <span class="ico-shadow">👉 </span>  
+                    <button type="submit" title= "Siguiente"  class="mr-4 btn blue">✅ </span> Siguiente  <span class="ico-shadow">👉 </span>  
                     </button> 
             </form> 
           </div>
@@ -41,17 +41,15 @@
           <div class = "caja-body py-2">
             <table class = "tabla table-responsive mx-auto">
               <caption>
-              Haz click en <strong>Editar</strong> para actualizar los datos del aula-<br> 
-              Para <strong>Cambiar </strong> un horario haz click sobre él
+              Haz click en <strong>Editar</strong> para actualizar los datos del aula-<br>            
               </caption>
               <thead>
                 <tr>
                   <th>Id</th>
                   <th>Aula</th>
-                  <th>Número de columnas</th>
-                  <th>Número de filas</th>
-                  <th>Número de mesas</th>
-                  <th class="bts_handleAction" colspan = "2">Acción</th>
+                  <th title="Columnas/Filas">Cols/Filas</th>
+                  <th title="Mesas/Estudiantes">Mesas/Pers</th>
+                  <th class="bts_handleAction" colspan = "3">Acción</th>
                 </tr>
               </thead>
               <tbody>
@@ -64,23 +62,23 @@
                         {{ $aula->aula_name }}
                     </td>
                     <td>
-                        {{ $aula->num_columnas }}
+                        {{ $aula->num_columnas }}/{{ $aula->num_filas }}
                     </td>
                     <td>
-                        {{ $aula->num_filas }}
+                         {{ $aula->num_mesas }}/{{$aula->clase->materia->estudiantes->count()}}
                     </td>
                     <td>
-                        {{ $aula->num_mesas }}
-                    </td>
-                    <td>
-                      <a href = "{{ route('aulas.edit', $aula->id) }}" title = "Editar" class = "btn naranja"><span class="ico-shadow"> 📝 </span><span class="bt-text-hide">Editar </a>
+                      <a href = "{{ route('aulas.edit', $aula->id) }}" title = "Editar" class = "btn naranja h-8"><span class="ico-shadow"> 📝 </span><span class="bt-text-hide">Editar </a>
                     </td>
                     <td>
                       <form action="{{ route('aulas.destroy', $aula->id) }}" method="POST">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn fucsia" title = "Borrar aula id= {{ $aula->id }}"><span class="ico-shadow"> ❌ </span><span class="bt-text-hide">{{ __('Delete') }}</span></button>
+                            <button type="submit" class="btn fucsia h-8" title = "Borrar aula id= {{ $aula->id }}"><span class="ico-shadow"> ❌ </span><span class="bt-text-hide">{{ __('Delete') }}</span></button>
                       </form>
+                    </td>
+                    <td>
+                      <a href="{{ route('aulas.show', $aula->id) }}" class="btn default h-8" title = "ver aula id= {{ $aula->id }}"><span class="ico-shadow">👀 </span><span class="bt-text-hide">{{ __('Show')}} </span> </a>
                       
                     </td>
                   </tr>

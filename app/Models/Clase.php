@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Models;
-use App\Models\Materia;
-use App\Models\Aula;
-use App\Models\Sesion;
-use App\Models\User;
+// use App\Models\Materia;
+// use App\Models\Aula;
+// use App\Models\Sesion;
+// use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -44,6 +44,6 @@ class Clase extends Model
     // One to many
     public function mesas()
     {
-        return $this->hasMany(Mesa::class);
+        return $this->hasMany('App\Models\Mesa');
     }
 }

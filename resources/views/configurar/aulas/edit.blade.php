@@ -50,7 +50,7 @@
     </form>
 
     <div class="px-6 py-2 mt-4 light-grey">
-      <a href="{{route('aulas.index')}}" class="boton d_inline danger" title="cancelar y volver">Cancelar </a>
+      <a href="{{route('materias.index')}}" class="boton d_inline danger" title="cancelar y volver">Cancelar </a>
     </div>
 
   </div>

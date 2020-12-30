@@ -56,6 +56,7 @@ class PasoController extends Controller
         if($user->paso ==1) return redirect( route('materias.index'));
         if($user->paso ==2) return redirect( route('sesions.index'));
         if($user->paso ==3) return redirect( route('clases.index'));
+        if($user->paso ==4) return redirect( route('materias.index'));
       }
        return redirect( url()->previous());
     }

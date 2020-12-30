@@ -23,7 +23,7 @@
 
                   <!--cabeceras según paso -->
                   @if($user->paso == 1)  <!--bucle crear materias -->
-                    <h2> {{ __('My')}} {{ __('Subjects')}}</h2>
+                    <h2 class="ml-4"> {{ __('My')}} {{ __('Subjects')}}</h2>
 
                     <a class="ml-1 btn inline warning-reves"  title= "crear materia" href="{{route('materias.create')}}">  {{ __('Add')}} <span class="ico-shadow"> 📚</span></a>
                     <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
@@ -34,7 +34,7 @@
                   @endif
                   @if($user->paso == 2)
                   <!--bucle crear sesiones.  -->
-                    <h2>{{ __('My')}} {{ __('Subjects')}}</h2>
+                    <h2 class="ml-4">{{ __('My')}} {{ __('Subjects')}}</h2>
 
                     <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
                         @csrf
@@ -46,7 +46,7 @@
 
                   @endif
                   @if($user->paso == 3)
-                    <h2>{{ __('My Subjects')}}</h2>
+                    <h2 class="ml-4">{{ __('My Subjects')}}</h2>
 
                     <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                         @csrf
@@ -56,13 +56,13 @@
                     <a href="{{ route('home') }}" class=" btn warning-reves">✅ {{ __('Go to') }} {{ __('Step') }} 4</a>
                   @endif
                   @if($user->paso == 4)
-                    <h2>{{ __('My Groups')}}</h2>
+                    <h2 class="ml-4">{{ __('My Groups')}}</h2>
                       
                       <a href="{{ route('estudiantes.index') }}" class=" btn blue-reves"> Ver listas <span class="ico-shadow"> 📜</span></a>
                       <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                         @csrf
                         @method("PUT")
-                        <button type="submit" title= "Ir a paso 5" class="ml-2 btn warning-reves"><span class="ico-shadow">✅ </span> Finalizar <span class="ico-shadow">👉 </span>  </button>
+                        <button type="submit" title= "Ir a paso 5" class="ml-2 btn warning-reves"><span class="ico-shadow">✅ </span> Finalizar <span class="ico-shadow">👉 </span></button>
                       </form>
                   @endif
             </div>
@@ -97,7 +97,7 @@
                         <td>   <!-- -id -->
                           {{ $materia->id }}
                         </td>
-                        <td>   <!-- Materia -->
+                        <td>   <!-- Nombre de Materia -->
                           {{ Str::before($materia->materia_name," ") }}
                         </td>
                         <td>   <!-- Grupo -->
@@ -105,12 +105,11 @@
                     @if($user->paso == '4')
                           {{-- se comprueba si los estudiantes de esa materia están ya registrados --}}
                           @php
-                            // $isStudent= DB::table('estudiantes')->where('materia_id', $materia->id)->first();
                             $isStudent= $materia->estudiantes()->where('materia_id', $materia->id)->first();
                           @endphp
                           {{-- si no lo están, enlaza el formulario para crear el grupo de estudiantes --}}
                       @if($isStudent==null)
-                          <a href="#" id="{{$materia->grupo}}_{{$materia->id}}" class="btn naranja"  onclick="estudiantesModal(this.id)">✚ {{ __('Add')}} {{ __('Students to')}} {{ $materia->grupo }}</a>
+                          <a href="#" id="{{$materia->grupo}}_{{$materia->id}}" class="btn naranja"  onclick="estudiantesModal(this.id)"><span class="ico-shadow"> ✚ </span>{{ __('Add')}} {{ __('Students to')}} {{ $materia->grupo }}</a>
                         </td>
                         <td>    <!-- Aula -->
                             {{ $materia->grupo}}
@@ -118,26 +117,15 @@
                       @elseif($isStudent!==null)
                           {{-- si existen se marca como hecho y se enlaza el formulario para actualizar el aula --}}
                           @php
-                          $nombre=$materia->grupo;
-                          // dd($nombre);
                             $countStudents=$materia->estudiantes()->where('materia_id', $materia->id)->count();
-                         
-                            $esteAula=DB::table('aulas')->where('aula_name',$materia->grupo)->first();
-                           
-                          //  dd($aula);
-
+                            $aula=DB::table('aulas')->where('aula_name',$materia->grupo)->first();
                           @endphp
-                            ✅ {{ $materia->grupo }}: {{ $countStudents}} estudiantes
-
+                            ✅ <a href="{{ route('estudiantes.porMateria', $materia->id) }}" class="btn default"  title = "ver lista de estudiantes de= {{ $materia->id }}"><span class="ico-shadow">👀 </span>{{ $materia->grupo }}</a>: {{ $countStudents}} estudiantes
                         </td>
                         <td>    <!-- Aula -->
-                        <a href="{{ route('aulas.edit', '$aula->id') }}" class = "btn naranja">📝 {{$esteAula->aula_name}}</a> 
+                        <a href="{{ route('aulas.edit', $aula->id) }}" class = "btn naranja"> <span class="ico-shadow"> 📝 </span>{{$aula->aula_name}}</a>
                          ....
-                            {{-- {{use App\Models\Aula;}} --}}
-                              {{-- @php
-                          $aula=Aulas::get();
-                           @endphp                     --}}
-                            {{-- <a href="{{ route('aulas.edit', $aula->id) }}" class = "btn naranja">📝 {{ $aula->materia->grupo}}</a> --}}
+
                         </td>
                       @endif
                     @endif

@@ -20,12 +20,21 @@ class EstudianteController extends Controller
     {   
         $user = auth()->user()->id;
         $materias = Materia::where('user_id',$user)->get();
-        // dd($materias);
+        //  dd($materias);
         $estudiantes=Estudiante::orderBy('materia_id')->get();
         // $estudiantes=Estudiante::with('materia')->get();
         return view('configurar.estudiantes.index',compact('estudiantes','materias','user'));
     }
-
+    public function porMateria($id){
+        // $user = auth()->user()->id;
+        $materias = Materia::find($id);
+        $id=$materias->id;
+        
+        // $id=$materia->id;
+        $estudiantes=Estudiante::where('materia_id',$id)->get();
+        return view('configurar.estudiantes.index',compact('estudiantes','materias'));
+        
+    }
     /**
      * Show the form for creating a new resource.
      *

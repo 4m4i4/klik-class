@@ -24,7 +24,7 @@
                   $sesiones = Sesion::get();
                   $num_sesiones= $sesiones->count();
                 @endphp
-            <h2 class="ml-2" >Sesión: Inicio y final</h2>
+            <h2 class="ml-4">Sesión: Inicio y final</h2>
             <a href="{{route('sesions.create')}}" class="boton blue" >{{ __('Add') }} <span class="ico-shadow"> ⌚ </span></a>              
             <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                @csrf

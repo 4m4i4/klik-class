@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->enum('paso',['1', '2','3','4','5'])->nullable()->default('1');
+            $table->enum('paso',['1', '2','3','4','5','6','7'])->nullable()->default('1');
             $table->enum('modo',['novel', 'avanzado'])->default('novel')->nullable();
             $table->timestamps();
         });

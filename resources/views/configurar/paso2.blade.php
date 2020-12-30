@@ -5,12 +5,12 @@
     <div class="flex">
       <div class="ml-1 text-lg leading-7 font-semibold">
         <p class="text-gray-800 dark:text-white">{{ __('First step')}} ✅ </p>
-        <h3 class="pasos-title-2">📚  {{ __('Subjects') }}  </h3>
+        <h3 class="pasos-title-2"><span class="ico-shadow">📚  </span>{{ __('Subjects') }}  </h3>
       </div>
     </div>
     <div class="ml-1 mt-2">
         {{-- <a href="{{route('materias.index')}}" class="bt_pasos boton bt_xxl secondary">👀 {{ __('Show') }} {{ __('My') }} {{ __('Subjects') }}  </a>} --}}
-                <a href="{{route('materias.index')}}" class="bt_pasos w-24 mx-auto boton circle secondary">👀   </a>
+                <a href="{{route('materias.index')}}" class="bt_pasos w-24 mx-auto boton circle secondary"><span class="ico-shadow">👀  </span> </a>
     </div>
   </div>
 {{-- style="background-color:hsl(61, 86%, 77%)"> --}}
@@ -18,7 +18,7 @@
     <div class="flex">
       <div class="ml-1 text-lg leading-7 font-semibold">
         <p class=" text-gray-800 dark:text-white">{{ __('Second step') }} </p>
-        <h3 class="pasos-title-2">📅 {{ __('Timetable')}}</h3>
+        <h3 class="pasos-title-2"><span class="ico-shadow">📅 </span>{{ __('Timetable')}}</h3>
       </div>
     </div>
 
@@ -31,7 +31,7 @@
     <div class="flex">
       <div class="ml-1 text-lg leading-7 font-semibold">
         <p class="text-gray-800 dark:text-white">{{__('Third step')}}</p>
-        <h3 class="pasos-title-2">😶  {{ __('Groups') }} </h3>
+        <h3 class="pasos-title-2"><span class="ico-shadow">😶  </span>{{ __('Groups') }} </h3>
       </div>
     </div>
     <div class="ml-1 mt-2">

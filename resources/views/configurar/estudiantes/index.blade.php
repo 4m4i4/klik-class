@@ -20,14 +20,16 @@
                 @endphp
             <h2>{{ __('My')}} {{ __('Students')}}</h2>
             <a href="{{route('materias.index')}}" class="btn secondary">
-            <span class="ico-shadow"> 👈 </span>Atrás</a><div>
-            <label for="materia_id"></label>
-            <select  class="d_block" name="materia_id" value="{{ old('materia_id') }}" id="materia_id">
-              <option value=0>" materia"</option>
-               @foreach ($materias as $materia)
+            <span class="ico-shadow"> 👈 </span>Atrás</a>
+            {{-- <div>
+              <label for="materia_id"></label>
+              <select  class="d_block" name="materia_id" value="{{ old('materia_id') }}" id="materia_id">
+                <option value=0>" materia"</option>
+                  @foreach ($materias as $materia)
                             <option value={{$materia->id}}>{{$materia->materia_name}}</option>
-                @endforeach 
-            </select></div>
+                  @endforeach 
+              </select>
+            </div> --}}
                   
 
           </div>

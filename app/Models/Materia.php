@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-use App\Models\User;
+// use App\Models\User;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,16 +23,16 @@ class Materia extends Model
     // One to many
     public function clases()
     {
-        return $this->hasMany(Clase::class);
+        return $this->hasMany('App\Models\Clase');
     }
     public function estudiantes()
     {
-        return $this->hasMany(Estudiante::class);
+        return $this->hasMany('App\Models\Estudiante');
     }    
     //hasOneThrough: puede estar mal (igual es 'many')
     public function mesa()
     {
-        return $this->hasOneThrough(Mesa::class,Estudiante::class);
+        return $this->hasOneThrough('App\Models\Mesa','App\Models\Estudiante');
     }
 
 

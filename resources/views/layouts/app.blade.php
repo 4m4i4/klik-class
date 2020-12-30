@@ -24,14 +24,14 @@
 <body>
     <div id="app">
                 <!--HEADER: La navegación -->
-        <header class="page-header">
+        <header class="main-header page-header">
             @include('include/pageHeader')
         </header>
                 <!--FIN: Header -->
 
                 <!--MAIN: El contenido -->
 
-        <main class="pb-4">
+        <main class="main pb-4">
             @yield('tablas')
             
             <div class="container mb-8">

@@ -19,7 +19,7 @@
               $user = Auth::user();
             @endphp
           @if($user->paso == 2)
-              <h2>Añadir mis horarios</h2>
+              <h2 class="ml-4">Añadir mis horarios</h2>
               <a href="{{route('sesions.index')}}" 
                   title="Poner las hora de comienzo y final de las sesiones" 
                   class="boton blue-reves mr-2">Poner horario
@@ -31,7 +31,7 @@
               </form>
           @endif
           @if($user->paso == 3)
-              <h2>Añadir mis clases</h2>
+              <h2 class="ml-4">Añadir mis clases</h2>
               <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
                   @csrf
                   @method("PUT")
@@ -44,7 +44,7 @@
               </form>
           @endif
           @if($user->paso == 4)
-              <h2 class="ml-2">Horario de clases</h2>
+              <h2 class="ml-4">Horario de clases</h2>
               <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
                     @csrf
                     @method("PUT")
@@ -152,8 +152,7 @@
                 {{-- </div> --}}
               </div>
               <div class="px-6 caja-header text-center">
-                <h3>
-                  Introducir materia:<br><span id="ver_id"></span></h3>
+                <h3>Introducir materia:<br><span id="ver_id"></span></h3>
               </div>
               <form class="px-6" method="POST" action="{{ route('clases.store') }}">
                 @csrf 

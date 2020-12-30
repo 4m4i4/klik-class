@@ -46,6 +46,7 @@ Route::get('configurar/aulas/index',[App\Http\Controllers\AulaController::class,
 Route::get('configurar/aulas/create',[App\Http\Controllers\AulaController::class, 'create'])->name('aulas.create');
 Route::post('configurar/aulas/create',[App\Http\Controllers\AulaController::class, 'store'])->name('aulas.store');
 Route::get('configurar/aulas/{id}/edit',[App\Http\Controllers\AulaController::class, 'edit'])->name('aulas.edit');
+Route::get('configurar/aulas/{id}/show',[App\Http\Controllers\AulaController::class, 'show'])->name('aulas.show');
 Route::put('configurar/aulas/{id}/edit',[App\Http\Controllers\AulaController::class, 'update'])->name('aulas.update');
 Route::delete('configurar/aulas/{id}',[App\Http\Controllers\AulaController::class, 'destroy'])->name('aulas.destroy');
 
@@ -72,9 +73,19 @@ Route::put('home/pasoMas/{user}',[App\Http\Controllers\PasoController::class, 'u
 
 
 // EstudianteController
+Route::get('configurar/estudiantes/{id}/index', [App\Http\Controllers\EstudianteController::class, 'porMateria'])->name('estudiantes.porMateria');
 Route::get('configurar/estudiantes/index', [App\Http\Controllers\EstudianteController::class, 'index'])->name('estudiantes.index');
 Route::get('configurar/estudiantes/create',[App\Http\Controllers\EstudianteController::class,'create'])->name('estudiantes.create');
 Route::post('configurar/estudiantes/create',[App\Http\Controllers\EstudianteController::class, 'store'])->name('estudiantes.store');
 Route::get('configurar/estudiantes/{id}/edit',[App\Http\Controllers\EstudianteController::class, 'edit'])->name('estudiantes.edit');
 Route::put('configurar/estudiantes/{id}/edit',[App\Http\Controllers\EstudianteController::class,'update'])->name('estudiantes.update');
 Route::delete('configurar/estudiantes/{id}/edit',[App\Http\Controllers\EstudianteController::class,'destroy'])->name('estudiantes.destroy');
+
+
+// MesaController
+   Route::get('configurar/mesas/index',    [App\Http\Controllers\MesaController::class,  'index'])->name('mesas.index');
+   Route::get('configurar/mesas/create',   [App\Http\Controllers\MesaController::class, 'create'])->name('mesas.create');
+  Route::post('configurar/mesas/create',   [App\Http\Controllers\MesaController::class,  'store'])->name('mesas.store');
+   Route::get('configurar/mesas/{id}/edit',[App\Http\Controllers\MesaController::class,   'edit'])->name('mesas.edit');
+   Route::put('configurar/mesas/{id}/edit',[App\Http\Controllers\MesaController::class,' update'])->name('mesas.update');
+Route::delete('configurar/mesas/{id}/edit',[App\Http\Controllers\MesaController::class,'destroy'])->name('mesas.destroy');
