@@ -20,7 +20,12 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
+Route::get('/botones',function(){
+    return view('botones');
+});
+Route::get('/exportar',function(){
+    return view('exportar');
+});
 Route::get('sesiones', function () {
     return view('sesiones.index');
 });
@@ -41,7 +46,7 @@ Route::delete('configurar/materias/{id}',[App\Http\Controllers\MateriaController
 
 // Route::resource('materias','MateriaController');
 
-
+// AulaController
 Route::get('configurar/aulas/index',[App\Http\Controllers\AulaController::class, 'index'])->name('aulas.index');
 Route::get('configurar/aulas/create',[App\Http\Controllers\AulaController::class, 'create'])->name('aulas.create');
 Route::post('configurar/aulas/create',[App\Http\Controllers\AulaController::class, 'store'])->name('aulas.store');
@@ -50,7 +55,7 @@ Route::get('configurar/aulas/{id}/show',[App\Http\Controllers\AulaController::cl
 Route::put('configurar/aulas/{id}/edit',[App\Http\Controllers\AulaController::class, 'update'])->name('aulas.update');
 Route::delete('configurar/aulas/{id}',[App\Http\Controllers\AulaController::class, 'destroy'])->name('aulas.destroy');
 
-
+// SesionController
 Route::get('configurar/sesions/index',[App\Http\Controllers\SesionController::class, 'index'])->name('sesions.index');
 Route::get('configurar/sesions/create',[App\Http\Controllers\SesionController::class, 'create'])->name('sesions.create');
 Route::post('configurar/sesions/create',[App\Http\Controllers\SesionController::class, 'store'])->name('sesions.store');
@@ -65,12 +70,12 @@ Route::get('configurar/clases/{clase}/edit',[App\Http\Controllers\ClaseControlle
 Route::put('configurar/clases/{clase}/edit',[App\Http\Controllers\ClaseController::class, 'update'])->name('clases.update');
 Route::delete('configurar/clases/{id}/edit',[App\Http\Controllers\ClaseController::class, 'destroy'])->name('clases.destroy');
 
-
-
+// PasoController
+Route::put('home/crearCurso/{user}',[App\Http\Controllers\PasoController::class, 'crearCurso'])->name('crearCurso');
 Route::put('home/pasoMenos/{user}',[App\Http\Controllers\PasoController::class, 'updatePasoMenos'])->name('home.updatePasoMenos');
 Route::put('home/pasoMas/{user}',[App\Http\Controllers\PasoController::class, 'updatePasoMas'])->name('home.updatePasoMas');
 
-
+Route::get('/home/mostrarClase',[App\Http\Controllers\ClaseController::class, 'mostrarClase']);
 
 // EstudianteController
 Route::get('configurar/estudiantes/{id}/index', [App\Http\Controllers\EstudianteController::class, 'porMateria'])->name('estudiantes.porMateria');
@@ -83,9 +88,9 @@ Route::delete('configurar/estudiantes/{id}/edit',[App\Http\Controllers\Estudiant
 
 
 // MesaController
-   Route::get('configurar/mesas/index',    [App\Http\Controllers\MesaController::class,  'index'])->name('mesas.index');
-   Route::get('configurar/mesas/create',   [App\Http\Controllers\MesaController::class, 'create'])->name('mesas.create');
-  Route::post('configurar/mesas/create',   [App\Http\Controllers\MesaController::class,  'store'])->name('mesas.store');
-   Route::get('configurar/mesas/{id}/edit',[App\Http\Controllers\MesaController::class,   'edit'])->name('mesas.edit');
-   Route::put('configurar/mesas/{id}/edit',[App\Http\Controllers\MesaController::class,' update'])->name('mesas.update');
+Route::get('configurar/mesas/index',    [App\Http\Controllers\MesaController::class,  'index'])->name('mesas.index');
+Route::get('configurar/mesas/create',   [App\Http\Controllers\MesaController::class, 'create'])->name('mesas.create');
+Route::post('configurar/mesas/create',   [App\Http\Controllers\MesaController::class,  'store'])->name('mesas.store');
+Route::get('configurar/mesas/{id}/edit',[App\Http\Controllers\MesaController::class,   'edit'])->name('mesas.edit');
+Route::put('configurar/mesas/{id}/edit',[App\Http\Controllers\MesaController::class,' update'])->name('mesas.update');
 Route::delete('configurar/mesas/{id}/edit',[App\Http\Controllers\MesaController::class,'destroy'])->name('mesas.destroy');

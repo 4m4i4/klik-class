@@ -19,22 +19,24 @@ class CreateClasesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                   ->references('id')
-                  ->on('users');             
+                  ->on('users')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
             $table->unsignedBigInteger('sesion_id');
             $table->foreign('sesion_id')
                   ->references('id')
-                  ->on('sesions');
+                  ->on('sesions')
+                  ->onUpdate('cascade'); 
             $table->unsignedBigInteger('materia_id');
             $table->foreign('materia_id')
                   ->references('id')
-                  ->on('materias'); 
+                  ->on('materias');
+                  
             $table->unsignedBigInteger('aula_id');                  
             $table->foreign('aula_id')
                   ->references('id')
-                  ->on('aulas');             
-
-
-
+                  ->on('aulas')
+                  ->onUpdate('cascade');             
             $table->timestamps();
         });
     }

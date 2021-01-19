@@ -58,21 +58,20 @@ class MesaController extends Controller
             'clase_id'=>'required|integer',
             'aula_id'=>'required|integer',
             'estudiante_id'=>'nullable|integer',
-                
-                ])
-            )
+            ])
+        )
         {   
             $mesa = new Mesa([
-                    'columna'=>request('columna'),
-                    'fila'=>request('fila'),
-                    'is_ocupada'=>request('is_ocupada'),
-                    'clase_id'=>request('clase_id'),
-                    'aula_id'=>request('aula_id'),
-                    'estudiante_id'=>request('estudiante_id'),
-                ]);
+                'columna'=>request('columna'),
+                'fila'=>request('fila'),
+                'is_ocupada'=>request('is_ocupada'),
+                'clase_id'=>request('clase_id'),
+                'aula_id'=>request('aula_id'),
+                'estudiante_id'=>request('estudiante_id'),
+            ]);
                
-                $mesa->save();
-                return redirect()->route('mesas.index');
+            $mesa->save();
+            return redirect()->route('mesas.index');
         }
     }
 

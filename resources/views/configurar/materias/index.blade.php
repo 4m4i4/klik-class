@@ -23,46 +23,72 @@
 
                   <!--cabeceras según paso -->
                   @if($user->paso == 1)  <!--bucle crear materias -->
-                    <h2 class="ml-4"> {{ __('My')}} {{ __('Subjects')}}</h2>
+                    <h2 class="title"> {{ __('My')}} {{ __('Subjects')}}</h2>
 
-                    <a class="ml-1 btn inline warning-reves"  title= "crear materia" href="{{route('materias.create')}}">  {{ __('Add')}} <span class="ico-shadow"> 📚</span></a>
+                    <a href="{{route('materias.create')}}"
+                     title="Crear materia" 
+                     class="btn crear">
+                      {{ __('Add')}} 
+                      <span class="ico-shadow"> 📚</span>
+                    </a>
                     <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                         @csrf
                         @method("PUT")
-                        <button type="submit" title="Ir al siguiente paso: Lista de materias completada" class="ml-1 btn warning-reves"><span class="ico-shadow">✅ </span> Finalizar <span class="ico-shadow">👉 </span>  </button>
+                        <button type="submit" 
+                        title="Ir a introducir horas de sesión" 
+                        class="ml-1 btn continuar">
+                          <span class="ico-shadow">✅ </span> Continuar 
+                          <span class="ico-shadow"> 👉 </span>
+                        </button>
                     </form>
                   @endif
                   @if($user->paso == 2)
-                  <!--bucle crear sesiones.  -->
-                    <h2 class="ml-4">{{ __('My')}} {{ __('Subjects')}}</h2>
+                    <h2 class="title">{{ __('My')}} {{ __('Subjects')}}</h2>
 
                     <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
                         @csrf
                         @method("PUT")
-                        <button type="submit" title="Volver al primer paso" class="mx-6 btn blue-reves"> Atrás
-                        </button> 
+                        <button type="submit" title="Ir a introducir materias" class="ml-1 btn atras"><span class="ico-shadow"> 👈 </span> Atrás </button>
                     </form>
-                    <a href="{{route('home')}}" class="ml-2 btn warning-reves"><span class="ico-shadow">✅ </span> Finalizar <span class="ico-shadow">👉 </span></a>
+                    <a href="{{route('home')}}" 
+                    title="Ir a home" 
+                    class="ml-1 btn atras">
+                      <span class="ico-shadow">✅ </span> 
+                      Volver 
+                      <span class="ico-shadow"> 👉 </span>
+                    </a>
 
                   @endif
                   @if($user->paso == 3)
-                    <h2 class="ml-4">{{ __('My Subjects')}}</h2>
-
+                    <h2 class="title"> {{ __('My')}} {{ __('Subjects')}}</h2>
+                    <a href="{{ route('home') }}" title= "Volver a home" class="btn atras">Volver</a>
                     <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                         @csrf
                         @method("PUT")
-                        <button type="submit" title= "Ir a paso 4" class="ml-2 btn blue-reves"><span class="ico-shadow">✅ </span> Finalizar <span class="ico-shadow">👉 </span>  </button>
+                        <button type="submit" 
+                        title= "Ir a introducir grupos" 
+                        class="ml-1 btn continuar">
+                          <span class="ico-shadow">✅ </span> 
+                          Continuar 
+                          <span class="ico-shadow"> 👉 </span>
+                        </button>
                     </form>
-                    <a href="{{ route('home') }}" class=" btn warning-reves">✅ {{ __('Go to') }} {{ __('Step') }} 4</a>
+
                   @endif
-                  @if($user->paso == 4)
-                    <h2 class="ml-4">{{ __('My Groups')}}</h2>
+                  @if($user->paso >= 4)
+                    <h2 class="title">{{ __('My Groups')}}</h2>
                       
-                      <a href="{{ route('estudiantes.index') }}" class=" btn blue-reves"> Ver listas <span class="ico-shadow"> 📜</span></a>
+                      <a href="{{ route('estudiantes.index') }}" class=" btn ver p-0"><p class="mt--1"><span class="ico-shadow">👀 </span> Ver listas <span class="ico-shadow"> 📜</span></p></a>
                       <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                         @csrf
                         @method("PUT")
-                        <button type="submit" title= "Ir a paso 5" class="ml-2 btn warning-reves"><span class="ico-shadow">✅ </span> Finalizar <span class="ico-shadow">👉 </span></button>
+                        <button type="submit" 
+                        title="Ir a configurar aulas"  
+                        class="ml-1 btn continuar">
+                          <span class="ico-shadow"> ✅ </span>
+                           Continuar 
+                          <span class="ico-shadow"> 👉 </span>
+                        </button>
                       </form>
                   @endif
             </div>
@@ -70,46 +96,58 @@
         </div>       <!--fin de CABECERA control-->
 
         <div class="caja">  <!--body-TABLA control-->
-          <div class = "caja-body py-2">
+          <div class = "caja-body">
             <table class = "tabla table-responsive mx-auto">
-              @if($user->paso < 4)
-                <caption>
-                  Puedes <strong>Añadir </strong>, <strong>Editar</strong>, y <strong>Borrar</strong>  las materias. <br>Pulsa <strong>Finalizar </strong> cuando hayas acabado
-                </caption>
-              @endif
-              @if($user->paso == 4)
-                <caption>Pulsa <strong>Añadir Estudiantes</strong> para introducir cada grupo. <br>Pulsa <strong>Finalizar </strong> cuando hayas acabado.</caption>
-              @endif
+                @if($user->paso < 4)
+                  <caption>
+                    Puedes <strong>Añadir </strong>, <strong>Editar</strong>, y <strong>Borrar</strong>  las materias. <br> Pulsa <strong>Continuar </strong> cuando hayas registrado todas
+                  </caption>
+                @endif
+                @if($user->paso >= 4)
+                <caption>Pulsa <strong>Añadir Estudiantes</strong> para introducir cada grupo. <br>Pulsa <strong>Continuar </strong> cuando hayas registrado todos
+                @endif
+
               <thead>
                 <tr>
-                  <th>Id</th>
+                  <th class="id">Id</th>
                   <th>{{ __('Subject') }}</th>
                   <th>{{ __('Groups') }}</th>
                   <th>{{ __('Classrooms') }}</th>
                   @if($user->paso == 1)
-                    <th class="bts_handleAction" colspan = "2">{{ __('Action') }}</th>
+                    <th>{{ __('Edit') }}</th>
+                    <th>{{ __('Delete') }}</th>
+                  @endif
+                  @if($user->paso >= 4)
+                    <th>Mesas</th>
                   @endif
                 </tr>
               </thead>
+
+
               <tbody>
                 @foreach ( $materias as $materia)
                   <tr>
-                        <td>   <!-- -id -->
+                      <td class="id">   <!-- -id -->
                           {{ $materia->id }}
-                        </td>
-                        <td>   <!-- Nombre de Materia -->
+                      </td>
+                      <td>   <!-- Nombre de Materia -->
                           {{ Str::before($materia->materia_name," ") }}
-                        </td>
-                        <td>   <!-- Grupo -->
-
-                    @if($user->paso == '4')
+                      </td>
+                      <td>   <!-- Grupo -->
+                      @if($user->paso < 4)
+                          {{ $materia->grupo }}
+                      @endif
+                    @if($user->paso >= 4)
                           {{-- se comprueba si los estudiantes de esa materia están ya registrados --}}
                           @php
                             $isStudent= $materia->estudiantes()->where('materia_id', $materia->id)->first();
                           @endphp
                           {{-- si no lo están, enlaza el formulario para crear el grupo de estudiantes --}}
                       @if($isStudent==null)
-                          <a href="#" id="{{$materia->grupo}}_{{$materia->id}}" class="btn naranja"  onclick="estudiantesModal(this.id)"><span class="ico-shadow"> ✚ </span>{{ __('Add')}} {{ __('Students to')}} {{ $materia->grupo }}</a>
+                          <a href="#" id="{{$materia->grupo}}_{{$materia->id}}" title="Añadir estudiantes de {{ $materia->grupo }}" class="d_block editar" 
+                          onclick="estudiantesModal(this.id)">
+                             Añadir estudiantes a 
+                          </a><p class="l-height mb-1"> {{ $materia->grupo }}</p>
                         </td>
                         <td>    <!-- Aula -->
                             {{ $materia->grupo}}
@@ -120,49 +158,67 @@
                             $countStudents=$materia->estudiantes()->where('materia_id', $materia->id)->count();
                             $aula=DB::table('aulas')->where('aula_name',$materia->grupo)->first();
                           @endphp
-                            ✅ <a href="{{ route('estudiantes.porMateria', $materia->id) }}" class="btn default"  title = "ver lista de estudiantes de= {{ $materia->id }}"><span class="ico-shadow">👀 </span>{{ $materia->grupo }}</a>: {{ $countStudents}} estudiantes
+                           <a href="{{ route('estudiantes.porMateria', $materia->id) }}" 
+                            title="Ver lista de estudiantes de {{ $materia->grupo }}" class="d_block ver">
+                              <span class="ico-shadow"> 👀 </span>
+                              <span>{{ $materia->grupo }}</span>
+                            </a><p class="l-height mb-1"> {{ $countStudents}} estudiantes ✅ </p>
                         </td>
                         <td>    <!-- Aula -->
-                        <a href="{{ route('aulas.edit', $aula->id) }}" class = "btn naranja"> <span class="ico-shadow"> 📝 </span>{{$aula->aula_name}}</a>
-                         ....
-
+                          <a href="{{ route('aulas.edit', $aula->id) }}" 
+                          class= "d_block editar" 
+                          title="editar aula de {{$aula->aula_name}}">
+                            <span class="ico-shadow"> 📝 </span>
+                            <span>{{$aula->aula_name}}</span>
+                          </a>
+                        </td>
+                        <td>
+                          <a href="{{ route('aulas.show', $aula->id) }}" 
+                           id="verMesasAula{{ $aula->id }}" 
+                           class="d_block ver" 
+                           title ="Ver mesas aula id= {{ $aula->id }}">
+                            <span class="ico-shadow"> 👀 </span>
+                            <span class="bt-text-hide">{{ __('Show')}} </span>
+                          </a>
                         </td>
                       @endif
                     @endif
-                    @if($user->paso !== '4')
-                            {{ $materia->grupo }}
-                        <td>   <!-- Aula -->
+                    @if($user->paso !== 4)
+                          
+                        {{-- <td>   <!-- Aula -->
                             {{ $materia->grupo}}
-                        </td>
+                        </td> --}}
                     @endif
                       
                    
                     @if($user->paso == '1')   <!-- botones EDIT DELETE -->
-                        <td>
-                          <a href = "{{ route('materias.edit', $materia->id) }}" title = "Editar materia id= {{ $materia->id }}" class = "btn naranja">
+                        <td>   <!-- Editar -->
+                          <a href="{{ route('materias.edit', $materia->id) }}" 
+                          class= "btn editar" 
+                          title= "Editar materia id= {{ $materia->id }}">
                             <span class="ico-shadow"> 📝 </span>
                             <span class="bt-text-hide">{{ __('Edit') }}</span> 
                           </a>
                         </td>
-                        <td>
+                        <td>    <!-- Borrar -->
                           <form action="{{ route('materias.destroy', $materia->id) }}" method="POST">
                             @csrf
                             @method('delete')
-                            {{-- @php
-                            DB::table('aulas')->where('aula_name',$materia->grupo)->delete();
-                            @endphp --}}
-                            <button type="submit" class="btn fucsia" title = "Borrar materia id= {{ $materia->id }}">
+                            <button type="submit" 
+                            class="btn borrar" 
+                            title="Borrar materia id= {{ $materia->id }}">
                               <span class="ico-shadow"> ❌ </span>
                               <span class="bt-text-hide">{{ __('Delete') }}</span>
                             </button>
                           </form>
                         </td>
                     @endif
-
                   </tr>
                 @endforeach
               </tbody>
+
             </table>
+
           </div>
         </div>       <!--fin de body-TABLA control-->
       </div>
@@ -172,7 +228,7 @@
             let ar_id = valor_id.split('_');
             let grupo = ar_id[0];
             let materia_id = ar_id[1];
-            document.getElementById("ver_materia_id").innerHTML = grupo ;
+            document.getElementById("ver_grupo").innerHTML = grupo ;
             document.getElementById("materia_id").value = materia_id;
             document.getElementById('crear_estudiantes').style.display = 'block';
           }
@@ -189,3 +245,4 @@
   </div>   <!--fin de container-->
         
 @endsection
+{{-- @show --}}

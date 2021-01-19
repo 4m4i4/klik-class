@@ -2,8 +2,9 @@
 @extends('layouts.app')
 
 @section('tablas')
-<div>
-    @include('include.formWindow')
+
+<div class="nomodal">
+  @include('include.formWindow')
       <div class="px-6 caja-header text-center">
         <h3 class="form-title">Introducir materia</h3>
       </div>
@@ -13,7 +14,7 @@
           <div class="hidden"><!-- User_id -->
             <label for="user_id">user</label>
             <input type="text" name="user_id" 
-            value={{ auth()->user()->id }} readonly />
+            value={{ auth()->user()->id }} />
           </div>
 
           <div class="pb-6">
@@ -26,7 +27,7 @@
             @error('materia_name')
               <small class="t_red">* {{ $message }}</small><br>
             @enderror            
-            <small class="ejemplo"><strong>Ejemplos:</strong> arte 2a bach, ingles 3c eso.</small>
+            <small class="ejemplo"><strong>Ejemplo:</strong> ingles 3c eso</small>
           </div>  
 
           <div class="mt-4">
@@ -43,13 +44,17 @@
           </div>
 
           <div>
-            <button type="submit" class="boton mt-6 d_block blue">Guardar</button>
+            <button type="submit" 
+             title="Guardar materia" 
+             class="bt_xxl mt-6 enviar">Guardar</button>
           </div>
 
         </form>
 
         <div class="px-6 py-4 mt-6 light-grey">
-          <a href="{{route('materias.index')}}" class="boton d_inline danger" title="Cancelar y volver al índice">Cancelar </a>
+          <a href="{{route('materias.index')}}" 
+          title="Cancelar y volver al índice"
+          class="cancelar" >Cancelar </a>
         </div>
     </div>
   </div>

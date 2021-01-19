@@ -62,7 +62,7 @@ class EstudianteController extends Controller
         for ($i=0; $i <$num_estudiantes; $i++) { 
             $estudiante = Str::of( $arrApellidosNombre[$i])->explode(",");
             $apellidos = $estudiante[0];
-            $nombre = $estudiante[1];
+            $nombre = Str::of($estudiante[1])->trim();
             $nombre_completo = $nombre." ".$apellidos;
             
 
@@ -78,7 +78,7 @@ class EstudianteController extends Controller
             $estudiante->save();
             // }
         }
-        return redirect()->route('estudiantes.index')->with('success', $mns_estudiantes);
+        return redirect()->route('materias.index')->with('success', $mns_estudiantes);
     }
 
     /**
@@ -100,7 +100,8 @@ class EstudianteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $estudiante = Estudiante::find($id);
+        return view('configurar.estudiantes.edit', compact( 'estudiante'));
     }
 
     /**
@@ -112,9 +113,26 @@ class EstudianteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        if($request->validate([
+                'nombre' =>'required',
+                'apellidos' =>'required',
+                ])
+            )
+        {   $estudiante=Estudiante::find($id);
+            $nombre=request('nombre');
+            $apellidos=request('apellidos');
+            $estudiante->nombre=$nombre;
+            $estudiante->apellidos=$apellidos;
+            $estudiante->nombre_completo=$nombre." ".$apellidos;
+            $estudiante->materia_id=request('materia_id');
 
+            $estudiante->save();
+        }
+
+        return redirect()->route('estudiantes.index');
+    
+       
+    }
     /**
      * Remove the specified resource from storage.
      *

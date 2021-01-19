@@ -1,12 +1,22 @@
 
-
+var screenWidth=screen.availWidth;
+if(screenWidth>=414)
+  var semana=`'Horario','Lunes','Martes','Miercoles','Jueves','Viernes'`;
+else
+var semana=`'Hora','Lun','Mar','Mie','Jue','Vie'`;
+document.getElementById("semana").innerHTML=semana;
 
 var myVar = setInterval(myTimer, 1000);
 function myTimer() {
-    var d = new Date();
-    document.getElementById("khoraes").innerHTML = d.toLocaleTimeString();
-}
+    var dd = new Date();
 
+    document.getElementById("khora").innerHTML=dd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    // var minutos = (dd.getMinutes()<10?'0':'')+dd.getMinutes();
+    // var horas = (dd.getHours()<10?'0':'')+dd.getHours();
+    // var qHora=horas +" : "+ minutos;
+    // document.getElementById("khora").innerHTML = qHora;
+    // document.getElementById("khora").innerHTML =dd.toLocaleTimeString();
+}
 
 function configuraFecha(){
 var x= document.getElementById("configFecha").value;
@@ -20,6 +30,7 @@ function fFecha(x){
   var d = h.getDate();
   var m = h.getMonth();
   var y = h.getFullYear();
+  myTimer();
   var dias = ["DOMINGO","LUNES", "MARTES", "MIÉRCOLES","JUEVES","VIERNES","SÁBADO"];
   var dia = h.getDay();
   var meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
@@ -50,10 +61,20 @@ function fFecha(x){
       fecha = dias[dia]+", "+d+" de "+meses[m]+" de "+y;  // Martes, 29 de febrero de 1890
       break;
   }
-document.getElementById("kdiaes").innerHTML =fecha;
+  document.getElementById("kdiaes").innerHTML =fecha;
 
 }
 
+  // function verMesas(valor_id){
+  //   let ar_id = valor_id.split('_');
+  //   let bt_verMesas= "verMesasAula"+ar_id[1];
+  //   console.log(bt_verMesas);
+  //   var x = document.referrer; 
+  //   console.log(x);
+  //   // location.replace(x);
+  //   var element= document.getElementById(bt_verMesas);
+  //   element.classList.remove("hidden");
+  // }
 
 function crearElemParent(parent, elem, attr, text){
   let elemento = document.createElement(elem);

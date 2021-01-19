@@ -31,15 +31,15 @@
 
                 <!--MAIN: El contenido -->
 
-        <main class="main pb-4">
+        <main class="main">
             @yield('tablas')
             
-            <div class="container mb-8">
+            <div class="container mb-8 sm:px-0 sm:mx-0">
                 <div>
-                    <div class="mt-4 bg-white dark:bg-gray-800 overflow-hidden ashadow sm:rounded-lg">
+                    <div class="mt-4 bg-white ashadow sm:rounded-lg">
                         @yield('content')
-                        @yield('pasitos')
-                        
+                        @yield('pasos')
+
                     </div>
                 </div>
             </div>
@@ -47,6 +47,7 @@
                 <!--FIN: Main -->
 
                 <!--FOOTER: Sin desarrollar)-->
+    </div>
         <footer>
         
             <div class="page-footer">
@@ -54,16 +55,12 @@
             </div>
         </footer>
 
-    </div>
+
     <!--FIN: App -->
         <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" type="text/js"></script>
+    <script src="{{ asset('js/custom.js') }}" type="text/js"></script>
 
 
-{{-- <button onclick="clearInterval(myVar)">Stop time</button> --}}
-
-<script>
-
-</script>
 </body>
 </html>

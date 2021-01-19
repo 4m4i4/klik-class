@@ -17,28 +17,22 @@ class Aula extends Model
         'user_id'
     ];
 
+    /**
+     * Relaciones entre modelos
+     */
+
     // One to many (inverse)
-    public function user()
-    {
+    public function user(){
        return $this->belongsTo('App\Models\User');
     }
 
     // One to many
-    public function mesas()
-    {
+    public function mesas(){
         return $this->hasMany('App\Models\Mesa');
     }
     
-    // One to One???
-    public function clase()
-    {
+    // One to One; NO Cambiado a One to many
+    public function clase(){
         return $this->hasOne('App\Models\Clase');
     }
-
-    // hasOneThrough
-    public function mesa()
-    {
-        return $this->hasOneThrough('App\Models\Mesa','App\Models\Clase');
-    }
-
 }

@@ -3,8 +3,8 @@
 @extends('layouts.app')
 
 @section('tablas')
-<div>
-    @include('include.formWindow')
+<div class="nomodal">
+  @include('include.formWindow')
       <div class="px-6 caja-header text-center">
         <h3 class="form-title">Introduce todas las materias</h3>
       </div>
@@ -25,7 +25,7 @@
             @error('createall')
               <small class="t_red">* {{ $message }}</small><br>
             @enderror
-            <small><strong>Ejemplo: </strong>ingles 2a bach,etica 1c eso,etc</small>
+            <small class="ejemplo"><strong>Ejemplo:</strong> ingles 2a bach,etica 1c eso,etc</small>
           </div>
           <div class="mt-4">
             <details class="mt-2">
@@ -34,19 +34,23 @@
                   Usa solo <strong>Números </strong> y <strong>Letras sin tilde </strong>
               </p>
               <div class="destacado py-2">
-                <p class="py-2">materia <kbd>space</kbd> NºLetra <kbd>space</kbd> etapa <kbd>coma</kbd> otraMateria<kbd>space</kbd> NºLetra...</p>
+                <p class="py-2">materia <kbd>space</kbd> NºLetra <kbd>space</kbd> etapa <kbd>coma</kbd> otraMateria <kbd>space</kbd> NºLetra...</p>
               </div>  
               <p class="mt-2">Las letras se guardarán en MAYÚSCULA aunque escribas minúsculas </p>
             </details>        
           </div>
 
           <div>
-            <button type="submit" class="boton mt-6 d_block blue">Guardar</button>
+            <button type="submit" 
+             title="Guardar materias" 
+             class="bt_xxl mt-6 enviar">Guardar</button>
           </div>
       </form>
 
       <div class="px-6 py-4 mt-6 light-grey">
-        <a href="{{route('materias.index')}}" class="boton d_inline danger" title="Cancelar y volver al índice">Cancelar </a>
+        <a href="{{route('materias.index')}}" 
+        title="Cancelar y volver al índice" 
+        class="cancelar">Cancelar </a>
       </div>
     </div>
 

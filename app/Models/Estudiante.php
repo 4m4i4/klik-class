@@ -18,14 +18,16 @@ class Estudiante extends Model
         'materia_id'
     ];
 
+    /**
+     * Relaciones entre modelos
+     */
+
     // One to many (inverse)
-    public function materia()
-    {
+    public function materia(){
         return $this->belongsTo('App\Models\Materia');
     }
-
-    public function mesa()
-    {
+     // One to One
+    public function mesa(){
         return $this->hasOne('App\Models\Mesa');
     }
 }

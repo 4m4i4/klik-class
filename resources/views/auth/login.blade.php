@@ -3,8 +3,7 @@
 @section('tablas')
   @include('include.formWindow')
       <div class="px-6 caja-header text-center">
-        <h3>
-          <strong>{{ __('Login') }}</strong>
+        <h3 class="form-title">{{ __('Login') }}
         </h3>
       </div>
       <form class="px-6" method="POST" action="{{ route('login') }}">
@@ -28,7 +27,7 @@
             <label for="remember">{{ __('Remember Me') }}</label>
           </div>
           <div>
-            <button type="submit" class="boton d_block mt-6 mb-2 blue">{{ __('Login') }}</button>
+            <button type="submit" title="{{ __('Login') }}" class="bt_xxl mt-6 enviar">{{ __('Login') }}</button>
           </div>
             @if (Route::has('password.request'))
               <a class="d_block tx-btn" href="{{ route('password.request') }}">
@@ -38,7 +37,7 @@
       </form>
     
       <div class="px-6 py-4 mt-6 light-grey">
-        <a href="/"  title="Volver a la página anterior" class="d_inline btn danger">Cancelar</a>
+        <a href="/" title="Volver a la página anterior" class="cancelar">Cancelar</a>
       </div>
 
   </div>

@@ -3,11 +3,12 @@
 
 @section('tablas')
 <div>
+<div class="nomodal">
   @include('include.formWindow')
     <div class="px-6 caja-header text-center">
       <h3 class="form-title">Editar mesa</h3>
     </div>
-      <form class="px-6" action="{{route('mesas.update', $mesa->id) }}" method="POST" >
+    <form class="px-6" action="{{route('mesas.update', $mesa->id) }}" method="POST" >
        @csrf
        @method('PUT')
         <div class="pb-6">
@@ -60,12 +61,16 @@
           </div>
 
           <div>
-            <button type="submit" class="boton mt-6 d_block blue">Actualizar</button>
+            <button type="submit" 
+             title="Actualizar mesas" 
+             class="bt_xxl mt-6 enviar">Actualizar</button>
           </div>
         </div>
       </form>
     <div class="px-6 py-4 mt-6 light-grey">
-       <a href="{{route('mesas.index')}}" class="boton d_inline danger" title="Cancelar y volver">Cancelar </a>
+       <a href="{{route('mesas.index')}}" 
+       title="Cancelar y volver" 
+       class="cancelar">Cancelar </a>
     </div>
 
   </div>

@@ -15,28 +15,24 @@ class Materia extends Model
         'user_id'
     ];
 
+    /**
+     * Relaciones entre modelos
+     */
+
     // One to many (inverse)
-    public function user()
-    {
+    public function user(){
         return $this->belongsTo('App\Models\User');
     }
-    // One to many
-    public function clases()
-    {
-        return $this->hasMany('App\Models\Clase');
+    // One to one
+    public function clase(){
+        return $this->hasOne('App\Models\Clase');
     }
-    public function estudiantes()
-    {
+    // One to many
+    public function estudiantes(){
         return $this->hasMany('App\Models\Estudiante');
     }    
-    //hasOneThrough: puede estar mal (igual es 'many')
-    public function mesa()
-    {
-        return $this->hasOneThrough('App\Models\Mesa','App\Models\Estudiante');
+    // hasOneThrough
+    public function mesa(){
+        return $this->hasoneThrough('App\Models\Mesa','App\Models\Estudiante');
     }
-
-
-
-
-
 }

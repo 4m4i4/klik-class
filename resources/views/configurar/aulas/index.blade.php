@@ -19,18 +19,26 @@
               @php
                   $user = auth()->user();  
               @endphp            
-            <h2 class="ml-4" >Mis Aulas</h2>
+            <h2 class="title" >Mis Aulas</h2>
             <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
                   @csrf
                   @method("PUT")
-                    <button type="submit" title= "Atrás: grupos"  class="mx-6 btn blue"><span class="ico-shadow"> 👈</span>  Atrás
+                    <button type="submit" 
+                      title= "Atrás: grupos"  
+                      class="ml-1 btn atras">
+                      <span class="ico-shadow"> 👈</span>
+                      <span>  Atrás</span>
                     </button> 
             </form>
             <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                   @csrf
                   @method("PUT")
-                    <button type="submit" title= "Siguiente"  class="mr-4 btn blue">✅ </span> Siguiente  <span class="ico-shadow">👉 </span>  
-                    </button> 
+                    <button type="submit"
+                      title="Ir a introducir horas de sesión" 
+                      class="ml-1 btn continuar">
+                      <span class="ico-shadow">✅ </span> Continuar 
+                      <span class="ico-shadow"> 👉 </span>
+                    </button>
             </form> 
           </div>
         </div>
@@ -45,41 +53,50 @@
               </caption>
               <thead>
                 <tr>
-                  <th>Id</th>
-                  <th>Aula</th>
+                  <th class="id">Id</th>
+                  <th title="Nombre del aula">Aula</th>
                   <th title="Columnas/Filas">Cols/Filas</th>
                   <th title="Mesas/Estudiantes">Mesas/Pers</th>
-                  <th class="bts_handleAction" colspan = "3">Acción</th>
+                  <th title="Configurar aula">Editar</th>
+                  <th title="Ver mesas y aula">Ver Aula</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ( $aulas as $aula)
+                
                   <tr>
-                    <td><!-- Aula-id -->
+                    <td class="id"><!-- Aula-id -->
                         {{ $aula->id }}
                     </td>
                     <td>
                         {{ $aula->aula_name }}
                     </td>
                     <td>
-                        {{ $aula->num_columnas }}/{{ $aula->num_filas }}
+                        {{ $aula->num_columnas }}/{{$aula->num_filas }}
                     </td>
                     <td>
-                         {{ $aula->num_mesas }}/{{$aula->clase->materia->estudiantes->count()}}
+                        {{ $aula->num_mesas }}/
+                         @php $clase=$aula->clase;@endphp
+                          {{-- {{$aula->clase.'materia_id'}} --}}
+                          {{-- {{$aula->clase()->materia_id}} --}}
+                          {{-- /{{$aula->mesas->estudiantes->count()}} --}}
+                          {{-- /{{$aula->clase->materia->estudiantes->count()}} --}}
                     </td>
                     <td>
-                      <a href = "{{ route('aulas.edit', $aula->id) }}" title = "Editar" class = "btn naranja h-8"><span class="ico-shadow"> 📝 </span><span class="bt-text-hide">Editar </a>
+                      <a href="{{ route('aulas.edit', $aula->id) }}" 
+                        title= "Editar aula {{ $aula->aula_name }}" 
+                        class="btn editar">
+                        <span class="ico-shadow"> 📝 </span>
+                        <span class="bt-text-hide">Editar </span>
+                      </a>
                     </td>
                     <td>
-                      <form action="{{ route('aulas.destroy', $aula->id) }}" method="POST">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="btn fucsia h-8" title = "Borrar aula id= {{ $aula->id }}"><span class="ico-shadow"> ❌ </span><span class="bt-text-hide">{{ __('Delete') }}</span></button>
-                      </form>
-                    </td>
-                    <td>
-                      <a href="{{ route('aulas.show', $aula->id) }}" class="btn default h-8" title = "ver aula id= {{ $aula->id }}"><span class="ico-shadow">👀 </span><span class="bt-text-hide">{{ __('Show')}} </span> </a>
-                      
+                      <a href="{{ route('aulas.show', $aula->id) }}" 
+                        title = "Ver aula {{ $aula->aula_name }}"
+                        class="btn ver" >
+                        <span class="ico-shadow">👀 </span>
+                        <span class="bt-text-hide">{{ __('Show')}} </span>
+                      </a>
                     </td>
                   </tr>
                 @endforeach

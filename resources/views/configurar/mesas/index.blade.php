@@ -24,14 +24,14 @@
             <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
                   @csrf
                   @method("PUT")
-                    <button type="submit" title= "Atrás: grupos"  class="mx-1 btn blue"><span class="ico-shadow"> 👈</span>  Atrás
+                    <button type="submit" title= "Atrás: grupos"  class="btn atras"><span class="ico-shadow"> 👈</span>  Atrás
                     </button> 
             </form>
-            <a href="{{route('mesas.create')}}" title= "Añadir Mesa" class="btn warning"> ✚ {{ __('Add')}}</a>            
+            <a href="{{route('mesas.create')}}" title= "Añadir Mesa" class="btn crear"> ✚ {{ __('Add')}}</a>            
             <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                   @csrf
                   @method("PUT")
-                    <button type="submit" title= "Siguiente"  class="mx-1 btn blue">✅ </span> Siguiente  <span class="ico-shadow">👉 </span>  
+                    <button type="submit" title= "Siguiente"  class="mx-1 btn continuar">✅ </span> Siguiente  <span class="ico-shadow">👉 </span>  
                     </button> 
             </form> 
           </div>
@@ -40,7 +40,7 @@
 
       <div class="caja">  <!--body-TABLA aulas-->
 
-          <div class = "caja-body py-2">
+          <div class = "caja-body">
             <table class = "tabla table-responsive mx-auto">
               <caption>
               Haz click en <strong>Editar</strong> para actualizar los datos-<br> 
@@ -80,16 +80,16 @@
                     </td>
 
                     <td>
-                        {{ $mesa->estudiante->nombre }}
+                        {{!$mesa->estudiante==null ? $mesa->estudiante->nombre :"---" }}
                     </td>
                     <td>
-                      <a href = "{{ route('mesas.edit', $mesa->id) }}" title = "Editar" class = "btn naranja mx-1"><span class="ico-shadow"> 📝 </span><span class="bt-text-hide">Editar </a>
+                      <a href = "{{ route('mesas.edit', $mesa->id) }}" title = "Editar" class = "btn editar mx-1"><span class="ico-shadow"> 📝 </span><span class="bt-text-hide">Editar </a>
                     </td>
                     <td>
                       <form action="{{ route('mesas.destroy', $mesa->id) }}" method="POST">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn fucsia mx-1" title = "Borrar mesa id= {{ $mesa->id }}"><span class="ico-shadow"> ❌ </span><span class="bt-text-hide">{{ __('Delete') }}</span></button>
+                            <button type="submit" class="btn borrar mx-1" title = "Borrar mesa id= {{ $mesa->id }}"><span class="ico-shadow"> ❌ </span><span class="bt-text-hide">{{ __('Delete') }}</span></button>
                       </form>
                     </td>
 

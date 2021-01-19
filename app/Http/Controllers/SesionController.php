@@ -16,8 +16,9 @@ class SesionController extends Controller
      */
     public function index()
     {
-        $sesiones = Sesion::get();
-        return view('configurar.sesions.index', compact('sesiones'));
+        $user = auth()->user()->id; 
+        $sesions = Sesion::where('user_id',$user)->get();
+        return view('configurar.sesions.index', compact('sesions'));
     }
 
     /**
@@ -38,7 +39,7 @@ class SesionController extends Controller
      */
     public function store(Request $request)
     {
-           // si pasa la validación... no funciona er el formulario modadl
+           // si pasa la validación... 
         if($request->validate([
                 'inicio' =>'required',
                 'fin'=>'required'
@@ -49,7 +50,7 @@ class SesionController extends Controller
                 'inicio'=>request('inicio'),
                 'fin'=>request('fin'),
                 'user_id'=>request('user_id')
-                ]);
+            ]);
 
             $msn= 'Se ha añadido la hora de la sesión';
             $sesion->save();
@@ -90,7 +91,7 @@ class SesionController extends Controller
      */
     public function update(Request $request, $id)
     {
-           // si pasa la validación... no funciona er el formulario modadl
+           // si pasa la validación... 
         if($request->validate([
                 'inicio' =>'required',
                 'fin'=>'required'

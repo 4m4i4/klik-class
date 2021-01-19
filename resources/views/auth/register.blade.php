@@ -41,27 +41,27 @@
           <details class="mt-4">
               <summary>Opcional</summary>
               <p class="mt-2">
-                Selecciona tu nivel de experiencia informática. Podrás cambiarlo después.
+                Marca si tienes mucha experiencia informática. Podrás cambiarlo después.
               </p>
               <div class="grid grid-cols-2-auto ml-2">
                 <div class="d_block mr-1">
-                  <input type="radio" id="novel" name="modo" value="novel">
-                  <label class="d_inline my-2">Aprendiendo</label>
-                </div>
-                <div class="d_block ml-1">
                   <input type="radio" id="avanzado" name="modo" value="avanzado">
-                  <label class="d_inline my-2">Avanzada</label>
+                  <label class="d_inline my-2">Cambiar a nivel avanzado</label>
+                </div>
+                <div class="d_block ml-2 hidden">                 
+                  <input type="radio" id="novel" name="modo" value="novel" checked>
+                  <label class="d_inline my-2"></label>
                 </div>
               </div>
             </details>
           <div>
-            <button type="submit" class="boton d_block mt-6 blue">{{ __('Register') }}
+            <button type="submit" title="{{ __('Register') }}" class="bt_xxl mt-6 enviar">{{ __('Register') }}
             </button>
           </div>
       </form>
     
       <div class="px-6 py-4 mt-6 light-grey">
-        <a href="/" title="Volver a la página anterior" class="d_inline boton danger">Cancelar</a>
+        <a href="/" title="Volver a la página anterior" class="cancelar">Cancelar</a>
       </div>
     </div>
   </div>

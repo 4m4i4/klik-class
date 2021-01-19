@@ -19,19 +19,8 @@
                   $user = auth()->user();  
                 @endphp
             <h2>{{ __('My')}} {{ __('Students')}}</h2>
-            <a href="{{route('materias.index')}}" class="btn secondary">
+            <a href="{{route('materias.index')}}" title="Volver a la página anterior " class="btn atras">
             <span class="ico-shadow"> 👈 </span>Atrás</a>
-            {{-- <div>
-              <label for="materia_id"></label>
-              <select  class="d_block" name="materia_id" value="{{ old('materia_id') }}" id="materia_id">
-                <option value=0>" materia"</option>
-                  @foreach ($materias as $materia)
-                            <option value={{$materia->id}}>{{$materia->materia_name}}</option>
-                  @endforeach 
-              </select>
-            </div> --}}
-                  
-
           </div>
         </div>
       </div>       <!-- fin de CABECERA estudiantes -->
@@ -45,6 +34,7 @@
                   <th>{{ __('Surnames') }}</th>
                   <th>{{ __('Full name') }}</th>
                   <th>{{ __('Subject') }}</th>
+                  <th>Editar</th>
               </tr>
             </thead>
             <tbody>
@@ -66,6 +56,14 @@
                   <td><!-- Materia -->
                       {{$estudiante->materia->materia_name }}
                   </td>
+                  <td>
+                    <a href="{{ route('estudiantes.edit', $estudiante->id) }}" 
+                          class= "btn editar" 
+                          title= "Editar estudiante id= {{ $estudiante->id }}">
+                            <span class="ico-shadow"> 📝 </span>
+                            <span class="bt-text-hide">{{ __('Edit') }}</span> 
+                          </a>
+                          </td>
                 </tr>
               @endforeach
             </tbody>
@@ -73,9 +71,7 @@
         </div>
       </div>      <!-- fin de body-TABLA estudiantes -->
     </div>
-    {{-- <div class="justify-center flex caja ">
-        {{ $estudiantes->onEachSide(5)->links() }}
-    </div> --}}
+
 
   </div>
 @endsection

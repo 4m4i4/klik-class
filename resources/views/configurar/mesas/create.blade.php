@@ -2,7 +2,8 @@
 @extends('layouts.app')
 
 @section('tablas')
-<div>
+
+<div class="nomodal">
   @include('include.formWindow')
     <div class="px-6 caja-header text-center">
         <h3 class="form-title">Introducir mesa</h3>
@@ -11,8 +12,6 @@
     <form class="px-6" method="POST" action="{{ route('mesas.store') }}">
       @csrf
         <div class="pb-6">
-
-
           <div class="grid grid-cols-3-auto mt-4">
             <div class="mr-1">
               <label class="d_block" for="columna">Columna</label>
@@ -36,7 +35,6 @@
               @enderror
             </div>
           </div>
-
           <div class="grid grid-cols-3-auto mt-4">
             <div class="mr-1">
               <label class="d_block" for="clase_id">Clase_id</label>
@@ -47,7 +45,7 @@
             </div>
             <div class="mr-1 ml-1">
               <label class="d_block" for="aula_id">Aula_id</label>
-              <input type="number" class="mb-1"  name="aula_id" autofocus  value="{{ old('aula_id') }}">
+              <input type="number" class="mb-1" name="aula_id" autofocus  value="{{ old('aula_id') }}">
               @error('aula_id')
                 <small class="t_red">* {{ $message }}</small><br>
               @enderror
@@ -59,15 +57,20 @@
                 <small class="t_red">* {{ $message }}</small><br>
               @enderror
             </div>
+          </div>
         </div>
         <div>
-          <button type="submit" class="boton mt-6 d_block blue">Guardar</button>
+            <button type="submit" 
+             title="Guardar mesas" 
+             class="bt_xxl mt-6 enviar">Guardar</button>
         </div>
     </form>
     <div class="px-6 py-4 mt-6 light-grey">
-      <a href="{{route('mesas.index')}}" title="Cancelar editar clase y volver al índice" class="  boton d_inline danger">Cancelar</a>
+      <a href="{{route('mesas.index')}}"
+       title="Cancelar y volver al índice"
+        class="cancelar">Cancelar</a>
     </div>
 
   </div>
-</div>
+
 @endsection

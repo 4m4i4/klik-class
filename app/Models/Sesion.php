@@ -11,24 +11,25 @@ class Sesion extends Model
 {
     use HasFactory;
     protected $fillable = [
-
         'inicio',
         'fin',
         'user_id'
     ];
 
+    /**
+     * Relaciones entre modelos
+     */
+
     // One to many (inverse)
-    public function user()
-    {
+    public function user(){
         return $this->belongsTo('App\Models\User');
     }
-    
-    public function clases()
-    {
-        return $this->hasMany('App\Models\Clase');
+    // One to one     
+    public function clase(){
+        return $this->hasOne('App\Models\Clase');
     }
-    public function mesa()
-    {
-        return $this->hasOneThrough('App\Models\Mesa','App\Models\Clase');
+    // hasManyThrough
+    public function mesas(){
+        return $this->hasManyThrough('App\Models\Mesa','App\Models\Clase');
     }
 }

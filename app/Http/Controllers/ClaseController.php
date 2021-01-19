@@ -38,8 +38,8 @@ class ClaseController extends Controller
     public function create()
     {
         $user = Auth::user()->id;
-         $materias = Materia::where('user_id',$user)->get();
-         $aulas = Aula::where('user_id',$user)->get();
+        $materias = Materia::where('user_id',$user)->get();
+        $aulas = Aula::where('user_id',$user)->get();
         return view('configurar.clases.create', compact('materias','aulas'));
     }
 
@@ -72,6 +72,116 @@ class ClaseController extends Controller
          }
     }
 
+    public function mostrarClase()
+    {
+        $user = auth()->user()->id;
+        $dias =[ "Domingo",
+                 "Lunes",
+                 "Martes",
+                 "Miercoles",
+                 "Jueves",
+                 "Viernes",
+                 "Sabado"
+                ];
+
+        // $h= now();
+        // $date = date_create("$h");
+        // $diaSemana = $dias[date("w")];
+        // $hora= date('H');
+        // $minutos=date('i');
+        // $aula=Aula::get();
+        // $materia=Materia::get();
+        // $sesion=Sesion::get();
+        // $clases = Clase::where('user_id',$user)
+        //                ->select('dia','sesion_id','aula_id','materia_id')
+        //                ->where('dia',$diaSemana )
+        //                ->with('sesion','materia')
+        //                ->get();
+        // $cuenta=$clases->count();
+
+        // $ahora='08:31:00';
+        // echo 'Día: '.$diaSemana.'<br>';
+        // echo 'Hora: '.$ahora.'<br>';
+        // echo '<script>';
+
+        // echo '</script>';
+        // BUCLE FOR
+
+        // for($i=0; $i<$cuenta; $i++){
+
+        // // CONDICIÓN
+        //   if($clases[$i]->sesion->inicio<=$ahora && 
+        //     $clases[$i]->sesion->fin>=$ahora){
+        // // FIN de CONDICIÓN
+            
+        //     $laMateria=$clases[$i]->materia->materia_name;
+        //     $elAula=$clases[$i]->aula->aula_name;
+        //     echo '<br>A las '.$clases[$i]->sesion->inicio.
+        //            ' empieza '.$laMateria.
+        //            ' en el aula '.$elAula.
+        //            ', y termina a las '. $clases[$i]->sesion->fin;
+
+        // // CONDICIÓN
+        // }        
+        // else echo '<br>nada que mostrar';
+        // }
+        // // FIN de CONDICIÓN
+
+
+        // BUCLE FOREACH 
+
+        // foreach($clases as $clase){
+
+            // // CONDICIÓN
+            // if($clase->sesion->inicio<=$ahora && 
+            // $clase->sesion->fin>=$ahora){
+            // // FIN de CONDICIÓN
+
+                // $laMateria=$clase->materia->materia_name;
+                // $elAula=$clase->aula->aula_name;
+                // echo'<br>A las '.$clase->sesion->inicio.
+                //     ' empieza '.$laMateria.
+                //     ' en el aula '.$elAula.
+                //     ', y termina a las '. $clase->sesion->fin;
+
+            // // CONDICIÓN
+            // }
+            // else echo '<br>nada que mostrar';
+            // // FIN de CONDICIÓN
+        // }
+        
+
+        // EL PRIMERO DE LA COLECCIÓN
+
+    //     if($clases[0]->sesion->inicio<=$ahora && 
+    //        $clases[0]->sesion->fin>=$ahora){
+            
+    //         $laMateria=$clases[0]->materia->materia_name;
+    //         $elAula=$clases[0]->aula->aula_name;
+           
+    //         echo '<br><br>El primero de la colección
+    //                 <br> A las '.$clases[0]->sesion->inicio.
+    //                ' empieza '.$laMateria.
+    //                ' en el aula '.$elAula.
+    //                ', y termina a las '. $clases[0]->sesion->fin;
+
+    //         // TIEMPO PASADO DE CLASE Y TIEMPO QUE QUEDA DE CLASE
+
+    //         $dateTimeIni=date_create($clases[0]->sesion->inicio);
+    //         $dateTimeFin=date_create($clases[0]->sesion->fin);
+    //         $dateTimeAhora=date_create($ahora);
+    //         $intervaloPasado=$dateTimeAhora->diff($dateTimeIni);
+    //         $intervaloFuturo=$dateTimeFin->diff($dateTimeAhora);
+    //         echo "<br><br> TIEMPO PASADO DE CLASE Y TIEMPO QUE QUEDA DE CLASE";
+    //         echo '<br>- El tiempo de clase transcurrido es '.$intervaloPasado->format("%H:%I:%S");
+    //         echo '<br>- El tiempo que queda de clase es '.$intervaloFuturo->format("%H:%I:%S");
+    //     }
+        
+    //     else echo '<br>nada que mostrar';
+    // // return $clases; // muestra un objeto json
+
+    }
+
     /**
      * Display the specified resource.
      *
@@ -91,10 +201,13 @@ class ClaseController extends Controller
      */
     public function edit(Clase $clase)
     {
-        // $user = auth()->user()->id;
-        // $clase = Clase::where('user_id',$user)
-        // ->with('materia','aula','sesion')->get();
-        return view('configurar.clases.edit', compact( 'clase'));    }
+        $user = Auth::user()->id;
+        $materias = Materia::where('user_id',$user)->get();
+        $aulas = Aula::where('user_id',$user)->get();
+        $clase = Clase::where('user_id',$user)->get();
+        
+        return view('configurar.clases.edit', compact('clase','materias','aulas'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -106,7 +219,6 @@ class ClaseController extends Controller
     public function update(Request $request, Clase $clase)
     {
         if($request->validate([
-                // 'materia' =>'required|string',
                 'dia' =>'required',
                 'sesion_id'=>'required',
                 'user_id' => 'required',
@@ -126,14 +238,7 @@ class ClaseController extends Controller
             return redirect()->route('clases.index')->with('info', 'Clase actualizada');
          }
     }
-    // public function paso(User $user)
-    // {
-    //     $user->paso = request('paso');
-    //     $user->save();
-    //     $mensaje = "paso 2"  ;
-    //     if($user->paso == 3) $mensaje = "paso 3";
-    //     return redirect( url()->previous())->with('success', $mensaje."Pasooooo, pasitos de Gesmar");
-    // }
+
     /**
      * Remove the specified resource from storage.
      *

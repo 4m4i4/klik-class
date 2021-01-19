@@ -1,6 +1,6 @@
 {{-- @section('estudiantes.create') MODAL --}}
-
-      <div class="modal-content animate-zoom">
+  @include('include.formWindow')
+      {{-- <div class="modal-content animate-zoom">
         <div class= "text-center mb-4">
           <svg width="358px" height="107px" viewBox="0 0 512 152">
             <g id="form_top">
@@ -11,9 +11,9 @@
               <path id="flecha" fill="#FF0066" d="M168 52l51 30 -19 7 18 27c0,1 0,3 -1,4l-7 4c-1,1 -3,0 -4,-1l-17 -27 -15 15 -6 -59z"/>
             </g>
           </svg>
-        </div>
+        </div> --}}
         <div class="px-6 caja-header text-center">
-          <h3>Introducir grupo de <span id="ver_materia_id"></span>
+          <h3 class="form-title">Introducir grupo: <span id="ver_grupo"></span>
           </h3>
         </div>
         <form class="px-6" method="POST" action="{{ route('estudiantes.store') }}">
@@ -25,8 +25,8 @@
           </div>
           <div class="mt-4">
               <label for="lista_completa">Lista de estudiantes</label>
-              <textarea class="d_block" placeholder="Picasso, Pablo; Garcia Lorca, Federico; De Cervantes Saavedra, Miguel" rows="6" autofocus name="lista_completa"></textarea>
-              <small class="ejemplo">Patrón: Apellido -coma-, Nombre -puntoYComa-;</small>
+              <textarea class="d_block" placeholder="Picasso, Pablo; Garcia Lorca, Federico; De Cervantes Saavedra, Miguel" rows="4" required autofocus name="lista_completa"></textarea>
+              <small class="ejemplo"><strong>Patrón:</strong> Apellido -coma-, Nombre -punto y Coma-;</small>
               @error('nombre_completo')
                 <small class="t_red">* {{ $message }}</small><br>
               @enderror            
@@ -44,12 +44,17 @@
             </details>
           </div>
           <div>
-            <button type="submit" class="boton mt-6 d_block blue">Guardar</button>
+            <button type="submit" 
+             title="Guardar grupo de estudiantes" 
+             class="bt_xxl mt-6 enviar">Guardar</button>
           </div>
         </form>
 
         <div class="px-6 py-4 mt-6 light-grey">
-          <button onclick="document.getElementById('crear_estudiantes').style.display='none'" type="button" class=" boton danger">Cancel</button>
+          <button onclick="document.getElementById('crear_estudiantes').style.display='none'" 
+          type="button" 
+          title="Cancelar y volver al índice" 
+          class="cancelar">Cancelar</button>
         </div>
 
       </div>

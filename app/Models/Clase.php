@@ -19,31 +19,29 @@ class Clase extends Model
         'aula_id',
     ];
 
+    /**
+     * Relaciones entre modelos
+     */
+
     // One to many (inverse)
-    public function user()
-    {
+    public function user(){
         return $this->belongsTo('App\Models\User');
     }
-
-    public function sesion()
-    {
+    // One to many (inverse)
+    public function sesion(){
         return $this->belongsTo('App\Models\Sesion');
     }
-
-    public function materia()
-    {
+    // One to many (inverse)
+    public function materia(){
         return $this->belongsTo('App\Models\Materia');
     }
-
-    public function aula()
-    {
+    // One to many (inverse)
+    public function aula(){
         return $this->belongsTo('App\Models\Aula');
     }
 
-
     // One to many
-    public function mesas()
-    {
+    public function mesas(){
         return $this->hasMany('App\Models\Mesa');
     }
 }

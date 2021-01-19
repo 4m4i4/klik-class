@@ -22,8 +22,8 @@ class AulaController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user()->id; 
-        $aulas = Aula::where('user_id',$user)->with('user')->get();
-        return view('configurar.aulas.index',compact('aulas'));
+            $aulas = Aula::where('user_id',$user)->with('user','clase','mesas')->get();
+            return view('configurar.aulas.index',compact('aulas'));
         }
     }
 
@@ -51,18 +51,18 @@ class AulaController extends Controller
                 'num_filas' =>'required',
                 'num_mesas' =>'required',
             ])
-         )
-         {
-             $aula = new Aula([
-                'aula_name'=>request('aula_name'),
-                'num_columnas'=>request('num_columnas'),
-                'num_filas'=>request('num_filas'),
-                'num_mesas'=>request('num_mesas'),
-                'user_id'=>request('user_id')
-             ]);
-             $aula->save();
-             return redirect()->route('materias.index');
-         }
+        )
+        {
+            $aula = new Aula([
+               'aula_name'=>request('aula_name'),
+               'num_columnas'=>request('num_columnas'),
+               'num_filas'=>request('num_filas'),
+               'num_mesas'=>request('num_mesas'),
+               'user_id'=>request('user_id')
+            ]);
+            $aula->save();
+            return redirect()->route('materias.index');
+        }
     }
 
     /**
@@ -106,8 +106,8 @@ class AulaController extends Controller
             'num_filas' =>'required',
             'num_mesas' =>'required',
             ])
-         )
-         {
+        )
+        {
             $aula = Aula::find($id);
             $aula->aula_name = request('aula_name');
             $aula->num_columnas = request('num_columnas');
@@ -115,8 +115,9 @@ class AulaController extends Controller
             $aula->num_mesas = request('num_mesas');
             $aula->user_id = request('user_id');
             $aula->save();
-            return redirect()->route('materias.index');
-         }
+            $aula->refresh();
+            return redirect()->route('aulas.show',$aula->id);
+        }
     }
 
     /**
