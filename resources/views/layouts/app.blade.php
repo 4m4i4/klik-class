@@ -55,7 +55,7 @@
             </div>
         </footer>
 
-
+    @yield('script')
     <!--FIN: App -->
         <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" type="text/js"></script>

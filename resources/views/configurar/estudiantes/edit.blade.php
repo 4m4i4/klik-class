@@ -4,7 +4,7 @@
 
 @section('tablas')
 <div>
-  @include('include.formWindow')
+  @include('include.formBanner')
     <div class="px-6 caja-header text-center">
       <h3 class="form-title">Editar estudiante <span id="ver_grupo"></span>
       </h3>

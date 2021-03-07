@@ -53,7 +53,7 @@
               @foreach ($sesions as $sesion)
                   <tr id={{$sesion->id}}>
                     <th class="text-center">
-                      <a href="{{route('sesions.edit', $sesion->id)}}" title="Cambiar el horario" class="boton d_inline editar nja px-1">
+                      <a href="{{route('sesions.edit', $sesion->id)}}" title="Cambiar el horario" class="boton d_inline editar px-1">
                         <span class="ico-shadow"> 📝 </span> {{date_format(date_create($sesion->inicio), "H:i")}} |  
                         {{date_format(date_create($sesion->fin), "H:i")}}
                       </a>

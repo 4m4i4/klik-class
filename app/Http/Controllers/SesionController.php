@@ -65,7 +65,7 @@ class SesionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Sesion $sesion)
     {
         //
     }
@@ -76,10 +76,10 @@ class SesionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Sesion $sesion)
     {
-        $sesion = Sesion::find($id);
-        return view('configurar.sesions.edit', compact( 'sesion'));
+        $user = Auth::user()->id;
+        return view('configurar.sesions.edit', compact( 'sesion','user'));
     }
 
     /**
@@ -89,7 +89,7 @@ class SesionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Sesion $sesion)
     {
            // si pasa la validación... 
         if($request->validate([
@@ -98,7 +98,7 @@ class SesionController extends Controller
                 ])
             )
         {   
-            $sesion = Sesion::find($id);
+            // $sesion = Sesion::find($id);
             $sesion->inicio = request('inicio');
             $sesion->fin = request('fin') ;
             $sesion->user_id = request('user_id');
@@ -116,7 +116,7 @@ class SesionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Sesion $sesion)
     {
         //
     }

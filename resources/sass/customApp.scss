@@ -93,7 +93,7 @@ footer{
   margin-right:auto;
   margin-left:auto;
   box-sizing:border-box;
-  clear:both;
+//   clear:both;
 }
 
 .row{
@@ -107,6 +107,8 @@ footer{
     position: relative;
     top: 0;
 }
+
+
 /* =========== Tipografía =========== */
 
 h1,
@@ -217,12 +219,12 @@ a:not(.btn){
 @media screen and (min-width:769px){
     .page-header{
         height:5rem;
-        margin:0 0 5rem 0;
+        margin:0 0 2rem 0;
     }
 }
 /* =========== MENÚ-principal =========== */
 
-
+@media screen and (min-width:769px){
 .logo{
     position:absolute;
     width:7.5rem;
@@ -238,7 +240,7 @@ a:not(.btn){
         }
     }
 }
-
+}
 .navbar-toggler{display:none;}
 .navbar-dark .navbar-toggler-icon{
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
@@ -251,12 +253,12 @@ a:not(.btn){
         padding:.5rem 1rem .5rem 0;
         font-family:$f-condensed;  
         font-size:1.4rem;
-        height: 1.6em;
+        height:1.6em;
         text-transform:normal;     
         color:#222;
 
         &:hover{
-            color: #00AACC;
+            color:#00AACC;
             transition:.5s}
     }
     .navbar-brand{
@@ -331,7 +333,7 @@ a:not(.btn){
 @media (max-width:550px){
     .page-header{
         height:2.3rem;
-        margin:0 0 1rem 0;
+        margin:0;
     }
     .container-header{
         padding-left:.25rem;
@@ -343,7 +345,7 @@ a:not(.btn){
 
     .logo{
         position:absolute;
-        width:2rem;height:12rem;
+        width:2rem;height:2rem;
         top:0.1rem;
         margin-left:.45rem;   
         > a > svg{
@@ -403,7 +405,7 @@ a:not(.btn){
         }
     }
 
-    // menu user  
+    // menu user   
     .dropdown-menu-right{right:0rem;top:0rem;}
     .menu-user{
         max-width:12rem;
@@ -707,7 +709,6 @@ a.btn:hover,button.btn:hover,
     background-color: hsl(336, 100%, 50%);
     color:#fff;
     padding:.25rem 1.5rem;
-    
     &:hover{
         border-color:hsl(51, 46%, 50%);
         background-color: hsl(340, 100%, 65%);
@@ -766,116 +767,6 @@ div.cancelar{
 }
 
 
-// .default-reves{
-//     border:2px solid hsl(51, 46%, 78%); 
-//     background-color: hsl(182, 50%, 85%);
-//     color:#333;
-//     &:hover{
-//         background-color:  hsl(182, 100%, 40%);
-//         color: #fff}
-// }
-
-// .primary {
-//     border:2px solid hsl(51, 46%, 78%); 
-//     background-color:#00aacc;
-//     color: #fff;
-//     &:hover {
-//         background-color: hsl(182, 50%, 85%);
-//         color: #222}
-// }
-
-// .primary-reves {
-//     border:2px solid hsl(51, 46%, 78%); 
-//     background-color:hsl(190,100%,40%);
-//     color:#fff;
-//     &:hover{
-//         border-color:#00aacc;
-//         background-color:hsl(190,100%,90%);
-//         color:#222}
-// }
-
-// .secondary {
-//     border:2px solid hsl(51, 46%, 78%);
-//     background-color: hsl(182, 100%, 40%);
-//     color: #fff;
-//     &:hover {
-//         background-color: hsl(182, 50%, 75%);
-//         color: #222}
-// }
-
-// .secondary-reves {
-//     border:2px solid hsl(51, 46%, 78%); 
-//     background-color: hsl(182, 50%, 75%);
-//     color: #222;
-//     &:hover {
-//         background-color: $bg_color;
-//         color: #fff}
-// }
-
-// .blue {
-//     border:2px solid hsl(51, 46%, 78%); 
-//     background-color: hsl(197, 58%, 46%);
-//     color: #fff;
-//     &:hover {
-//         color: #222;
-//         background-color: hsl(180, 50%, 75%)}
-// }
-
-// .blue-reves {
-//     border:2px solid hsl(51, 46%, 70%); 
-//     background-color: hsl(180, 50%, 75%);
-//     color: #222;color:hsl(51, 46%, 30%); 
-//     &:hover {
-//         background-color: hsl(197, 58%, 46%);
-//         color: #fff; color: #222}
-// }
-
-
-// .warning-reves{
-//     border:2px solid hsl(53, 6%, 73%); 
-//     background-color: #FFEE00;
-//     color: #222;
-//     &:hover{
-//         background-color: hsl(60, 74%, 85%);
-//         color: #222}
-// }
-
-
-// .red {
-//     background-color: hsl(6, 90%, 58%); 
-//     border-color: hsl(6, 90%, 68%) ;
-//     color: #fff;
-//     &:hover {
-//         background-color: hsl(357, 90%, 58%);
-//         color: #222}
-// }
-
-// .danger {
-//     border:2px solid hsl(51, 46%, 78%); 
-//     background-color: #ff3888;
-//     color: #fff;
-//     &:hover {
-//         background-color: #ff98c1;
-//         color:#222}
-// }
-
-// .danger{
-//     border:2px solid hsl(51, 46%, 78%); 
-//     background-color: #FF0066;
-//     color:#fff;
-//  &:hover {
-//         background-color: hsl(347, 100%, 60%);
-//         color: #222}
-// }
-
-// .danger-reves{
-//     border:2px solid hsl(51, 46%, 78%); 
-//     background-color: hsl(355, 100%, 68%);
-//     color:#333;
-//  &:hover {
-//         background-color: #FF0066;
-//         color: #fff}
-// }
 
 /* =========== caja =========== */
 
@@ -905,7 +796,13 @@ div.cancelar{
 
 
 /* =========== Container  =========== */
-  
+ @media screen and (min-width:120px) and (max-width:414px) {
+    .caja-header{padding-right: 8px}
+
+    .caja-body{
+        padding-right:0;
+        padding-left:0} 
+}
 @media screen and (min-width:20px) and (max-width:640px){
     .container{
         max-width:100%;
@@ -913,7 +810,9 @@ div.cancelar{
         padding-left:0}
     .caja{
         margin-right:0;
-        margin-left:0}
+        margin-left:0;
+        // h2{font-size:1.2rem}
+        }
     .caja-body{padding:.5rem .3rem .8rem .3rem}
     .caja-header{
         padding:.15rem .3rem .1rem .3rem;
@@ -927,7 +826,7 @@ div.cancelar{
         padding:2px .3rem;
         font-size:.8rem}
     .caja-header>.grid>a.btn{padding:6px .3rem 0 .3rem}
-    .caja .pasos-title-1 {font-size:2rem}
+    // .caja .pasos-title-1 {font-size:2rem}
     html {font-size:16px}
 }
 
@@ -936,17 +835,21 @@ div.cancelar{
     .alert{
         padding-right:1.5rem;
         padding-left:1.5rem}
+    .caja .pasos-title-1{font-size:3.5rem}    
     .caja-body{padding:.5rem 1.5rem}
-    .caja-header{padding:.5rem 1.5rem .4rem 1.5rem};
+    .caja-header{
+        padding:.5rem 1.5rem .4rem 1.5rem;
+        h2{font-size:1.4rem}
+    }
     .caja-header.btn,
-    .caja-header>.grid>a.btn,
-    .caja-header>.grid>form> button,
+    .caja-header a.btn,
+    .caja-header form> button,
     .caja-header.boton{
         height:2rem;
         padding:2px .8rem;
         font-size:.9rem}
     .caja-header>.grid>a.btn{padding:6px .8rem 0 .8rem}
-    .caja .pasos-title-1{font-size:3.5rem}
+
     html{font-size:16px}
 }
 
@@ -981,7 +884,7 @@ div.cancelar{
     .caja-header.boton{
         height:2.2rem;
         padding:2px 1rem}
-        .caja-header>.grid>a.btn{padding:5px 1rem 0 1rem}
+    .caja-header>.grid>a.btn{padding:5px 1rem 0 1rem}
 }
 
 
@@ -1022,11 +925,7 @@ div.cancelar{
     box-sizing:border-box;
 }
 
-// .tabla td>span{
-//     vertical-align:text-top;
-//     font-family:$f-condensed;
-//     text-align:center;
-// }
+
 .tabla> thead>tr> th{
     font-size:1.2rem;
     overflow:hidden;
@@ -1101,14 +1000,7 @@ tbody > tr > td > form {margin-bottom:0}
     }
 }
 
-@media screen and (min-width:120px) and (max-width:414px) {
-    .caja-header{padding-right: 8px}
-    footer .page-footer{
-        font-size:.7rem;
-    }
-    .caja-body{
-        padding-right:0;
-        padding-left:0}
+@media screen and (max-width:414px) {
     .tabla{
         font-size:.8rem;
         margin-right:0;margin-left:0;
@@ -1256,7 +1148,11 @@ label{font-family:$f-condensed;color:#222;}
 @media screen and (min-width:1024px){
     .mesa{margin:35px 30px;display:block}
 }
-
+.bt_mesa:disabled,
+.nombre_mesa:disabled {
+  opacity:0.2;
+  cursor:not-allowed
+}
 
 .nombre_mesa{
     text-align:center;
@@ -1264,17 +1160,12 @@ label{font-family:$f-condensed;color:#222;}
     overflow:hidden;
     text-overflow:ellipsis;
     color:#333;
-    background-color:transparent;background-color:#fafafa;
-    &:hover{
-        background-color:#888;
-        color:#fff;
-        transition:background-color 1s,color .5s;
-    }
+    background-color:#fafafa;
 }
 .bt_mesa{
     padding:.5rem 0;
     margin:1px;
-    border:2px solid hsl(51, 46%, 98%); 
+    border: 1px solid #ccc;
     border-radius:.2rem;       
     font-family:$f-condensed;
     font-size:1.1rem;
@@ -1283,33 +1174,34 @@ label{font-family:$f-condensed;color:#222;}
 }
 
 .propiedad_A{
-  background-color:#FFEE00;
-  width:calc(50% - 3px)
+    width:calc(50% - 3px)
 }
 .propiedad_B{
-  background-color:#00DFE7;
-  width:calc(50% - 3px)
+    width:calc(50% - 3px)
 }
+.bg-yellow{background-color:#FFEE00}
+.bg-sky{background-color:#00DFE7}
 
+.nombre_mesa:hover:not(:disabled){
+    background-color:#888;
+    color:#fff;
+    transition:background-color 1s,color .5s}
 .propiedad_A:hover:not(:disabled),
 .propiedad_B:hover:not(:disabled){
   color:#fff;
   background-color:#FF0066; 
-  border:2px solid #ffffff
+  border:1px solid #ffffff
 }
 
-.bt_mesa:hover,
+.bt_mesa:hover:not(:disabled),
 .bt_mesa.active{
   color:#ffffff;
   background-color:#FF0066; 
-  border:2px solid #999;
+  border:1px solid #999;
   box-sizing: border-box;
   transition:background-color 1s,color .5s;
 }
-.bt_mesa:disabled {
-  opacity:0.2;
-  cursor:not-allowed
-}
+
 .falta {
   background-color:#555;
   color:#ffffff
@@ -1465,7 +1357,7 @@ img{max-width:100%;height:auto}
 /* =========== FONT =========== */
 
 
-          
+.text-xs{font-size:.75rem}          
 .text-sm{font-size:.875rem}
 .text-4{font-size:1rem}
 .text-lg{font-size:1.125rem}
@@ -1474,6 +1366,7 @@ img{max-width:100%;height:auto}
 .l-height{line-height:.5;margin-top:7px;}
 .leading-7{line-height:1.75rem}
 .text-center{text-align:center}
+.text-justify{text-align:justify}
 .font-semibold{font-weight:600}
 
 .underline{text-decoration:underline}
@@ -1502,17 +1395,18 @@ img{max-width:100%;height:auto}
 .text-blue-40{color:hsl(190, 100%, 40%)}
 .text-blue-30{color:#00a3cc;}
 .relojEnorme{
-        font-size: 15vw;
-        color:#f8f7f1;
-        text-shadow:1px 1px 8px #000 ;}
+    font-size: 12vw;
+    color:#f8f7f1;
+    text-shadow:1px 1px 8px #000 ;}
 
 .antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-.text-vw2{font-size:4vw;}
+.text-vw2{font-size:2vw}
+.text-vw3{font-size:3vw}
 .marcoReloj{
     width:80%;
     margin: auto;
-    padding-top:5rem;
-    padding-bottom:5rem;
+    padding-top:4rem;
+    padding-bottom:4rem;
     background-color:hsl(190, 100%, 35%);
     border:8px solid hsl(40, 23%, 97%);
     border-radius: .5rem;
@@ -1526,6 +1420,7 @@ img{max-width:100%;height:auto}
 .m-1{margin:.25rem}
 .mt-0{margin-top:0}
 .my-0{margin-top:0;margin-bottom:0}
+.mx-1{margin-left:.25rem;margin-right:.25rem}
 .mt-1{margin-top:.25rem}
 .mb-1{margin-bottom:.25rem}
 .ml-1{margin-left:.25rem}
@@ -1560,7 +1455,9 @@ img{max-width:100%;height:auto}
 
 
 .py-0{padding-top:0;padding-bottom:0}
+.p-1{padding:.25rem}
 .py-1{padding-top:.25rem;padding-bottom:.25rem}
+.p-2{padding:.5rem}
 .py-2{padding-top:.5rem;padding-bottom:.5rem}
 .py-3{padding-top:.75rem;padding-bottom:.75rem}
 .px-4{padding-left:1rem;padding-right:1rem}

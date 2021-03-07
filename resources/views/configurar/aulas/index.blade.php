@@ -76,14 +76,14 @@
                     </td>
                     <td>
                         {{ $aula->num_mesas }}/
-                         @php $clase=$aula->clase;@endphp
+                         @php $clase = $aula->clase;@endphp
                           {{-- {{$aula->clase.'materia_id'}} --}}
                           {{-- {{$aula->clase()->materia_id}} --}}
                           {{-- /{{$aula->mesas->estudiantes->count()}} --}}
                           {{-- /{{$aula->clase->materia->estudiantes->count()}} --}}
                     </td>
                     <td>
-                      <a href="{{ route('aulas.edit', $aula->id) }}" 
+                      <a href="{{ route('aulas.edit', $aula) }}" 
                         title= "Editar aula {{ $aula->aula_name }}" 
                         class="btn editar">
                         <span class="ico-shadow"> 📝 </span>
@@ -91,7 +91,7 @@
                       </a>
                     </td>
                     <td>
-                      <a href="{{ route('aulas.show', $aula->id) }}" 
+                      <a href="{{ route('aulas.show', $aula) }}" 
                         title = "Ver aula {{ $aula->aula_name }}"
                         class="btn ver" >
                         <span class="ico-shadow">👀 </span>

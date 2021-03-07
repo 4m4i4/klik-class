@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('tablas')
-  @include('include.formWindow')
+<div class="nomodal">
+  @include('include.formBanner')
       <div class="px-6 caja-header text-center">
         <h3 class="form-title">{{ __('Login') }}
         </h3>
@@ -10,14 +11,14 @@
         @csrf
           <div class="mt-4">
             <label for="email">{{ __('E-Mail Address') }}</label>
-            <input  class="d_block" id="email" type="email" name="email" value="{{ old('email') }}"  autocomplete="email" autofocus>
+            <input  class="d_block" id="email" type="email" name="email" value="{{ old('email') }}"   autofocus>
             @error('email')
               <small class="t_red">* {{ $message }}</small><br>
             @enderror
           </div>
           <div class="mt-4">
             <label for="password">{{ __('Password') }}</label>
-            <input class="d_block" id="password" type="password" name="password"  value="{{ old('password') }}" autocomplete="current-password">
+            <input class="d_block" id="password" type="password" name="password"  value="{{ old('password') }}" >
             @error('password')
               <small class="t_red">* {{ $message }}</small><br>
             @enderror

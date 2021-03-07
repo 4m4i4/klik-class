@@ -4,19 +4,9 @@ if(screenWidth>=414)
   var semana=`'Horario','Lunes','Martes','Miercoles','Jueves','Viernes'`;
 else
 var semana=`'Hora','Lun','Mar','Mie','Jue','Vie'`;
-document.getElementById("semana").innerHTML=semana;
+// document.getElementById("semana").innerHTML=semana;
 
-var myVar = setInterval(myTimer, 1000);
-function myTimer() {
-    var dd = new Date();
 
-    document.getElementById("khora").innerHTML=dd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    // var minutos = (dd.getMinutes()<10?'0':'')+dd.getMinutes();
-    // var horas = (dd.getHours()<10?'0':'')+dd.getHours();
-    // var qHora=horas +" : "+ minutos;
-    // document.getElementById("khora").innerHTML = qHora;
-    // document.getElementById("khora").innerHTML =dd.toLocaleTimeString();
-}
 
 function configuraFecha(){
 var x= document.getElementById("configFecha").value;
@@ -144,23 +134,28 @@ function crearBoton(parent, text, id) {
 function desabilita(id){
     let dni = id;
     console.log(dni);
-    let m = document.getElementById(dni + "");
+    let m = document.getElementById(dni);
     // m.classList.add ("falta");
     m.setAttribute("disabled","true");
-    let bt_A = document.getElementById(dni + "A");
-    bt_A.setAttribute("disabled","true");
-    let bt_B = document.getElementById(dni + "B");
-    bt_B.setAttribute("disabled","true");
+    let A_bt = document.getElementById("A_bt_" +dni);
+    A_bt.setAttribute("disabled","true");
+    let B_bt = document.getElementById("B_bt_" +dni);
+    B_bt.setAttribute("disabled","true");
+    let name = document.getElementById("name_" +dni);
+    name.setAttribute("disabled","true");
 }
 
-
-
-
+  function suma(x, y = 1){
+    let res = x.innerHTML;
+    res = parseInt(res) + y;
+    x.innerHTML = res;
+  }
+  
 function configurarHorario(){
   let weekDays = ["Horario", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
   let week =["Hora", "Lun", "Mar", "Mie", "Jue", "Vie"];
   
- let minutos= document.getElementById("minutosSesion").value;
+  let minutos= document.getElementById("minutosSesion").value;
   let sesiones=document.getElementById("numeroSesiones").value;
   let aula= document.getElementById("clase");
 

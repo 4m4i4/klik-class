@@ -104,7 +104,6 @@ footer {
   margin-right: auto;
   margin-left: auto;
   box-sizing: border-box;
-  clear: both;
 }
 
 .row {
@@ -242,28 +241,30 @@ a:not(.btn):hover {
 @media screen and (min-width: 769px) {
   .page-header {
     height: 5rem;
-    margin: 0 0 5rem 0;
+    margin: 0 0 2rem 0;
   }
 }
 
 /* =========== MENÚ-principal =========== */
 
-.logo {
-  position: absolute;
-  width: 7.5rem;
-  height: 7.5rem;
-  top: 1.25rem;
-}
+@media screen and (min-width: 769px) {
+  .logo {
+    position: absolute;
+    width: 7.5rem;
+    height: 7.5rem;
+    top: 1.25rem;
+  }
 
-.logo > a > svg {
-  border-radius: 100%;
-  width: 7.5rem;
-  height: 7.5rem;
-  border: 0.5rem solid #eceadf;
-}
+  .logo > a > svg {
+    border-radius: 100%;
+    width: 7.5rem;
+    height: 7.5rem;
+    border: 0.5rem solid #eceadf;
+  }
 
-.logo > a > svg:hover {
-  border: 0.25rem solid #eceadf;
+  .logo > a > svg:hover {
+    border: 0.25rem solid #eceadf;
+  }
 }
 
 .navbar-toggler {
@@ -382,7 +383,7 @@ a:not(.btn):hover {
 @media (max-width: 550px) {
   .page-header {
     height: 2.3rem;
-    margin: 0 0 1rem 0;
+    margin: 0;
   }
 
   .container-header {
@@ -402,7 +403,7 @@ a:not(.btn):hover {
   .logo {
     position: absolute;
     width: 2rem;
-    height: 12rem;
+    height: 2rem;
     top: 0.1rem;
     margin-left: 0.45rem;
   }
@@ -970,6 +971,17 @@ div.cancelar {
 
 /* =========== Container  =========== */
 
+@media screen and (min-width: 120px) and (max-width: 414px) {
+  .caja-header {
+    padding-right: 8px;
+  }
+
+  .caja-body {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
 @media screen and (min-width: 20px) and (max-width: 640px) {
   .container {
     max-width: 100%;
@@ -1007,10 +1019,6 @@ div.cancelar {
     padding: 6px 0.3rem 0 0.3rem;
   }
 
-  .caja .pasos-title-1 {
-    font-size: 2rem;
-  }
-
   html {
     font-size: 16px;
   }
@@ -1026,6 +1034,10 @@ div.cancelar {
     padding-left: 1.5rem;
   }
 
+  .caja .pasos-title-1 {
+    font-size: 3.5rem;
+  }
+
   .caja-body {
     padding: 0.5rem 1.5rem;
   }
@@ -1034,9 +1046,13 @@ div.cancelar {
     padding: 0.5rem 1.5rem 0.4rem 1.5rem;
   }
 
+  .caja-header h2 {
+    font-size: 1.4rem;
+  }
+
   .caja-header.btn,
-  .caja-header > .grid > a.btn,
-  .caja-header > .grid > form > button,
+  .caja-header a.btn,
+  .caja-header form > button,
   .caja-header.boton {
     height: 2rem;
     padding: 2px 0.8rem;
@@ -1045,10 +1061,6 @@ div.cancelar {
 
   .caja-header > .grid > a.btn {
     padding: 6px 0.8rem 0 0.8rem;
-  }
-
-  .caja .pasos-title-1 {
-    font-size: 3.5rem;
   }
 
   html {
@@ -1242,20 +1254,7 @@ tbody > tr > td > form {
   }
 }
 
-@media screen and (min-width: 120px) and (max-width: 414px) {
-  .caja-header {
-    padding-right: 8px;
-  }
-
-  footer .page-footer {
-    font-size: 0.7rem;
-  }
-
-  .caja-body {
-    padding-right: 0;
-    padding-left: 0;
-  }
-
+@media screen and (max-width: 414px) {
   .tabla {
     font-size: 0.8rem;
     margin-right: 0;
@@ -1461,26 +1460,25 @@ label {
   }
 }
 
+.bt_mesa:disabled,
+.nombre_mesa:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
 .nombre_mesa {
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: #333;
-  background-color: transparent;
   background-color: #fafafa;
-}
-
-.nombre_mesa:hover {
-  background-color: #888;
-  color: #fff;
-  transition: background-color 1s, color 0.5s;
 }
 
 .bt_mesa {
   padding: 0.5rem 0;
   margin: 1px;
-  border: 2px solid #fcfcf8;
+  border: 1px solid #ccc;
   border-radius: 0.2rem;
   font-family: "Roboto Condensed", sans-serif;
   font-size: 1.1rem;
@@ -1489,34 +1487,41 @@ label {
 }
 
 .propiedad_A {
-  background-color: #FFEE00;
   width: calc(50% - 3px);
 }
 
 .propiedad_B {
-  background-color: #00DFE7;
   width: calc(50% - 3px);
+}
+
+.bg-yellow {
+  background-color: #FFEE00;
+}
+
+.bg-sky {
+  background-color: #00DFE7;
+}
+
+.nombre_mesa:hover:not(:disabled) {
+  background-color: #888;
+  color: #fff;
+  transition: background-color 1s, color 0.5s;
 }
 
 .propiedad_A:hover:not(:disabled),
 .propiedad_B:hover:not(:disabled) {
   color: #fff;
   background-color: #FF0066;
-  border: 2px solid #ffffff;
+  border: 1px solid #ffffff;
 }
 
-.bt_mesa:hover,
+.bt_mesa:hover:not(:disabled),
 .bt_mesa.active {
   color: #ffffff;
   background-color: #FF0066;
-  border: 2px solid #999;
+  border: 1px solid #999;
   box-sizing: border-box;
   transition: background-color 1s, color 0.5s;
-}
-
-.bt_mesa:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
 }
 
 .falta {
@@ -1827,6 +1832,10 @@ img {
 
 /* =========== FONT =========== */
 
+.text-xs {
+  font-size: 0.75rem;
+}
+
 .text-sm {
   font-size: 0.875rem;
 }
@@ -1854,6 +1863,10 @@ img {
 
 .text-center {
   text-align: center;
+}
+
+.text-justify {
+  text-align: justify;
 }
 
 .font-semibold {
@@ -1931,7 +1944,7 @@ img {
 }
 
 .relojEnorme {
-  font-size: 15vw;
+  font-size: 12vw;
   color: #f8f7f1;
   text-shadow: 1px 1px 8px #000;
 }
@@ -1942,14 +1955,18 @@ img {
 }
 
 .text-vw2 {
-  font-size: 4vw;
+  font-size: 2vw;
+}
+
+.text-vw3 {
+  font-size: 3vw;
 }
 
 .marcoReloj {
   width: 80%;
   margin: auto;
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
   background-color: #0095b3;
   border: 8px solid #f9f8f6;
   border-radius: 0.5rem;
@@ -1978,6 +1995,11 @@ img {
 .my-0 {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.mx-1 {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 
 .mt-1 {
@@ -2097,9 +2119,17 @@ img {
   padding-bottom: 0;
 }
 
+.p-1 {
+  padding: 0.25rem;
+}
+
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
 }
 
 .py-2 {

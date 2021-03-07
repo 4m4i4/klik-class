@@ -80,13 +80,13 @@
                     </td>
 
                     <td>
-                        {{!$mesa->estudiante==null ? $mesa->estudiante->nombre :"---" }}
+                        {{!$mesa->estudiante==null ? $mesa->estudiante->id :"---" }}
                     </td>
                     <td>
-                      <a href = "{{ route('mesas.edit', $mesa->id) }}" title = "Editar" class = "btn editar mx-1"><span class="ico-shadow"> 📝 </span><span class="bt-text-hide">Editar </a>
+                      <a href = "{{ route('mesas.edit', $mesa) }}" title = "Editar" class = "btn editar mx-1"><span class="ico-shadow"> 📝 </span><span class="bt-text-hide">Editar </a>
                     </td>
                     <td>
-                      <form action="{{ route('mesas.destroy', $mesa->id) }}" method="POST">
+                      <form action="{{ route('mesas.destroy', $mesa) }}" method="POST">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn borrar mx-1" title = "Borrar mesa id= {{ $mesa->id }}"><span class="ico-shadow"> ❌ </span><span class="bt-text-hide">{{ __('Delete') }}</span></button>

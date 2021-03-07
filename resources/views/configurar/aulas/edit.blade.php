@@ -3,12 +3,12 @@
 
 @section('tablas')
 <div class="nomodal">
-  @include('include.formWindow')
+  @include('include.formBanner')
     <div class="px-6 caja-header text-center">
       <h3 class="form-title">Columnas, filas y mesas en el aula</h3>
     </div>
 
-    <form class="px-6" method="POST" action="{{ route('aulas.update', $aula->id) }}">
+    <form class="px-6" method="POST" action="{{ route('aulas.update', $aula) }}">
       @csrf
       @method('PUT')
 
@@ -18,12 +18,12 @@
         </div>
 
         <div class="pb-6">
-          <label for="aula_name">Aula</label>
-          <input class="d_block" autofocus type="text" name="aula_name" required value="{{ $aula->aula_name }}">
-          @error('aula_name')
+          <label for="aula_name">Aula {{ $aula->aula_name }}</label>
+          <input class="d_block" type="hidden" name="aula_name" required value="{{ $aula->aula_name }}">
+          {{-- @error('aula_name')
             <small class="t_red">* {{ $message }}</small><br>
           @enderror
-          <small class="ejemplo"><strong>Ejemplo:</strong>  2a bach</small>
+          <small class="ejemplo"><strong>Ejemplo:</strong>  2a bach</small> --}}
 
           <div class="grid grid-cols-3-auto mt-4">
             <div class="d_block mr-1">
@@ -42,20 +42,20 @@
           @error('num_mesas')
             <small class="t_red">* {{ $message }}</small><br>
           @enderror
-
+        </div>
           <div>
             <button type="submit" 
              title="Actualizar aula" 
              class="bt_xxl mt-6 enviar">Guardar</button>
           </div>
 
-        </div>
+
     </form>
 
     <div class="px-6 py-2 mt-4 light-grey">
       <a href="{{route('materias.index')}}" 
        title="cancelar y volver"
-      class="cancelar">Cancelar </a>
+      class="btn cancelar">Cancelar </a>
     </div>
 
 </div>

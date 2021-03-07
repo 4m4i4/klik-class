@@ -37267,10 +37267,13 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var myVar = setInterval(myTimer, 1000);
+var queHora = document.getElementById("khora");
 
 function myTimer() {
   var d = new Date();
-  document.getElementById("khoraes").innerHTML = d.toLocaleTimeString();
+  queHora.innerHTML = d.toLocaleTimeString();
+  var queDia = document.getElementById("kdiaes");
+  if (queDia !== null) queDia.innerHTML = d.toLocaleDateString();
 }
 
 function fFecha(x) {

@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('tablas')
-  @include('include.formWindow')
+<div class="nomodal">
+  @include('include.formBanner')
       <div class="px-6 caja-header text-center">
         <h3 class="form-title">
           {{ __('Register') }}
@@ -12,14 +13,14 @@
         @csrf
           <div class="mt-4">
             <label for="name">{{ __('Name') }}</label>
-            <input id="name" type="text" class="d_block"  name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
+            <input id="name" type="text" class="d_block"  name="name" value="{{ old('name') }}"  autofocus>
             @error('name')
               <small class="t_red">* {{ $message }}</small><br>
             @enderror
           </div>
           <div class="mt-4">
             <label for="email">{{ __('E-Mail Address') }}</label>
-            <input id="email" type="email" class="d_block" name="email" value="{{ old('email') }}"  autocomplete="email" autofocus>
+            <input id="email" type="email" class="d_block" name="email" value="{{ old('email') }}"  autofocus>
             @error('email')
              <small class="t_red">* {{ $message }}</small><br>
             @enderror
@@ -27,7 +28,7 @@
           <div class="grid grid-cols-2-auto mt-4">
             <div class="mr-1">
               <label class="d_block" for="password" >{{ __('Password') }}</label>
-              <input id="password" type="password" class="d_block" name="password" value="{{ old('password') }}" autocomplete="new-password" autofocus>
+              <input id="password" type="password" class="d_block" name="password" value="{{ old('password') }}" autofocus>
             </div>
             <div class="">
               <label class="d_block"  for="password-confirm" ">{{ __('Confirm Password') }}</label>

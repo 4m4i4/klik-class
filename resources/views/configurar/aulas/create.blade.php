@@ -3,7 +3,7 @@
 
 @section('tablas')
 <div class="nomodal">
-  @include('include.formWindow')
+  @include('include.formBanner')
     <div class="px-6 caja-header text-center">
         <h3 class="form-title">Introducir aula</h3>
     </div>

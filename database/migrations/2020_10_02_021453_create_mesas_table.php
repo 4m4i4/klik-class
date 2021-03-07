@@ -23,7 +23,7 @@ class CreateMesasTable extends Migration
             $table->foreign('clase_id')
                   ->references('id')
                   ->on('clases');
-            $table->unsignedBigInteger('aula_id');
+            $table->unsignedBigInteger('aula_id')->nullable();;
             $table->foreign('aula_id')
                   ->references('id')
                   ->on('aulas');

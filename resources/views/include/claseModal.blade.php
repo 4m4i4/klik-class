@@ -1,7 +1,7 @@
         <div id="ver_modal" class="modal">
 
-          @include('include.formWindow')
-            <div class="modal-content animate-zoom">
+          @include('include.formBanner')
+            
               <div class="px-6 caja-header text-center">
                 <h3>Introducir clase:<br><span id="ver_id"></span></h3>
               </div>
@@ -24,8 +24,8 @@
                   </div>
                   <div class=""><!-- $clase->materia_id -->
                       <label for="materia_id">Materia</label>
-                      <select  class="d_block" name="materia_id" value="{{ old('materia_id') }}" id="materia_id"  onchange="getSelected('materia_id')">
-                        <option value=0>Selecciona la materia</option>
+                      <select  class="d_block" name="materia_id" value="{{ old('materia_id') }}" id="materia_id" >
+                        {{-- <option value=0>Selecciona la materia</option> --}}
                           @foreach ($materias as $materia)
                             <option value={{$materia->id}}>{{$materia->materia_name}}</option>
                           @endforeach
@@ -33,8 +33,8 @@
                   </div>
                   <div class="mt-4"><!-- $clase->aula_id -->
                       <label for="aula_id">Aula</label> 
-                      <select  class="d_block" name="aula_id" value="{{ old('aula_id') }}" id="aula_id" onchange="getSelected('aula_id')">
-                        <option value=0>Selecciona el aula</option>
+                      <select  class="d_block" name="aula_id" value="{{ old('aula_id') }}" id="aula_id">
+                        {{-- <option value=0>Selecciona el aula</option> --}}
                           @foreach ($aulas as $aula)
                             <option value={{$aula->id}}>{{$aula->aula_name}}</option>
                           @endforeach
@@ -54,5 +54,5 @@
                 title="Cancelar y volver al índice" 
                  class="boton d_inline cancelar">Cancelar</button>
               </div>
-            </div>  {{--  fin modal-content --}}
-          </div> {{--  fin modal --}}
+          </div>  {{--  fin modal-content --}}
+        </div> {{--  fin modal --}}

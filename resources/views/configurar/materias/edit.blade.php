@@ -3,12 +3,12 @@
 
 @section('tablas')
 <div class="nomodal">
-  @include('include.formWindow')
+  @include('include.formBanner')
       <div class="px-6 caja-header text-center">
         <h3 class="form-title">Modificar materia</h3>
       </div>
 
-      <form class="px-6" action="{{route('materias.update', $materia->id) }}" method="POST" >
+      <form class="px-6" action="{{route('materias.update', $materia) }}" method="POST" >
        @csrf
        @method('PUT')
 

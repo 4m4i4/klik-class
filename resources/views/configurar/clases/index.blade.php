@@ -14,12 +14,13 @@
 
     <div class="caja">  <!-- CABECERA clases -->
       <div class = "caja-header">
-        <div class = "grid grid-cols-3-fr items-center justify-center">
+        <div class = "grid grid-cols-3-fr items-center justify-right">
             @php
               $user = Auth::user();
             @endphp
           @if($user->paso == 2)
               <h2 class="title">Añadir mis horarios</h2>
+              {{-- <div class="f_right"> --}}
               <a href="{{route('sesions.index')}}" 
                   title="Poner las horas de comienzo y final de las sesiones" 
                   class="boton blue-reves mr-1">Poner horario
@@ -29,19 +30,22 @@
                   @method("PUT")
                     <button type="submit" title="Horario completado: Empezar a poner clases" class="ml-1 btn continuar"><span class="ico-shadow">✅ </span> Continuar <span class="ico-shadow">👉 </span></button>
               </form>
+              {{-- </div> --}}
           @endif
           @if($user->paso == 3)
               <h2 class="title">Añadir mis clases</h2>
+              {{-- <div class="flex items-center"> --}}
               <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
                   @csrf
                   @method("PUT")
-                    <button type="submit" title="Ir a cambiar horas de inicio y final" class="ml-1 btn atras"><span class="ico-shadow"> 👈 </span> Atrás <span class="ico-shadow"> ⌚  ✙✜✛🏡🏢🏦🏠</span></button> 
+                    <button type="submit" title="Ir a cambiar horas de inicio y final" class="ml-1 btn atras"><span class="ico-shadow"> 👈 </span> Atrás <span class="ico-shadow"> ⌚ </span></button> 
               </form>
               <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                   @csrf
                   @method("PUT")
-                    <button type="submit" title= "Tabla de clases completada"class="ml-1 btn continuar"><span class="ico-shadow">✅ </span> Continuar <span class="ico-shadow">👉   ☚☛☜☞</span></button>
+                    <button type="submit" title= "Tabla de clases completada"class="ml-1 btn continuar"><span class="ico-shadow">✅ </span> Continuar <span class="ico-shadow">👉 </span></button>
               </form>
+              {{-- </div> --}}
           @endif
           @if($user->paso == 4)
               <h2 class="title">Horario de clases</h2>
@@ -85,7 +89,7 @@
             @endphp
           <thead>  <!-- cabecera: DÍAS DE LA SEMANA -->
             <tr>
-              @for($i=0; $i < $num_dias; $i++)
+              @for($i = 0; $i < $num_dias; $i++)
                 <th id={{$dias[$i]}}>{{$dias[$i]}}
                 </th>
               @endfor
@@ -94,8 +98,8 @@
           <tbody><!-- filas: SESIONES -->
             @for ($fila = 0; $fila < $num_sesiones; $fila++)
               <tr id={{$sesiones[$fila]->id}}>
-                @for ($col = 0; $col <$num_dias; $col++)
-                  @if ($col==0)
+                @for ($col = 0; $col < $num_dias; $col++)
+                  @if ($col == 0)
                     <th class="text-center">
                       {{date_format(date_create($sesiones[$fila]->inicio), "H:i")}}
                         <br>
@@ -103,7 +107,7 @@
                     </th>
                   @endif
                   @if ($col > 0)
-                    <td id ={{$fila+1}}{{$dias[$col]}} class="text-center mx-auto" >
+                    <td id ={{$fila + 1}}{{$dias[$col]}} class="text-center mx-auto" >
                       @php
                         $estasesion = $sesiones[$fila]->id;
                         $estedia = $dias[$col];
@@ -126,7 +130,7 @@
                           </p>
                           <!-- Si $clase es null, se enlaza el formulario para crear la clase... -->                          
                         @elseif($clase == null)
-                          <button id={{$estedia.'_'.$estasesion.'_'.$fila}}
+                          <button id = {{$estedia.'_'.$estasesion.'_'.$fila}}
                             onclick="claseModal(this.id)"
                             title="Añadir clase"
                             class="btn crear">AÑADIR

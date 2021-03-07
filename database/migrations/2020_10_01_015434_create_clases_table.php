@@ -35,8 +35,7 @@ class CreateClasesTable extends Migration
             $table->unsignedBigInteger('aula_id');                  
             $table->foreign('aula_id')
                   ->references('id')
-                  ->on('aulas')
-                  ->onUpdate('cascade');             
+                  ->on('aulas');
             $table->timestamps();
         });
     }

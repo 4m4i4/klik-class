@@ -98,16 +98,18 @@
         <div class="caja">  <!--body-TABLA control-->
           <div class = "caja-body">
             <table class = "tabla table-responsive mx-auto">
+                  <!--caption según paso -->
                 @if($user->paso < 4)
                   <caption>
-                    Puedes <strong>Añadir </strong>, <strong>Editar</strong>, y <strong>Borrar</strong>  las materias. <br> Pulsa <strong>Continuar </strong> cuando hayas registrado todas
+                    Puedes <strong>Añadir </strong>, <strong>Editar</strong>, y <strong>Borrar</strong>  las materias. <br> Pulsa <strong>Continuar </strong> cuando hayas registrado todas tus materias.
                   </caption>
                 @endif
                 @if($user->paso >= 4)
-                <caption>Pulsa <strong>Añadir Estudiantes</strong> para introducir cada grupo. <br>Pulsa <strong>Continuar </strong> cuando hayas registrado todos
+                <caption>Pulsa <strong>Añadir Estudiantes</strong> para introducir cada grupo. <br>Pulsa <strong>Continuar </strong> cuando los hayas registrado todos.
                 @endif
 
               <thead>
+                <!-- Títulos de las columnas -->
                 <tr>
                   <th class="id">Id</th>
                   <th>{{ __('Subject') }}</th>
@@ -137,34 +139,41 @@
                       @if($user->paso < 4)
                           {{ $materia->grupo }}
                       @endif
+                      @if($user->paso == 1) 
+                        <td>  <!-- Aula -->
+                          {{ $materia->grupo }}
+                        </td>
+                      @endif
                     @if($user->paso >= 4)
                           {{-- se comprueba si los estudiantes de esa materia están ya registrados --}}
                           @php
-                            $isStudent= $materia->estudiantes()->where('materia_id', $materia->id)->first();
+                            $isStudent = $materia->estudiantes()->where('materia_id', $materia->id)->first();
                           @endphp
-                          {{-- si no lo están, enlaza el formulario para crear el grupo de estudiantes --}}
-                      @if($isStudent==null)
+                          {{-- si no lo están, se enlaza el formulario para crear el grupo de estudiantes --}}
+                      @if($isStudent == null)
                           <a href="#" id="{{$materia->grupo}}_{{$materia->id}}" title="Añadir estudiantes de {{ $materia->grupo }}" class="d_block editar" 
                           onclick="estudiantesModal(this.id)">
-                             Añadir estudiantes a 
+                             Añadir Estudiantes a 
                           </a><p class="l-height mb-1"> {{ $materia->grupo }}</p>
                         </td>
-                        <td>    <!-- Aula -->
+                        <td>        <!-- Aula -->
                             {{ $materia->grupo}}
                         </td>
-                      @elseif($isStudent!==null)
+                      @elseif($isStudent !== null)
                           {{-- si existen se marca como hecho y se enlaza el formulario para actualizar el aula --}}
                           @php
-                            $countStudents=$materia->estudiantes()->where('materia_id', $materia->id)->count();
-                            $aula=DB::table('aulas')->where('aula_name',$materia->grupo)->first();
+                            $countStudents = $materia->estudiantes()->where('materia_id', $materia->id)->count();
+                            $aula = DB::table('aulas')->where('aula_name',$materia->grupo)->first();
                           @endphp
+                                     <!-- Ver lista de estudiantes por materia -->
                            <a href="{{ route('estudiantes.porMateria', $materia->id) }}" 
-                            title="Ver lista de estudiantes de {{ $materia->grupo }}" class="d_block ver">
+                            title="Ver lista de estudiantes de {{ $materia->grupo }}" class="d_block ver"
+                            >
                               <span class="ico-shadow"> 👀 </span>
                               <span>{{ $materia->grupo }}</span>
                             </a><p class="l-height mb-1"> {{ $countStudents}} estudiantes ✅ </p>
                         </td>
-                        <td>    <!-- Aula -->
+                        <td>         <!-- Editar Aula -->
                           <a href="{{ route('aulas.edit', $aula->id) }}" 
                           class= "d_block editar" 
                           title="editar aula de {{$aula->aula_name}}">
@@ -172,7 +181,7 @@
                             <span>{{$aula->aula_name}}</span>
                           </a>
                         </td>
-                        <td>
+                        <td>        <!-- Mostrar la disposición de mesas en el aula -->
                           <a href="{{ route('aulas.show', $aula->id) }}" 
                            id="verMesasAula{{ $aula->id }}" 
                            class="d_block ver" 
@@ -193,15 +202,15 @@
                    
                     @if($user->paso == '1')   <!-- botones EDIT DELETE -->
                         <td>   <!-- Editar -->
-                          <a href="{{ route('materias.edit', $materia->id) }}" 
+                          <a href="{{ route('materias.edit', $materia) }}" 
                           class= "btn editar" 
-                          title= "Editar materia id= {{ $materia->id }}">
+                          title= "Editar materia id= {{ $materia->id}}">
                             <span class="ico-shadow"> 📝 </span>
                             <span class="bt-text-hide">{{ __('Edit') }}</span> 
                           </a>
                         </td>
                         <td>    <!-- Borrar -->
-                          <form action="{{ route('materias.destroy', $materia->id) }}" method="POST">
+                          <form action="{{ route('materias.destroy', $materia) }}" method="POST">
                             @csrf
                             @method('delete')
                             <button type="submit" 

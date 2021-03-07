@@ -10,7 +10,7 @@
         @endphp
       <p id="id_sesion"><p>          
 <div class="nomodal">
-  @include('include.formWindow')
+  @include('include.formBanner')
       <div class="px-6 caja-header text-center">
         <h3 class="form-title">Introducir horario: Sesión {{ $num_sesiones+1}}</h3>
       </div>

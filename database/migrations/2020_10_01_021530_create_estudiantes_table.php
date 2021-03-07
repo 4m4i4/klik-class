@@ -21,8 +21,7 @@ class CreateEstudiantesTable extends Migration
             $table->unsignedBigInteger('materia_id');
             $table->foreign('materia_id')
                   ->references('id')
-                  ->on('materias')
-                  ->onDelete('cascade'); 
+                  ->on('materias'); 
             $table->timestamps();
         });
     }

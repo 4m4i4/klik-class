@@ -1,11 +1,11 @@
 
 {{-- @section('pageHeader') --}}
-  <div class="container-header b-box">
+  <div class="container-header">
     <nav class="navbar">
 
       <div class="logo">
         <a class="d_block "  href="{{ url('/') }}" title="Ir a Inicio">
-           <svg class="logoMenu"
+          <svg class="logoMenu"
             width="128px" height="128px" 
             viewBox="0 0 512 512">
             @include('include.logoCircle')
@@ -59,29 +59,31 @@
                 </a>
                   {{-- Itéms del  menú de usuario dropdown --}}
                 <div class="dropdown-menu-right dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item btn oscuro-reves" href="#">Favoritos</a>
-                  <a class="dropdown-item btn crear" href="#">Mi perfil</a>
-                  {{-- Avanzar un paso -solo dev --}}
-                  <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
-                     @csrf
-                     @method("PUT")
-                    <button type="submit" class="d_block smallCaps continuar">Sumar paso </button>
-                  </form>
-                  {{-- Retroceder  un paso -solo dev --}}
-                  <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
-                    @csrf
-                    @method("PUT")
-                    <button type="submit" class="d_block atras smallCaps">Restar Paso</button>
-                  </form>
-                  <a class="dropdown-item btn crear" href="{{route('materias.index')}}">Materias</a>
-                  <a class="dropdown-item btn editar" href="{{route('sesions.index')}}">Sesiones</a>
-                  <a class="dropdown-item btn warning" href="{{route('clases.index')}}">Clases</a>  
-                  <a class="dropdown-item btn ver" href="{{route('aulas.index')}}">Aulas</a>    
-                  <a class="dropdown-item btn crearCurso" href="{{route('mesas.index')}}">Mesas</a>
-                  <a class="dropdown-item btn enviar" href="{{route('estudiantes.index')}}">Estudiantes</a>
-                  <a class="dropdown-item btn borrar" href="{{route('estudiantes.index')}}">Ver Aula</a>
-                  <a class="dropdown-item btn cancelar" href=/botones">botones</a>
-                  {{-- formulario para salir. El resto no se muestra hasta el paso 6 --}}
+                  {{-- El usuario verá el perfil y favoritos cuando esté en el paso 6. --}}
+                  {{-- @if(auth()->user()!==null && auth()->user()->paso == 6) --}}
+                    <a class="dropdown-item btn crear" href="#">Mi perfil</a>
+                    <a class="dropdown-item btn oscuro-reves" href="#">Favoritos</a>
+                  {{-- Solo para desarrollo --}}
+                    <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
+                      @csrf
+                      @method("PUT")
+                      <button type="submit" class="d_block smallCaps continuar">Sumar paso </button>
+                    </form>
+                    <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
+                      @csrf
+                      @method("PUT")
+                      <button type="submit" class="d_block atras smallCaps">Restar Paso</button>
+                    </form>
+                    <a class="dropdown-item btn crear" href="{{route('materias.index')}}">Materias</a>
+                    <a class="dropdown-item btn editar" href="{{route('sesions.index')}}">Sesiones</a>
+                    <a class="dropdown-item btn warning" href="{{route('clases.index')}}">Clases</a>  
+                    <a class="dropdown-item btn ver" href="{{route('aulas.index')}}">Aulas</a>    
+                    <a class="dropdown-item btn crearCurso" href="{{route('mesas.index')}}">Mesas</a>
+                    <a class="dropdown-item btn enviar" href="{{route('estudiantes.index')}}">Estudiantes</a>
+                    <a class="dropdown-item btn borrar" href="{{route('estudiantes.index')}}">Ver Aula</a>
+                    <a class="dropdown-item btn cancelar" href=/botones>botones</a>
+                  {{-- @endif --}}
+                  {{-- formulario para salir --}}
                   <a class="dropdown-item btn oscuro " href="{{ route('logout') }}"
                      onclick="event.preventDefault();
                                    document.getElementById('logout-form').submit();">

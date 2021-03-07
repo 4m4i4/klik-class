@@ -23,7 +23,7 @@ class AulaController extends Controller
         if(Auth::check()){
             $user = Auth::user()->id; 
             $aulas = Aula::where('user_id',$user)->with('user','clase','mesas')->get();
-            return view('configurar.aulas.index',compact('aulas'));
+            return view('configurar.aulas.index', compact('aulas'));
         }
     }
 
@@ -71,11 +71,11 @@ class AulaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Aula $aula)
     {   
         $user = Auth::user()->id;
-        $aula = Aula::where('user_id',$user)->find($id);
-        return view('configurar.aulas.show',compact('aula'));
+        // $aula = Aula::where('user_id',$user)->find($id);
+        return view('configurar.aulas.show', compact('aula', 'user'));
     }
 
     /**
@@ -84,10 +84,10 @@ class AulaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Aula $aula)
     {
-        $aula = Aula::find($id);
-        return view('configurar.aulas.edit', compact( 'aula'));
+        // $aula = Aula::find($id);
+        return view('configurar.aulas.edit', compact('aula'));
     }
 
     /**
@@ -97,7 +97,7 @@ class AulaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Aula $aula)
     {
         // dd($request);
         if($request->validate([
@@ -108,7 +108,7 @@ class AulaController extends Controller
             ])
         )
         {
-            $aula = Aula::find($id);
+            // $aula = Aula::find($id);
             $aula->aula_name = request('aula_name');
             $aula->num_columnas = request('num_columnas');
             $aula->num_filas = request('num_filas');
@@ -126,9 +126,9 @@ class AulaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Aula $aula)
     {
-        $aula = Aula::find($id);
+        // $aula = Aula::find($id);
         $aula->delete();
         return redirect()->route('aulas.index')->with('success', 'Aula borrada');
     }

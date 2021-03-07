@@ -81,7 +81,7 @@ class MesaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Mesa $mesa)
     {
         //
     }
@@ -92,7 +92,7 @@ class MesaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Mesa $mesa)
     {
         //
     }
@@ -104,7 +104,7 @@ class MesaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Mesa $mesa)
     {
         //
     }
@@ -115,8 +115,11 @@ class MesaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Mesa $mesa)
     {
-        //
+        $mns_mesa ='Mesa borrada con éxito';
+        $mesa->delete();
+        return redirect()->route('mesas.index')->with('success', $mns_mesa);
     }
-}
+
+ }

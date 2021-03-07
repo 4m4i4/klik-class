@@ -1,7 +1,7 @@
 {{-- pageFooter --}}
 
 @php 
-// use App\Models\helpers;
+  // use App\Models\helpers;
   $meses =[ '',
             'Enero',
             'Febrero',
@@ -53,20 +53,19 @@
 
       {{-- reloj javascript             --}}
     <div class="reloj" id="khora"></div> 
-    <div class="reloj ml-2"> {{-- reloj php --}}
+
+    {{-- <div class="reloj ml-2"> {{-- reloj php --}}
       {{-- @php
         $ahora=function (){
           while(1){
             $hora = new DateTime();
             $ahora = $hora->format('H:i');
-            
             sleep(1000);
-            
-          }return $ahora;
-
+          }
+          return $ahora;
         };
-      @endphp --}}
-      {{$ahora}}</div>
+      @endphp 
+      {{$ahora}}</div> --}}
     <div class="fecha px-8">{{$fecha}} </div>
     <div>PASO:  <!--Qué paso está el usuario. Solo desarrollo-->
       @if(auth()->user()!==null)
@@ -74,5 +73,3 @@
       @else 0
       @endif
     </div>
-  {{-- </div> --}}
-{{-- </div> --}}

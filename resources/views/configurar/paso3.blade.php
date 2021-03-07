@@ -17,7 +17,7 @@
         <h3 class="pasos-title-2"><span class="ico-shadow">📅 </span>{{ __('Timetable')}}</h3>
       </div>
       <div class="ml-1 my-2">
-        <a href="{{route('clases.index')}}"  class="mx-auto  bt_pasos oscuro-reves"><span class="ico-shadow">👀  </span>Ver Horario</a>
+        <a href="{{route('horario')}}"  class="mx-auto  bt_pasos oscuro-reves"><span class="ico-shadow">👀  </span>Ver Horario</a>
       </div>
   </div>
 

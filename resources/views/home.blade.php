@@ -48,12 +48,17 @@
       @endif
         {{-- Fase de uso --}}
       @if(auth()->user()->paso==6)
-        <p class="text-vw2 mt-2 mb-4 text-center text-blue-30 pasos-title-3">
-            Enhorabuena {{auth()->user()->name}} !! Lo has conseguido!! 
+      <br>
+        <p class="text-vw3 mt-2 mb-4 px-4 text-center text-blue-30 smallCaps">
+            ¡¡Enhorabuena {{auth()->user()->name}} !! Lo has conseguido!! 
         </p>  
+
         <div class="caja marcoReloj">
-           <h2 class=" relojEnorme text-center py-6" id="khoraes"></h2>
+           <div class="relojEnorme text-center" id="khora"></div>
         </div>
+        <p class="text-vw3 mt-2 mb-4 px-4 text-center text-blue-30">
+            No tienes clase
+        </p>  
       @endif
     </div>
 
