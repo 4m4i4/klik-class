@@ -34,7 +34,6 @@
             <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                   @csrf
                   @method("PUT")
-
                       <button type="submit"
                       title="Finalizar introducción de datos" 
                       class="ml-1 btn continuar">
