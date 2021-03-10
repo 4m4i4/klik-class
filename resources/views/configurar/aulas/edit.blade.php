@@ -39,10 +39,31 @@
               <input type="number" class=" mb-1" name="num_mesas"  min="1" max="30" autofocus required value="{{ $aula->num_mesas }}">
             </div>
           </div>
+          @error('num_columnas')
+            <small class="t_red">* {{ $message }}</small><br>
+          @enderror
+          @error('num_filas')
+            <small class="t_red">* {{ $message }}</small><br>
+          @enderror
           @error('num_mesas')
             <small class="t_red">* {{ $message }}</small><br>
           @enderror
         </div>
+          <div>
+            @php
+                $estaClase = $clase->firstWhere('aula_id',$aula->id)->only('materia_id');
+                $materiaId = $estaClase['materia_id'];
+                $estudian = $estudiantes->whereIn('materia_id', $materiaId)->count();
+            @endphp
+            <label for="num_estudiantes"></label>
+            <input type="text" name="num_estudiantes" value= {{$estudian}} readonly>
+          </div>
+          {{-- @error('num_estudiantes')
+            <small class="t_red">* Parece que has olvidado introducir el grupo de estudiantes de {{ $aula->aula_name }}</small><br>
+          @enderror --}}
+          @error('num_estudiantes')
+            <small class="t_red">* {{ $message }}</small><br>
+          @enderror
           <div>
             <button type="submit" 
              title="Actualizar aula" 

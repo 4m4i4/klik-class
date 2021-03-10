@@ -70,7 +70,7 @@ return [
         'array'   => 'El campo :attribute debe tener menos de :value elementos.',
     ],
     'lte' => [
-        'numeric' => 'El campo :attribute debe ser como máximo :value.',
+        'numeric' => 'El campo :attribute debe ser menor o igual que :value.',
         'file'    => 'El campo :attribute debe tener como máximo :value kilobytes.',
         'string'  => 'El campo :attribute debe tener como máximo :value caracteres.',
         'array'   => 'El campo :attribute debe tener como máximo :value elementos.',
@@ -135,6 +135,7 @@ return [
         'email' => [
             'unique' => 'El :attribute ya ha sido registrado.',
         ],
+        'num_mesas' => 'El valor de :attribute debe ser lte:(App\Models\Aula,num_columnas)*(App\Models\Aula,num_filas)',
     ],
 
     /*
@@ -183,5 +184,9 @@ return [
         'title'                 => 'título',
         'username'              => 'usuario',
         'year'                  => 'año',
+        'num_mesas'             => 'Mesas',
+        'num_columnas'          => 'Columnas',
+        'num_filas'             => 'Filas',
+        '$colxfilas'            => 'Columnas x Filas',
     ],
 ];

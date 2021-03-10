@@ -38,6 +38,11 @@
               <label class="d_block" for="num_mesas">Mesas</label>
               <input type="number" class=" mb-1"  name="num_mesas"  min="1" max="30" value= "25" autofocus required>
             </div>
+
+          </div>
+          <div>
+            <label for="num_estudiantes"></label>
+            <input type="hidden" name="num_estudiantes" value= "null" >
           </div>
           
           <div>
