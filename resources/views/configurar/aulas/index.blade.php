@@ -17,7 +17,8 @@
         <div class = "caja-header">
           <div class = "grid grid-cols-3-fr items-center">
               @php
-                  $user = auth()->user();  
+                  $user = auth()->user();
+                  // use App\Models\Estudiante;
               @endphp            
             <h2 class="title" >Mis Aulas</h2>
             <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
@@ -33,12 +34,13 @@
             <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                   @csrf
                   @method("PUT")
-                    <button type="submit"
-                      title="Ir a introducir horas de sesión" 
+
+                      <button type="submit"
+                      title="Finalizar introducción de datos" 
                       class="ml-1 btn continuar">
                       <span class="ico-shadow">✅ </span> Continuar 
                       <span class="ico-shadow"> 👉 </span>
-                    </button>
+                      </button>                    
             </form> 
           </div>
         </div>
@@ -49,7 +51,7 @@
           <div class = "caja-body py-2">
             <table class = "tabla table-responsive mx-auto">
               <caption>
-              Haz click en <strong>Editar</strong> para actualizar los datos del aula-<br>            
+              Si has seguido las indicaciones de la página anterior pulsa <strong>Continuar</strong>. Si no, haz click en <strong>Editar</strong> para actualizar los datos del aula, y después en <strong>Ver</strong> para sentar a los estudiantes.           
               </caption>
               <thead>
                 <tr>
@@ -76,11 +78,27 @@
                     </td>
                     <td>
                         {{ $aula->num_mesas }}/
-                         @php $clase = $aula->clase;@endphp
-                          {{-- {{$aula->clase.'materia_id'}} --}}
-                          {{-- {{$aula->clase()->materia_id}} --}}
-                          {{-- /{{$aula->mesas->estudiantes->count()}} --}}
-                          {{-- /{{$aula->clase->materia->estudiantes->count()}} --}}
+                         @php 
+                            
+                            // // Para la versión A del controlador (requiere importar aquí el modelo Estudiante)
+                            // $clase = $aula->clase;
+                            // $materiaId = $clase->materia_id;
+                            // $estudian = Estudiante::where('materia_id', $materiaId)->count();
+
+                            // // Para la versión B del controlador
+                            // $estaClase = $clase->firstWhere('aula_id',$aula->id)->only('materia_id');
+                            // $materiaId = $estaClase['materia_id'];
+                            // $estudian = $estudiantes->whereIn('materia_id', $materiaId)->count();
+
+                            // // Para la versión C del controlador
+                            $clase = $aula->clase;
+                            $materiaId = $clase->materia_id;
+                            $estudian = $estudiantes->whereIn('materia_id', $materiaId)->count();
+
+
+                          // dd($estudian);
+                         @endphp
+                         {{$estudian}}
                     </td>
                     <td>
                       <a href="{{ route('aulas.edit', $aula) }}" 
