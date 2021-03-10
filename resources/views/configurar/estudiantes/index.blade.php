@@ -11,26 +11,17 @@
         </div>
     @endif
     <div class = "">
-
       <div class="caja">  <!-- CABECERA estudiantes -->
         <div class = "caja-header">
           <div class = "grid grid-cols-3-fr items-center">
-                @php
-                  $user = auth()->user()->id;
-                  use App\Models\Materia;
-                  $materia = Materia::where('user_id', $user)->get();
-                  // dd($materia);
-                  $materia_id = '0';
-                @endphp
             <h2>{{ __('My')}} {{ __('Students')}}</h2>
             <a href="{{route('materias.index')}}" title="Volver a la página anterior " class="btn atras">
               <span class="ico-shadow"> 👈 </span>Atrás
             </a>
             <select id="materia_id" name="materia_id" value="{{ $materia_id }}" class="d_block" onchange="seleccionaMateria(materia_id)" >
-                {{-- <option value={{$materia->id}} {{$materia->id == $materia_id? 'selected' : ''}}>Todas las materias</option> --}}
-              @for($index = 0; $index < count($materia); $index++)
-                <option value={{$materia[$index]->id}} {{$materia[$index]->id == $materia_id? 'selected' : ''}}>{{$materia[$index]->materia_name}}</option>
-              @endfor
+                @foreach ($materia as $laMateria)
+                    <option value={{$laMateria->id}} {{$laMateria->id == $materia_id? 'selected' : ''}}>{{$laMateria->materia_name}}</option>
+                @endforeach
             </select>
           </div>
         </div>
