@@ -5,6 +5,7 @@ use App\Models\Aula;
 use App\Models\Clase;
 use App\Models\Mesa;
 use App\Models\Materia;
+use App\Models\Estudiante;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -22,8 +23,20 @@ class AulaController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user()->id; 
+            // // versión A (el modelo Estudiante se importa en el index):
+            // $aulas = Aula::where('user_id',$user)->with('user','clase','mesas')->get();
+            // return view('configurar.aulas.index', compact('aulas'));
+
+            // // versión B (El modelo Estudiante se importa aquí)
+            // $aulas = Aula::where('user_id',$user)->get();
+            // $clase = Clase::select('aula_id', 'materia_id')->get();
+            // $estudiantes = Estudiante::select('id','materia_id')->get();
+            // return view('configurar.aulas.index', compact('aulas', 'clase', 'estudiantes'));
+
+            // // versión C (El modelo Estudiante se importa aquí)
             $aulas = Aula::where('user_id',$user)->with('user','clase','mesas')->get();
-            return view('configurar.aulas.index', compact('aulas'));
+            $estudiantes = Estudiante::select('id','materia_id')->get();
+            return view('configurar.aulas.index', compact('aulas', 'estudiantes'));
         }
     }
 
@@ -47,9 +60,10 @@ class AulaController extends Controller
     {
         if($request->validate([
                 'aula_name' =>'required|string',
-                'num_columnas' =>'required',
-                'num_filas' =>'required',
-                'num_mesas' =>'required',
+                'num_columnas' =>'required|integer|max:9|min:1',
+                'num_filas' =>'required|integer|max:9|min:1',
+                'num_mesas' =>'required|integer|max:30',
+                'num_estudiante' =>'nullable',
             ])
         )
         {
@@ -74,6 +88,7 @@ class AulaController extends Controller
     public function show(Aula $aula)
     {   
         $user = Auth::user()->id;
+
         // $aula = Aula::where('user_id',$user)->find($id);
         return view('configurar.aulas.show', compact('aula', 'user'));
     }
@@ -87,7 +102,9 @@ class AulaController extends Controller
     public function edit(Aula $aula)
     {
         // $aula = Aula::find($id);
-        return view('configurar.aulas.edit', compact('aula'));
+        $clase = Clase::select('aula_id', 'materia_id')->get();
+        $estudiantes = Estudiante::select('id','materia_id')->get();
+        return view('configurar.aulas.edit', compact('aula','clase','estudiantes'));
     }
 
     /**
@@ -100,12 +117,23 @@ class AulaController extends Controller
     public function update(Request $request, Aula $aula)
     {
         // dd($request);
+        // $colxfilas=request('num_columnas')*request('num_filas');
+        $nombreAula= request('aula_name');
+        $columnas=request('num_columnas');
+        $filas=request('num_filas');
+        $mesas=request('num_mesas');
+        $maxMesas = $columnas * $filas;
+        $msn_maxMesas ='Has puesto '.intval(  $mesas - $maxMesas) .' más que las que caben en '.$columnas .' columnas x '.$filas. ' filas';
+         $msn='Parece que has olvidado introducir el grupo de estudiantes de ' .$nombreAula;
+         if($mesas>$maxMesas)return redirect()->route('aulas.index')->with('success', $msn_maxMesas);
+        // if(request('num_estudiante')==0)return redirect()->route('aulas.index')->with('success', $msn);
         if($request->validate([
-            'aula_name' =>'required|string',
-            'num_columnas' =>'required',
-            'num_filas' =>'required',
-            'num_mesas' =>'required',
-            ])
+                'aula_name' =>'required|string',
+                'num_columnas' =>'required|integer|max:9|min:1',
+                'num_filas' =>'required|integer|max:9|min:1',
+                // 'num_mesas' =>'required|integer|max:20',
+                // 'num_estudiante' =>'required|integer|min:1',
+             ])
         )
         {
             // $aula = Aula::find($id);
@@ -116,7 +144,8 @@ class AulaController extends Controller
             $aula->user_id = request('user_id');
             $aula->save();
             $aula->refresh();
-            return redirect()->route('aulas.show',$aula->id);
+            return redirect()->route('aulas.index');
+            // return redirect()->route('aulas.show',$aula->id);
         }
     }
 
