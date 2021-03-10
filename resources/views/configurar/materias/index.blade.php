@@ -105,7 +105,7 @@
                   </caption>
                 @endif
                 @if($user->paso >= 4)
-                <caption>Pulsa <strong>Añadir Estudiantes</strong> para introducir cada grupo. <br>Pulsa <strong>Continuar </strong> cuando los hayas registrado todos.
+                <caption>Pulsa <strong>Añadir Estudiantes</strong> para introducir el grupo. Después, configura el <strong>aula</strong> pulsando el botón recién creado. Por último pulsa el botón <strong>Ver</strong> para sentar a los estudiantes.<br> Cuando los hayas registrado todos, pulsa <strong>Continuar</strong>.
                 @endif
 
               <thead>
