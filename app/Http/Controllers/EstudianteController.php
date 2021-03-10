@@ -19,17 +19,16 @@ class EstudianteController extends Controller
     public function index()
     {   
         $user = auth()->user()->id;
-        $materias = Materia::where('user_id',$user)->get();
-        //  dd($materias);
+        $materia = Materia::where('user_id',$user)->get();
         $estudiantes = Estudiante::orderBy('materia_id')->paginate(12);
-        return view('configurar.estudiantes.index', compact('estudiantes','materias','user'));
+        return view('configurar.estudiantes.index', compact('estudiantes','materia','user'));
     }
 
     public function porMateria($materia_id){
-        $materias = Materia::find($materia_id);
-        $id = $materias->id;
-        $estudiantes = Estudiante::where('materia_id', $id)->paginate(12);
-        return view('configurar.estudiantes.index', compact('estudiantes','materias'));
+        $user = auth()->user()->id;
+        $materia = Materia::where('user_id',$user)->get();
+        $estudiantes = Estudiante::where('materia_id', $materia_id)->paginate(15);
+        return view('configurar.estudiantes.index', compact('estudiantes','materia','materia_id'));
     }
 
     /**
@@ -52,8 +51,11 @@ class EstudianteController extends Controller
     {
         // TO-DO: validación de lista de estudiantes
 
-        $materia_id = request('materia_id');         
+        $materia_id = request('materia_id');
         $cadena = request('lista_completa');
+        $cuantos = 1;
+        // dd($request->input('lista_completa'));
+        // dd(  $cadena);
         // Si la cadena acaba en punto y coma, lo quitamos
         if(Str::endsWith($cadena,';')) $cadena = Str::beforeLast($cadena,';');
         // obtenemos el array de estudiantes
@@ -75,8 +77,9 @@ class EstudianteController extends Controller
             ]);
 
             // Crear el mensaje informativo para el usuario y guardar el registro
-            $mns_estudiantes ='Se han añadido todos los Estudiantes';
+            $mns_estudiantes ='Se han añadido '.$cuantos.' estudiantes';
             $estudiante->save();
+            $cuantos++;
         }
         return redirect()->route('materias.index')->with('success', $mns_estudiantes);
     }
