@@ -129,65 +129,77 @@
               <tbody>
                 @foreach ( $materias as $materia)
                   <tr>
-                      <td class="id">   <!-- -id -->
+                    <td class="id">   <!-- -id -->
                           {{ $materia->id }}
-                      </td>
-                      <td>   <!-- Nombre de Materia -->
+                    </td>
+                    <td>   <!-- Nombre de Materia -->
                           {{ Str::before($materia->materia_name," ") }}
-                      </td>
+                    </td>
+                      
+                    @if($user->paso < 4)
                       <td>   <!-- Grupo -->
-                      @if($user->paso < 4)
                           {{ $materia->grupo }}
-                      @endif
-                      @if($user->paso == 1) 
-                        <td>  <!-- Aula -->
+                      </td>
+                    @endif
+                    @if($user->paso == 1) 
+                      <td>  <!-- Aula -->
                           {{ $materia->grupo }}
-                        </td>
-                      @endif
+                      </td>
+                    @endif
                     @if($user->paso >= 4)
                           {{-- se comprueba si los estudiantes de esa materia están ya registrados --}}
-                          @php
-                            $isStudent = $materia->estudiantes()->where('materia_id', $materia->id)->first();
-                          @endphp
+                      @php
+                        $isStudent = $materia->estudiantes()->where('materia_id', $materia->id)->first();
+                      @endphp
                           {{-- si no lo están, se enlaza el formulario para crear el grupo de estudiantes --}}
                       @if($isStudent == null)
-                          <a href="#" id="{{$materia->grupo}}_{{$materia->id}}" title="Añadir estudiantes de {{ $materia->grupo }}" class="d_block editar" 
-                          onclick="estudiantesModal(this.id)">
-                             Añadir Estudiantes a 
-                          </a><p class="l-height mb-1"> {{ $materia->grupo }}</p>
+                        <td class="pt-03 mt-0">   <!-- Grupo -->  
+                          <a href="#" id="{{$materia->grupo}}_{{$materia->id}}" title="Añadir estudiantes de {{$materia->grupo }}" class="d_block editar" onclick="estudiantesModal(this.id)">
+                              {{-- Añadir Estudiantes a 
+                             </a><p class="l-height mb-1"> {{ $materia->grupo }}</p> --}}
+                             {{ $materia->grupo }} Añadir 
+                          </a>
                         </td>
-                        <td>        <!-- Aula -->
+                        <td  class="pt-03 mt-0">        <!-- Aula -->
                             {{ $materia->grupo}}
                         </td>
                       @elseif($isStudent !== null)
                           {{-- si existen se marca como hecho y se enlaza el formulario para actualizar el aula --}}
-                          @php
-                            $countStudents = $materia->estudiantes()->where('materia_id', $materia->id)->count();
-                            $aula = DB::table('aulas')->where('aula_name',$materia->grupo)->first();
-                          @endphp
+                        @php
+                          $countStudents = $materia->estudiantes()->where('materia_id', $materia->id)->count();
+                          $aula = DB::table('aulas')->where('aula_name',$materia->grupo)->first();
+                        @endphp
                                      <!-- Ver lista de estudiantes por materia -->
-                           <a href="{{ route('estudiantes.porMateria', $materia->id) }}" 
+                                     {{-- <a href="{{ route('estudiantes.porMateria', $materia->id) }}" 
                             title="Ver lista de estudiantes de {{ $materia->grupo }}" class="d_block ver"
                             >
                               <span class="ico-shadow"> 👀 </span>
                               <span>{{ $materia->grupo }}</span>
-                            </a><p class="l-height mb-1"> {{ $countStudents}} estudiantes ✅ </p>
+                            </a><p class="l-height mb-1"> {{ $countStudents}} estudiantes ✅ </p> --}}
+                        <td class="pt-2">   <!-- Grupo -->  
+                          <a href="{{ route('estudiantes.porMateria', $materia->id) }}" 
+                                title="Ver lista de estudiantes de {{ $materia->grupo }}" 
+                                class="d_block ver pt-03">
+                            <span class="ico-shadow"> 👀 </span>
+                            <span>{{ $materia->grupo }} -  {{ $countStudents}}</span>
+                          </a>
+                               {{-- <p class="l-height mb-1"> {{ $countStudents}} estudiantes ✅ </p> --}}
                         </td>
-                        <td>         <!-- Editar Aula -->
+                        <td class="pt-2">         <!-- Editar Aula -->
                           <a href="{{ route('aulas.edit', $aula->id) }}" 
-                          class= "d_block editar" 
-                          title="editar aula de {{$aula->aula_name}}">
+                            class= "d_block editar pt-03" 
+                            title="editar aula de {{$aula->aula_name}}">
                             <span class="ico-shadow"> 📝 </span>
                             <span>{{$aula->aula_name}}</span>
                           </a>
                         </td>
-                        <td>        <!-- Mostrar la disposición de mesas en el aula -->
+                        <td class="">        <!-- Mostrar la disposición de mesas en el aula -->
                           <a href="{{ route('aulas.show', $aula->id) }}" 
-                           id="verMesasAula{{ $aula->id }}" 
-                           class="d_block ver" 
-                           title ="Ver mesas aula id= {{ $aula->id }}">
-                            <span class="ico-shadow"> 👀 </span>
-                            <span class="bt-text-hide">{{ __('Show')}} </span>
+                            id="verMesasAula{{ $aula->id }}" 
+                            class="d_block ver pt-03" 
+                            title ="Ver mesas aula id= {{ $aula->id }}">
+                              <span class="ico-shadow"> 👀 </span>
+                              <span class="bt-text-hide">{{ __('Show')}} </span>
                           </a>
                         </td>
                       @endif
@@ -229,7 +241,10 @@
             </table>
 
           </div>
-        </div>       <!--fin de body-TABLA control-->
+        </div>   
+        
+            <!--fin de body-TABLA control-->
+                <div class="h-8"></div>
       </div>
 
       <script>
