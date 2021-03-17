@@ -14,7 +14,7 @@ return [
 
     'accepted'        => ':attribute debe ser aceptado.',
     'active_url'      => ':attribute no es una URL válida.',
-    'after'           => ':attribute debe ser una fecha posterior a :date.',
+    'after'           => ':attribute debe ser posterior a :date.',
     'after_or_equal'  => ':attribute debe ser una fecha posterior o igual a :date.',
     'alpha'           => ':attribute sólo debe contener letras.',
     'alpha_dash'      => ':attribute sólo debe contener letras, números, guiones y guiones bajos.',
@@ -89,12 +89,12 @@ return [
         'string'  => ':attribute debe contener al menos :min caracteres.',
         'array'   => ':attribute debe tener al menos :min elementos.',
     ],
-    'not_in'               => ':attribute es inválido.',
+    'not_in'               => ':attribute no es válido.',
     'not_regex'            => 'El formato del campo :attribute no es válido.',
     'numeric'              => ':attribute debe ser numérico.',
     'password'             => 'La contraseña es incorrecta.',
     'present'              => 'El campo :attribute debe estar presente.',
-    'regex'                => 'El formato de :attribute es inválido.',
+    'regex'                => 'El formato de :attribute no es válido.',
     'required'             => 'El campo :attribute es obligatorio.',
     'required_if'          => 'El campo :attribute es obligatorio cuando :other es :value.',
     'required_unless'      => 'El campo :attribute es obligatorio a menos que :other esté en :values.',
@@ -114,7 +114,7 @@ return [
     'timezone'    => 'El :attribute debe ser una zona válida.',
     'unique'      => 'El campo :attribute debe ser único.',
     'uploaded'    => 'Subir :attribute ha fallado.',
-    'url'         => 'El formato :attribute es inválido.',
+    'url'         => 'El formato :attribute no es válido.',
     'uuid'        => 'El campo :attribute debe ser un UUID válido.',
 
     /*
@@ -135,7 +135,9 @@ return [
         'email' => [
             'unique' => 'El :attribute ya ha sido registrado.',
         ],
-        'num_mesas' => 'El valor de :attribute debe ser lte:(App\Models\Aula,num_columnas)*(App\Models\Aula,num_filas)',
+        // 'fin'=> [
+        //     'after' => 'La hora final no puede ser anterior a la de inicio',
+        // ],
     ],
 
     /*
@@ -188,5 +190,6 @@ return [
         'num_columnas'          => 'Columnas',
         'num_filas'             => 'Filas',
         '$colxfilas'            => 'Columnas x Filas',
+        'fin'                   => 'Acaba',
     ],
 ];
