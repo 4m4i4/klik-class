@@ -21,23 +21,23 @@ class AulaController extends Controller
      */
     public function index()
     {
-        if(Auth::check()){
-            $user = Auth::user()->id; 
+        
+            $user = auth()->user()->id; 
             // // versión A (el modelo Estudiante se importa en el index):
             // $aulas = Aula::where('user_id',$user)->with('user','clase','mesas')->get();
+
             // return view('configurar.aulas.index', compact('aulas'));
 
             // // versión B (El modelo Estudiante se importa aquí)
-            // $aulas = Aula::where('user_id',$user)->get();
-            // $clase = Clase::select('aula_id', 'materia_id')->get();
-            // $estudiantes = Estudiante::select('id','materia_id')->get();
-            // return view('configurar.aulas.index', compact('aulas', 'clase', 'estudiantes'));
+            $aulas = Aula::where('user_id',$user)->get();
+            $clase = Clase::select('aula_id', 'materia_id')->get();
+            $estudiantes = Estudiante::select('id','materia_id')->get();
+            return view('configurar.aulas.index', compact('aulas', 'clase', 'estudiantes'));
 
             // // versión C (El modelo Estudiante se importa aquí)
-            $aulas = Aula::where('user_id',$user)->with('user','clase','mesas')->get();
-            $estudiantes = Estudiante::select('id','materia_id')->get();
-            return view('configurar.aulas.index', compact('aulas', 'estudiantes'));
-        }
+            // $aulas = Aula::where('user_id',$user)->with('user','clase','mesas')->get();
+            // $estudiantes = Estudiante::select('id','materia_id')->get();
+            // return view('configurar.aulas.index', compact('aulas', 'estudiantes'));
     }
 
     /**
@@ -63,7 +63,7 @@ class AulaController extends Controller
                 'num_columnas' =>'required|integer|max:9|min:1',
                 'num_filas' =>'required|integer|max:9|min:1',
                 'num_mesas' =>'required|integer|max:30',
-                'num_estudiante' =>'nullable',
+                // 'num_estudiante' =>'nullable',
             ])
         )
         {
@@ -101,7 +101,6 @@ class AulaController extends Controller
      */
     public function edit(Aula $aula)
     {
-        // $aula = Aula::find($id);
         $clase = Clase::select('aula_id', 'materia_id')->get();
         $estudiantes = Estudiante::select('id','materia_id')->get();
         return view('configurar.aulas.edit', compact('aula','clase','estudiantes'));
@@ -116,27 +115,25 @@ class AulaController extends Controller
      */
     public function update(Request $request, Aula $aula)
     {
-        // dd($request);
-        // $colxfilas=request('num_columnas')*request('num_filas');
         $nombreAula= request('aula_name');
         $columnas=request('num_columnas');
         $filas=request('num_filas');
         $mesas=request('num_mesas');
+        $num_estudiantes = request('num_estudiantes');
         $maxMesas = $columnas * $filas;
-        $msn_maxMesas ='Has puesto '.intval(  $mesas - $maxMesas) .' más que las que caben en '.$columnas .' columnas x '.$filas. ' filas';
-         $msn='Parece que has olvidado introducir el grupo de estudiantes de ' .$nombreAula;
-         if($mesas>$maxMesas)return redirect()->route('aulas.index')->with('success', $msn_maxMesas);
-        // if(request('num_estudiante')==0)return redirect()->route('aulas.index')->with('success', $msn);
+        $msn_maxMesas ='Has puesto '.intval($mesas - $maxMesas) .' mesas más que las que caben en '.$columnas .' columnas x '.$filas. ' filas';
+        $msn='Parece que has olvidado introducir el grupo de estudiantes de ' .$nombreAula;
+        // if($mesas>$maxMesas)return redirect()->route('aulas.index')->with('success', $msn_maxMesas);
+        
         if($request->validate([
                 'aula_name' =>'required|string',
                 'num_columnas' =>'required|integer|max:9|min:1',
                 'num_filas' =>'required|integer|max:9|min:1',
-                // 'num_mesas' =>'required|integer|max:20',
+                'num_mesas' =>'required|integer|max:'.$maxMesas,
                 // 'num_estudiante' =>'required|integer|min:1',
              ])
         )
         {
-            // $aula = Aula::find($id);
             $aula->aula_name = request('aula_name');
             $aula->num_columnas = request('num_columnas');
             $aula->num_filas = request('num_filas');
@@ -144,6 +141,7 @@ class AulaController extends Controller
             $aula->user_id = request('user_id');
             $aula->save();
             $aula->refresh();
+            if($num_estudiantes == '0')return redirect()->route('aulas.index')->with('success', $msn);
             return redirect()->route('aulas.index');
             // return redirect()->route('aulas.show',$aula->id);
         }
@@ -160,5 +158,17 @@ class AulaController extends Controller
         // $aula = Aula::find($id);
         $aula->delete();
         return redirect()->route('aulas.index')->with('success', 'Aula borrada');
+    }
+
+
+    public function editMesasVacias(Aula $aula)
+    {
+        $user = Auth::user()->id;
+        return view('configurar.vacias', compact('aula', 'user'));
+    }
+    public function updateMesasVacias(Request $request, Aula $aula)
+    {
+        $user = Auth::user()->id;
+        return view('configurar.vacias', compact('aula', 'user'));
     }
 }
