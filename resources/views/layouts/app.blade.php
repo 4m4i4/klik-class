@@ -24,13 +24,20 @@
 <body>
     <div id="app">
                 <!--HEADER: La navegación -->
-        <header class="main-header page-header">
-            @include('include/pageHeader')
-        </header>
+        @if (str_contains(url()->current(), 'ssss'))
+            <header class="main-header clase-header items-center">
+                @include('include/ssssHeader')
+            </header>  
+        @else
+            <header class="main-header page-header">
+                @include('include/pageHeader')
+            </header>                     
+        @endif
+
                 <!--FIN: Header -->
 
                 <!--MAIN: El contenido -->
-
+@yield('silencio')
         <main class="main">
             @yield('tablas')
             
@@ -39,21 +46,23 @@
                     <div class="mt-4 bg-white ashadow sm:rounded-lg">
                         @yield('content')
                         @yield('pasos')
-
                     </div>
                 </div>
             </div>
         </main>
                 <!--FIN: Main -->
 
-                <!--FOOTER: Sin desarrollar)-->
+                <!--FOOTER)-->
     </div>
-        <footer>
-        
-            <div class="page-footer">
-                @include('include/pageFooter')
-            </div>
-        </footer>
+        @if (!str_contains(url()->current(), 'ssss'))
+            <div class="h-8"></div>
+            <footer>
+                <div class="page-footer">
+                    @include('include/pageFooter')
+                </div>
+            </footer>                    
+        @endif
+
 
     @yield('script')
     <!--FIN: App -->
