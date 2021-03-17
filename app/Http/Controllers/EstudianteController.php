@@ -16,12 +16,14 @@ class EstudianteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($materia_id = 1)
     {   
         $user = auth()->user()->id;
         $materia = Materia::where('user_id',$user)->get();
-        $estudiantes = Estudiante::orderBy('materia_id')->paginate(12);
-        return view('configurar.estudiantes.index', compact('estudiantes','materia','user'));
+        // $estudiantes = Estudiante::where('materia_id', $materia_id)->get();
+        // $materia_id =$estudiante->materia_id->first();
+        $estudiantes = Estudiante::orderBy('materia_id','asc')->paginate(12);
+        return view('configurar.estudiantes.index', compact('estudiantes','materia','materia_id','user'));
     }
 
     public function porMateria($materia_id){
@@ -132,9 +134,7 @@ class EstudianteController extends Controller
             $estudiante->save();
         }
 
-        return redirect()->route('estudiantes.index');
-    
-       
+        return redirect()->route('estudiantes.porMateria',$estudiante->materia_id);   
     }
     /**
      * Remove the specified resource from storage.
@@ -147,5 +147,20 @@ class EstudianteController extends Controller
         $mns_estudiante ='Estudiante borrado con éxito';
         $estudiante->delete();
         return redirect()->route('materias.index')->with('success', $mns_estudiante);
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function borrarGrupo($materia_id)
+    {
+        $mns_grupo ='Grupo borrado con éxito';
+        $estudiantes = Estudiante::where('materia_id',$materia_id)->get();
+        foreach($estudiantes as $estudiante)
+        $estudiante->delete();
+        
+        return redirect()->route('materias.index')->with('success', $mns_grupo);
     }
 }
