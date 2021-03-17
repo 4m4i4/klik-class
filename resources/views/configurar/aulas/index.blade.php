@@ -18,7 +18,8 @@
           <div class = "grid grid-cols-3-fr items-center">
               @php
                   $user = auth()->user();
-                  // use App\Models\Estudiante;
+                  use App\Models\Estudiante;
+                  use App\Models\Clase;
               @endphp            
             <h2 class="title" >Mis Aulas</h2>
             <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
@@ -79,25 +80,30 @@
                         {{ $aula->num_mesas }}/
                          @php 
                             
-                            // // Para la versión A del controlador (requiere importar aquí el modelo Estudiante)
-                            // $clase = $aula->clase;
-                            // $materiaId = $clase->materia_id;
+                          // Para la versión A del controlador (requiere importar aquí el modelo Estudiante)
+
+                            // $estaClase = $aula->clase;
+                            // // dd($estaClase);
+                            // $materiaId =  $estaClase->materia_id;
                             // $estudian = Estudiante::where('materia_id', $materiaId)->count();
 
-                            // // Para la versión B del controlador
+                            // Para la versión B del controlador
                             // $estaClase = $clase->firstWhere('aula_id',$aula->id)->only('materia_id');
+                            $clase = Clase::where('aula_id',$aula->id)->first();
+                            // dd($clase);
+                            $materiaId=$clase->materia_id;
+                            // dd($materiaId);
                             // $materiaId = $estaClase['materia_id'];
-                            // $estudian = $estudiantes->whereIn('materia_id', $materiaId)->count();
-
-                            // // Para la versión C del controlador
-                            $clase = $aula->clase;
-                            $materiaId = $clase->materia_id;
                             $estudian = $estudiantes->whereIn('materia_id', $materiaId)->count();
 
-
+                            // // Para la versión C del controlador
+                            // $clase = $aula->clase;
+                            // $materiaId = $clase->materia_id;
+                            // $estudian = $estudiantes->whereIn('materia_id', $materiaId)->count();
+                            // $estudian = $estudiantes->where('materia_id', $materiaId)->count();
                           // dd($estudian);
                          @endphp
-                         {{$estudian}}
+                         {{$estudian}} 
                     </td>
                     <td>
                       <a href="{{ route('aulas.edit', $aula) }}" 
@@ -124,5 +130,6 @@
       </div>      <!-- fin de body-TABLA aulas-->
     </div>
   </div>
+
         
 @endsection
