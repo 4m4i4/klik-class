@@ -1,46 +1,6 @@
+@extends('layouts.app')
 
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/custom.js') }}" defer></script>
-  
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/customApp.css') }}" type="text/css"  rel="stylesheet">
-
-</head>
-<body class="bg-white">
-                <!--APP -->
-  <div id="app">
-                <!--HEADER -->
-    <header class="main-header clase-header items-center">
-      <div class="flex flex-row items-center"> 
-        <a href="/home" title= "home">
-          <svg class="mx-2  d_inline f_left" width="32px" height="32px" viewBox="0 0 128 128">
-            @include("include.logoQuad")
-          </svg>
-        </a>
-        <span class="bt-clase-header f_left ml-2 primary-reves">{{$aula->aula_name}}</span>
-        <a href="{{route("mesas.index")}}" class="bt-clase-header f_left px-1 mx-2 editar">Mesas</a>
-        <span id="khora" class="bt-clase-header f_left primary-reves reloj"></span>   
-        <span id="kdiaes" class="bt-clase-header f_right oscuro-reves reloj mr-2  text-overflow"></span>
-        <a href="{{ url()->previous()}}" class="bt-clase-header f_left px-1 mx-2 atras">Atrás</a>
-      </div> 
-    </header>
-                <!--FIN: Header -->
+  @section('tablas')
       @php
         use App\Models\Estudiante;
         use App\Models\Mesa;
@@ -62,11 +22,8 @@
         $contador = 0;
             
       @endphp
-                <!--MAIN  -->
-    <main >
             
-      <div class="bg-white">
-          @yield('content')
+      <div class="bg-white ssss_aula">
         <div class="grid grid-cols-{{$n_col}}">
           @if($aula_hasMesas == null) Si no hay mesas en el aula las añadimos
             @for ($i = $n_fila;  $i > 0; $i--) 
@@ -87,7 +44,6 @@
                 @endphp
               @endfor
             @endfor
-
 
             @php
               // for ($i = 0; $i < $n_student; $i++) { 
@@ -111,24 +67,20 @@
                   DB::table('mesas')->where('id',$indice)->update(['is_ocupada'=>false]);
                 }  
               }
-            
               // dd($firstMesa);
               // dd($mesas);
               // dd($lastMesa);
               // Sentar estudiantes
-                for($i = $firstMesa; $i < $lastMesa; $i++){
-                  $mesa_id = Mesa::find($i);
-
-                  if($mesa_id->is_ocupada == true  && $contador < $estudiantes->count()){
+              for($i = $firstMesa; $i < $lastMesa; $i++){
+                $mesa_id = Mesa::find($i);
+                if($mesa_id->is_ocupada == true  && $contador < $estudiantes->count()){
                     $mesa_id->is_ocupada = true;
                     $mesa_id->estudiante_id = $estudiantes[$contador]->id;
                     $mesa_id->save();
                     $mesa_id->refresh();
                     $contador++;
-                  } 
                 } 
-
-
+              } 
             @endphp
           @endif
         </div>
@@ -155,7 +107,6 @@
               @endif
             </div>    
           @endforeach
-
 
           {{-- @for($i = $firstMesa; $i < $lastMesa; $i++)
 
@@ -193,19 +144,47 @@
 
                   {{-- leer los nombres desde la tabla mesas --}}
                     {{-- <strong>{{$mesas[$i -1]->estudiante->nombre}}</strong> {{Str::limit($mesas[$i -1]->estudiante->apellidos, 1)}} id: {{$mesas[$i -1]->estudiante->id}} --}}
-
-
         </div>
       </div>
-    </main>
-                <!--FIN: Main -->
-  </div>
-                <!--FIN: App -->
 
+  @endsection
+                <!--FIN: App -->
+      {{-- <div id="edit_vacias" class="modal">
+        @include('configurar/vacias') 
+      </div> --}}
     <!-- Scripts -->
 
-  <script src="{{ asset('js/app.js') }}" type="text/js"></script>
-  <script src="{{ asset('js/custom.js') }}" type="text/js"></script>
+  {{-- <script src="{{ asset('js/app.js') }}" type="text/js"></script> --}}
+  {{-- <script src="{{ asset('js/custom.js') }}" type="text/js"></script>--}}
+      <script>
+          // function vaciasModal(valor_id){
+          //   let ar_id = valor_id.split('_');
+            
+          //   let aula_id = ar_id[1];
+          //   // document.getElementById("ver_grupo").innerHTML = grupo ;
+          //   document.getElementById("ver_aula_id").value = aula_id;
+          //   document.getElementById('edit_vacias').style.display = 'block';
+          // }
 
-</body>
-</html>
+  function desabilita(id){
+    let dni = id;
+    console.log(dni);
+    let m = document.getElementById(dni);
+    // m.classList.add ("falta");
+    m.setAttribute("disabled","true");
+    let A_bt = document.getElementById("A_bt_" +dni);
+    A_bt.setAttribute("disabled","true");
+    let B_bt = document.getElementById("B_bt_" +dni);
+    B_bt.setAttribute("disabled","true");
+    let name = document.getElementById("name_" +dni);
+    name.setAttribute("disabled","true");
+}
+
+  function suma(x, y = 1){
+    let res = x.innerHTML;
+    res = parseInt(res) + y;
+    x.innerHTML = res;
+  }
+      </script> 
+{{-- </body>
+</html> --}}
