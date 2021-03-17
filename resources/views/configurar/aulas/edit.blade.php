@@ -49,7 +49,7 @@
             <small class="t_red">* {{ $message }}</small><br>
           @enderror
         </div>
-          <div>
+        <div>
             @php
                 $estaClase = $clase->firstWhere('aula_id',$aula->id)->only('materia_id');
                 $materiaId = $estaClase['materia_id'];
@@ -57,20 +57,18 @@
             @endphp
             <label for="num_estudiantes"></label>
             <input type="text" name="num_estudiantes" value= {{$estudian}} readonly>
-          </div>
+        </div>
           {{-- @error('num_estudiantes')
             <small class="t_red">* Parece que has olvidado introducir el grupo de estudiantes de {{ $aula->aula_name }}</small><br>
           @enderror --}}
-          @error('num_estudiantes')
+          {{-- @error('num_estudiantes')
             <small class="t_red">* {{ $message }}</small><br>
-          @enderror
+          @enderror --}}
           <div>
             <button type="submit" 
              title="Actualizar aula" 
              class="bt_xxl mt-6 enviar">Guardar</button>
           </div>
-
-
     </form>
 
     <div class="px-6 py-2 mt-4 light-grey">
