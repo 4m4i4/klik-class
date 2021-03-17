@@ -14,6 +14,7 @@ class SesionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $user = auth()->user()->id; 
@@ -28,6 +29,7 @@ class SesionController extends Controller
      */
     public function create()
     {
+
         return view('configurar.sesions.create');
     }
 
@@ -41,8 +43,8 @@ class SesionController extends Controller
     {
            // si pasa la validación... 
         if($request->validate([
-                'inicio' =>'required',
-                'fin'=>'required'
+                'inicio' =>'required|date_format:H:i',
+                'fin'=>'required|date_format:H:i|after:inicio'
                 ])
             )
         {   
@@ -93,8 +95,8 @@ class SesionController extends Controller
     {
            // si pasa la validación... 
         if($request->validate([
-                'inicio' =>'required',
-                'fin'=>'required'
+                 'inicio' =>'required|date_format:H:i',
+                'fin'=>'required|date_format:H:i|after:inicio'
                 ])
             )
         {   
