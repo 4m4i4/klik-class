@@ -39,7 +39,6 @@ class Clase extends Model
     public function aula(){
         return $this->belongsTo('App\Models\Aula');
     }
-
     // One to many
     public function mesas(){
         return $this->hasMany('App\Models\Mesa');

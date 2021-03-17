@@ -21,20 +21,17 @@ class Mesa extends Model
     ];
     
     // One to many (inverse)
-    public function clase()
-    {
+    public function clase(){
         return $this->belongsTo('App\Models\Clase');
     }
     
     // One to many (inverse)
-    public function aula()
-    {
+    public function aula(){
         return $this->belongsTo('App\Models\Aula');
     }
     
-    // One to many (inverse)
-    public function estudiante()
-    {
+    // One to one (inverse)
+    public function estudiante(){
         return $this->belongsTo('App\Models\Estudiante');
     }
 }

@@ -9,7 +9,6 @@ html {
   height: 100%;
   font-size: 18px;
   overflow-y: auto;
-  overflow-x: hidden;
   line-height: 1.5;
 }
 
@@ -37,7 +36,7 @@ body {
 }
 
 .main {
-  margin-bottom: 4rem;
+  overflow-y: auto;
 }
 
 .b-box {
@@ -46,6 +45,10 @@ body {
 
 .c-box {
   box-sizing: content-box;
+}
+
+.ssss_aula {
+  min-height: 100%;
 }
 
 /* =========== FOOTER =========== */
@@ -662,10 +665,6 @@ a.btn,
   cursor: pointer;
 }
 
-a.btn {
-  padding: 1px 0.6rem 2px 0.6rem;
-}
-
 .btn {
   display: inline-block;
   text-decoration: none;
@@ -1007,6 +1006,7 @@ div.cancelar {
   }
 
   .caja-header.btn,
+  .caja-header select,
   .caja-header button.btn,
   .caja-header a.btn,
   .caja-header.boton {
@@ -1051,6 +1051,7 @@ div.cancelar {
   }
 
   .caja-header.btn,
+  .caja-header select,
   .caja-header a.btn,
   .caja-header form > button,
   .caja-header.boton {
@@ -1087,6 +1088,7 @@ div.cancelar {
   }
 
   .caja-header.btn,
+  .caja-header select,
   .caja-header a.btn,
   .caja-header button,
   .caja-header.boton {
@@ -1123,6 +1125,7 @@ div.cancelar {
   }
 
   .caja-header.btn,
+  .caja-header select,
   .caja-header a.btn,
   .caja-header button,
   .caja-header.boton {
@@ -1159,11 +1162,11 @@ div.cancelar {
 
 .tabla.boton,
 .tabla .btn,
+.tabla .a,
 .tabla button {
   font-family: "Roboto Condensed", sans-serif;
   font-variant: small-caps;
   font-size: 1rem;
-  margin: 2px 0;
   height: 2rem;
   padding: 3px;
   box-sizing: border-box;
@@ -1178,17 +1181,10 @@ div.cancelar {
 
 .tabla td {
   border-bottom: 2px solid #ddd;
-  vertical-align: middle;
   background-color: #fff;
 }
 
-.tabla td > a.btn {
-  box-sizing: border-box;
-  text-align: center;
-}
-
 .tabla .ver > span {
-  vertical-align: text-bottom;
   font-family: "Roboto Condensed", sans-serif;
 }
 
@@ -1235,9 +1231,9 @@ tbody > tr > td > form {
     text-align: center;
   }
 
-  .tabla td > a,
+  .tabla td > a span,
   .tabla td > .btn,
-  .tabla td > button {
+  .tabla td > form button span {
     font-size: 0.8rem;
     padding-left: 2px;
     padding-right: 2px;
@@ -1291,7 +1287,7 @@ tbody > tr > td > form {
   .tabla tr > td > .editar,
   .tabla tr > td > .ver {
     height: 1.7rem;
-    padding-top: 2px;
+    margin-top: 0.5rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: hidden;
@@ -1321,7 +1317,7 @@ tbody > tr > td > form {
   .tabla tr > td > .editar,
   .tabla tr > td > .ver {
     height: 1.8rem;
-    padding-top: 3px;
+    margin-top: 0.5rem;
   }
 }
 
@@ -1352,7 +1348,7 @@ tbody > tr > td > form {
   tr > td > .editar,
   tr > td > .ver {
     height: 2rem;
-    padding-top: 3px;
+    margin-top: 0.5rem;
   }
 }
 
@@ -1371,7 +1367,7 @@ tbody > tr > td > form {
   tr > td > .editar,
   tr > td > .ver {
     height: 2rem;
-    padding-top: 3px;
+    margin-top: 0.5rem;
   }
 }
 
@@ -1390,7 +1386,7 @@ tbody > tr > td > form {
   tr > td > .editar,
   tr > td > .ver {
     height: 2rem;
-    padding-top: 3px;
+    margin-top: 0.5rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: hidden;
@@ -1430,6 +1426,10 @@ input[type=number] {
 label {
   font-family: "Roboto Condensed", sans-serif;
   color: #222;
+}
+
+select {
+  margin-top: -1px;
 }
 
 /* =========== MESA =========== */
@@ -1730,6 +1730,10 @@ img {
   display: grid;
 }
 
+.grd {
+  display: grid;
+}
+
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
@@ -1799,6 +1803,10 @@ img {
 }
 
 .grid-cols-4-fr {
+  grid-template-columns: 1fr auto auto auto;
+}
+
+.grid-cols4 {
   grid-template-columns: 1fr auto auto auto;
 }
 
@@ -1901,10 +1909,6 @@ img {
   .bt-text-hide {
     display: none;
   }
-}
-
-.tabla span.bt-text-hide {
-  vertical-align: text-bottom;
 }
 
 .text-gray-200 {
@@ -2117,6 +2121,10 @@ img {
 .py-0 {
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.pt-03 {
+  padding-top: 3px;
 }
 
 .p-1 {

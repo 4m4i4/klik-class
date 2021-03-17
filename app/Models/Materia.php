@@ -32,6 +32,6 @@ class Materia extends Model
     }    
     // hasOneThrough
     public function mesa(){
-        return $this->hasoneThrough('App\Models\Mesa','App\Models\Estudiante');
+        return $this->hasOneThrough('App\Models\Mesa','App\Models\Estudiante');
     }
 }
