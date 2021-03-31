@@ -29,8 +29,18 @@ class SesionController extends Controller
      */
     public function create()
     {
+        $user = auth()->user()->id;
+        $sesions = Sesion::where('user_id',$user)->select('fin')->latest();
+        $last = $sesions->count();
+        $siguiente = "00:00:00";
+        
+        if($last > 0) $siguiente =  date_format(date_create($sesions->value('fin')),'H:i');
+        // dd($siguiente);
+        return view('configurar.sesions.create', compact('siguiente'));
 
-        return view('configurar.sesions.create');
+      
+
+        // return view('configurar.sesions.create');
     }
 
     /**
@@ -43,6 +53,7 @@ class SesionController extends Controller
     {
            // si pasa la validación... 
         if($request->validate([
+                // 'inicio' =>'required|date_format:H:i|after_or_equal:siguiente',
                 'inicio' =>'required|date_format:H:i',
                 'fin'=>'required|date_format:H:i|after:inicio'
                 ])
