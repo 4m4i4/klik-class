@@ -24,7 +24,7 @@
             <details class="mt-2">
               <summary>Ayuda formato:</summary>
                <p class="mt-2">
-                Usa solo <strong>Números </strong> y <strong>Letras sin tilde </strong>
+                Usa solo <strong>Números </strong> y <strong>Letras</strong>
               </p>
               <div class="destacado py-2">
                 <p class="py-2">Apellido <kbd>space</kbd> Apellido  <kbd>coma</kbd>,  Nombre <kbd> ;</kbd></p>
