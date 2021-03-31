@@ -31,8 +31,8 @@
                         <p class="mt-4">Hemos dividido esta etapa en <strong>3 pasos</strong> para ayudarte en una tarea <em>algo</em> aburrida, no te vamos a engañar... </p>    
                     </div>               
                     <div class="caja-grid  m-1 px-6  bg-gray-100 ">
-                        <p class="mt-4">Cada <strong>formulario</strong> que rellenes has <strong>guardado</strong> esos datos y te quedan menos para acabar!!. Puedes salir de Klik-Class cuando te apetezca...</p><p class="mt-4">Cuando entres encontrarás todo lo que habías dejado.<br>
-                        Pulsa <strong>Crear Curso</strong> cuando quieras.</p>
+                        <p class="mt-4">Con cada <strong>formulario</strong> enviado  ¡¡estás más cerca del final!!</p><p class="mt-4"> Haz clic en tu nombre <strong> para salir </strong>de Klik-Class si te apetece...</p><p class="mt-4">Al volver verás que todo está <strong>guardado</strong>.<br>
+                        Pulsa <strong>Crear Curso</strong> cuando quieras empezar...</p>
                     </div>
                 </div>
 
