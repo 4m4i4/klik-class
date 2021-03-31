@@ -37273,7 +37273,11 @@ function myTimer() {
   var d = new Date();
   queHora.innerHTML = d.toLocaleTimeString();
   var queDia = document.getElementById("kdiaes");
-  if (queDia !== null) queDia.innerHTML = d.toLocaleDateString();
+  var dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+  var dia = d.getDay();
+  var n = d.getDate();
+  if (queDia !== null) // queDia.innerHTML = d.toLocaleDateString();
+    queDia.innerHTML = n + " " + dias[dia];
 }
 
 function fFecha(x) {
