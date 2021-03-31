@@ -167,7 +167,7 @@
                           {{-- si existen se marca como hecho y se enlaza el formulario para actualizar el aula --}}
                         @php
                           $countStudents = $materia->estudiantes()->where('materia_id', $materia->id)->count();
-                          $aula = DB::table('aulas')->where('aula_name',$materia->grupo)->first();
+                          $aula = DB::table('aulas')->where('user_id',$user->id)->where('aula_name',$materia->grupo)->first();
                         @endphp
                                      <!-- Ver lista de estudiantes por materia -->
                                      {{-- <a href="{{ route('estudiantes.porMateria', $materia->id) }}" 
