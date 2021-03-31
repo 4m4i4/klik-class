@@ -645,7 +645,7 @@ button.btn:hover,
   background-color: #cfcfcf;
   color: #fff;
   cursor: not-allowed;
-  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.9);
+  /* text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.9); */
 }
 
 .boton:disabled,
@@ -658,6 +658,7 @@ button.btn:hover,
 .boton:disabled:hover,
 .boton.disabled:hover {
   cursor: not-allowed;
+  background-color: rgba(148, 207, 209, 0.4) ;
 }
 
 .sino {
@@ -1399,7 +1400,7 @@ select {
     margin: auto;
     width: 6rem;
     max-width: 12rem;
-    max-height: 4.5rem;
+    max-height: 5rem;
   }
 }
 
@@ -1407,7 +1408,7 @@ select {
   .mesa {
     margin: auto;
     width: 8rem;
-    max-height: 4.5rem;
+    max-height: 5rem;
   }
 }
 
@@ -1419,11 +1420,6 @@ select {
   }
 }
 
-.bt_mesa:disabled,
-.nombre_mesa:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
 
 .nombre_mesa {
   text-align: center;
@@ -1456,12 +1452,21 @@ select {
   margin-right: 3px;
 }
 
-.nombre_mesa:not(:disabled):hover {
+.nombre_mesa:not(:disabled):hover{
   background-color: #888;
   color: #fff;
   transition: background-color 0.3s, color 0.15s;
 }
-
+.bt_mesa:disabled,
+.nombre_mesa:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+/* .bt_mesa:disabled:hover, */
+/* .nombre_mesa:disabled:hover {
+  background-color: rgba(148, 207, 209, 0.4) ;
+  cursor: not-allowed; */
+/* } */
 /* =========== MODAL =========== */
 
 .modal,
