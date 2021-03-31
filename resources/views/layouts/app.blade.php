@@ -24,9 +24,9 @@
 <body>
     <div id="app">
                 <!--HEADER: La navegación -->
-        @if (str_contains(url()->current(), 'ssss'))
-            <header class="main-header clase-header items-center">
-                @include('include/ssssHeader')
+        @if (str_contains(url()->current(), 'etapaUso'))
+            <header class="clase-header items-center">
+                @include('include/etapaUsoHeader')
             </header>  
         @else
             <header class="main-header page-header">
@@ -37,7 +37,7 @@
                 <!--FIN: Header -->
 
                 <!--MAIN: El contenido -->
-@yield('silencio')
+        @yield('etapaUso')
         <main class="main">
             @yield('tablas')
             
@@ -54,13 +54,15 @@
 
                 <!--FOOTER)-->
     </div>
-        @if (!str_contains(url()->current(), 'ssss'))
-            <div class="h-8"></div>
-            <footer>
+        @if (!str_contains(url()->current(), 'etapaUso'))
+           
+            <footer class="footer">
                 <div class="page-footer">
                     @include('include/pageFooter')
                 </div>
-            </footer>                    
+            </footer>   
+        @else
+            <div class="noFooter"></div>           
         @endif
 
 
