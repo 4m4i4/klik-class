@@ -51,7 +51,16 @@
         </div>
         <div>
             @php
-                $estaClase = $clase->firstWhere('aula_id',$aula->id)->only('materia_id');
+                use App\Models\Clase;
+                $user = Auth::user()->id;
+                //  dd($user);
+                 $estaClase = $clase->firstWhere('aula_id',$aula->id)->only('materia_id');
+                                //  $clase = Clase::where('user_id', $user)->where('aula_id', $aula->id)->Column::'materia_id';
+                                //  get();
+                                // 
+                // $estaClase = $clase[];
+                //  $estaClase = Clase::where('aula_id',$aula->id)->first();
+                //  dd($clase->count());
                 $materiaId = $estaClase['materia_id'];
                 $estudian = $estudiantes->whereIn('materia_id', $materiaId)->count();
             @endphp
