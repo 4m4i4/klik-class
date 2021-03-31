@@ -21,21 +21,28 @@
           <input type="text" name="user_id" 
            value={{ auth()->user()->id }} readonly />
         </div>
+        <label for="siguiente"><b></b></label>
+            <input type="hidden" id="sigiente" value="{{ $siguiente }}" >
         <div class="pb-6 grid grid-cols-2 justify-between">
           <div class="mr-1">
             <label for="inicio"><b>Empieza:</b></label>
-            <input type="time" id="inicio" value="{{ old('inicio') }}" name="inicio" autofocus class="d_block" >
-            @error('inicio')
-              <small class="t_red">* {{ $message }}</small><br>
-            @enderror
+            <input type="time" id="inicio" value="{{ $siguiente }}" name="inicio" autofocus class="d_block" >
           </div>
           <div class="ml-1">
             <label for="fin"><b>Acaba: </b></label>
             <input type="time" id="fin" value="{{ old('fin') }}" name="fin" autofocus class="d_block" >
+
+          </div>
+        </div>
+        <div>
+          @error('inicio')
+              <small class="t_red">* {{ $message }}</small><br>
+          @enderror
+        </div>
+        <div>
             @error('fin')
               <small class="t_red">* {{ $message }}</small><br>
             @enderror
-          </div>
         </div>
       
         <div class="mt-4">
