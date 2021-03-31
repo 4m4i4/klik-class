@@ -42,7 +42,7 @@
     </form>
 
     <div class="px-6 py-4 mt-6 light-grey">
-      <a href="{{route('sesions.index')}}" class="boton d_inline danger" title="Cancelar y volver al índice">Cancelar </a>
+      <a href="{{route('sesions.index')}}" class="cancelar" title="Cancelar y volver al índice">Cancelar </a>
     </div>
 
   </div>
