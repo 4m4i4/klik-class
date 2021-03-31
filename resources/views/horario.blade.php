@@ -16,7 +16,7 @@
               </a>
               <a href="{{route('home')}}" 
                   title="a home" 
-                  class="btn continuar mr-1">Continuar 
+                  class="boton continuar mr-1">Continuar 
                     <span class="ico-shadow">👉 </span> 
               </a>
          
@@ -70,7 +70,7 @@
                       @endphp                  
                   @if ($col > 0 && $clase !== null)
                      <!-- Si la consulta $clase devuelve contenido... -->
-                    <td id ={{$fila + 1}}{{$dias[$col]}} class="text-center warning mx-auto"  >
+                    <td id ={{$fila + 1}}{{$dias[$col]}} class="text-center  bg-yellow mx-auto"  >
                             <!-- nombre del grupo y la materia -->
                       <p class="mb-1 l-height">
                             <span>{{ Str::before($clase->materia->materia_name," ") }}</span>
