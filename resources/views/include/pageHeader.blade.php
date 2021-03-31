@@ -4,7 +4,7 @@
     <nav class="navbar">
 
       <div class="logo">
-        <a class="d_block "  href="{{ url('/') }}" title="Ir a Inicio">
+        <a class="d_block" href="{{ url('/home') }}" title="Ir a Home">
           <svg class="logoMenu"
             width="128px" height="128px" 
             viewBox="0 0 512 512">
@@ -12,14 +12,18 @@
           </svg>
         </a>
       </div>
+      
         {{-- boton hamburguesa- despliegs la barra en 640px y menos --}}
-      <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarMenuCategorias" aria-controls="navbarMenuCategorias" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarMenuCategorias" aria-controls="navbarMenuCategorias" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+        {{-- @if(auth()->user()!==null && auth()->user()->paso == 6) --}}
+          <span class="navbar-toggler-icon"></span>
+      {{-- @endif           --}}
+        </button>
+
        {{--  Menú principal  --}}
       <nav class="main-menu"> 
         <h2>
-          <a class="navbar-brand smallCaps active" href="{{ url('/home') }}" title="Ir a Home">
+          <a class="navbar-brand smallCaps active"  href="{{ url('/') }}" title="Ir a Inicio">
           {{ config('app.name', 'Laravel') }}
           </a>
         </h2>
