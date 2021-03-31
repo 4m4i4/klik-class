@@ -14,7 +14,7 @@
        
      
     </div>
-    <div  class="flex-row items-center">
+    <div  class="flex-row items-center mr-2">
          {{-- <a href="{{route('aulas.editMesasVacias',$aula->id)}}"  class="bt-clase-header f_left px-1 mx-2 editar" >Mesas</a> --}}
         {{-- <a href="#" id="id_{{$aula->id}}" class="bt-clase-header f_left px-1 mx-2 editar" onclick="vaciasModal(this.id)">Mesas</a> --}}
         {{-- <a href="{{route('aulas.editMesasVacias',$aula->id)}}" title= "editar mesas vacias">Mesas</a> --}}
@@ -23,7 +23,7 @@
       <span id="kdiaes" class=" mr-2  text-overflow"></span>
 
         {{-- <a href="{{ url()->previous()}}" class=" px-1 mx-2 atras">Atrás</a> --}}
-      <a href="{{ route('materias.index')}}" class="bt-clase-header mr-l btn atras">
+      <a href="{{ route('materias.index')}}" class="bt-clase-header btn atras">
       <span class="ico-shadow "> 👈 </span>
       <span class="bt-text-hide" title="Volver a la lista"> Atrás</span></a>
     </div>  
