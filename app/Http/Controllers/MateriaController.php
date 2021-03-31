@@ -81,7 +81,7 @@ class MateriaController extends Controller
                 'user_id'=>request('user_id')
                 ]);
             //Componemos el mensaje para el usuario y guardamos la materia
-            $msn_materia = 'Se ha añadido la materia';
+            $msn_materia = 'Se ha añadido la materia '.$new_name;
             $materia->save();
 
             $msn_aula = '';
@@ -98,11 +98,11 @@ class MateriaController extends Controller
                 ]);
                 $aula->save();  
                 $aula->refresh();
-                $msn_aula= ' y el aula';
+                $msn_aula= ' y el aula '.$grupo;
             }
-
-            return redirect()->route('materias.index')->with('success', $msn_materia.$msn_aula);
         }
+            return redirect()->route('materias.index')->with('success', $msn_materia.$msn_aula);
+
     }
 
     /**
@@ -302,11 +302,11 @@ class MateriaController extends Controller
         $mns_aulas ='';
         if($num==1){
             DB::table('aulas')->where('user_id', $user)->where('aula_name',$grupo)->delete();
-            $mns_aulas= 'y aula';
+            $mns_aulas= 'y aula '.$grupo;
         }
 
         $materia->delete();
-        return redirect()->route('materias.index')->with('success', 'Se ha borrado materia '.$mns_aulas);
+        return redirect()->route('materias.index')->with('success', 'Se ha borrado materia '.$materia->materia_name.' '.$mns_aulas);
     }
 
 }
