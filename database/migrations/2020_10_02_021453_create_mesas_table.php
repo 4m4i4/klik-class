@@ -30,7 +30,9 @@ class CreateMesasTable extends Migration
             $table->unsignedBigInteger('estudiante_id')->nullable();
             $table->foreign('estudiante_id')
                   ->references('id')
-                  ->on('estudiantes');
+                  ->on('estudiantes')
+                  ->onDelete('cascade');
+                  
             $table->timestamps();
         });
     }
