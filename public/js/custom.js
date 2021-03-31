@@ -47,6 +47,9 @@ function fFecha(x){
     case 6:
       fecha = local+"  "+dias[dia]; //  29/02/1890 Martes 
       break;
+    case 7:
+      fecha =  dias[dia]+" "+d //  Martes 29 
+      break;
     default:
       fecha = dias[dia]+", "+d+" de "+meses[m]+" de "+y;  // Martes, 29 de febrero de 1890
       break;
