@@ -23,8 +23,7 @@
           {{-- @error('aula_name')
             <small class="t_red">* {{ $message }}</small><br>
           @enderror
-          <small class="ejemplo"><strong>Ejemplo:</strong>  2a bach</small> --}}
-
+          <small class="ejemplo"><strong>Ejemplo:</strong> 2a bach</small> --}}
           <div class="grid grid-cols-3-auto mt-4">
             <div class="d_block mr-1">
               <label class="d_block" for="num_columnas">Columnas</label>
@@ -55,12 +54,12 @@
                 $user = Auth::user()->id;
                 //  dd($user);
                  $estaClase = $clase->firstWhere('aula_id',$aula->id)->only('materia_id');
-                                //  $clase = Clase::where('user_id', $user)->where('aula_id', $aula->id)->Column::'materia_id';
-                                //  get();
-                                // 
-                // $estaClase = $clase[];
-                //  $estaClase = Clase::where('aula_id',$aula->id)->first();
-                //  dd($clase->count());
+                  //  $clase = Clase::where('user_id', $user)->where('aula_id', $aula->id)->Column::'materia_id';
+                  //  get();
+                  // 
+                  // $estaClase = $clase[];
+                  //  $estaClase = Clase::where('aula_id',$aula->id)->first();
+                  //  dd($clase->count());
                 $materiaId = $estaClase['materia_id'];
                 $estudian = $estudiantes->whereIn('materia_id', $materiaId)->count();
             @endphp
@@ -73,19 +72,17 @@
           {{-- @error('num_estudiantes')
             <small class="t_red">* {{ $message }}</small><br>
           @enderror --}}
-          <div>
-            <button type="submit" 
-             title="Actualizar aula" 
-             class="bt_xxl mt-6 enviar">Guardar</button>
-          </div>
+        <div>
+          <button type="submit" 
+            title="Actualizar aula" 
+            class="bt_xxl mt-6 enviar">Guardar</button>
+        </div>
     </form>
 
     <div class="px-6 py-2 mt-4 light-grey">
       <a href="{{route('materias.index')}}" 
-       title="cancelar y volver"
-      class="btn cancelar">Cancelar </a>
+        title="cancelar y volver"
+        class="btn cancelar">Cancelar </a>
     </div>
-
 </div>
-
 @endsection
