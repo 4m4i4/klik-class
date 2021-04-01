@@ -103,7 +103,7 @@ class AulaController extends Controller
         $contador = 0;
         // Si el aula no tiene mesas las ponemos
         if($aula_hasMesas == null){
-            for ($i = $aula->num_filas;  $i > 0; $i--) {
+            for ($i = $aula->num_filas;  $i > 0; $i--){
               for ($ii = 1; $ii <= $aula->num_columnas; $ii++){
                   $mesa = new Mesa;
                   $mesa->columna = $ii;
@@ -166,15 +166,15 @@ class AulaController extends Controller
         // return view('configurar.aulas.edit', compact('aula','clase','estudiantes'));
         // $clase = Clase::where('user_id', $user)->where('aula_id', $aula)->value('materia_id');
         // dd($clase);
-// $estudiantes = Estudiante::get();
-// foreach($estudiantes as $ikasle)
-// echo $ikasle->materia_id.' ';
-// $materia = Materia::find($clase);
-// $materia = Materia::get();
-// $countStudents = $materia->estudiantes->count();
-// $countStudents = $materia->where('id',$materia_id)estudiantes()->count();
+        // $estudiantes = Estudiante::get();
+        // foreach($estudiantes as $ikasle)
+        // echo $ikasle->materia_id.' ';
+        // $materia = Materia::find($clase);
+        // $materia = Materia::get();
+        // $countStudents = $materia->estudiantes->count();
+        // $countStudents = $materia->where('id',$materia_id)estudiantes()->count();
 
-// dd($clase,$estudiantes);
+        // dd($clase,$estudiantes);
         // $estudiantes = Estudiante::select('id','materia_id')->get();
         return view('configurar.aulas.edit', compact('aula','clase','estudiantes'));
     }
@@ -188,14 +188,41 @@ class AulaController extends Controller
      */
     public function update(Request $request, Aula $aula)
     {
-        $nombreAula= request('aula_name');
-        $columnas=request('num_columnas');
-        $filas=request('num_filas');
-        $mesas=request('num_mesas');
+        // $mesas = Mesa::all();
+        $old_num_columnas = $aula->num_columnas;
+        $old_num_filas = $aula->num_filas;
+        $old_num_mesas = $aula->num_mesas;
+        $mesas_aula = Mesa::where('aula_id',$aula->id)->get();
+        //  dd($mesas_aula);
+        $miAula = Aula::where('id', $aula->id)->with('mesas')->get();
+        // dd($miAula);
+
+
+        // dd($old_num_columnas, $old_num_filas);
+        $nombreAula = request('aula_name');
+        $columnas = request('num_columnas');
+        $filas = request('num_filas');
+        $mesas = request('num_mesas');
+        // dd(intVal($columnas), $old_num_columnas);
+        if(intVal($columnas)!==$old_num_columnas){
+            echo "las columnas no son iguales";
+            $indice= 0;
+            // dd($mesas_aula[0]->id);
+            for ($i = $filas;  $i > 0; $i--){
+              for ($ii = 1; $ii <= $columnas; $ii++){
+                  $id = $mesas_aula[$indice]->id;
+                  DB::table('mesas')->where('id', $id)->update(['columna'=>$ii,'fila'=>$i]);
+                //   $mesas_aula[$indice]->columna = $ii;
+                //   $mesas_aula[$indice]->fila = $i;
+                //   $mesas_aula[$indice]->save();
+                  $indice++;
+              }
+            }
+        }
         $num_estudiantes = request('num_estudiantes');
         $maxMesas = $columnas * $filas;
-        $msn_maxMesas ='Has puesto '.intval($mesas - $maxMesas) .' mesas más que las que caben en '.$columnas .' columnas x '.$filas. ' filas';
-        $msn='Parece que has olvidado introducir el grupo de estudiantes de ' .$nombreAula;
+        $msn_maxMesas = 'Has puesto '.intval($mesas - $maxMesas) .' mesas más que las que caben en '.$columnas .' columnas x '.$filas. ' filas';
+        $msn ='Parece que has olvidado introducir el grupo de estudiantes de ' .$nombreAula;
         // if($mesas>$maxMesas)return redirect()->route('aulas.index')->with('success', $msn_maxMesas);
         
         if($request->validate([
@@ -215,8 +242,7 @@ class AulaController extends Controller
             $aula->save();
             $aula->refresh();
             if($num_estudiantes == '0')return redirect()->route('aulas.index')->with('success', $msn);
-            return redirect()->route('materias.index');
-            // return redirect()->route('aulas.show',$aula->id);
+            return redirect()->route('materias.index')->with('success', 'el aula se ha actualizado');
         }
     }
 
