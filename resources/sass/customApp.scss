@@ -1165,16 +1165,35 @@ select{
     background-color:#f3f2ea;
     border:1px solid #ccc;
     margin:5px}
-
-@media screen  and (max-width:640px){
+@media screen  and (max-width:360px){
+    .mesa{
+        // margin:10px 5px;
+        margin:auto;
+        width:3rem;
+        // max-width:12rem;
+        max-height:5rem;
+        .bt_mesa,.nombre_mesa{
+            font-size:.8rem;padding-left:2px;
+        padding-right:2px;
+        margin:1px}}
+}
+@media screen  and (min-width:361px) and (max-width:412px){
+    .mesa{
+        // margin:10px 5px;
+        margin:auto;
+        width:5rem;
+        // max-width:12rem;
+        max-height:5rem}
+}
+@media screen and (min-width:413px) and (max-width:640px){
     .mesa{
         // margin:10px 5px;
         margin:auto;
         width:6rem;
-        max-width:12rem;
+        // max-width:12rem;
         max-height:5rem}
 }
-@media screen and (min-width:641px) and (max-width:1024px){
+@media screen and (min-width:641px) and (max-width:1023px){
     .mesa{
         // margin:20px 15px;
         margin:auto;
