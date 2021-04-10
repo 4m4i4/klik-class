@@ -19,7 +19,7 @@ class EstudianteController extends Controller
     public function index($materia_id = 1)
     {   
         $user = auth()->user()->id;
-        $materia=auth()->user()->materias;
+        $materia = auth()->user()->materias;
        
         for($index=0;$index<$materia->count();$index++)echo $materia[$index]->id.' '. $materia[$index]->materia_name.'; ';
         //  dd($materia->count());
@@ -28,7 +28,7 @@ class EstudianteController extends Controller
         //   $estudiantes =Materia::leftJoin('estudiantes','id','=','estudiantes,materia_id')->paginate(20);
 
         // $materia_id =$estudiante->materia_id->first();
-        $estudiantes = Estudiante::orderBy('materia_id','asc')->paginate(25);
+        $estudiantes = Estudiante::with('materia')->orderBy('materia_id','asc')->paginate(25);
                 // $estudiantes = Estudiante::where('materia_id',$materia_id)->reorder('materia_id','asc')->paginate(25);
         return view('configurar.estudiantes.index', compact('estudiantes','materia','materia_id','user'));
     }
