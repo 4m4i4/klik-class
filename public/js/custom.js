@@ -6,7 +6,23 @@ else
 var semana=`'Hora','Lun','Mar','Mie','Jue','Vie'`;
 // document.getElementById("semana").innerHTML=semana;
 
+var myVar = setInterval(myTimer, 1000);
+var queHora = document.getElementById("khora");
 
+
+
+function myTimer() {
+  var d = new Date();
+  queHora.innerHTML = d.toLocaleTimeString(); 
+  var queDia = document.getElementById("kdiaes");
+  var dias = ["Domingo","Lunes", "Martes", "Miércoles","Jueves","Viernes","Sábado"];
+  var dia = d.getDay();
+  var n = d.getDate();
+  
+  if(queDia!==null)
+  // queDia.innerHTML = d.toLocaleDateString();
+  queDia.innerHTML = n+", "+ dias[dia];
+} 
 
 function configuraFecha(){
 var x= document.getElementById("configFecha").value;
@@ -17,8 +33,8 @@ function fFecha(x){
   var fecha;
   var h = new Date();
   var local = h.toLocaleDateString();
-  var d = h.getDate();
-  var m = h.getMonth();
+  var d = h.getDate();  // día (número del mes)
+  var m = h.getMonth();  // mes (número del 0 al 11)
   var y = h.getFullYear();
   myTimer();
   var dias = ["DOMINGO","LUNES", "MARTES", "MIÉRCOLES","JUEVES","VIERNES","SÁBADO"];
@@ -48,7 +64,7 @@ function fFecha(x){
       fecha = local+"  "+dias[dia]; //  29/02/1890 Martes 
       break;
     case 7:
-      fecha =  dias[dia]+" "+d //  Martes 29 
+      fecha = d+", "+dias[dia]//   29, Martes 
       break;
     default:
       fecha = dias[dia]+", "+d+" de "+meses[m]+" de "+y;  // Martes, 29 de febrero de 1890
