@@ -15,7 +15,7 @@
 
       <div class="caja">  <!--CABECERA aulas-->
         <div class = "caja-header">
-          <div class = "grid grid-cols-3-fr items-center">
+          <div class = "grid grid-cols-3-fr w-100 items-center">
               @php
                   $user = auth()->user();
                   use App\Models\Estudiante;
@@ -37,7 +37,7 @@
                   @method("PUT")
                       <button type="submit"
                       title="Finalizar introducción de datos" 
-                      class="ml-1 btn continuar">
+                      class="ml-1 mr-2 btn continuar">
                       <span class="ico-shadow">✅ </span> Continuar 
                       <span class="ico-shadow"> 👉 </span>
                       </button>                    
@@ -128,6 +128,7 @@
           </div>
         
       </div>      <!-- fin de body-TABLA aulas-->
+      <div class="h-8"></div>
     </div>
   </div>
 

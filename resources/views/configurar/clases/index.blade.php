@@ -14,13 +14,12 @@
 
     <div class="caja">  <!-- CABECERA clases -->
       <div class = "caja-header">
-        <div class = "grid grid-cols-3-fr items-center justify-right">
+        <div class = "grid grid-cols-3-fr items-center w-100">
             @php
               $user = Auth::user();
             @endphp
-          @if($user->paso == 2)
+          @if($user->paso == 2){{--   NO ocurre nunca --}}
               <h2 class="title">Añadir mis horarios</h2>
-              {{-- <div class="f_right"> --}}
               <a href="{{route('sesions.index')}}" 
                   title="Poner las horas de comienzo y final de las sesiones" 
                   class="boton blue-reves mr-1">Poner horario
@@ -28,41 +27,57 @@
               <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                   @csrf
                   @method("PUT")
-                    <button type="submit" title="Horario completado: Empezar a poner clases" class="ml-1 btn continuar"><span class="ico-shadow">✅ </span> Continuar <span class="ico-shadow">👉 </span></button>
+                    <button type="submit"
+                      title="Horario completado: Empezar a poner clases"
+                      class="ml-1 btn continuar">
+                      <span class="ico-shadow">✅ </span>
+                      <span class="bt-text-hide">{{ __('Next')}}</span>
+                      <span class="ico-shadow">👉 </span>
+                    </button>
               </form>
-              {{-- </div> --}}
           @endif
           @if($user->paso == 3)
-              <h2 class="title">Añadir mis clases</h2>
-              {{-- <div class="flex items-center"> --}}
+              <h2 class="title">Añadir mis Clases</h2>
               <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
                   @csrf
                   @method("PUT")
-                    <button type="submit" title="Ir a cambiar horas de inicio y final" class="ml-1 btn atras"><span class="ico-shadow"> 👈 </span> Atrás <span class="ico-shadow"> ⌚ </span></button> 
+                    <button type="submit" 
+                      title="Ir a cambiar horas de inicio y final" 
+                      class="ml-1 btn atras">
+                      <span class="ico-shadow"> 👈 </span> {{__('Previous')}}
+                      <span class="ico-shadow"> ⌚ </span>
+                    </button> 
               </form>
               <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                   @csrf
                   @method("PUT")
-                    <button type="submit" title= "Tabla de clases completada"class="ml-1 btn continuar"><span class="ico-shadow">✅ </span> Continuar <span class="ico-shadow">👉 </span></button>
+                    <button type="submit" 
+                      title= "Tabla de clases completada"
+                      class="ml-1 btn continuar">
+                      <span class="ico-shadow">✅ </span> 
+                      <span class="bt-text-hide">{{ __('Next')}}</span>
+                      <span class="ico-shadow">👉 </span>
+                    </button>
               </form>
-              {{-- </div> --}}
           @endif
-          @if($user->paso == 4)
+          @if($user->paso >= 4)
               <h2 class="title">Horario de clases</h2>
               <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
-                    @csrf
-                    @method("PUT")
-                      <button type="submit" 
-                        title="Ir a cambiar horarios" 
-                        class="ml-1 btn atras">
-                          <span class="ico-shadow"> 👈 </span>Atrás
-                          <span class="ico-shadow"> ⌚</span> 
-                      </button>
+                @csrf
+                @method("PUT")
+                  <button type="submit" 
+                    title="Ir a cambiar horarios" 
+                    class="ml-1 btn atras">
+                    <span class="ico-shadow"> 👈 </span>Atrás
+                    <span class="ico-shadow"> ⌚</span> 
+                  </button>
               </form>
               <a href="{{route('home')}}" 
-                  title="a home" 
-                  class="btn continuar mr-1">Continuar 
-                    <span class="ico-shadow">👉 </span> 
+                title="a home" 
+                class="ml-1 btn continuar">
+                <span class="ico-shadow">✅ </span> 
+                <span class="bt-text-hide">{{ __('Next')}}</span>
+                <span class="ico-shadow">👉 </span>
               </a>
           @endif
         </div>   <!-- fin de grid -->
@@ -71,13 +86,12 @@
 
     <div class="caja">   <!-- body-TABLA clases -->
       <div class="caja-body">
-        <table id="horario" class="tabla table-responsive mx-auto">
-          <caption>Para <strong>Añadir</strong> una clase haz click en la celda correspondiente. <br>Para <strong>modificarla</strong> haz click sobre ella.<br>Cuando tengas todas las clases pulsa <strong>Continuar</strong>.</caption>
-            @php
-               $dias = ['Horario','Lunes','Martes','Miercoles','Jueves','Viernes'];
-            @endphp  
+        
+        <table id="tabla-config-horario" class="tabla table-responsive mx-auto">
+          <caption>Para <strong>Añadir</strong> una clase haz click en su celda. <br>Para <strong>modificarla</strong> haz click sobre ella.<br>Cuando tengas todas las clases pulsa <strong>Continuar</strong>.</caption>
             @php
               $user = auth()->user()->id;
+              $dias = ['Horario','Lunes','Martes','Miercoles','Jueves','Viernes'];
               $num_dias = count($dias);
               use App\Models\Sesion;
               $sesiones = Sesion::where('user_id',$user)->get();
@@ -87,53 +101,50 @@
               $clases = Clase::where('user_id',$user)
                               ->with('user','materia','aula','sesion')->get();
             @endphp
-          <thead>  <!-- cabecera: DÍAS DE LA SEMANA -->
+          <thead>  <!-- pintar PRIMERA FILA -cabecera: array dias-->
             <tr>
               @for($i = 0; $i < $num_dias; $i++)
-                <th id={{$dias[$i]}}>{{$dias[$i]}}
+                <th id={{$dias[$i]}}>{{substr($dias[$i],0,3)}}
                 </th>
               @endfor
             </tr>
           </thead>
-          <tbody><!-- filas: SESIONES -->
+          <tbody><!-- pintar RESTO DE FILAS -->
             @for ($fila = 0; $fila < $num_sesiones; $fila++)
               <tr id={{$sesiones[$fila]->id}}>
                 @for ($col = 0; $col < $num_dias; $col++)
-                  @if ($col == 0)
+                  @if ($col == 0)  <!-- PRIMERA COLUMNA: HORARIO (sesiones de inicio y final)-->
                     <th class="text-center">
                       {{date_format(date_create($sesiones[$fila]->inicio), "H:i")}}
                         <br>
                       {{date_format(date_create($sesiones[$fila]->fin), "H:i")}}
                     </th>
                   @endif
-                  @if ($col > 0)
-                    <td id ={{$fila + 1}}{{$dias[$col]}} class="text-center mx-auto" >
+                  @if ($col > 0)  <!-- RESTO DE COLUMNAS: CLASES (materia y aula) por día de la semana-->
+                    <td id ={{$fila + 1}}{{$dias[$col]}} class="">
                       @php
-                        $estasesion = $sesiones[$fila]->id;
-                        $estedia = $dias[$col];
+                        $estasesion = $sesiones[$fila]->id;  // obtener el número de sesión (su id)
+                        $estedia = $dias[$col];  // obtener el día de la semana
+                        // consulta $clase: obtener el valor para este user, esta sesión y este día
                         $clase = $clases->where('user_id',$user)->where('sesion_id', $estasesion)
                           ->where('dia', $estedia)
                           ->first();                          
                       @endphp
-                      <!-- Si la consulta $clase devuelve contenido... -->
-
+                        <!-- Si $clase tiene UN VALOR, se enlaza el formulario para EDITAR la clase -->
                         @if ($clase !== null)
-                            <!-- se enlaza el formulario para editar la clase -->
                           <a href="{{ route('clases.edit', $clase) }}"
                             id="{{$estasesion}}_{{$estedia}}"
-                            class="d_block editar"
+                            class="d_block editar flex-column justify-center items-center"
                             title="Editar clase {{ $clase->materia->grupo }}">
-                            {{$clase->materia->grupo}}
+                            {{$clase->materia->grupo}}<br>
+                            <small>{{ Str::before($clase->materia->materia_name," ") }}</small>
                           </a>
-                          <p class="mb-1 l-height">
-                            <span>{{ Str::before($clase->materia->materia_name," ") }}</span>
-                          </p>
-                          <!-- Si $clase es null, se enlaza el formulario para crear la clase... -->                          
+                          <!-- Si $clase es NULL, se enlaza el formulario para CREAR la clase -->
                         @elseif($clase == null)
                           <button id = {{$estedia.'_'.$estasesion.'_'.$fila}}
                             onclick="claseModal(this.id)"
                             title="Añadir clase"
-                            class="btn crear">AÑADIR
+                            class="d_block flex-column justify-center items-center  crear">{{__('Add')}}
                           </button>
                         @endif
                     </td>
@@ -151,6 +162,7 @@
       </div>  {{--  fin caja-body --}}
       
     </div>        <!-- fin de body-TABLA clases -->
+    <div class="h-8"></div>
   </div>  <!-- fin de div -->
 </div>  <!-- fin de container -->
 

@@ -12,11 +12,11 @@
               <h2 class="title">Mi horario de clases</h2>
               <a href="{{route('clases.index')}}" 
                   title=" Ir a la tabla de clases editable" 
-                  class="boton warning mr-1">¿Editar?
+                  class="boton warning px-4 mr-1">¿Editar?
               </a>
               <a href="{{route('home')}}" 
                   title="a home" 
-                  class="boton continuar mr-1">Continuar 
+                  class="boton continuar px-4 mr-1">Continuar 
                     <span class="ico-shadow">👉 </span> 
               </a>
          

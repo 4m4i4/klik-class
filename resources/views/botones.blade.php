@@ -8,9 +8,9 @@
   {{-- <div class = ""> --}}
 
   <div class="caja mt-4">
-    <div class="caja-header">
-      <div class="encabezamiento">
-      <h1 class="h1 mb-2 ">Personaliza<br>Klik-Class</h1></div>
+    <div class="caja-header mt-2">
+      <div class="encabezamiento py-2">
+      <h1 class="h1">Personaliza<br>Klik-Class</h1></div>
       <div class="menu-botones">
         <a class="items-menu-botones default" href="#indice_1">Elije tus Botones</a>
         <a class="items-menu-botones default" href="#indice_2">Graduales y Combinados</a>
