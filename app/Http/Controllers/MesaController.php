@@ -32,7 +32,12 @@ class MesaController extends Controller
         return view('configurar.mesas.index', compact('mesas','estudiantes','clase','aula_id'));
         
     }
+    public function mesasPorClase(Clase $clase){ 
 
+
+        $mesas = Mesa::where('clase_id',$clase->id)->with('clase','aula','estudiante')->get();
+        return response()->json($mesas)->header('Content-Type','application/json');
+    }
     /**
      * Show the form for creating a new resource.
      *
