@@ -188,43 +188,40 @@ class AulaController extends Controller
      */
     public function update(Request $request, Aula $aula)
     {
-        // $mesas = Mesa::all();
+        // obtener los valores anteriores de columnas y filas
         $old_num_columnas = $aula->num_columnas;
         $old_num_filas = $aula->num_filas;
         $old_num_mesas = $aula->num_mesas;
         $mesas_aula = Mesa::where('aula_id',$aula->id)->get();
-        //  dd($mesas_aula);
+        //   dd($mesas_aula);
         $miAula = Aula::where('id', $aula->id)->with('mesas')->get();
-        // dd($miAula);
 
-
-        // dd($old_num_columnas, $old_num_filas);
         $nombreAula = request('aula_name');
         $columnas = request('num_columnas');
         $filas = request('num_filas');
         $mesas = request('num_mesas');
-        // dd(intVal($columnas), $old_num_columnas);
-        if(intVal($columnas)!==$old_num_columnas){
-            echo "las columnas no son iguales";
-            $indice= 0;
-            // dd($mesas_aula[0]->id);
-            for ($i = $filas;  $i > 0; $i--){
-              for ($ii = 1; $ii <= $columnas; $ii++){
-                  $id = $mesas_aula[$indice]->id;
-                  DB::table('mesas')->where('id', $id)->update(['columna'=>$ii,'fila'=>$i]);
-                //   $mesas_aula[$indice]->columna = $ii;
-                //   $mesas_aula[$indice]->fila = $i;
-                //   $mesas_aula[$indice]->save();
-                  $indice++;
-              }
-            }
-        }
-        $num_estudiantes = request('num_estudiantes');
         $maxMesas = $columnas * $filas;
-        $msn_maxMesas = 'Has puesto '.intval($mesas - $maxMesas) .' mesas más que las que caben en '.$columnas .' columnas x '.$filas. ' filas';
+        $num_estudiantes = request('num_estudiantes');
         $msn ='Parece que has olvidado introducir el grupo de estudiantes de ' .$nombreAula;
-        // if($mesas>$maxMesas)return redirect()->route('aulas.index')->with('success', $msn_maxMesas);
-        
+
+        if($mesas_aula->count() > 0){
+        // si hay cambios en el número de  columnas y filas, actualizar los campos columna y fila de las mesas
+            if((intVal($columnas)!==$old_num_columnas)||(intVal($filas)!==$old_num_filas)){
+                // echo "las columnas no son iguales";
+                $indice= 0;
+                for ($i = $filas;  $i > 0; $i--){
+                    for ($ii = 1; $ii <= $columnas; $ii++){
+                        $id = $mesas_aula[$indice]->id;
+                        DB::table('mesas')->where('id', $id)->update(['columna'=>$ii,'fila'=>$i]);
+                        $indice++;
+                    }
+                }
+            }
+            
+            $msn_maxMesas = 'Has puesto '.intval($mesas - $maxMesas) .' mesas más que las que caben en '.$columnas .' columnas x '.$filas. ' filas';
+
+            if($mesas>$maxMesas)return redirect()->route('materias.index')->with('success', $msn_maxMesas);
+        }
         if($request->validate([
                 'aula_name' =>'required|string',
                 'num_columnas' =>'required|integer|max:9|min:1',
@@ -242,7 +239,8 @@ class AulaController extends Controller
             $aula->save();
             $aula->refresh();
             if($num_estudiantes == '0')return redirect()->route('aulas.index')->with('success', $msn);
-            return redirect()->route('materias.index')->with('success', 'el aula se ha actualizado');
+            else
+            return redirect()->route('materias.index')->with('success', 'El aula '.$nombreAula.' se ha actualizado con éxito. Pulsa ver para sentar a los estudiantes');
         }
     }
 
@@ -276,103 +274,71 @@ class AulaController extends Controller
     {
         $user = Auth::user()->id;
         $mesas = Mesa::where('aula_id',$aula->id)->where('is_ocupada',1)->get();
-        $vacias = Mesa::where('aula_id',$aula->id)->where('is_ocupada',0)->get();        
-        
+        $vacias = Mesa::where('aula_id',$aula->id)->where('is_ocupada',0)->get();
         $ids_mesas = []; // ids de las mesas ocupadas
         $ids_estudiante =[];  // ids de los estudiantes que hay en el aula
-        $estudiantePosition = [];
+        $estudiantePosicion = []; // ids de los estudiantes de esa materia
+
         // obtener y guardar ids mesas ocupadas y id estudiantes
         foreach  ($mesas as $mesa) {
             array_push( $ids_mesas, $mesa->id);
             array_push( $ids_estudiante, $mesa->estudiante_id);
         }
-        $clase = Clase::where('user_id',$user)->where('aula_id', $aula->id)->value('materia_id');
+        // $clase = Clase::where('user_id',$user)->where('aula_id', $aula->id)->value('materia_id');
 
         $materia = Materia::where('user_id', $user)->where('grupo', $aula->aula_name)->first();
-        $estudiantes = $materia->estudiantes;
-        // dd($estudiantes);
-        $n_student = $estudiantes->count();
-        // dd($n_student);
-
+        $estudiantes = $materia->estudiantes;// dd($estudiantes);
+        $n_student = $estudiantes->count();// dd($n_student);
         $sentar = request('sentarEstudiantes');
-        $cambiarVacias = request('levantarEstudiantes');
+        $cambiarVacias = request('cambiarMesasVacias');
         // si se van a cambiar las mesas vacías
         if(!$cambiarVacias == null){
-            $arrLevantar= Str::of($cambiarVacias)->explode(";");
+            $arrLevantar= Str::of($cambiarVacias)->explode(";");// dd($arrLevantar);
             $num_mesas_levantar = count($arrLevantar) ;
-            $ids_mesas = [];  // 
-            // dd($arrLevantar);
-            // $new_vacias = [];
-
+            // $ids_mesas = [];
             for($i = 0; $i < $num_mesas_levantar; $i++){
                 $arrColRow = $arrLevantar[$i];
                 $arrMesa = Str::of($arrColRow)->explode(",");
-                $columna =  Str::before( $arrColRow, ',');
-                $fila = Str::after( $arrColRow, ',');                
-                // dd($columna);
-                // dd($fila);
-                $id_vaciar = DB::table('mesas')->where('aula_id', $aula->id)->where('columna',$columna)->where('fila',$fila)->value('id');
-                // dd($id_vaciar);
-                $estaMesa =  Mesa::find( $id_vaciar);
+                $columna =  Str::before( $arrColRow, ',');// dd($columna);
+                $fila = Str::after( $arrColRow, ','); // dd($fila);              
+                $id_vaciar = DB::table('mesas')->where('aula_id', $aula->id)->where('columna',$columna)->where('fila',$fila)->value('id');// dd($id_vaciar);
+                $estaMesa = Mesa::find( $id_vaciar);
                 $estaMesa->is_ocupada = false;
                 $estaMesa->estudiante_id = null;
                 $estaMesa->save();
                 $estaMesa->refresh();
-                // DB::table('mesas')->where('id', $id_vaciar)->update(['is_ocupada'=>false,'estudiante_id',null]);
             }
 
             foreach ($vacias as $vacia){
                 $vacia->is_ocupada = true;
-                
                 $vacia->save();
                 $vacia->refresh();
             }   
             for($i = 0; $i < $n_student; $i++){
-                $estudiantePosition[$i] = $ids_estudiante[$i];
+                array_push( $estudiantePosicion, $estudiantes[$i]->id);
             }
-            $newOcupadas =  Mesa::where('aula_id',$aula->id)->where('is_ocupada',1)->get();
-            $iii = 1;
-            foreach ($newOcupadas as $mesa){
-                $mesa->estudiante_id = $estudiantePosition[$i];
-                $mesa->save();
-                $mesa->refresh();
-                $iii++;
-            }
-            // for($i = 0; $i < $n_student; $i++){
-            //     $estaMesa =  Mesa::where('aula_id',$aula->id)->where('is_ocupada',1)->get();
-            //     $estaMesa->estudiante_id = $estudiantePosition[$i];
-            //     $estaMesa->save();
-            //     $estaMesa->refresh();
-
-            // }
-
-            // $estasMesas = Mesa::where('aula_id', $aula->id)->get();
+            $newOcupadas = Mesa::where('aula_id',$aula->id)->where('is_ocupada',1)->get();
+            $i = 0;
             
-            // foreach ($estasMesas as $mesa) {
-            //     array_push( $ids_mesas, $mesa->id);
-            //     // DB::table('mesas')->where('id', $mesa->id)->update(['is_ocupada'=>false,'estudiante_id'=>null]);
-            // }
-
-            // dd($new_vacias);
-            // for($i = 0; $i < $num_levantar; $i++){
-            //     $estaMesa =  Mesa::find( $num_levantar[$i]);
-            //     $estaMesa->is_ocupada=true;
-            //     $estaMesa->save();
-            // }  
+            foreach ($newOcupadas as $mesa){
+                $id = $mesa->id;
+                DB::table('mesas')->where('id', $id)->update(['estudiante_id'=> $estudiantePosicion[$i]]);
+                $i++;
+            }
         }
-        
+        // Cambiar estudiantes de mesas
         if(!$sentar == null){
             $arrSentar = Str::of($sentar)->explode(",");
             $num_sentar = count($arrSentar) ;
 
 
             for($i = 0; $i < $num_sentar; $i++){
-                $estudiantePosition[$i] = $ids_estudiante[$arrSentar[$i] -1];
+                $estudiantePosicion[$i] = $ids_estudiante[$arrSentar[$i] -1];
             }
 
             for($i = 0; $i < $num_sentar; $i++){
-                $estaMesa =  Mesa::find( $ids_mesas[$i]);
-                $estaMesa->estudiante_id = $estudiantePosition[$i];
+                $estaMesa = Mesa::find( $ids_mesas[$i]);
+                $estaMesa->estudiante_id = $estudiantePosicion[$i];
                 $estaMesa->save();
             }
         }
