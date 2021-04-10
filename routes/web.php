@@ -32,10 +32,10 @@ Route::get('/exportar', function(){
 Route::get('/horario', function(){
     return view('horario');
 })->name('horario');
-Route::get('mostrar/tablaClases', function () {
-    return view('mostrar.tablaClases');
-});
 
+Route::get('/klik-class', function(){
+    return view('klik-class');
+});
 
 // ============= MateriaController ====================
 
@@ -103,7 +103,7 @@ Route::put('home/pasoMenos/{user}',[App\Http\Controllers\PasoController::class, 
 Route::put('home/pasoMas/{user}',[App\Http\Controllers\PasoController::class, 'updatePasoMas'])->name('home.updatePasoMas');
 
 Route::get('/home/mostrarClase',[App\Http\Controllers\ClaseController::class, 'mostrarClase']);
-
+Route::get('/clasesPorDia',[App\Http\Controllers\ClaseController::class, 'clasesPorDia']);
 
 
 // ============= EstudianteController ====================
@@ -124,7 +124,7 @@ Route::resource('configurar/estudiantes', App\Http\Controllers\EstudianteControl
 
 // ============= MesaController ====================
 
-
+Route::get('/mesasPorClase/{clase}',[App\Http\Controllers\MesaController::class, 'clasesPorDia']);
 Route::resource('configurar/mesas', App\Http\Controllers\MesaController::class);
 
 
