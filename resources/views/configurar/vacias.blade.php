@@ -21,24 +21,27 @@
           <p class="ejemplo">{{$materia}}: <strong>{{$aula->num_columnas}}</strong> columnas y <strong>{{$aula->num_filas}}</strong> filas;<br> <strong>{{$estudiantes->count()}}</strong> estudiantes y <strong>{{$vacias->count()}}</strong> mesas vacías.</p> 
                   {{-- <p>
                     @foreach ($estudiantes as $estudiante)
-                            {{$estudiante->id}}: {{$estudiante->apellidos}},{{$estudiante->nombre}};<br> 
-                        @endforeach
+                      {{$estudiante->id}}: {{$estudiante->apellidos}},{{$estudiante->nombre}};<br> 
+                    @endforeach
                       </p> --}}
-                      {{-- <p>Mesas: {{$mesas->count()}}<br>
+                      {{-- <p>
+                        Mesas: {{$mesas->count()}}<br>
                         @foreach ($mesas as $mesa)
                           {{$mesa->id}}: {{$mesa->estudiante_id}},
                             @php
-                               array_push( $id,$mesa->estudiante_id);
-                               $i = 0;
+                              array_push( $id,$mesa->estudiante_id);
+                              $i = 0;
                             @endphp
                             ;<br> 
-                        @endforeach</p> --}}
+                        @endforeach
+                      </p> --}}
                         {{-- ids: {{count($id)}} --}}
-                        {{-- @foreach ($estudiantes as $estudiante)
-                            <p> {{ $id[$i]}};
-                            @php $i++; @endphp</p>
-                    @endforeach --}}
-            
+                      {{-- <p>
+                        @foreach ($estudiantes as $estudiante)
+                          {{ $id[$i]}};
+                          @php $i++; @endphp
+                        @endforeach</p>    --}}
+                  
           <div class="ml-8 mt-2">
             <small>
               @foreach ($vacias as $vacia)
@@ -47,25 +50,28 @@
             </small>
           </div>
         </div>
+        <details class="mt-2">
+          <summary>Cambiar mesas vacías</summary>
+          <div class=""><!-- Cambiar mesas vacías  -->
+            <label class="d_inline" for="cambiarMesasVacias">Columna, fila</label>
+            <textarea name="cambiarMesasVacias" id="sencambiarMesasVacias" class="d_block" rows="1" placeholder="1,3;3,2"></textarea>
+          </div> 
+          <div class="mt-1">
+            <small class="ejemplo"><strong>Esquema: columna, fila</strong> donde 1 es la columna 1 de la izquierda y 3 es la fila 3 desde atrás</small>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary>Mover estudiantes de mesa</summary>
+          <div class="mt-2"><!-- Mover estudiantes de mesa  -->
+            <label class="d_inline" for="sentarEstudiantes"></label>
+            <textarea name="sentarEstudiantes" id="sentarEstudiantes" class="d_block" rows="1" placeholder="1,2,3,4,5,6,7,8,9"></textarea>
+          </div>
+          <div class="mt-1">
+            <small class="ejemplo">Cada estudiante es un número del <strong>1 </strong> al <strong> {{$estudiantes->count()}} </strong><strong>Escribe una lista de números separados por comas.</strong></small>
+          </div>
 
-        <div class=""><!-- Cambiar mesas vacías  -->
-          <label class="d_inline" for="levantarEstudiantes">Cambiar mesas vacías: Columna, fila</label>
-          <textarea name="levantarEstudiantes" id="senlevantarEstudiantes" class="d_block" rows="1" placeholder="1,3;3,2"></textarea>
-        </div> 
-        <div class="mt-1">
-          <small class="ejemplo"><strong>Esquema: columna, fila</strong> donde 1 es la columna 1 de la izquierda y 3 es la fila 3 desde atrás</small>
-        </div>  
-
-        <div class="mt-2"><!-- Mover estudiantes de mesa  -->
-          <label class="d_inline" for="sentarEstudiantes">Mover estudiantes de mesa</label>
-          <textarea name="sentarEstudiantes" id="sentarEstudiantes" class="d_block" rows="1" placeholder="1,2,3,4,5,6,7,8,9"></textarea>
-        </div>
-        <div class="mt-1">
-          <small class="ejemplo">Cada estudiante es un número del <strong>1 </strong> al <strong> {{$estudiantes->count()}} </strong><strong>Escribe una lista de números separados por comas.</strong></small>
-        </div>
-
-        <div class= "mt-4"><!-- Ayuda  -->
-          <details class="mt-2">
+          <div class= "mt-4"><!-- Ayuda  -->
+            <details class="mt-2">
             <summary>Ver más:</summary>
             <p class="mt-2"></p>
             <div class="destacado py-2">
