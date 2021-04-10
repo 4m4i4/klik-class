@@ -11,11 +11,11 @@
     <form class="px-6" action="{{route('clases.update', $clase) }}" method="POST" >
       @csrf
       @method('PUT')
-          <div class="hidden"><!-- User_id -->
+        <div class="hidden"><!-- User_id -->
             <label for="user_id"></label>
             <input type="text" name="user_id" value="{{ auth()->user()->id }}" readonly />
-          </div>  
-          <p id="ver_id"></p>
+        </div>  
+        <p id="ver_id"></p>
           @php
             use App\Models\Materia;
             $mat = Materia::where('user_id',auth()->user()->id )->get();
@@ -44,9 +44,15 @@
         
         <div class="pb-2">
           <label for="materia_id">Materia</label>
-          <select id="materia_id" name="materia_id" value="{{$clase->materia_id}}" class="d_block" onchange="cambiarAulaId()">
+          <select id="materia_id" 
+            name="materia_id" 
+            value="{{$clase->materia_id}}" 
+            class="d_block" 
+            onchange="cambiarAulaId()">
             @foreach ($materias as $materia)
-              <option value={{$materia->id}} {{$materia->id == $clase->materia_id? 'selected' : ''}}>{{$materia->materia_name}}</option>
+              <option value={{$materia->id}} {{$materia->id == $clase->materia_id? 'selected' : ''}}>
+                {{$materia->materia_name}}
+              </option>
             @endforeach
           </select>
           @error('materia_id')
@@ -54,22 +60,38 @@
           @enderror   
         </div>
 
-        <div class="py-2">  
-            <label for="aula_id">Aula</label>
-            <select id="aula_id" name="aula_id" value="{{ $clase->aula_id }}" class="d_block" >
+        {{-- <div class="py-2">  
+            <label for="new_aula_id">Aula</label>
+            <!-- Se sustituye el select por un input -->
+            @php
+                
+            @endphp
+            <input type="text"
+                name="new_aula_id" 
+                id="new_aula_id" 
+                >--}}
+                {{-- value="{{$aula = Aula::where('user_id',auth()->user()->id )
+                                      ->where('aula_name', Str::after($materia->materia_name," "))
+                                      ->value('id')}}"> --}}
+            {{-- <select id="aula_id"
+               name="aula_id" 
+               value="{{ $clase->aula_id }}" 
+               class="d_block">
               @foreach ($aulas as $aula)
-                <option value={{$aula->id}} {{$aula->id == $clase->aula_id? 'selected' : ''}}>{{$aula->aula_name}}</option>
+                <option value={{$aula->id}} {{$aula->id == $clase->aula_id? 'selected' : ''}}>
+                  {{$aula->aula_name}}
+                </option>
               @endforeach
-            </select>
-            @error('aula_id')
+            </select> --}}
+            {{--@error('aula_id')
               <small class="t_red">* {{ $message }}</small><br>
             @enderror
-          </div>
+          </div> --}}
         <div>
           <button type="submit" 
           title="Actualizar clase" 
           class="bt_xxl mt-6 enviar">Actualizar</button>
-      </div>
+        </div>
     </form>
 
     <div class="px-6 py-4 mt-6 light-grey">
@@ -83,26 +105,27 @@
 
 @section('script') 
     <script>
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET','./aulas');
-    xhr.onload = function(){
-      if(xhr.status===200){
-        var json = xhr.responseText;
-      }else{
-        console.log( "hay un error de tipo: "+xhr.status);
-      }
-    }
-    xhr.send();
+
     function cambiarAulaId(){
-      var x = document.getElementById("materia_id");
-      var seleccionado = x.value;
-      console.log(seleccionado);
-      console.log(x.children[seleccionado -1].innerHTML);
-      var nombreMateria = x.children[seleccionado -1].innerHTML;
-      var arr = nombreMateria.split(' ');
-      var nombreAula = arr[1]+" "+arr[2];
-      console.log(nombreAula);
-      //  document.getElementById('aula_id').value =x;
+      let x = document.getElementById("materia_id");
+      let seleccionado = x.value;
+      console.log("has seleccionado: "+seleccionado);
+
+      console.log("nombre materia: "+x.children[seleccionado -1].innerHTML);
+      let nombreMateria = x.children[seleccionado -1].innerHTML;
+
+      let arr = nombreMateria.split(' ');
+      let nombreAula = arr[1]+" "+arr[2];
+     
+      console.log("nombre aula: "+nombreAula);
+      // se añade el valor al input
+      // document.getElementById('new_aula_id').value = nombreAula;
+      // document.getElementById('new_aula_id').innerHTML = nombreAula;
+      // TRAMPAS: añado manualmente el id 5 que corresponde al aula 1D ESO
+      // para ver si el post sigue arrojando el mismo error
+      // let idAula1D = 5;
+      // document.getElementById('new_aula_id').value = idAula1D;
+      // console.log("id aula: "+idAula1D);
     }
   </script>
 @endsection

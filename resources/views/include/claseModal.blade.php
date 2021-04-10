@@ -25,21 +25,20 @@
                   <div class=""><!-- $clase->materia_id -->
                       <label for="materia_id">Materia</label>
                       <select  class="d_block" name="materia_id" value="{{ old('materia_id') }}" id="materia_id" >
-                        {{-- <option value=0>Selecciona la materia</option> --}}
                           @foreach ($materias as $materia)
                             <option value={{$materia->id}}>{{$materia->materia_name}}</option>
                           @endforeach
                       </select>
                   </div>
-                  <div class="mt-4"><!-- $clase->aula_id -->
+                  {{-- <div class="mt-4"><!-- $clase->aula_id -->
                       <label for="aula_id">Aula</label> 
                       <select  class="d_block" name="aula_id" value="{{ old('aula_id') }}" id="aula_id">
-                        {{-- <option value=0>Selecciona el aula</option> --}}
+
                           @foreach ($aulas as $aula)
                             <option value={{$aula->id}}>{{$aula->aula_name}}</option>
                           @endforeach
                       </select>
-                  </div>
+                  </div> --}}
                 
                   <div>
                     <button type="submit" 
