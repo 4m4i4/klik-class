@@ -21,14 +21,14 @@ class MateriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
 
     {  
         if(Auth::check()){
             $user = Auth::user()->id; 
-            $aulas = Aula::get();
-            $materias = Materia::where('user_id',$user)->with('user')->paginate(12);
-        return view('configurar.materias.index', compact('materias','aulas'));
+            $materias = Materia::where('user_id',$user)->with('user','estudiantes','clases')->paginate(12);
+        return view('configurar.materias.index', compact('materias','user'));
         }
     }
 
@@ -37,6 +37,7 @@ class MateriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         return view('configurar.materias.create');
@@ -47,6 +48,7 @@ class MateriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function createall()
     {
         return view('configurar.materias.createall');
@@ -67,42 +69,37 @@ class MateriaController extends Controller
                 ])
             )
         {   
-
             // Identificamos al usuario
             $user = auth()->user()->id;
             // obtenemos el nombre de la materia y lo ponemos en mayúscula
             $new_name = Str::of(request('materia_name'))->upper();
             // obtenemos el nombre del grupo (lo que va tras el primer espacio)
             $grupo =  Str::after($new_name," ");
-            // Creamos una nueva materia y le asignamos las propiedades
-            $materia = new Materia([
-                'materia_name'=>$new_name,
-                'grupo'=>$grupo,  
-                'user_id'=>request('user_id')
-                ]);
-            //Componemos el mensaje para el usuario y guardamos la materia
-            $msn_materia = 'Se ha añadido la materia '.$new_name;
-            $materia->save();
-
             $msn_aula = '';
             // comprobamos que el usuario no ha registrado un aula con ese nombre en la tabla aulas, 
             $busco_aula = DB::table('aulas')->where('user_id',$user)
                                             ->where('aula_name',$grupo)
                                             ->first();
-
             // si no existe creamos un aula nueva con ese nombre y añadimos el mensaje para el usuario
             if($busco_aula == ''||$busco_aula == NULL){
-                $aula = new Aula([
-                'aula_name'=>$grupo,
-                'user_id'=>request('user_id')
-                ]);
-                $aula->save();  
-                $aula->refresh();
+                $aula_id = DB::table('aulas')->insertGetId(['aula_name'=>$grupo,'user_id'=>request('user_id')]);
                 $msn_aula= ' y el aula '.$grupo;
             }
+            elseif($busco_aula !== ''||$busco_aula !== NULL){
+                $aula_id = $busco_aula->id;
+            }
+            // Creamos una nueva materia y le asignamos las propiedades
+            $materia = new Materia([
+                'materia_name'=>$new_name,
+                'grupo'=>$grupo,
+                'aula_id'=>$aula_id,
+                'user_id'=>request('user_id')
+                ]);
+            //Componemos el mensaje para el usuario y guardamos la materia
+            $msn_materia = 'Se ha añadido la materia '.$new_name;
+            $materia->save();
         }
-            return redirect()->route('materias.index')->with('success', $msn_materia.$msn_aula);
-
+            return redirect()->route('materias.index')->with('info', $msn_materia.$msn_aula);
     }
 
     /**
@@ -112,12 +109,10 @@ class MateriaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
     public function storeall(Request $request)
     {   
         //Obtenemos la cadena de nombres separados por comas introducida por el usuario
         $cadena = request('createall');
-
         // comprobamos si la cadena acaba en coma, y si es así la quitamos
         // ya que daría error (el sistema busca una entrada que no existe)
         if(Str::endsWith($cadena,','))
@@ -152,7 +147,6 @@ class MateriaController extends Controller
             $b_aula = DB::table('aulas')
                         ->where('aula_name',$grupo)
                         ->where('user_id',request('user_id'))->first();
-
             // creamos el aula nueva si no la ha añadido
             if($b_aula==''||$b_aula ==NULL){
                 $aula = new Aula([
@@ -166,7 +160,7 @@ class MateriaController extends Controller
                 $aula->refresh();
             }
         }
-        return redirect()->route('materias.index')->with('success', $mns_materias.$mns_aulas); 
+        return redirect()->route('materias.index')->with('info', $mns_materias.$mns_aulas); 
     }
 
     /**
@@ -176,9 +170,8 @@ class MateriaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function show(Materia $materia)
-    {
-    }
+    public function show(Materia $materia) { }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -186,8 +179,6 @@ class MateriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-
 
     public function edit(Materia $materia)
     {
@@ -213,14 +204,14 @@ class MateriaController extends Controller
                 ])
             )
         {
-            
             // Identificamos al usuario
             $user = auth()->user()->id;
             // obtenermos el nombre de la materia que se va a sustituir entre las materias de ese usuario            
-            // $materias = Materia::where('user_id', $user)->get();
             $old_name = $materia->materia_name;            
             // obtenemos el nombre del grupo
             $old_grupo = $materia->grupo;
+            // obtenemos el id del aula asociada
+            $old_aula_id = $materia->aula_id;
             // dd( $old_grupo.' '.$old_name);
 
             // obtenemos el nuevo nombre de materia y lo ponemos en mayúscula
@@ -230,31 +221,27 @@ class MateriaController extends Controller
             // dd( $new_grupo.' '.$new_name);
 
             $mns_aulas ='';
-            $b_aula = Aula::where('user_id', $user)->where('aula_name', $new_grupo)->first();
+            // chequeamos si existe un aula con el nombre que se ha editado
+            $b_aula = DB::table('aulas')->where('user_id', $user)->where('aula_name',$new_grupo)->first();
+            if($b_aula !== NULL){
+                $aula_id = $b_aula->id;
+                $mns_aulas = 'El aula '.$old_grupo.' es ahora '.$new_grupo.';';
+            }
 
                 //  SUSTITUIR aula: si existe solo una materia con el nombre del grupo viejo, y no hay ningun aula con el nombre del grupo nuevo. 
                 //  creamos un mensaje para informar al usuario de que se ha actualizado el aula
-                if( DB::table('materias')->where('user_id', $user)->where('grupo', $old_grupo)->count() == 1 && $b_aula == NULL ){
-                    // obtenemos la id del aula vieja
-                    $aula = Aula::where('user_id', $user)->where('aula_name', $old_grupo)->get();
-                    $id = $aula[0]->id;
-                    // actualizamos el nombre
-                    DB::table('aulas')->where('id', $id)->update(['aula_name'=>$new_grupo]);
-
-                    $mns_aulas = 'El aula '.$old_grupo.' es ahora '.$new_grupo.';<br> ';
+                elseif( DB::table('materias')->where('user_id', $user)->where('grupo', $old_grupo)->count() == 1 && $b_aula == NULL ){
+                    // // asignamos la id del aula vieja
+                    $aula_id = $old_aula_id;
+                    // actualizamos el nombre en el aula vieja
+                    DB::table('aulas')->where('id', $aula_id)->update(['aula_name'=>$new_grupo]);
+                    $mns_aulas = 'El aula '.$old_grupo.' es ahora '.$new_grupo.';';
                 }
 
                 // CREAR aula: si no existe un aula con el nombre del grupo nuevo; 
                 // creamos un mensaje para informar al usuario de que se ha creado
-                $b_aula = DB::table('aulas')->where('user_id', $user)->where('aula_name',$new_grupo)->first();
-                if($b_aula == NULL ){
-                    $aula = Aula::where('user_id',$user)->get();
-                    $aula = new Aula([
-                        'aula_name'=>$new_grupo,
-                        'user_id'=>request('user_id')
-                    ]);
-                    $aula->save();
-                    $aula->refresh();
+                elseif($b_aula == NULL ){
+                    $aula_id = DB::table('aulas')->insertGetId(['aula_name'=>$new_grupo,'user_id'=>request('user_id')]);
                     $mns_aulas =' Se ha creado el aula '.$new_grupo.'; ';
                 }
 
@@ -265,21 +252,19 @@ class MateriaController extends Controller
             // actualizamos y guardamos el registro de materia
             $materia->materia_name = $new_name;
             $materia->grupo = $new_grupo;
-            $materia->user_id = request('user_id');  
+            $materia->user_id = request('user_id');
+            $materia->aula_id = $aula_id;
             $materia->save();
 
             //  BORRAR aula: si ya no existe una materia con el nombre de grupo viejo pero existe un aula con ese nombre.
             $b_materias = DB::table('materias')->where('user_id', $user)->where('grupo', $old_grupo)->exists();
-            // dd($b_materias);
                 if(!$b_materias && DB::table('aulas')->where('user_id', $user)->where('aula_name', $old_grupo)->count() == 1){
-                    $aula = Aula::where('user_id', $user)->where('aula_name', $old_grupo)->get();
-                    $id = $aula[0]->id;
-                    // dd($id);
+                    $aula = Aula::where('user_id', $user)->where('aula_name', $old_grupo)->first();
+                    $id = $aula->id;
                     DB::table('aulas')->where('id',$id)->delete();
                 }           
-            return redirect()->route('materias.index')->with('success',  $mns_aulas.' La materia '.$old_name.' se ha actualizado a '.$new_name);
+            return redirect()->route('materias.index')->with('info',  $mns_aulas.' La materia '.$old_name.' se ha actualizado a '.$new_name);
         }
-        
     }
 
 
@@ -300,13 +285,13 @@ class MateriaController extends Controller
         $grupo = $materia->grupo;
         $num = Materia::all()->where('user_id', $user)->where('grupo',$grupo)->count();
         $mns_aulas ='';
-        if($num==1){
+        if($num == 1){
             DB::table('aulas')->where('user_id', $user)->where('aula_name',$grupo)->delete();
-            $mns_aulas= 'y aula '.$grupo;
+            $mns_aulas= 'y el aula '.$grupo;
         }
 
         $materia->delete();
-        return redirect()->route('materias.index')->with('success', 'Se ha borrado materia '.$materia->materia_name.' '.$mns_aulas);
+        return redirect()->route('materias.index')->with('info', 'Se ha borrado la materia '.$materia->materia_name.' '.$mns_aulas);
     }
 
 }

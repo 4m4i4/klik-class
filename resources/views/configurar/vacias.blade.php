@@ -1,5 +1,5 @@
-
 @extends('configurar.aulas.show') 
+
 @section('content')
 {{-- <div id="ver_modal" class="modal"> --}}
 {{-- <div id="edit_vacias" class="modal"> --}}
@@ -12,7 +12,6 @@
       <form class="px-6" method="POST" action="{{route('aulas.updateMesasVacias', $aula->id) }}" method="POST" >
       @csrf 
       @method('PUT')  
-        <!--*MOdal: La función claseModal(this.id) recoge la id del botón que hace la llamada (formada por los valores 'dia'_'sesion_id'), hace un innerHTML a los input y quita el display:none de la ventana modal-->
       <div class="">
         <div class="mb-2"><!-- $clase->user_id  -->
           @php $id=[]; @endphp 
@@ -40,7 +39,8 @@
                         @foreach ($estudiantes as $estudiante)
                           {{ $id[$i]}};
                           @php $i++; @endphp
-                        @endforeach</p>    --}}
+                        @endforeach
+                  </p>    --}}
                   
           <div class="ml-8 mt-2">
             <small>
@@ -75,13 +75,21 @@
             <summary>Ver más:</summary>
             <p class="mt-2"></p>
             <div class="destacado py-2">
-              <p class="py-2 text-left">@for($i = 1; $i <= $estudiantes->count(); $i++)Nº <kbd>coma</kbd>@if($i%$aula->num_columnas == 0)<br>@endif @endfor</p>
+              <p class="py-2 text-left">
+                @for($i = 1; $i <= $estudiantes->count(); $i++)
+                  Nº <kbd>coma</kbd>
+                  @if($i%$aula->num_columnas == 0)<br>
+                  @endif 
+                @endfor
+              </p>
             </div>  
             <p class="mt-2">en este plano del aula visto <strong>desde la pizarra</strong>.</p>
             <details class="mt-2">
               <summary>¿Más?</summary>
               <p class="mt-2">Copia y pega esta lista:</p>
-              <p class="mt-2 text-center">{{$estudiantes->count()}}@for($i = $estudiantes->count()-1; $i > 0; $i--),{{$i}}@endfor</p>
+              <p class="mt-2 text-center">{{$estudiantes->count()}}
+                @for($i = $estudiantes->count()-1; $i > 0; $i--),{{$i}}@endfor
+              </p>
             </details>
           </details>
         </div>

@@ -40,7 +40,7 @@
               $num_sesiones = count($sesiones);
               use App\Models\Clase;
               $clases = Clase::where('user_id',$user)
-                              ->with('user','materia','aula','sesion')->get();
+                              ->with('user','materia','sesion')->get();
             @endphp
           <thead>  <!-- cabecera: DÍAS DE LA SEMANA -->
             <tr>

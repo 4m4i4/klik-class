@@ -80,8 +80,8 @@
                     <a class="dropdown-item warning" href="{{route('clases.index')}}">Clases</a>  
                     <a class="dropdown-item ver" href="{{route('aulas.index')}}">Aulas</a>    
                     <a class="dropdown-item crearCurso" href="{{route('mesas.index')}}">Mesas</a>
-                    <a class="dropdown-item enviar" href="{{route('estudiantes.index')}}">Estudiantes</a>
-                    <a class="dropdown-item borrar" href="{{route('estudiantes.index')}}">Ver Aula</a>
+                    <a class="dropdown-item enviar" href="{{route('estudiantes.index',1)}}">Estudiantes</a>
+                    <a class="dropdown-item borrar" href="{{route('estudiantes.index',1)}}">Ver Aula</a>
                     <a class="dropdown-item cancelar" href=/botones>botones</a>
                   {{-- @endif --}}
                   {{-- formulario para salir --}}

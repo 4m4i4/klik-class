@@ -9,9 +9,7 @@
     <hr class="h-2">  
     <div class="bg-666 w-100 h-100 mx-auto  ">  
       <div class="grid  grid-rows-{{$aula->num_filas}} h-90 content-center justify-between grid-cols-{{$aula->num_columnas}}">
-            {{-- {{dd( $hasMesas)}} --}}
-            {{-- {{dd( $mesas)}} --}}
-        @foreach ($mesas->where('aula_id', $aula->id) as $mesa)
+        @foreach ($mesas->where('user_id', auth()->user()->id)->where('aula_id', $aula->id) as $mesa)
           <div id={{$mesa->id}} class="mesa text-center flex-column justify-center" title="mesa_{{$mesa->id}}">
             @if($mesa->is_ocupada == true)
               <div>       

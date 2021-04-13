@@ -5,15 +5,15 @@
 
   <div class="container">
       <!-- Información de los cambios que se han producido en el sistema al enviar el formulario-->
-      @if(session()->get('success'))
+      @if(session()->get('info'))
         <div class = "alert alert-info">
-          {{ session()->get('success') }}  
+          {{ session()->get('info') }}  
         </div>
       @endif
 
     <div class = "">
 
-      <div class="caja">  <!--CABECERA aulas-->
+      <div class="caja">  <!--CABECERA aula-->
         <div class = "caja-header">
           <div class = "grid grid-cols-3-fr w-100 items-center">
               @php

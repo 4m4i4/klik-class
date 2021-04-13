@@ -1,3 +1,4 @@
+{{-- http://127.0.0.1:8000/klik-class --}}
 @extends('layouts.app')
 
   @section('etapaUso')

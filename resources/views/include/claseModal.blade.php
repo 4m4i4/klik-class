@@ -30,16 +30,6 @@
                           @endforeach
                       </select>
                   </div>
-                  {{-- <div class="mt-4"><!-- $clase->aula_id -->
-                      <label for="aula_id">Aula</label> 
-                      <select  class="d_block" name="aula_id" value="{{ old('aula_id') }}" id="aula_id">
-
-                          @foreach ($aulas as $aula)
-                            <option value={{$aula->id}}>{{$aula->aula_name}}</option>
-                          @endforeach
-                      </select>
-                  </div> --}}
-                
                   <div>
                     <button type="submit" 
                      title="Guardar clase" 

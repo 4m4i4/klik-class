@@ -8,9 +8,11 @@
         <form class="px-6" method="POST" action="{{ route('estudiantes.store') }}">
           @csrf
           
-          <div class= "hidden">
-              <label for="materia_id"></label>
-              <input type="hidden" id="materia_id" name="materia_id" value="{{ old('materia_id') }}" >
+          <div class= "">
+              <label for="create_materia_id"></label>
+              <input type="text" id="create_materia_id" name="create_materia_id" value="" >
+              <label for="user_id"></label>
+              <input type="hidden" id="user_id" name="user_id" value="{{auth()->user()->id }}" >
           </div>
           <div class="mt-4">
               <label for="lista_completa">Lista de estudiantes</label>

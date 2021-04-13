@@ -11,6 +11,7 @@ class Materia extends Model
     protected $fillable = [
         'materia_name', 
         'grupo',
+        'aula_id',
         'user_id'
     ];
 
@@ -22,14 +23,18 @@ class Materia extends Model
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
+    // One to one
+    public function aula(){
+        return $this->hasOne('App\Models\Aula');
+    }
     // One to many
     public function clases(){
         return $this->hasMany('App\Models\Clase');
     }
-    // One to many
+    // Many to many
     public function estudiantes(){
-        return $this->hasMany('App\Models\Estudiante');
-    }    
+        return $this->belongsToMany('App\Models\Estudiante')->withTimestamps();;
+    }
     // hasOneThrough
     public function mesa(){
         return $this->hasOneThrough('App\Models\Mesa','App\Models\Estudiante');

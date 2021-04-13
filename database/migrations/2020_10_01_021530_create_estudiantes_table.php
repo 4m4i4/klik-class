@@ -18,10 +18,13 @@ class CreateEstudiantesTable extends Migration
             $table->string('nombre',20);
             $table->string('apellidos',40);
             $table->string('nombre_completo',60);
-            $table->unsignedBigInteger('materia_id');
-            $table->foreign('materia_id')
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
                   ->references('id')
-                  ->on('materias');
+                  ->on('users')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
             $table->timestamps();
         });
     }
