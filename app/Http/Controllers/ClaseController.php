@@ -121,10 +121,10 @@ class ClaseController extends Controller
 
         // --------- REALTIME DATA  --------------
 
-        // $dateTimeAhora = date_create($h);
-        // $ahora = $dateTimeAhora->format("H:i:s");
-        // echo '<br>'.$now.'<br>';
-        // echo 'Día: '.$diaSemana.'<br><br>';
+        $dateTimeAhora = date_create($h);
+        $ahora = $dateTimeAhora->format("H:i:s");
+        echo '<br>'.$now.'<br>';
+        echo 'Día: '.$diaSemana.'<br><br>';
 
         // -------- fin de REALTIME DATA  ---------
 
