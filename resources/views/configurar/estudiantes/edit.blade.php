@@ -23,7 +23,7 @@
             <label for="nombre">Nombre del estudiante</label>
             <input type="text" class="d_block" autofocus name="nombre" value="{{ $estudiante->nombre }}"/>
 
-            <small class="ejemplo"><strong>Patrón:</strong> Ainara;</small>
+            
             @error('nombre')
               <small class="t_red">* {{ $message }}</small><br>
             @enderror            
