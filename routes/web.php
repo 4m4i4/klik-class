@@ -111,17 +111,17 @@ Route::get('/clasesPorDia',[App\Http\Controllers\ClaseController::class, 'clases
 // ============= ESTUDIANTEController ====================
 
 
-Route::get('mostrar/estudiantes/{id}', [App\Http\Controllers\EstudianteController::class, 'porMateria'])->name('estudiantes.porMateria');
-Route::delete('borrar/estudiantes/{id}', [App\Http\Controllers\EstudianteController::class, 'borrarGrupo'])->name('estudiantes.borrarGrupo');
-Route::get('configurar/estudiantes/{id?}', [App\Http\Controllers\EstudianteController::class, 'index'])->name('estudiantes.index');
+Route::get('mostrar/estudiantes/{materia_id}', [App\Http\Controllers\EstudianteController::class, 'porMateria'])->name('estudiantes.porMateria');
+Route::delete('borrar/estudiantes/{materia_id}', [App\Http\Controllers\EstudianteController::class, 'borrarGrupo'])->name('estudiantes.borrarGrupo');
+Route::get('configurar/estudiantes/{materia_id}', [App\Http\Controllers\EstudianteController::class, 'index'])->name('estudiantes.index');
 
-Route::resource('configurar/estudiantes', App\Http\Controllers\EstudianteController::class);
+// Route::resource('configurar/estudiantes', App\Http\Controllers\EstudianteController::class);
 
-// Route::get('configurar/estudiantes/create',[App\Http\Controllers\EstudianteController::class,'create'])->name('estudiantes.create');
-    // Route::post('configurar/estudiantes',[App\Http\Controllers\EstudianteController::class, 'store'])->name('estudiantes.store');
-    // Route::get('configurar/estudiantes/{estudiante}/edit',[App\Http\Controllers\EstudianteController::class, 'edit'])->name('estudiantes.edit');
-    // Route::put('configurar/estudiantes/{estudiante}',[App\Http\Controllers\EstudianteController::class,'update'])->name('estudiantes.update');
-    // Route::delete('configurar/estudiantes/{estudiante}',[App\Http\Controllers\EstudianteController::class,'destroy'])->name('estudiantes.destroy');
+Route::get('configurar/estudiantes/create',[App\Http\Controllers\EstudianteController::class,'create'])->name('estudiantes.create');
+    Route::post('configurar/estudiantes',[App\Http\Controllers\EstudianteController::class, 'store'])->name('estudiantes.store');
+    Route::get('configurar/estudiantes/{estudiante}/edit',[App\Http\Controllers\EstudianteController::class, 'edit'])->name('estudiantes.edit');
+    Route::put('configurar/estudiantes/{estudiante}',[App\Http\Controllers\EstudianteController::class,'update'])->name('estudiantes.update');
+    Route::delete('configurar/estudiantes/{estudiante}',[App\Http\Controllers\EstudianteController::class,'destroy'])->name('estudiantes.destroy');
 
 // ============= MESAController ====================
 
