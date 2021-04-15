@@ -143,6 +143,7 @@ class EstudianteController extends Controller
     public function update(Request $request, $id)
     {
         $materia_id = request('materia_id');
+        $mns ='';
         $user_id = request('user_id');
         if($request->validate([
             'nombre' =>'required',
@@ -157,8 +158,9 @@ class EstudianteController extends Controller
             $estudiante->nombre_completo = $nombre." ".$apellidos;
             $estudiante->user_id = $user_id;
             $estudiante->save();
+            $mns='Los datos de '.$nombre." ".$apellidos.' se han actualizado con éxito' ;
         }
-        return redirect()->route('estudiantes.porMateria',$materia_id);   
+        return redirect()->route('estudiantes.porMateria',$materia_id)->with('info', $mns);   
     }
 
         //=========  COMPROBAR  BORRar por materias
