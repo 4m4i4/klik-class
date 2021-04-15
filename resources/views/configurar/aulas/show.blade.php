@@ -6,7 +6,7 @@
       $mesas = Mesa::all();
   @endphp
  
-    <hr class="h-2">  
+    {{-- <hr class="h-2">   --}}
     <div class="bg-666 w-100 h-100 mx-auto  ">  
       <div class="grid  grid-rows-{{$aula->num_filas}} h-90 content-center justify-between grid-cols-{{$aula->num_columnas}}">
         @foreach ($mesas->where('user_id', auth()->user()->id)->where('aula_id', $aula->id) as $mesa)
@@ -58,19 +58,19 @@
 
   <script>
 
-  function desabilita(id){
-    let dni = id;
-    console.log(dni);
-    let m = document.getElementById(dni);
-    // m.classList.add ("falta");
-    m.setAttribute("disabled","true");
-    let A_bt = document.getElementById("A_bt_" +dni);
-    A_bt.setAttribute("disabled","true");
-    let B_bt = document.getElementById("B_bt_" +dni);
-    B_bt.setAttribute("disabled","true");
-    let name = document.getElementById("name_" +dni);
-    name.setAttribute("disabled","true");
-  }
+  // function desabilita(id){
+  //   let dni = id;
+  //   console.log(dni);
+  //   let m = document.getElementById(dni);
+  //   // m.classList.add ("falta");
+  //   m.setAttribute("disabled","true");
+  //   let A_bt = document.getElementById("A_bt_" +dni);
+  //   A_bt.setAttribute("disabled","true");
+  //   let B_bt = document.getElementById("B_bt_" +dni);
+  //   B_bt.setAttribute("disabled","true");
+  //   let name = document.getElementById("name_" +dni);
+  //   name.setAttribute("disabled","true");
+  // }
 
   function suma(x, y = 1){
     let res = x.innerHTML;
