@@ -18,26 +18,25 @@ class EstudianteController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index($id=1)
+    public function index($materia_id)
     {   
         $user = auth()->user()->id;
-        $materia = auth()->user()->materias;
-        // for($index = 0; $index < $materia_count; $index++) echo $materia[$index]->id.' '. $materia[$index]->materia_name.'; ';
-        $current = url()->current();
-        $materia_id = Str::after($current, 'estudiantes/');
+        $num_materias = Materia::where('user_id',$user)->count();
+        $materia = Materia::find($materia_id);
+        $materias = Materia::where('user_id',$user)->get();
         $estudiantes = Estudiante::where('user_id',$user)->get();
-        // $estudiantes = Estudiante::where('materia_id',$materia_id)->reorder('materia_id','asc')->paginate(25);
-        return view('configurar.estudiantes.index', compact('materia','id','estudiantes','user','materia_id'));
+        return view('configurar.estudiantes.index', compact('materia','materias','estudiantes','user','materia_id'));
     }
 
-    public function porMateria($id){
+    public function porMateria($materia_id){
         $user = auth()->user()->id;
-        $materia = Materia::where('user_id',$user)->paginate(25);
         $current = url()->current();
         $materia_id = Str::after($current, 'estudiantes/');
+        $materia = Materia::find($materia_id);
+        $materias = Materia::where('user_id',$user)->get();
         $num_estudiantes = DB::table('estudiante_materia')->where('materia_id',$materia_id)->count();
         $estudiantes = Estudiante::where('user_id',$user)->get();
-        return view('configurar.estudiantes.index', compact('estudiantes','materia','id','materia_id','num_estudiantes'));
+        return view('configurar.estudiantes.index', compact('estudiantes','materia','materias','materia_id','num_estudiantes'));
     }
 
     /**

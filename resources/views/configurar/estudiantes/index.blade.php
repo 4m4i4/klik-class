@@ -15,7 +15,7 @@
         <div class = "caja-header">
           @if (request()->is('mostrar/estudiantes/*'))
             <div class = "grid grid-cols4 w-100 items-center">
-              <h2>{{ __('My')}} {{ __('Students')}}: ({{$num_estudiantes}})</h2>
+              <h2>{{$materia->materia_name}}: {{$num_estudiantes}} {{ __('Students')}}</h2>
               <a href="{{route('materias.index')}}"
                 title="Volver a la página anterior" 
                 class="btn atras">
@@ -31,19 +31,6 @@
                     <span class="ico-shadow"> ❌ </span>
                     <span class="bt-text-hide">{{ __('Delete') }} {{ __('Group') }}</span>
                   </button>
-              </form>
-
-              <form action="{{route('estudiantes.index')}}" method="POST">
-                @csrf
-                <select id="materia_id" 
-                  name="materia_id" 
-                  value="{{ $materia_id }}" 
-                  class="d_block" 
-                  onsubmit="seleccionaMateria(materia_id)">
-                  @foreach ($materia as $laMateria)
-                    <option value={{$laMateria->id}} {{$laMateria->id == $materia_id? 'selected' : ''}} title="id: "{{$laMateria->id}} >{{$laMateria->materia_name}}</option>
-                  @endforeach
-                </select>
               </form>
             </div>
           @endif
@@ -61,8 +48,8 @@
                 value = "{{ $materia_id }}" 
                 class = "d_block" 
                 onchange = "seleccionaMateria(materia_id)">
-                @foreach ($materia as $laMateria)
-                  <option value = {{$laMateria->id}} {{$laMateria->id == $materia_id? 'selected' : ''}}>{{$laMateria->materia_name}}</option>
+                @foreach ($materias as $laMateria)
+                  <option value = {{$laMateria->id}} {{$laMateria->id== $materia_id? 'selected' : ''}}>{{$laMateria->materia_name}}</option>
                 @endforeach
               </select>
             </div>
@@ -77,22 +64,12 @@
                   <th>Id</th>
                   <th>{{ __('Name') }}</th>
                   <th>{{ __('Surnames') }}</th>
-                  <th>{{ __('Subject') }}</th>
                   <th>{{ __('Edit') }}</th>
                   <th>{{ __('Delete') }}</th>
               </tr>
             </thead>
             <tbody>
-              @php
-                  use App\models\Materia;
-                  $materia = Materia::find( $id);
-                  $materia_id= $materia->id;
-              @endphp
               @foreach ($materia->estudiantes as $estudiante)
-                  
-              {{-- @endforeach 
-
-               @foreach ($estudiantes as $estudiante)--}}
                 <tr>
                   <td><!-- -id -->
                     {{ $estudiante->id }}
@@ -103,10 +80,6 @@
                   </td>
                   <td><!-- Apellidos -->
                     {{$estudiante->apellidos }}
-                  </td>
-                  <td><!-- Materia -->
-                    {{-- {{$estudiante->materias()->materia_name }} --}}
-                    {{$materia->materia_name}}
                   </td>
                   <td>
                     <a href="{{ route('estudiantes.edit', $estudiante->id) }}" 
@@ -149,16 +122,14 @@
       value_materia_id = x.value;
       console.log("valor: "+value_materia_id);
       document.getElementById('materia_id').value = value_materia_id;
-      // return value_materia_id;
-      let ipPuerto = location.host;
-      let ruta = location.pathname;
-      let protocolo = location.protocol;
-      // console.log(protocolo);
-      rutaArr = ruta.split('/');
-      // console.log("ruta :"+ rutaArr);
-      // console.log("direc1 :"+ ipPuerto);
-      let nuevaRuta = protocolo+"://"+ipPuerto+"/"+rutaArr[1]+"/"+rutaArr[2]+"/"+value_materia_id;
-      console.log("Nueva ruta :"+ nuevaRuta);
+      var theObject = new XMLHttpRequest();
+      theObject.open('POST',`{{route('materias.index')}}`,true);
+      theObject.setRequestHeader('Content-Type','application/json');
+      theObject.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+      // theObject.onreadystatechange = function(){
+      //   document.getElementById('respuesta').innerHTML = theObject.responseText;
+      // }
+      theObject.send(location.replace(value_materia_id));
       // fetch(`${value_materia_id}`, {
       //   headers:{
       //    'Content-Type': 'application/json',
@@ -171,7 +142,7 @@
       //   .then(response => response.json())
       //   .then(function(result){alert(result.message);})
       //   .catch(function (error){console.log("error");});
-      //location.replace(nuevaRuta)
+      //
     }
   </script>
 @endsection
