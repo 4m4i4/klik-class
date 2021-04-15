@@ -33,7 +33,7 @@ class Materia extends Model
     }
     // Many to many
     public function estudiantes(){
-        return $this->belongsToMany('App\Models\Estudiante')->withTimestamps();;
+        return $this->belongsToMany('App\Models\Estudiante')->withTimestamps();
     }
     // hasOneThrough
     public function mesa(){

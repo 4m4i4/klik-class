@@ -24,7 +24,7 @@ class Estudiante extends Model
     }
     // Many to many
     public function materias(){
-        return $this->belongsToMany('App\Models\Materia')->withTimestamps();;
+        return $this->belongsToMany('App\Models\Materia')->withTimestamps();
     }
     // Has many through
     public function clases(){
