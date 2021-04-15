@@ -89,5 +89,6 @@
         @includeWhen(auth()->user()->paso==4, 'configurar.paso3')
         @includeWhen(auth()->user()->paso==5, 'configurar.paso3')
     </div>
+    <div class="h-8"></div>
     
 @endsection
