@@ -178,7 +178,7 @@
     document.getElementById("sesion_id").value = id_sesion;
     document.getElementById('ver_modal').style.display = 'block';
   }
-
+  // no se usa
   function getSelected(xx){
     var x = document.getElementById(xx).value;
   }
