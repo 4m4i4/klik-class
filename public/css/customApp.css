@@ -946,6 +946,19 @@ div.cancelar {
   html {
     font-size: 16px;
   }
+
+  .caja-header select {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .caja-header select option {
+    height: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
 @media screen and (min-width: 641px) and (max-width: 768px) {
@@ -984,6 +997,21 @@ div.cancelar {
     padding-right: 0.8rem;
     padding-left: 0.8rem;
     font-size: 0.9rem;
+  }
+
+  .caja-header select {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 1.3rem;
+  }
+
+  .caja-header select option {
+    height: 2rem;
+    line-height: 2rem;
+    margin-top: 3px;
+    margin-bottom: -3px;
+    padding-top: 3px;
+    padding-bottom: 0;
   }
 
   .caja-header > .grid > a.btn {
