@@ -102,12 +102,7 @@
   </div>
 
 <script>
-  // var menuUser-name = document.getElementById('menuUser-name');
 
-  // menuUser-name.onclick = function(){
-  //   // userDropdown.classList.toggle('show');
-  //   userDropdown.style.display = "block";
-  // }
   function verUserMenu(){
     let userDropdown = document.getElementById('userDropdown');  
     userDropdown.classList.toggle('show');
