@@ -19,11 +19,7 @@
       theObject.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
       theObject.onreadystatechange = function(){
         document.getElementById('respuesta').innerHTML = theObject.responseText;
-        // console.log(theObject.responseText);
       }
       theObject.send();
     }
-
-
-
     </script>
