@@ -80,9 +80,12 @@
                         </button>
                     </form>
                   @endif
+                  @php
+                      $materia_id=1
+                  @endphp
                   @if($user->paso >= 4)
                     <h2 class="title">{{ __('My')}} {{ __('Groups')}}</h2>
-                    <a href="{{ route('estudiantes.index',1) }}"
+                    <a href="{{ route('estudiantes.index',$materia_id) }}"
                       class=" btn ver">
                       <p class="">
                         <span class="ico-shadow">👀 </span>
