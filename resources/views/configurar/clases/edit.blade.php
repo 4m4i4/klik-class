@@ -47,8 +47,8 @@
           <select id="materia_id" 
             name="materia_id" 
             value="{{$clase->materia_id}}" 
-            class="d_block" 
-            onchange="cambiarAulaId()">
+            {{-- onchange="cambiarAulaId()" --}}
+            class="d_block" >
             @foreach ($materias as $materia)
               <option value={{$materia->id}} {{$materia->id == $clase->materia_id? 'selected' : ''}}>
                 {{$materia->materia_name}}
