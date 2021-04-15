@@ -77,7 +77,7 @@ class EstudianteController extends Controller
         // recorrer el array, asignar nombre y apellidos (separados por coma) a las variables
         for ($i = 0; $i < $num_estudiantes; $i++) { 
             $estudiante = Str::of( $arrApellidosNombre[$i])->explode(",");
-            $apellidos = $estudiante[0];
+            $apellidos = $estudiante[0]->trim();
             $nombre = Str::of($estudiante[1])->trim();
             $nombre_completo = $nombre." ".$apellidos;
             // la materia que cursa 
