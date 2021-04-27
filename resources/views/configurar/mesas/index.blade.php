@@ -19,7 +19,7 @@
               @php
                   $user = auth()->user();  
               @endphp            
-            <h2  class="ml-2" >Mis mesas</h2>
+            <h2  class="ml-2" >Mis mesas ({{$mesas->count()}})</h2>
 
             <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
                   @csrf
@@ -48,6 +48,7 @@
               <thead>
                 <tr>
                   <th>Id</th>
+                  <th>Nombre</th>
                   <th>Columna</th>
                   <th>Fila</th>
                   <th>Ocupada</th>
@@ -61,6 +62,9 @@
                   <tr>
                     <td><!-- Mesa-id -->
                         {{ $mesa->id }}
+                    </td>
+                     <td>
+                        {{ $mesa->mesa_name }}
                     </td>
                     <td>
                         {{ $mesa->columna }}
