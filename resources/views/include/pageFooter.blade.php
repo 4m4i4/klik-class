@@ -36,7 +36,7 @@
   // $dmes = $meses[date_format($date, "n")];
   // $danio = date_format($date, "Y");
 
-  $fecha = $diaSemana.", ". $ddia." de ". $dmes. " de ".$danio;
+  $fecha = $diaSemana." ". $ddia." de ". $dmes. " de ".$danio;
   $diaMes=  $ddia." de ". $dmes;
   // $ahora = new DateTime();
   // $laHora = $ahora->format('H:i');
