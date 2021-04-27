@@ -34,7 +34,7 @@ class AulaController extends Controller
             // // versión B (El modelo Estudiante se importa aquí)
             $aulas = Aula::where('user_id',$user)->get();
             $clase = Clase::select('materia_id')->get();
-            $estudiantes = Estudiante::select('id','materia_id')->get();
+            $estudiantes = Estudiante::select('id')->get();
             return view('configurar.aulas.index', compact('aulas', 'clase', 'estudiantes'));
 
             // // versión C (El modelo Estudiante se importa aquí)
@@ -256,7 +256,7 @@ class AulaController extends Controller
     {
         $user = Auth::user()->id;
         $ids_estudiante =[];  // ids de los estudiantes que hay en el aula
-        $materia = Materia::where('user_id',$user)->where('grupo',$aula->aula_name)->first();
+        $materia = Materia::where('user_id',$user)->where('grupo', $aula->aula_name)->first();
         $materia_id =$materia->id;
         foreach($materia->estudiantes as $estudiante){
             array_push( $ids_estudiante, $estudiante->pivot->estudiante_id);
