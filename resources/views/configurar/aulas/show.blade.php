@@ -74,9 +74,6 @@
 
   function suma(x, y = 1){
     let res = x.innerHTML;
-    // let el = document.getElementById(x);
-    // let valor =  el.value;
-    // console.log("suma " + valor);    
     res = parseInt(res) + y;
     x.innerHTML = res; 
   }
