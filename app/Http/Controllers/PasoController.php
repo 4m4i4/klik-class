@@ -42,14 +42,14 @@ class PasoController extends Controller
 
       if($user = $request->user()){
           $paso = $user->paso;
-          if($paso !== 6){
+          if($paso !== 5){
             $user->paso = (string)((int)$paso + 1);
             $user->save();
             $user->refresh();
           }        
           if($user->paso ==2) return redirect( route('sesions.index'));
           if($user->paso ==3) return redirect( route('clases.index'));
-          if($user->paso ==5) return redirect( route('aulas.index'));
+          if($user->paso ==5) return redirect( route('home'));
 
         }
      

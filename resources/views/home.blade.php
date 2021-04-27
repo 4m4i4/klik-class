@@ -47,8 +47,8 @@
         </div>
       @endif
         {{-- Fase de uso --}}
-      @if(auth()->user()->paso==6)
-      <br>
+      @if(auth()->user()->paso>=5)
+        <br>
         <p class="text-vw3 mt-2 mb-4 px-4 text-center text-blue-30 smallCaps">
             ¡¡Enhorabuena {{auth()->user()->name}} !! Lo has conseguido!! 
         </p>  
@@ -63,9 +63,11 @@
     </div>
 
 @endsection 
-@section('content')
+
+
+@if(auth()->user()->paso > 0 && auth()->user()->paso < 5) 
         {{-- Los tres pasos para introducir los datos: navegación lineal --}}
-    @if(auth()->user()->paso > 0 && auth()->user()->paso < 6) 
+    @section('content')    
         <div class="p-6  m-1  border-gray-200  md:border-l">
             <div class="text-lg leading-7 text-gray-600 ">
                 <h2 class="text-center pasos-title-1 text-gray-800">{{ __('Create course')}}. {{ __('Step')}} 
@@ -73,22 +75,24 @@
                     @if(auth()->user()->paso==2) 2 @endif
                     @if(auth()->user()->paso==3) 2 @endif
                     @if(auth()->user()->paso==4) 3 @endif
-                    @if(auth()->user()->paso==5) 3 @endif
+                    {{-- @if(auth()->user()->paso==5) 3 @endif --}}
                 </h2>
                 <p class="text-6 my-2 text-center">{{ __('Entering course data') }}</p>
             </div>
         </div>
-    @endif
-@endsection
-@section('pasos')
+    @endsection        
+
+
+    @section('pasos')
 
     <div class="grid grid-cols-1 md:grid-cols-3">
         @includeWhen(auth()->user()->paso==1, 'configurar.paso1')
         @includeWhen(auth()->user()->paso==2, 'configurar.paso2')
         @includeWhen(auth()->user()->paso==3, 'configurar.paso2')
         @includeWhen(auth()->user()->paso==4, 'configurar.paso3')
-        @includeWhen(auth()->user()->paso==5, 'configurar.paso3')
     </div>
-    <div class="h-8"></div>
     
-@endsection
+    <div class="h-8"></div>
+   
+    @endsection 
+@endif
