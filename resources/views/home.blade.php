@@ -49,9 +49,12 @@
         {{-- Fase de uso --}}
       @if(auth()->user()->paso>=5)
         <br>
+        @if(auth()->user()->paso==5)
+        {{-- El mensaje desaparece en cuanto salga de esta página --}}
         <p class="text-vw3 mt-2 mb-4 px-4 text-center text-blue-30 smallCaps">
             ¡¡Enhorabuena {{auth()->user()->name}} !! Lo has conseguido!! 
-        </p>  
+        </p>
+        @endif
 
         <div class="caja marcoReloj">
            <div class="relojEnorme text-center" id="khora"></div>
