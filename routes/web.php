@@ -54,7 +54,7 @@ Route::resource('configurar/materias', App\Http\Controllers\MateriaController::c
 
 // ============= AULAController ====================
 
-Route::get('configurar/vacias/{aula}',[App\Http\Controllers\AulaController::class, 'editMesasVacias'])->name('aulas.editMesasVacias');
+Route::get('etapaUso/vacias/{aula}',[App\Http\Controllers\AulaController::class, 'editMesasVacias'])->name('aulas.editMesasVacias');
 Route::put('configurar/vacias/{aula}',[App\Http\Controllers\AulaController::class, 'updateMesasVacias'])->name('aulas.updateMesasVacias');
 
 // Route::resource('configurar/aulas', App\Http\Controllers\AulaController::class);
@@ -63,7 +63,9 @@ Route::get('configurar/aulas',[App\Http\Controllers\AulaController::class, 'inde
     Route::get('configurar/aulas/create',[App\Http\Controllers\AulaController::class, 'create'])->name('aulas.create');
     Route::post('configurar/aulas',[App\Http\Controllers\AulaController::class, 'store'])->name('aulas.store');
     Route::get('configurar/aulas/{aula}/edit',[App\Http\Controllers\AulaController::class, 'edit'])->name('aulas.edit');
-    Route::get('etapaUso/aulas/{aula}/show',[App\Http\Controllers\AulaController::class, 'show'])->name('aulas.show');
+    // Route::get('aulas/{aula}/show',
+        Route::get('etapaUso/aulas/{aula}/show',
+    [App\Http\Controllers\AulaController::class, 'show'])->name('aulas.show');
     Route::put('configurar/aulas/{aula}',[App\Http\Controllers\AulaController::class, 'update'])->name('aulas.update');
     Route::delete('configurar/aulas/{aula}',[App\Http\Controllers\AulaController::class, 'destroy'])->name('aulas.destroy');
 //
