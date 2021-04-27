@@ -87,7 +87,7 @@
                     <h2 class="title">{{ __('My')}} {{ __('Groups')}}</h2>
                     <a href="{{ route('estudiantes.index',$materia_id) }}"
                       class=" btn ver">
-                      <p class="">
+                      <p class="px-2 ">
                         <span class="ico-shadow">👀 </span>
                         {{__('Show')}} {{__('List')}}
                         <span class="ico-shadow"> 📜</span>
