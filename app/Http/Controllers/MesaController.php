@@ -27,8 +27,8 @@ class MesaController extends Controller
     {
         $user = Auth::user()->id;
         $aula_id = Aula::where('user_id',$user)->value('id');
-        $clase = Clase::where('user_id',$user)->with('materia','sesion','aula')->get();
-        $estudiantes = Estudiante::with('materia')->get();
+        $clase = Clase::where('user_id',$user)->with('materia','sesion')->get();
+        $estudiantes = Estudiante::get();
         $mesas = Mesa::all();
         return view('configurar.mesas.index', compact('mesas','estudiantes','clase','aula_id'));
     }
