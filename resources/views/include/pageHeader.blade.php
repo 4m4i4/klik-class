@@ -26,7 +26,7 @@
         <div class="menuUso">
 
           {{-- si se acaba la configuración se muestra el menú-  paso 6 --}}
-          @if(auth()->user()!==null && auth()->user()->paso == 5)
+          @if(auth()->user()!==null && auth()->user()->paso >= 5)
           
             <a id="rutaBotones" class="{{ Request::path() === 'botones' ? 'active' : '' }} nav-sub" href="/botones" >Personalizar</a>
             <a id="rutaExportar" class="{{ Request::path() === 'exportar' ? 'active' : '' }} nav-sub" href="/exportar">Exportar</a>

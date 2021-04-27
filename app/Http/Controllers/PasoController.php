@@ -42,7 +42,7 @@ class PasoController extends Controller
 
       if($user = $request->user()){
           $paso = $user->paso;
-          if($paso !== 5){
+          if($paso < 5){
             $user->paso = (string)((int)$paso + 1);
             $user->save();
             $user->refresh();
