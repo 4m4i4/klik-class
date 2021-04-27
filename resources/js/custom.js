@@ -13,7 +13,10 @@ var queHora = document.getElementById("khora");
 
 function myTimer() {
   var d = new Date();
-  queHora.innerHTML = d.toLocaleTimeString(); 
+  var options = {hour:'2-digit', minute: '2-digit',hour12: false};
+  // console.log(new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g,'-').replace(',',''));
+  queHora.innerHTML = new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g,'-').replace(',',''); 
+  // queHora.innerHTML = d.toLocaleTimeString(); 
   var queDia = document.getElementById("kdiaes");
   var dias = ["Domingo","Lunes", "Martes", "Miércoles","Jueves","Viernes","Sábado"];
   var dia = d.getDay();
@@ -21,7 +24,7 @@ function myTimer() {
   
   if(queDia!==null)
   // queDia.innerHTML = d.toLocaleDateString();
-  queDia.innerHTML = n+", "+ dias[dia];
+  queDia.innerHTML = n+" "+ dias[dia];
 } 
 
 function configuraFecha(){
@@ -164,10 +167,35 @@ function desabilita(id){
     name.setAttribute("disabled","true");
 }
 
-  function suma(x, y = 1){
+  function suma(x, y=1){
     let res = x.innerHTML;
     res = parseInt(res) + y;
     x.innerHTML = res;
+  }
+   function sino(x){
+    let res = x.innerHTML;
+    if(res == "Sí"){
+      res = "No";
+      x.classList.remove('bg-sobreB');
+      x.classList.add('bg-sobreN');
+    }else if(res == "No"){
+      res = "Sí";
+      x.classList.remove('bg-sobreN');
+      x.classList.add('bg-sobreB');
+    }
+    x.innerHTML = res;
+    console.log(res); 
+    // x.classList.toggle('bg-sobreN');
+  }
+
+  function lee(x){
+    let valor = document.getElementById(x).innerHTML;
+    console.log("v: "+valor);
+    let cero = parseInt(valor)%50;
+    console.log("resto: "+cero);
+    if(cero == 0){
+      document.getElementById(x).classList.toggle('bg-blue');
+    }
   }
   
 function configurarHorario(){
