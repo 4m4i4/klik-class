@@ -18,25 +18,28 @@ class EstudianteController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index($materia_id)
+    public function index($materia_id=null)
     {   
         $user = auth()->user()->id;
         $num_materias = Materia::where('user_id',$user)->count();
         $materia = Materia::find($materia_id);
+        
         $materias = Materia::where('user_id',$user)->get();
         $estudiantes = Estudiante::where('user_id',$user)->get();
-        return view('configurar.estudiantes.index', compact('materia','materias','estudiantes','user','materia_id'));
+        $num_estudiantes = DB::table('estudiante_materia')->where('materia_id',$materia_id)->count();
+        $estudiante_materia = DB::table('estudiante_materia')->orderBy('materia_id')->paginate(25);
+        return view('configurar.estudiantes.index', compact('materia','materias','estudiantes','num_estudiantes','user','materia_id','estudiante_materia'));
     }
 
-    public function porMateria($materia_id){
+    public function porMateria($porMateria_id){
         $user = auth()->user()->id;
         $current = url()->current();
-        $materia_id = Str::after($current, 'estudiantes/');
-        $materia = Materia::find($materia_id);
+        $porMateria_id = Str::after($current, 'estudiantes/');
+        $materia = Materia::find($porMateria_id);
         $materias = Materia::where('user_id',$user)->get();
-        $num_estudiantes = DB::table('estudiante_materia')->where('materia_id',$materia_id)->count();
+        $num_estudiantes = DB::table('estudiante_materia')->where('materia_id',$porMateria_id)->count();
         $estudiantes = Estudiante::where('user_id',$user)->get();
-        return view('configurar.estudiantes.index', compact('estudiantes','materia','materias','materia_id','num_estudiantes'));
+        return view('configurar.estudiantes.index', compact('estudiantes','materia','materias','porMateria_id','num_estudiantes'));
     }
 
     /**
@@ -185,10 +188,10 @@ class EstudianteController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function borrarGrupo($materia_id)
+    public function borrarGrupo($porMateria_id)
     {
         $mns_grupo ='Grupo borrado con éxito';
-        $estudiantes = Estudiante::where('materia_id',$materia_id)->get();
+        $estudiantes = Estudiante::where('materia_id',$porMateria_id)->get();
         foreach($estudiantes as $estudiante)
         $estudiante->delete();
         return redirect()->route('materias.index')->with('info', $mns_grupo);
