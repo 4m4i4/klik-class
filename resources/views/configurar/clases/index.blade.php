@@ -18,25 +18,7 @@
             @php
               $user = Auth::user();
             @endphp
-          @if($user->paso == 2){{--   NO ocurre nunca --}}
-              <h2 class="title">Añadir mis horarios</h2>
-              <a href="{{route('sesions.index')}}" 
-                  title="Poner las horas de comienzo y final de las sesiones" 
-                  class="boton blue-reves mr-1">Poner horario
-              </a>
-              <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
-                  @csrf
-                  @method("PUT")
-                    <button type="submit"
-                      title="Horario completado: Empezar a poner clases"
-                      class="ml-1 btn continuar">
-                      <span class="ico-shadow">✅ </span>
-                      <span class="bt-text-hide">{{ __('Next')}}</span>
-                      <span class="ico-shadow">👉 </span>
-                    </button>
-              </form>
-          @endif
-          @if($user->paso == 3)
+           @if($user->paso == 3)
               <h2 class="title">Añadir mis Clases</h2>
               <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
                   @csrf
@@ -177,10 +159,6 @@
     document.getElementById("dia").value = dia_semana;
     document.getElementById("sesion_id").value = id_sesion;
     document.getElementById('ver_modal').style.display = 'block';
-  }
-  // no se usa
-  function getSelected(xx){
-    var x = document.getElementById(xx).value;
   }
 </script>
 @endsection
