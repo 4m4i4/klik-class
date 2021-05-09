@@ -117,7 +117,8 @@ h3 {
   font-family: "Roboto Condensed", sans-serif;
 }
 
-h2 {
+h2,
+.h2 {
   font-size: 1.8rem;
   line-height: 112%;
   font-weight: 400;
@@ -339,6 +340,10 @@ hr {
   font-size: 1.1rem;
   font-variant: small-caps;
   text-align: center;
+}
+
+.menu-user .hide-menu {
+  display: none;
 }
 
 /* ===========  MENÚ @media 550px ===============*/
@@ -1988,6 +1993,10 @@ img {
   background-color: #FFEE00;
 }
 
+.bg-yellow :hover {
+  background-color: #AAEEEE;
+}
+
 .bg-sky {
   background-color: #00EEEE;
   color: #333;
@@ -2039,6 +2048,10 @@ img {
 
 .bg-gray-100 {
   background-color: #f7f7f7;
+}
+
+.bg-transparent {
+  background-color: #00aacc00;
 }
 
 .text-gray-200 {
