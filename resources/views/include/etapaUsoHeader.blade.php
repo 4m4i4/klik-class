@@ -6,7 +6,7 @@
         </svg>
       </a>   
       <span id="khora" class=" reloj"></span> 
-      <span class="bt-clase-header bg-sky text-overflow">{{$aula->aula_name}}</span>
+      <span id="renderAula" class="bt-clase-header bg-sky text-overflow" title="{{$aula->id}}">{{$aula->aula_name}}</span>
       <a href="{{route('aulas.editMesasVacias',$aula->id)}}" title="Sentar de nuevo a los estudiantes" class="bt-clase-header mx-2 editar">Mesas</a>
     </div>
     <div class="flex-row items-center">
@@ -15,7 +15,7 @@
     </div>
     <div  class="flex-row items-center mr-2">
       <span id="kdiaes" class=" mr-2 reloj text-overflow"></span>
-      @if(auth()->user()->paso<5)
+      @if(auth()->user()->paso < 5)
         <a href="{{ route('materias.index')}}" class="bt-clase-header btn atras">
       @else
         <a href="{{ route('home')}}" class="bt-clase-header btn atras">
