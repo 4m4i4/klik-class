@@ -42,7 +42,7 @@ class PasoController extends Controller
 
       if($user = $request->user()){
           $paso = $user->paso;
-          if($paso < 5){
+          if($paso < 6){
             $user->paso = (string)((int)$paso + 1);
             $user->save();
             $user->refresh();
@@ -50,11 +50,16 @@ class PasoController extends Controller
           if($user->paso ==2) return redirect( route('sesions.index'));
           if($user->paso ==3) return redirect( route('clases.index'));
            return redirect( route('home'));
-          if($user->paso ==5 && url()->current()!=='/home'){
-            $user->paso = 6;
-            $user->save();
-            $user->refresh();
+          // si ha acabado la fase de configuración, y sale de la página home: el objetivo es quitar el mensaje de enhorabuena
+          if($user->paso==5){
+            dd($request->path());
           }
+          
+          // if($user->paso ==5 &&  !$request->path() === 'home'){
+          //   $user->paso = (string)((int)$paso + 1);
+          //   $user->save();
+          //   $user->refresh();
+          // }
 
         }
      
