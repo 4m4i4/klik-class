@@ -6,12 +6,10 @@
       $mesas = Mesa::all();
   @endphp
  
-    <hr class="h-2">  
+    {{-- <hr class="h-2">   --}}
     <div class="bg-666 w-100 h-100 mx-auto  ">  
       <div class="grid  grid-rows-{{$aula->num_filas}} h-90 content-center justify-between grid-cols-{{$aula->num_columnas}}">
-            {{-- {{dd( $hasMesas)}} --}}
-            {{-- {{dd( $mesas)}} --}}
-        @foreach ($mesas->where('aula_id', $aula->id) as $mesa)
+        @foreach ($mesas->where('user_id', auth()->user()->id)->where('aula_id', $aula->id) as $mesa)
           <div id={{$mesa->id}} class="mesa text-center flex-column justify-center" title="mesa_{{$mesa->id}}">
             @if($mesa->is_ocupada == true)
               <div>       
@@ -28,7 +26,7 @@
               <div>
                 <button id="name_{{$mesa->id}}"
                     class="nombre_mesa d_block py-0" 
-                    title="Estudiante id: {{$mesa->estudiante->id}}" 
+                    title="Estudiante id: {{$mesa->estudiante_id}}" 
                     onclick= "desabilita({{$mesa->id}})">{{$mesa->estudiante->nombre}} {{Str::limit($mesa->estudiante->apellidos, 1)}}</button>
               </div> 
             @else
@@ -76,9 +74,6 @@
 
   function suma(x, y = 1){
     let res = x.innerHTML;
-    // let el = document.getElementById(x);
-    // let valor =  el.value;
-    // console.log("suma " + valor);    
     res = parseInt(res) + y;
     x.innerHTML = res; 
   }

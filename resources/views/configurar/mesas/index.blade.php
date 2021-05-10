@@ -5,9 +5,9 @@
 
   <div class="container">
       <!-- Información de los cambios que se han producido en el sistema al enviar el formulario-->
-      @if(session()->get('success'))
+      @if(session()->get('info'))
         <div class = "alert alert-info">
-          {{ session()->get('success') }}  
+          {{ session()->get('info') }}  
         </div>
       @endif
 
@@ -19,7 +19,7 @@
               @php
                   $user = auth()->user();  
               @endphp            
-            <h2  class="ml-2" >Mis mesas</h2>
+            <h2  class="ml-2" >Mis mesas ({{$mesas->count()}})</h2>
 
             <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
                   @csrf
@@ -48,11 +48,11 @@
               <thead>
                 <tr>
                   <th>Id</th>
+                  <th>Nombre</th>
                   <th>Columna</th>
                   <th>Fila</th>
                   <th>Ocupada</th>
                   <th>Aula</th>
-                  <th>Clase</th>
                   <th>Estudiante</th>
                   <th class="bts_handleAction" colspan = "3">Acción</th>
                 </tr>
@@ -62,6 +62,9 @@
                   <tr>
                     <td><!-- Mesa-id -->
                         {{ $mesa->id }}
+                    </td>
+                     <td>
+                        {{ $mesa->mesa_name }}
                     </td>
                     <td>
                         {{ $mesa->columna }}
@@ -75,10 +78,6 @@
                     <td>
                         {{ $mesa->aula->aula_name }}
                     </td>
-                    <td>
-                        {{ $mesa->clase->sesion_id }}; {{ $mesa->clase->dia }}
-                    </td>
-
                     <td>
                         {{!$mesa->estudiante==null ? $mesa->estudiante->id :"---" }}
                     </td>

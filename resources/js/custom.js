@@ -1,4 +1,10 @@
-// require('./bootstrap');
+
+var screenWidth=screen.availWidth;
+if(screenWidth>=414)
+  var semana=`'Horario','Lunes','Martes','Miercoles','Jueves','Viernes'`;
+else
+var semana=`'Hora','Lun','Mar','Mie','Jue','Vie'`;
+// document.getElementById("semana").innerHTML=semana;
 
 var myVar = setInterval(myTimer, 1000);
 var queHora = document.getElementById("khora");
@@ -7,7 +13,10 @@ var queHora = document.getElementById("khora");
 
 function myTimer() {
   var d = new Date();
-  queHora.innerHTML = d.toLocaleTimeString(); 
+  var options = {hour:'2-digit', minute: '2-digit',hour12: false};
+  // console.log(new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g,'-').replace(',',''));
+  queHora.innerHTML = new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g,'-').replace(',',''); 
+  // queHora.innerHTML = d.toLocaleTimeString(); 
   var queDia = document.getElementById("kdiaes");
   var dias = ["Domingo","Lunes", "Martes", "Miércoles","Jueves","Viernes","Sábado"];
   var dia = d.getDay();
@@ -18,14 +27,17 @@ function myTimer() {
   queDia.innerHTML = n+" "+ dias[dia];
 } 
 
-
+function configuraFecha(){
+var x= document.getElementById("configFecha").value;
+fFecha(x);
+}
 
 function fFecha(x){
   var fecha;
   var h = new Date();
   var local = h.toLocaleDateString();
-  var d = h.getDate();
-  var m = h.getMonth();
+  var d = h.getDate();  // día (número del mes)
+  var m = h.getMonth();  // mes (número del 0 al 11)
   var y = h.getFullYear();
   myTimer();
   var dias = ["DOMINGO","LUNES", "MARTES", "MIÉRCOLES","JUEVES","VIERNES","SÁBADO"];
@@ -55,7 +67,7 @@ function fFecha(x){
       fecha = local+"  "+dias[dia]; //  29/02/1890 Martes 
       break;
     case 7:
-      fecha = d+", "+dias[dia]//   29, Martes 
+      fecha = d+" "+dias[dia]//   29 Martes 
       break;
     default:
       fecha = dias[dia]+", "+d+" de "+meses[m]+" de "+y;  // Martes, 29 de febrero de 1890
@@ -64,20 +76,6 @@ function fFecha(x){
   document.getElementById("kdiaes").innerHTML =fecha;
 
 }
-
-
-// var screenWidth=screen.availWidth;
-// if(screenWidth>=414)
-//   var semana=`'Horario','Lunes','Martes','Miercoles','Jueves','Viernes'`;
-// else
-// var semana=`'Hora','Lun','Mar','Mie','Jue','Vie'`;
-// // document.getElementById("semana").innerHTML=semana;
-
-
-
-
-
-
 
   // function verMesas(valor_id){
   //   let ar_id = valor_id.split('_');
@@ -169,10 +167,35 @@ function desabilita(id){
     name.setAttribute("disabled","true");
 }
 
-  function suma(x, y = 1){
+  function suma(x, y=1){
     let res = x.innerHTML;
     res = parseInt(res) + y;
     x.innerHTML = res;
+  }
+   function sino(x){
+    let res = x.innerHTML;
+    if(res == "Sí"){
+      res = "No";
+      x.classList.remove('bg-sobreB');
+      x.classList.add('bg-sobreN');
+    }else if(res == "No"){
+      res = "Sí";
+      x.classList.remove('bg-sobreN');
+      x.classList.add('bg-sobreB');
+    }
+    x.innerHTML = res;
+    console.log(res); 
+    // x.classList.toggle('bg-sobreN');
+  }
+
+  function lee(x){
+    let valor = document.getElementById(x).innerHTML;
+    console.log("v: "+valor);
+    let cero = parseInt(valor)%50;
+    console.log("resto: "+cero);
+    if(cero == 0){
+      document.getElementById(x).classList.toggle('bg-blue');
+    }
   }
   
 function configurarHorario(){
@@ -264,3 +287,16 @@ function configurarHorario(){
   }
   aula.appendChild(tablaHorarios);
  }        
+
+
+
+        var acaba=true;        
+        function acabar(){
+            var boton=document.getElementById('prueba');
+            boton.style.backgroundColor="red";
+            boton.innerHTML="Acabado";
+            acaba = false;
+            document.enviar.var_php.value=acaba;
+            document.enviar.submit();
+            
+        }

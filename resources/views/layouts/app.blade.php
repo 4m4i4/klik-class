@@ -69,7 +69,7 @@
     @yield('script')
     <!--FIN: App -->
         <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" type="text/js"></script>
+    {{-- <script src="{{ asset('js/app.js') }}" type="text/js"></script> --}}
     <script src="{{ asset('js/custom.js') }}" type="text/js"></script>
 
 

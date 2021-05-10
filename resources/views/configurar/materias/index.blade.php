@@ -5,9 +5,9 @@
 
   <div class="container">
       <!-- Información de los cambios que se han producido en el sistema al enviar el formulario-->
-    @if(session()->get('success'))
+    @if(session()->get('info'))
         <div class = "text-center alert alert-info">
-          {{ session()->get('success') }}  
+          {{ session()->get('info') }}  
         </div>
     @endif
 
@@ -80,11 +80,14 @@
                         </button>
                     </form>
                   @endif
+                  @php
+                      $materia_id=1
+                  @endphp
                   @if($user->paso >= 4)
                     <h2 class="title">{{ __('My')}} {{ __('Groups')}}</h2>
-                    <a href="{{ route('estudiantes.index') }}"
+                    <a href="{{ route('estudiantes.index',$materia_id) }}"
                       class=" btn ver">
-                      <p class="">
+                      <p class="px-2 ">
                         <span class="ico-shadow">👀 </span>
                         {{__('Show')}} {{__('List')}}
                         <span class="ico-shadow"> 📜</span>
@@ -140,6 +143,9 @@
               <tbody>
                 @foreach ( $materias as $materia)
                   <tr>
+                      @php
+                          $aula = DB::table('aulas')->find($materia->aula_id);
+                      @endphp                    
                     <td class="id">   <!-- -id -->
                           {{ $materia->id }}
                     </td>
@@ -149,20 +155,21 @@
                       
                     @if($user->paso < 4)
                       <td>   <!-- Grupo -->
-                          {{ $materia->grupo }}
+
+                          {{ $aula->aula_name }}
                       </td>
                     @endif
                     @if($user->paso == 1) 
                       <td>  <!-- Aula -->
-                          {{ $materia->grupo }}
+                          {{ $materia->aula_id }}
                       </td>
                     @endif
                     @if($user->paso >= 4)
-                          {{-- se comprueba si los estudiantes de esa materia están ya registrados --}}
+                          <!-- se comprueba si los estudiantes de esa materia están ya registrados -->
                       @php
                         $isStudent = $materia->estudiantes()->where('materia_id', $materia->id)->first();
                       @endphp
-                          {{-- si no lo están, se enlaza el formulario para crear el grupo de estudiantes --}}
+                          <!-- si no lo están, se enlaza el formulario para crear el grupo de estudiantes -->
                       @if($isStudent == null)
                         <td class="pt-02 mt-0">   <!-- Grupo -->  
                           <a href="#" id="{{$materia->grupo}}_{{$materia->id}}" title="Añadir estudiantes de {{$materia->grupo }}" class="d_block pt-02 editar" onclick="estudiantesModal(this.id)">
@@ -173,10 +180,12 @@
                             {{ $materia->grupo}}
                         </td>
                       @elseif($isStudent !== null)
-                          {{-- si existen se marca como hecho y se enlaza el formulario para actualizar el aula --}}
+                          <!-- si existen se marca como hecho y se enlaza el formulario para actualizar el aula -->
                         @php
                           $countStudents = $materia->estudiantes()->where('materia_id', $materia->id)->count();
-                          $aula = DB::table('aulas')->where('user_id',$user->id)->where('aula_name',$materia->grupo)->first();
+                          $aula_id = $materia->aula_id;
+                          // dd($aula_id);
+                          // $aula = DB::table('aulas')->where('user_id',$user->id)->where('aula_name',$materia->grupo)->first();
                         @endphp
                           <!-- Ver lista de estudiantes por materia -->
                         <td class="">   <!-- Grupo -->  
@@ -204,7 +213,7 @@
                               <span class="bt-text-hide">{{ __('Show')}} </span>
                           </a>
                         </td>
-                      @endif
+                      @endif 
                     @endif
                     @if($user->paso == 1)   <!-- botones EDIT DELETE -->
                         <td>   <!-- Editar -->
@@ -247,7 +256,7 @@
             let grupo = ar_id[0];
             let materia_id = ar_id[1];
             document.getElementById("ver_grupo").innerHTML = grupo ;
-            document.getElementById("materia_id").value = materia_id;
+            document.getElementById("create_materia_id").value = materia_id;
             document.getElementById('crear_estudiantes').style.display = 'block';
           }
       </script>

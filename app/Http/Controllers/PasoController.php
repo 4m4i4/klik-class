@@ -42,14 +42,24 @@ class PasoController extends Controller
 
       if($user = $request->user()){
           $paso = $user->paso;
-          if($paso !== 6){
+          if($paso < 6){
             $user->paso = (string)((int)$paso + 1);
             $user->save();
             $user->refresh();
           }        
           if($user->paso ==2) return redirect( route('sesions.index'));
           if($user->paso ==3) return redirect( route('clases.index'));
-          if($user->paso ==5) return redirect( route('aulas.index'));
+           return redirect( route('home'));
+          // si ha acabado la fase de configuración, y sale de la página home: el objetivo es quitar el mensaje de enhorabuena
+          if($user->paso==5){
+            dd($request->path());
+          }
+          
+          // if($user->paso ==5 &&  !$request->path() === 'home'){
+          //   $user->paso = (string)((int)$paso + 1);
+          //   $user->save();
+          //   $user->refresh();
+          // }
 
         }
      

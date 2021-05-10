@@ -117,7 +117,8 @@ h3 {
   font-family: "Roboto Condensed", sans-serif;
 }
 
-h2 {
+h2,
+.h2 {
   font-size: 1.8rem;
   line-height: 112%;
   font-weight: 400;
@@ -339,6 +340,10 @@ hr {
   font-size: 1.1rem;
   font-variant: small-caps;
   text-align: center;
+}
+
+.menu-user .hide-menu {
+  display: none;
 }
 
 /* ===========  MENÚ @media 550px ===============*/
@@ -946,6 +951,19 @@ div.cancelar {
   html {
     font-size: 16px;
   }
+
+  .caja-header select {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .caja-header select option {
+    height: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
 @media screen and (min-width: 641px) and (max-width: 768px) {
@@ -986,8 +1004,27 @@ div.cancelar {
     font-size: 0.9rem;
   }
 
+  .caja-header select {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 1.3rem;
+  }
+
+  .caja-header select option {
+    height: 2rem;
+    line-height: 2rem;
+    margin-top: 3px;
+    margin-bottom: -3px;
+    padding-top: 3px;
+    padding-bottom: 0;
+  }
+
+  .caja-header > .grid > a > p {
+    margin-top: 1px;
+  }
+
   .caja-header > .grid > a.btn {
-    padding-top: 4px;
+    padding-top: 2px;
   }
 
   html {
@@ -1027,6 +1064,10 @@ div.cancelar {
     padding-left: 1rem;
   }
 
+  .caja-header > .grid > a > p {
+    margin-top: -2px;
+  }
+
   .caja-header > .grid > a.btn {
     padding-top: 5px;
   }
@@ -1063,6 +1104,10 @@ div.cancelar {
     height: 2.2rem;
     padding-right: 1rem;
     padding-left: 1rem;
+  }
+
+  .caja-header > .grid > a > p {
+    margin-top: -2px;
   }
 
   .caja-header > .grid > a.btn {
@@ -1948,6 +1993,10 @@ img {
   background-color: #FFEE00;
 }
 
+.bg-yellow :hover {
+  background-color: #AAEEEE;
+}
+
 .bg-sky {
   background-color: #00EEEE;
   color: #333;
@@ -1999,6 +2048,10 @@ img {
 
 .bg-gray-100 {
   background-color: #f7f7f7;
+}
+
+.bg-transparent {
+  background-color: #00aacc00;
 }
 
 .text-gray-200 {
@@ -2249,6 +2302,10 @@ img {
   padding-bottom: 0.5rem;
 }
 
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -2262,6 +2319,10 @@ img {
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.pt-4 {
+  padding-top: 1rem;
 }
 
 .p-6 {
@@ -2478,5 +2539,11 @@ img {
     padding-left: 2rem;
     padding-right: 2rem;
   }
+}
+
+/* =========== dev =========== */
+
+.hide-dev {
+  display: block;
 }
 

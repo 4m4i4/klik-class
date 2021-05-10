@@ -38,3 +38,4 @@
         <button class="mx-auto  bt_pasos oscuro d_block disabled" disabled >{{ __('Add') }} {{ __('Group') }}</button>
     </div>
   </div>
+<div class="h-8"></div>

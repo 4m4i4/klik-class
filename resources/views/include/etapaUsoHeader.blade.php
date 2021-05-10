@@ -5,25 +5,21 @@
             @include("include.logoQuad")
         </svg>
       </a>   
-
-      <span class="bt-clase-header bg-sky text-overflow">{{$aula->aula_name}}</span>
-      <a href="{{route('aulas.editMesasVacias',$aula->id)}}" title="Sentar de nuevo a los estudiantes" class="bt-clase-header mx-2 editar" >Mesas</a>
       <span id="khora" class=" reloj"></span> 
+      <span id="renderAula" class="bt-clase-header bg-sky text-overflow" title="{{$aula->id}}">{{$aula->aula_name}}</span>
+      <a href="{{route('aulas.editMesasVacias',$aula->id)}}" title="Sentar de nuevo a los estudiantes" class="bt-clase-header mx-2 editar">Mesas</a>
     </div>
     <div class="flex-row items-center">
        
      
     </div>
     <div  class="flex-row items-center mr-2">
-         {{-- <a href="{{route('aulas.editMesasVacias',$aula->id)}}"  class="bt-clase-header f_left px-1 mx-2 editar" >Mesas</a> --}}
-        {{-- <a href="#" id="id_{{$aula->id}}" class="bt-clase-header f_left px-1 mx-2 editar" onclick="vaciasModal(this.id)">Mesas</a> --}}
-        {{-- <a href="{{route('aulas.editMesasVacias',$aula->id)}}" title= "editar mesas vacias">Mesas</a> --}}
-     
-
-      <span id="kdiaes" class=" mr-2  text-overflow"></span>
-
-        {{-- <a href="{{ url()->previous()}}" class=" px-1 mx-2 atras">Atrás</a> --}}
-      <a href="{{ route('materias.index')}}" class="bt-clase-header btn atras">
+      <span id="kdiaes" class=" mr-2 reloj text-overflow"></span>
+      @if(auth()->user()->paso < 5)
+        <a href="{{ route('materias.index')}}" class="bt-clase-header btn atras">
+      @else
+        <a href="{{ route('home')}}" class="bt-clase-header btn atras">
+      @endif
       <span class="ico-shadow "> 👈 </span>
       <span class="bt-text-hide" title="Volver a la lista"> Atrás</span></a>
     </div>  

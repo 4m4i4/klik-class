@@ -18,12 +18,12 @@
         <p id="ver_id"></p>
           @php
             use App\Models\Materia;
-            $mat = Materia::where('user_id',auth()->user()->id )->get();
-            $n_mat= $mat->count();
+            // $mat = Materia::where('user_id',auth()->user()->id )->get();
+            // $n_mat= $mat->count();
             use App\Models\Aula;
-            $aula = Aula::where('user_id',auth()->user()->id )->get();
-            json_encode($aula);
-            $n_aula= $aula->count();
+            // $aula = Aula::where('user_id',auth()->user()->id )->get();
+            // json_encode($aula);
+            // $n_aula= $aula->count();
           @endphp 
         <div class="hidden grid grid-cols-2 justify-between">
           <div class="mr-1">
@@ -47,8 +47,8 @@
           <select id="materia_id" 
             name="materia_id" 
             value="{{$clase->materia_id}}" 
-            class="d_block" 
-            onchange="cambiarAulaId()">
+            {{-- onchange="cambiarAulaId()" --}}
+            class="d_block" >
             @foreach ($materias as $materia)
               <option value={{$materia->id}} {{$materia->id == $clase->materia_id? 'selected' : ''}}>
                 {{$materia->materia_name}}
@@ -59,34 +59,6 @@
             <small class="t_red">* {{ $message }}</small><br>
           @enderror   
         </div>
-
-        {{-- <div class="py-2">  
-            <label for="new_aula_id">Aula</label>
-            <!-- Se sustituye el select por un input -->
-            @php
-                
-            @endphp
-            <input type="text"
-                name="new_aula_id" 
-                id="new_aula_id" 
-                >--}}
-                {{-- value="{{$aula = Aula::where('user_id',auth()->user()->id )
-                                      ->where('aula_name', Str::after($materia->materia_name," "))
-                                      ->value('id')}}"> --}}
-            {{-- <select id="aula_id"
-               name="aula_id" 
-               value="{{ $clase->aula_id }}" 
-               class="d_block">
-              @foreach ($aulas as $aula)
-                <option value={{$aula->id}} {{$aula->id == $clase->aula_id? 'selected' : ''}}>
-                  {{$aula->aula_name}}
-                </option>
-              @endforeach
-            </select> --}}
-            {{--@error('aula_id')
-              <small class="t_red">* {{ $message }}</small><br>
-            @enderror
-          </div> --}}
         <div>
           <button type="submit" 
           title="Actualizar clase" 

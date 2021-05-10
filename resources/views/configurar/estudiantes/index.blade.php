@@ -5,24 +5,33 @@
 
   <div class="container">
 
-    @if(session()->get('success'))
+    @if(session()->get('info'))
         <div class = "text-center alert alert-info">
-          {{ session()->get('success') }}  
+          {{ session()->get('info') }}  
         </div>
     @endif
     <div class = "">
       <div class="caja">  <!-- CABECERA estudiantes -->
         <div class = "caja-header">
           @if (request()->is('mostrar/estudiantes/*'))
-            <div class = "grid grid-cols4 w-100 items-center">
-              <h2>{{ __('My')}} {{ __('Students')}}: ({{$estudiantes->count()}})</h2>
+            <div class = "grid grid-cols-4-fr w-100 items-center">
+              <h2>{{$num_estudiantes}} {{ __('Students')}}</h2>
               <a href="{{route('materias.index')}}"
                 title="Volver a la página anterior" 
                 class="btn atras">
                 <span class="ico-shadow"> 👈 </span>
                 {{__('Previous')}}
               </a>
-              <form action="{{ route('estudiantes.borrarGrupo', $materia_id) }}" method="POST">
+              <select id="porMateria_id" 
+                name = "porMateria_id" 
+                value = "{{ $porMateria_id }}" 
+                class = "d_block" 
+                onchange = "seleccionaMateria(this.id)">
+                @foreach ($materias as $laMateria)
+                  <option value = {{$laMateria->id}} {{$laMateria->id== $porMateria_id? 'selected' : ''}}>{{$laMateria->materia_name}}</option>
+                @endforeach
+              </select>
+              <form action="{{ route('estudiantes.borrarGrupo', $porMateria_id) }}" method="POST">
                 @csrf
                 @method('delete')
                   <button type="submit" 
@@ -32,24 +41,11 @@
                     <span class="bt-text-hide">{{ __('Delete') }} {{ __('Group') }}</span>
                   </button>
               </form>
-
-              <form action="{{route('estudiantes.index',$materia_id)}}" method="POST">
-                @csrf
-                <select id="materia_id" 
-                  name="materia_id" 
-                  value="{{ $materia_id }}" 
-                  class="d_block" 
-                  onsubmit="seleccionaMateria(materia_id)">
-                  @foreach ($materia as $laMateria)
-                    <option value={{$laMateria->id}} {{$laMateria->id == $materia_id? 'selected' : ''}}>{{$laMateria->materia_name}}</option>
-                  @endforeach
-                </select>
-              </form>
             </div>
           @endif
-          @if (request()->is('configurar/estudiantes'))
+          @if (request()->is('configurar/estudiantes/*'))
             <div class = "grid grid-cols-3-fr w-100 items-center">
-              <h2>{{ __('My')}} {{ __('Students')}}</h2>
+              <h2>{{ Str::before($materia->materia_name," ") }} ({{$num_estudiantes}})</h2>
               <a href="{{route('materias.index')}}" 
                 title="Volver a la página anterior" 
                 class="btn atras">
@@ -60,9 +56,9 @@
                 name = "materia_id" 
                 value = "{{ $materia_id }}" 
                 class = "d_block" 
-                onchange = "seleccionaMateria(materia_id)">
-                @foreach ($materia as $laMateria)
-                  <option value = {{$laMateria->id}} {{$laMateria->id == $materia_id? 'selected' : ''}}>{{$laMateria->materia_name}}</option>
+                onchange = "seleccionaMateria(this.id)">
+                @foreach ($materias as $laMateria)
+                  <option value = {{$laMateria->id}} {{$laMateria->id== $materia_id? 'selected' : ''}}>{{$laMateria->materia_name}}</option>
                 @endforeach
               </select>
             </div>
@@ -77,14 +73,12 @@
                   <th>Id</th>
                   <th>{{ __('Name') }}</th>
                   <th>{{ __('Surnames') }}</th>
-                  <th>{{ __('Subject') }}</th>
                   <th>{{ __('Edit') }}</th>
                   <th>{{ __('Delete') }}</th>
               </tr>
             </thead>
             <tbody>
-
-              @foreach ($estudiantes as $estudiante)
+              @foreach ($materia->estudiantes as $estudiante)
                 <tr>
                   <td><!-- -id -->
                     {{ $estudiante->id }}
@@ -95,9 +89,6 @@
                   </td>
                   <td><!-- Apellidos -->
                     {{$estudiante->apellidos }}
-                  </td>
-                  <td><!-- Materia -->
-                    {{$estudiante->materia->materia_name }}
                   </td>
                   <td>
                     <a href="{{ route('estudiantes.edit', $estudiante->id) }}" 
@@ -124,7 +115,9 @@
             </tbody>
           </table>
         </div>
-        <div class="center">{{ $estudiantes->links() }}</div>
+         @if (request()->is('configurar/estudiantes/*'))
+          <div class="center">{{ $estudiante_materia->links() }}</div>
+        @endif
          
       </div>      <!-- fin de body-TABLA estudiantes -->
       <div class="h-8"></div>
@@ -135,34 +128,19 @@
 @section('script')
   <script>
     var value_materia_id = '';
-    function seleccionaMateria(materia_id){
-      let x = document.getElementById('materia_id');
+    function seleccionaMateria(cadena){
+      let x = document.getElementById(cadena);
       value_materia_id = x.value;
       console.log("valor: "+value_materia_id);
-      document.getElementById('materia_id').value = value_materia_id;
-      // return value_materia_id;
-      let ipPuerto = location.host;
-      let ruta = location.pathname;
-      let protocolo = location.protocol;
-      // console.log(protocolo);
-      rutaArr = ruta.split('/');
-      // console.log("ruta :"+ rutaArr);
-      // console.log("direc1 :"+ ipPuerto);
-      let nuevaRuta = protocolo+"://"+ipPuerto+"/"+rutaArr[1]+"/"+rutaArr[2]+"/"+value_materia_id;
-      console.log("Nueva ruta :"+ nuevaRuta);
-      // fetch(`${value_materia_id}`, {
-      //   headers:{
-      //    'Content-Type': 'application/json',
-      //    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      //    'allow':'405'
-      //   },
-      //   method:'POST',
-      //   body: JSON.stringify(value_materia_id)
-      //   })
-      //   .then(response => response.json())
-      //   .then(function(result){alert(result.message);})
-      //   .catch(function (error){console.log("error");});
-      //location.replace(nuevaRuta)
+      document.getElementById(cadena).value = value_materia_id;
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST',`{{route('materias.index')}}`,true);
+      xhr.setRequestHeader('Content-Type','application/json');
+      xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+      // xhr.onreadystatechange = function(){
+      //   document.getElementById('respuesta').innerHTML = xhr.responseText;
+      // }
+      xhr.send(location.replace(value_materia_id));
     }
   </script>
 @endsection

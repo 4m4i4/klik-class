@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Models;
-// use App\Models\User;
-// use App\Models\Clase;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,9 +25,5 @@ class Sesion extends Model
     // One to one     
     public function clase(){
         return $this->hasOne('App\Models\Clase');
-    }
-    // hasManyThrough
-    public function mesas(){
-        return $this->hasManyThrough('App\Models\Mesa','App\Models\Clase');
     }
 }

@@ -1,4 +1,5 @@
 {{-- clases.create --}}
+{{-- no se usa --}}
 @extends('layouts.app')
 
 @section('tablas')

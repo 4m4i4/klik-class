@@ -24,7 +24,7 @@
             @enderror
           </div>
           <div>
-            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+            <input type="checkbox" name="remember" id="remember" checked="checked">
             <label for="remember">{{ __('Remember Me') }}</label>
           </div>
           <div>

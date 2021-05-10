@@ -5,31 +5,17 @@
 <div class="nomodal">
   @include('include.formBanner')
     <div class="px-6 caja-header text-center">
-      <h3 class="form-title">Establecer el número de mesas, columnas y filas del aula</h3>
+      <h3 class="form-title">Establecer el número de mesas, columnas y filas</h3>
     </div>
 
     <form class="px-6" method="POST" action="{{ route('aulas.update', $aula) }}">
       @csrf
       @method('PUT')
         <div class="text-center">
-            @php
-                use App\Models\Clase;
-                $user = Auth::user()->id;
-                //  dd($user);
-                 $estaClase = $clase->firstWhere('aula_id',$aula->id)->only('materia_id');
-                  //  $clase = Clase::where('user_id', $user)->where('aula_id', $aula->id)->Column::'materia_id';
-                  //  get();
-                  // 
-                  // $estaClase = $clase[];
-                  //  $estaClase = Clase::where('aula_id',$aula->id)->first();
-                  //  dd($clase->count());
-                $materiaId = $estaClase['materia_id'];
-                $estudian = $estudiantes->whereIn('materia_id', $materiaId)->count();
-            @endphp
-          <label for="aula_name">{{ $aula->aula_name }}:</label>
+          <label for="aula_name">Aula {{ $aula->aula_name }}:</label>
           <input class="d_block" type="hidden" name="aula_name" required value="{{ $aula->aula_name }}">
-          <label for="num_estudiantes">{{$estudian}} estudiantes</label>
-          <input type="hidden" name="num_estudiantes" value={{$estudian}}> 
+          <label for="num_estudiantes">{{$num_estudiantes}} estudiantes</label>
+          <input type="hidden" name="num_estudiantes" value={{$num_estudiantes}}> 
         </div>
         
         <div class="hidden"><!-- User_name -->
@@ -62,13 +48,6 @@
             <small class="t_red">* {{ $message }}</small><br>
           @enderror
         </div>
-       
-          {{-- @error('num_estudiantes')
-            <small class="t_red">* Parece que has olvidado introducir el grupo de estudiantes de {{ $aula->aula_name }}</small><br>
-          @enderror --}}
-          {{-- @error('num_estudiantes')
-            <small class="t_red">* {{ $message }}</small><br>
-          @enderror --}}
         <div>
           <button type="submit" 
             title="Actualizar aula" 
