@@ -27,7 +27,7 @@
     <div class="caja">   <!-- body-TABLA clases -->
       <div class="caja-body">
         <table id="horario" class="tabla table-responsive mx-auto">
-          <caption>Esta es la <strong>vista</strong> del horario. Aquí no puedes editar nada. </caption>
+          <caption>Para <strong>cambiar las mesas</strong> en que se sientan los estudiantes haz clic en la clase. </caption>
             @php
                $dias = ['Horario','Lunes','Martes','Miercoles','Jueves','Viernes'];
             @endphp  
@@ -41,6 +41,7 @@
               use App\Models\Clase;
               $clases = Clase::where('user_id',$user)
                               ->with('user','materia','sesion')->get();
+              
             @endphp
           <thead>  <!-- cabecera: DÍAS DE LA SEMANA -->
             <tr>
@@ -66,17 +67,19 @@
                         $estedia = $dias[$col];
                         $clase = $clases->where('user_id',$user)->where('sesion_id', $estasesion)
                           ->where('dia', $estedia)
-                          ->first();                          
+                          ->first();        
                       @endphp                  
                   @if ($col > 0 && $clase !== null)
                      <!-- Si la consulta $clase devuelve contenido... -->
-                    <td id ={{$fila + 1}}{{$dias[$col]}} class="text-center  bg-yellow mx-auto"  >
-                            <!-- nombre del grupo y la materia -->
-                      <p class="mb-1 l-height">
-                            <span>{{ Str::before($clase->materia->materia_name," ") }}</span>
-                      </p>
-                      <span class="text-gray-600 text-xs">{{$clase->materia->grupo}}                       
-                      </span>
+                                           
+                    <td id ={{$fila + 1}}{{$dias[$col]}} class="text-centermx-auto bg-yellow">
+                      <!-- nombre del grupo y la materia -->
+                    <a href="{{route('aulas.show', $clase->materia->aula_id)}}" title="Ir al aula para cambiar las mesas" class="d_block bg-yellow " >   
+                        <p>
+                          <span>{{ Str::before($clase->materia->materia_name," ") }}</span>
+                        </p>
+                        <span class="text-gray-600 text-xs">{{$clase->materia->grupo}}</span>
+                    </a>  
                     </td>
                   @elseif($col > 0 && $clase == null)
                     <td id ={{$fila + 1}}{{$dias[$col]}}></td>
