@@ -26,7 +26,7 @@
               <div>
                 <button id="name_{{$mesa->id}}"
                     class="nombre_mesa d_block py-0" 
-                    title="Estudiante id: {{$mesa->estudiante->id}}" 
+                    title="Estudiante id: {{$mesa->estudiante_id}}" 
                     onclick= "desabilita({{$mesa->id}})">{{$mesa->estudiante->nombre}} {{Str::limit($mesa->estudiante->apellidos, 1)}}</button>
               </div> 
             @else
@@ -58,19 +58,19 @@
 
   <script>
 
-  // function desabilita(id){
-  //   let dni = id;
-  //   console.log(dni);
-  //   let m = document.getElementById(dni);
-  //   // m.classList.add ("falta");
-  //   m.setAttribute("disabled","true");
-  //   let A_bt = document.getElementById("A_bt_" +dni);
-  //   A_bt.setAttribute("disabled","true");
-  //   let B_bt = document.getElementById("B_bt_" +dni);
-  //   B_bt.setAttribute("disabled","true");
-  //   let name = document.getElementById("name_" +dni);
-  //   name.setAttribute("disabled","true");
-  // }
+  function desabilita(id){
+    let dni = id;
+    console.log(dni);
+    let m = document.getElementById(dni);
+    // m.classList.add ("falta");
+    m.setAttribute("disabled","true");
+    let A_bt = document.getElementById("A_bt_" +dni);
+    A_bt.setAttribute("disabled","true");
+    let B_bt = document.getElementById("B_bt_" +dni);
+    B_bt.setAttribute("disabled","true");
+    let name = document.getElementById("name_" +dni);
+    name.setAttribute("disabled","true");
+  }
 
   function suma(x, y = 1){
     let res = x.innerHTML;
