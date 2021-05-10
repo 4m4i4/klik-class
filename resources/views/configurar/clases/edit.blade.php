@@ -1,81 +1,98 @@
+{{-- clases.edit --}}
 @extends('layouts.app')
 
-@section('content')
-  <div class="modal-content animate-zoom" style="max-width:320px">
-    <div class= "center py-4">
-      <a href="{{route('clases.index')}}" class="boton xlarge danger d_topright" title="Cerrar">&times; </a>
-      <img src="/images/klikClass_logo.svg" alt = "logo" width = "512" height = "512" style="width:30%" class="circle mt-4">
+@section('tablas')
+<div>
+  @include('include.formWindow')
+    <div class="px-6 caja-header text-center">
+      <h3 class="form-title">Cambiar la materia de esta clase</h3>
     </div>
-      @if ($errors->any())
-        <div class="alert alert-danger">
-          <ul>
-            @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-            @endforeach
-          </ul>
-        </div>
-      @endif
-    <form class="px-4" action="{{route('clases.update', $b_clase->id) }}" method="POST" >
+    
+    <form class="px-6" action="{{route('clases.update',  $clase->id) }}" method="POST" >
       @csrf
       @method('PUT')
-        <div class="py-6">
+          <div class="hidden"><!-- User_id -->
+            <label for="user_id"></label>
+            <input type="text" name="user_id" 
+              value={{ auth()->user()->id }} readonly />
+          </div>  
           <p id="ver_id"></p>
           @php
             use App\Models\Materia;
-            $mat = Materia::get();
+            $mat = Materia::where('user_id',auth()->user()->id )->get();
             $n_mat= $mat->count();
+            use App\Models\Aula;
+            $aula = Aula::where('user_id',auth()->user()->id )->get();
+            $n_aula= $aula->count();
           @endphp 
-        <div class="grid grid-cols-1 justify-between">
-          <div class="py-2">
-            <label for="materia_id"><b>Materia</b></label>
-            <select id="materia_id" name="materia_id" value="{{ $b_clase->materia_id }}" class="d_block" onchange="getSelected()">
-            @for ($i = 1; $i < $n_mat; $i++)
-              <option value={{$i}}{{$i ==$b_clase->materia_id? ' selected' : ''}}>{{$mat[$i-1]->materia_name}}
-              </option>
-            @endfor
-
-              {{-- @foreach ($materias as $materia): --}}
-                {{-- <option value={{$materia->id}}>{{$materia->materia_name}} --}}
-                {{-- </option> --}}
-                {{-- <option value={{$materia->id}}{{ $materia->id == $b_clase->materia_id? ' selected' : ''}}> {{$materias[$materia->id-1]->name}}
-                </option>
-              @endforeach --}}
-            </select>
-          </div>
-          <div class="py-2">  
-            <label for="aula_id"><b>Aula</b></label>
-            <input type="text"  class="d_block" id="aula_id" value=""/>
-            {{-- <p id= "pp"></p> --}}
-          </div>
-        </div>
-        <div class=" grid grid-cols-2 py-3 justify-between">
+        
+        
+        <div class=" grid grid-cols-2 mt-4 justify-between">
           <div class="mr-1">
-            <label for="dia"><b>Día</b></label>
-            <input type="text" id="dia" class="d_block" name="dia" required value="" >
+            <label for="dia">Día</label>
+            <input type="text" id="edit_dia" class="d_block" name="dia" readonly value="{{ $clase->dia }}">
+            @error('dia')
+              <small class="t_red">* {{ $message }}</small><br>
+            @enderror  
           </div>
           <div class="ml-1">
-            <label for="sesion_id"><b>Sesión</b></label>
-            <input type="text"  id="sesion_id" class="d_block" name="sesion_id"  required value=""  >
+            <label for="sesion_id">Sesión</label>
+            <input type="text" id="edit_sesion_id" class="d_block" name="sesion_id" readonly value="{{ $clase->sesion_id}}">
+            @error('sesion_id')
+              <small class="t_red">* {{ $message }}</small><br>
+            @enderror   
           </div>
-        </div>
-        <div class="py-4">
-          <button type="submit" class="boton d_block blue" >Actualizar</button>
-        </div>
+        </div>        
         
+        <div class="py-2">
+          <label for="materia_id">Materia</label>
+          <select id="materia_id" name="materia_id"  value="{{ $clase->materia_id }}"  class="d_block" onchange="getSelected('materia_id')">
+            @for ($i = 1; $i < $n_mat+1; $i++)
+              <option value={{$i}}{{$i ==$mat[$i-1]->id? ' selected' : ''}}>{{$mat[$i-1]->materia_name}}</option>
+            @endfor
+          </select>
+          @error('materia_id')
+            <small class="t_red">* {{ $message }}</small><br>
+          @enderror   
+        </div>
+
+          <div class="py-2">  
+            <label for="aula_id">Aula</label>
+
+             
+            <select id="aula_id" name="aula_id"  value="{{ $clase->aula_id  }}"  class="d_block" onchange="getSelected('aula_id')">
+              @for ($j = 1; $j < $n_aula+1; $j++)
+                <option value={{$j}}{{$j ==$aula[$j-1]->id? ' selected' : ''}}>{{$aula[$j-1]->aula_name}}</option>
+              @endfor
+            </select>
+            @error('aula_id')
+              <small class="t_red">* {{ $message }}</small><br>
+            @enderror   
+          </div>
+
+
+        <div class="py-6 my-4">
+          <button type="submit" title="Actualizar clase edit" class="boton d_block blue" >Actualizar</button>
+        </div>
+
+      
     </form>
-  </div>  
-    <div class="px-4 py-4 light-grey">
-      <a href="{{route('clases.index')}}"  title="Cancelar y volver al índice" class=" boton danger">Cancelar</a>
+
+    <div class="px-6 py-4 mt-6 light-grey">
+      <a href="{{route('clases.index')}}" title="Cancelar editar clase y volver al índice" class="  boton d_inline danger">Cancelar</a>
     </div>
+
+  </div>
+</div>
+  
 
   
   <script>
-    function getSelected(){
-      var x = document.getElementById("materia_id").value;
-       document.getElementById('aula_id').value =x;
-       document.getElementById('pp').innerHTML=x; 
+    function getSelected(xx){
+      var x = document.getElementById(xx).value;
+       document.getElementById(xx).value =x;
+      //  document.getElementById('pp').innerHTML=x; 
     }
-
   </script>
 
 @endsection     

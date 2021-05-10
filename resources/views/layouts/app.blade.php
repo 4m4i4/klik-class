@@ -13,11 +13,11 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/custom.js') }}" defer></script>
     <!-- Fonts -->
-    {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    {{-- <link href="{{ asset('css/appCopy.css') }}" type="text/css" rel="stylesheet"> --}}
+
     <link href="{{ asset('css/customApp.css') }}" type="text/css"  rel="stylesheet">
 
 </head>
@@ -31,9 +31,18 @@
 
                 <!--MAIN: El contenido -->
 
-        <main class="py-4">
-            @yield('content')
-            @yield('pasitos')
+        <main class="pb-4">
+            @yield('tablas')
+            
+            <div class="container mb-8">
+                <div>
+                    <div class="mt-4 bg-white dark:bg-gray-800 overflow-hidden ashadow sm:rounded-lg">
+                        @yield('content')
+                        @yield('pasitos')
+                        
+                    </div>
+                </div>
+            </div>
         </main>
                 <!--FIN: Main -->
 
@@ -41,18 +50,7 @@
         <footer>
         
             <div class="page-footer">
-                @php 
-                    $meses = ['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];                
-                    $h= now(); 
-                    $date = date_create("$h");
-                    $ddia = date_format($date, "d");
-                    $dmes = $meses[date_format($date, "n")];
-                    $danio = date_format($date, "Y");
-                    $fecha =  $ddia." de ". $dmes. " de ".$danio;
-                    $laHora = date_format($date, "H:i");
-                @endphp
-              {{-- {{hora($h)}} <a href= "#"> {{fecha($h)}}</a> --}}
-              {{$laHora}}  <a href= "#"> {{$fecha}}</a>
+                @include('include/pageFooter')
             </div>
         </footer>
 
@@ -61,5 +59,11 @@
         <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" type="text/js"></script>
 
+
+{{-- <button onclick="clearInterval(myVar)">Stop time</button> --}}
+
+<script>
+
+</script>
 </body>
 </html>

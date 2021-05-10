@@ -9,20 +9,32 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class MateriaController extends Controller
 {
+    use AuthenticatesUsers;
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+
+    {  
+        if(Auth::check()){
+            $user = Auth::user()->id; 
+            //  dd($user);
+            // $aulas = Aula::get();
+            $aulas = Aula::get();
+            // dd($aulas);
+            $materias = Materia::where('user_id',$user)->with('user')->paginate(12);
         
-        $materias = Materia::get();
-        $aulas = Aula::get();
+            
         return view('configurar.materias.index', compact('materias','aulas'));
+        }
     }
 
     /**
@@ -53,19 +65,22 @@ class MateriaController extends Controller
      */
 
     public function store(Request $request)
-    {   // si pasa la validación... no funciona er el formulario modadl
+    {   // si pasa la validación... no funciona en el formulario modal
+        
         if($request->validate([
-                'materia_name' =>'required|unique:materias|string',
+                'materia_name' =>'required|regex:/^[a-zA-Z]{3,16}\s\d[a-zA-Z]{1,3}\s[a-zA-Z]{3,10}/|unique:materias'
                 ])
             )
         {   
             // separamos el input: materia_name espacio cursoLetra espacio etapa
+            // para componer $grupo que se usa como nombre del aula en la tabla aulas
             $arr = Str::of(request('materia_name'))->explode(" ");
             $grupo = $arr[1]." ".$arr[2]; 
             $grupo = Str::of($grupo)->upper();
             $materia = new Materia([
                 'materia_name'=>Str::of(request('materia_name'))->upper(), 
-                'grupo'=>$grupo  // se usa para alimentar la tabla Aula
+                'grupo'=>$grupo,  
+                'user_id'=>request('user_id')
                 ]);
 
             $msn_materia= 'Se ha añadido la materia';
@@ -75,13 +90,15 @@ class MateriaController extends Controller
             // compruebo que el grupo no existe en la tabla Aula, 
             $busco_aula = DB::table('aulas')->where('aula_name',$grupo)->first();
             // dump($busco_aula);
-
+            // si no está la añadimos
             if($busco_aula==''||$busco_aula ==NULL){
-                    $aula = new Aula([      //y añado el aula
-                    'aula_name'=>$grupo
-                    ]);
-                    $aula->save();  
-                    $msn_aula= ' y el aula';
+                $aula = new Aula([
+                'aula_name'=>$grupo,
+                'user_id'=>request('user_id')
+                ]);
+                $aula->save();  
+                $aula->refresh();
+                $msn_aula= ' y el aula';
             }
 
             return redirect()->route('materias.index')->with('success', $msn_materia.$msn_aula);
@@ -95,41 +112,47 @@ class MateriaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function storeall(Request $request)
-    {
-        $cadena = request('createall');
-        if(Str::endsWith($cadena,','))
-        $cadena=Str::beforeLast($cadena,',');
-        $arr = Str::of($cadena)->explode(",");
-        
-        for ($i=0; $i <count($arr); $i++) { 
+    {   
+            $cadena = request('createall');
+            if(Str::endsWith($cadena,','))
+            $cadena=Str::beforeLast($cadena,',');
+            $arr = Str::of($cadena)->explode(",");
+
+            for ($i=0; $i <count($arr); $i++) { 
             $registro = $arr[$i];
-            $materia_name = Str::of($registro)->upper();
-            $fila = Str::of($materia_name)->explode(" ");
-            $grupo =$fila[1]." ".$fila[2];
             
+                $materia_name = Str::of($registro)->upper();
+                $fila = Str::of($materia_name)->explode(" ");
+                $grupo =$fila[1]." ".$fila[2];
 
-            $materia = new Materia([
-                'materia_name'=>$materia_name,
-                'grupo'=>$grupo
-            ]);
-            $mns_materias ='Se han añadido todas las Materias';
-            $materia->save();
 
-            $mns_aulas='';
-            $b_aula = DB::table('aulas')->where('aula_name',$grupo)->first();
+                $materia = new Materia([
+                    'materia_name'=>$materia_name,
+                    'grupo'=>$grupo,
+                    'user_id'=>request('user_id')
+                ]);
+                $mns_materias ='Se han añadido todas las Materias';
+                $materia->save();
 
-            // dump($busco_aula);
+                $mns_aulas='';
+                $b_aula = DB::table('aulas')->where('aula_name',$grupo)->first();
 
-            if($b_aula==''||$b_aula ==NULL){
-                $aula = new Aula([
-                    'aula_name'=>$grupo
-                    ]);
-                $mns_aulas =' y aulas';
-                $aula->save();  
+                // dump($busco_aula);
+
+                if($b_aula==''||$b_aula ==NULL){
+                    $aula = new Aula([
+                        'aula_name'=>$grupo,
+                        'user_id'=>request('user_id')
+                        ]);
+                    $mns_aulas =' y aulas';
+                    $aula->save();
+                    $aula->refresh();
+                }
             }
 
-        }
+        
         return redirect()->route('materias.index')->with('success', $mns_materias.$mns_aulas);
+        
     }
 
     /**
@@ -182,6 +205,7 @@ class MateriaController extends Controller
                 $aula->aula_name = Str::of($grupo)->upper();
                 $mns_aulas ='Aula actualizada; ';
                 $aula->save();
+                $aula->refresh();
             }
             elseif($num>1){
                 $aula = new Aula([
@@ -189,6 +213,7 @@ class MateriaController extends Controller
                     ]);
                 $mns_aulas =' Se ha creado un aula nueva; ';
                 $aula->save();  
+                $aula->refresh();
             }
             $materia->materia_name = request('materia_name');
             $arr = Str::of(request('materia_name'))->explode(" ");
@@ -201,24 +226,16 @@ class MateriaController extends Controller
             return redirect()->route('materias.index')->with('success',  $mns_aulas.' Materia actualizada');
         }
     }
- public function paso(Request $request, User $user)
-//  public function paso(User $user)
-    {   
-        $user = auth()->user();
-        $paso = $user->paso; 
-        // $user->paso = request('paso');
-        $user->paso = $paso;
-        $user->save();
 
-        if($user->paso == 1) {
-            $mensaje = "paso 1";
-             return redirect( url()->previous())->with('success', $mensaje. " ..... pasitos de Gesmar");
-        }
-        elseif($user->paso > 1) {$mensaje = "paso 2";
- return redirect()->route('home/paso', compact('user'))->with('success', $mensaje. "...Pasooooo, pasitos de Gesmar");}
 
-               
+    function queAula(Materia $materia){
+
+        $nombre_grupo= $materia->grupo;
+        $aulas = Aula::where('aula_name',$nombre_grupo)->get();
+        $aula_id =$aulas->id;
+
     }
+
 
     /**
      * Remove the specified resource from storage.

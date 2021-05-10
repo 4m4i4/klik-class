@@ -37266,6 +37266,13 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+var myVar = setInterval(myTimer, 1000);
+
+function myTimer() {
+  var d = new Date();
+  document.getElementById("khoraes").innerHTML = d.toLocaleTimeString();
+}
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

@@ -17,6 +17,10 @@ class CreateSesionsTable extends Migration
             $table->id();
             $table->time('inicio');
             $table->time('fin');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users'); 
             $table->timestamps();
         });
     }

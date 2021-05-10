@@ -74,8 +74,8 @@
               $sesiones = Sesion::get();
               $num_sesiones = count($sesiones);
               // dd($num_sesiones);
-              $clases = Clase::where('user_id',$user)
-                              ->with('user','materia','aula','sesion')->get();
+              // $clase = Clase::where('user_id',$user)
+              //                 ->with('user','materia','aula','sesion')->get();
             @endphp
           <thead>  <!-- cabecera: DÍAS DE LA SEMANA -->
             <tr>
@@ -87,11 +87,33 @@
             </tr>
           </thead>  <!-- fin de cabecera -->
           <tbody> <!-- filas: SESIONES -->
-
-            @foreach ($sesiones as $sesion)
-              <tr id={{$sesion->id}}>
-
+          @for ($h = 2; $h < 6 ; $h++)
+            @php
+              // $clases= Sesion::find($h)->clases;
+              // dd($clases);
+            @endphp
+ 
+            @foreach  ($clases as $clase)            
+              <tr id={{$clase->sesion_id}}>
                 <th class="text-center">
+                  {{date_format(date_create($clase->sesion->inicio), "H:i")}}
+                  <br>
+                  {{date_format(date_create($clase->sesion->fin), "H:i")}}
+                </th>
+                  @for ($ii = 1; $ii < $count; $ii++)
+                    <td id={{$clase->sesion->id}}{{$dias[$ii]}}>
+                     
+                      @if (Clase::where('sesion_id', $h)->where('dia', $dias[$ii])->exists())
+                          <a id="{{$clase->sesion->id}}_{{$dias[$ii]}}" href="{{ route('clases.edit', $clase->id) }}"  title="Editar clase id={{ $clase->id }}" class="btn naranja mr-1">{{$clase->materia->materia_name}}</a>
+                      @elseif(!Clase::where('sesion_id', $h)->where('dia', $dias[$ii])->exists())
+                          <button class="btn blue" title="modal {{$dias[$ii].'_'.$clase->sesion->id}}" id={{$dias[$ii].'_'.$clase->sesion->id}} onclick="claseModal(this.id)">Añadir</button>
+                      @endif
+                    </td>
+                  @endfor
+              </tr>
+            @endforeach
+          @endfor 
+                {{-- <th class="text-center">
                   {{date_format(date_create($sesion->inicio), "H:i")}}
                   <br>
                   {{date_format(date_create($sesion->fin), "H:i")}}
@@ -101,17 +123,17 @@
                       @php
                         $estasesion = $sesion->id;
                         $estedia = $dias[$ii];
-                        $clase = $clases->where('sesion_id',$sesion->id)
+                        $b_clase = $clases->where('sesion_id',$sesion->id)
                           ->where('dia', $dias[$ii])
                           ->first();                          
-                      @endphp
+                      @endphp --}}
 
-                        @if ($clase !== null)
+                        {{-- @if ($b_clase !== null)
                               @php
-                                $id = $clase->id;
-                                //  $clase = Clase::get();
+                                $id = $b_clase->id;
+                                $clase = Clase::find($id);
                               @endphp
-                          <a id="{{$estasesion}}_{{$estedia}}" href="{{ route('clases.edit', $clase) }}" title="Editar clase id={{ $clase->id }}" class="btn naranja mr-1">
+                          <a id="{{$estasesion}}_{{$estedia}}" href="{{ route('clases.edit', $id) }}"  title="Editar clase id={{ $id }}" class="btn naranja mr-1">
                               @php
                                 $registro = $clase->materia->materia_name;
                                 $materiaName = Str::of($registro)->upper();
@@ -123,23 +145,24 @@
                             <span class="text-sm">{{ $materia_name}}</span>
                           </a>
                           <span class="text-sm">{{$grupo}}</span>
-                        @elseif($clase == null)
+                        @elseif($b_clase == null)
                           <button class="btn blue" id={{$dias[$ii].'_'.$sesion->id}} onclick="claseModal(this.id)">Añadir</button>
                         @endif
 
                     </td>
-                  @endfor
+                 
                     
-              </tr>
-            @endforeach
+              </tr>--}}
+               
+            
           </tbody>
         </table>
 
           <div id="ver_modal" class="modal">
             <div class="modal-content animate-zoom">
-              <div class= "text-center">
-                {{-- <span onclick="document.getElementById('ver_modal').style.display='none'" class="boton xlarge danger d_topright" title="Cerrar">&times; </span> --}}
-                {{-- <div class= "text-center mb-4"> --}}
+              <div class= "text-center py-4">
+                <span onclick="document.getElementById('ver_modal').style.display='none'" class="boton xlarge danger d_topright" title="Cerrar">&times; </span>
+                <div class= "text-center mb-4">
                   <svg width="358px" height="107px" viewBox="0 0 512 152">
                     <g id="form_top">
                       <rect id="fondo" fill="#363636" width="512" height="152"/>
@@ -149,7 +172,7 @@
                       <path id="flecha" fill="#FF0066" d="M168 52l51 30 -19 7 18 27c0,1 0,3 -1,4l-7 4c-1,1 -3,0 -4,-1l-17 -27 -15 15 -6 -59z"/>
                     </g>
                   </svg>
-                {{-- </div> --}}
+                </div>
               </div>
               <div class="px-6 caja-header text-center">
                 <h3>
@@ -229,9 +252,9 @@
               }
  
  
-  function getSelected(xx){
-    var x = document.getElementById(xx).value;
-    // document.getElementById('aula_id').value =  x;
+  function getSelected(){
+    var x = document.getElementById("materia_id").value;
+    document.getElementById('aula_id').value =  x;
   }
 </script>
 @endsection

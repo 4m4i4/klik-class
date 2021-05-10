@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Estudiante;
 use App\Models\Materia;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -14,10 +17,13 @@ class EstudianteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $estudiantes=Estudiante::get();
-        $materias=Materia::get();
-        return view('configurar.estudiantes.index',compact('estudiantes', 'materias'));
+    {   
+        $user = auth()->user()->id;
+        $materias = Materia::where('user_id',$user)->get();
+        // dd($materias);
+        $estudiantes=Estudiante::orderBy('materia_id')->get();
+        // $estudiantes=Estudiante::with('materia')->get();
+        return view('configurar.estudiantes.index',compact('estudiantes','materias','user'));
     }
 
     /**
@@ -38,6 +44,7 @@ class EstudianteController extends Controller
      */
     public function store(Request $request)
     {
+         
         $cadena = request('lista_completa');
         $materia_id = request('materia_id');
         $arrApellidosNombre = Str::of($cadena)->explode(";");
@@ -56,8 +63,11 @@ class EstudianteController extends Controller
                 'nombre_completo'=>$nombre_completo,
                 'materia_id'=>$materia_id
             ]);
+            // if($estudiante->validate(['nombre_completo'=>'unique:estudiantes']))
+            // {   
             $mns_estudiantes ='Se han añadido todos los Estudiantes';
             $estudiante->save();
+            // }
         }
         return redirect()->route('estudiantes.index')->with('success', $mns_estudiantes);
     }
