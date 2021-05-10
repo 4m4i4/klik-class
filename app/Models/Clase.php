@@ -14,6 +14,7 @@ class Clase extends Model
         'sesion_id',
         'materia_id',
     ];
+    const DIAS =['Horario','Lunes','Martes','Miercoles','Jueves','Viernes'];
 
     /**
      * Relaciones entre modelos
