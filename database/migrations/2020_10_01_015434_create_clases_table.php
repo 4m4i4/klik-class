@@ -16,28 +16,24 @@ class CreateClasesTable extends Migration
         Schema::create('clases', function (Blueprint $table) {
             $table->id();
             $table->SET('dia',['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes']);
+
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
+
             $table->unsignedBigInteger('sesion_id');
             $table->foreign('sesion_id')
                   ->references('id')
-                  ->on('sesions')
-                  ->onUpdate('cascade'); 
+                  ->on('sesions');
+
             $table->unsignedBigInteger('materia_id');
             $table->foreign('materia_id')
                   ->references('id')
                   ->on('materias');
-                  
-            $table->unsignedBigInteger('aula_id');                  
-            $table->foreign('aula_id')
-                  ->references('id')
-                  ->on('aulas')
-                  ->onUpdate('cascade');             
-            $table->timestamps();
+            $table->timestamps();  
         });
     }
 

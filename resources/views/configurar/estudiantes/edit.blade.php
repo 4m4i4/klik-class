@@ -4,7 +4,7 @@
 
 @section('tablas')
 <div>
-  @include('include.formWindow')
+  @include('include.formBanner')
     <div class="px-6 caja-header text-center">
       <h3 class="form-title">Editar estudiante <span id="ver_grupo"></span>
       </h3>
@@ -13,15 +13,17 @@
     <form class="px-6" action="{{route('estudiantes.update', $estudiante->id) }}" method="POST" >
       @csrf
       @method('PUT')  
-          <div class= "mt-4">
-            <label for="materia_id">materia-</label>
-            <input type="text" id="materia_id" name="materia_id" value="{{ $estudiante->materia_id }}" >
+          <div class= "">
+              <label for="materia_id">Materia</label>
+              <input type="text" id="materia_id" name="materia_id" value="{{ $materia_id }}" >
+              <label for="user_id"></label>
+              <input type="hidden" id="user_id" name="user_id" value="{{auth()->user()->id }}" >
           </div>
           <div class="mt-4">
             <label for="nombre">Nombre del estudiante</label>
             <input type="text" class="d_block" autofocus name="nombre" value="{{ $estudiante->nombre }}"/>
 
-            <small class="ejemplo"><strong>Patrón:</strong> Ainara;</small>
+            
             @error('nombre')
               <small class="t_red">* {{ $message }}</small><br>
             @enderror            
@@ -48,5 +50,5 @@
     </div>
 
 </div>
+    <div class="h-8"></div>
 @endsection
-{{-- @show --}}

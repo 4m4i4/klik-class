@@ -1,9 +1,6 @@
 <?php
 
 namespace App\Models;
-// use App\Models\Materia;
-// use App\Models\Aula;
-// use App\Models\Sesion;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -75,5 +72,13 @@ class User extends Authenticatable
     // One to many
     public function aulas(){
         return $this->hasMany('App\Models\Aula');
+    }
+    // One to many
+    public function estudiantes(){
+        return $this->hasMany('App\Models\Estudiante');
+    }
+    // One to many
+    public function mesas(){
+        return $this->hasMany('App\Models\Mesa');
     }
 }

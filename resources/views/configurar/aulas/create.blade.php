@@ -3,7 +3,7 @@
 
 @section('tablas')
 <div class="nomodal">
-  @include('include.formWindow')
+  @include('include.formBanner')
     <div class="px-6 caja-header text-center">
         <h3 class="form-title">Introducir aula</h3>
     </div>
@@ -17,7 +17,6 @@
         </div>
 
         <div class="pb-6">
-
           <label for="aula_name">Aula</label>
           <input type="text" class="d_block" placeholder="Nombre del aula" autofocus  name="aula_name" value="{{ old('aula_name') }}"  required>
           @error('aula_name')
@@ -39,13 +38,16 @@
               <input type="number" class=" mb-1"  name="num_mesas"  min="1" max="30" value= "25" autofocus required>
             </div>
           </div>
-          
+          <div>
+            <label for="num_estudiantes"></label>
+            <input type="hidden" name="num_estudiantes" value= "null" >
+          </div>
+
           <div>
             <button type="submit" 
              title="Guardar aula" 
              class="bt_xxl mt-6 enviar">Guardar</button>
           </div>
-
         </div>
     </form>
 

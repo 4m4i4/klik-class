@@ -21,8 +21,6 @@
                 border:2px solid hsl(0, 0%, 75%);
                 border-radius: 5px;
                 padding: .4rem 1rem;font-variant: small-caps;
-                /* margin-top: 1rem; */
-                /* margin: 1rem, 1rem, 0, 1rem; */
                 text-align: center;
             }
             .botones:hover{

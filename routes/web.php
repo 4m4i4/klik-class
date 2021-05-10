@@ -1,8 +1,10 @@
 <?php
-use Illuminate\Support\Facades\Auth;
-use App\Models\Aula;
-use Illuminate\Support\Facades\Route;
 
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Resources\AulaResource;
+use App\Models\Aula;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,77 +23,118 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/botones',function(){
+Route::get('/botones', function(){
     return view('botones');
 });
-Route::get('/exportar',function(){
+Route::get('/exportar', function(){
     return view('exportar');
 });
-Route::get('sesiones', function () {
-    return view('sesiones.index');
-});
-Route::get('mostrar/tablaClases', function () {
-    return view('mostrar.tablaClases');
+Route::get('/horario', function(){
+    return view('horario');
+})->name('horario');
+
+Route::get('/klik-class', function(){
+    return view('klik-class');
 });
 
 
-// MateriaController
-Route::get('configurar/materias/index',[App\Http\Controllers\MateriaController::class, 'index'])->name('materias.index');
-Route::get('configurar/materias/create',[App\Http\Controllers\MateriaController::class, 'create'])->name('materias.create');
+// ============= MATERIAController ====================
+
 Route::get('configurar/materias/createall',[App\Http\Controllers\MateriaController::class, 'createall'])->name('materias.createall');
-Route::post('configurar/materias/create',[App\Http\Controllers\MateriaController::class, 'store'])->name('materias.store');
 Route::post('configurar/materias/createall',[App\Http\Controllers\MateriaController::class, 'storeall'])->name('materias.storeall');
-Route::get('configurar/materias/{id}/edit',[App\Http\Controllers\MateriaController::class, 'edit'])->name('materias.edit');
-Route::put('configurar/materias/{id}',[App\Http\Controllers\MateriaController::class, 'update'])->name('materias.update');
-Route::delete('configurar/materias/{id}',[App\Http\Controllers\MateriaController::class, 'destroy'])->name('materias.destroy');
+Route::resource('configurar/materias', App\Http\Controllers\MateriaController::class);
 
-// Route::resource('materias','MateriaController');
+// Route::get('configurar/materias',[App\Http\Controllers\MateriaController::class, 'index'])->name('materias.index');
+    // Route::get('configurar/materias/create',[App\Http\Controllers\MateriaController::class, 'create'])->name('materias.create');
+    // Route::post('configurar/materias',[App\Http\Controllers\MateriaController::class, 'store'])->name('materias.store');
+    // Route::get('configurar/materias/{materia}/edit',[App\Http\Controllers\MateriaController::class, 'edit'])->name('materias.edit');
+    // Route::put('configurar/materias/{materia}',[App\Http\Controllers\MateriaController::class, 'update'])->name('materias.update');
+    // Route::delete('configurar/materias/{materia}',[App\Http\Controllers\MateriaController::class, 'destroy'])->name('materias.destroy');
 
-// AulaController
-Route::get('configurar/aulas/index',[App\Http\Controllers\AulaController::class, 'index'])->name('aulas.index');
-Route::get('configurar/aulas/create',[App\Http\Controllers\AulaController::class, 'create'])->name('aulas.create');
-Route::post('configurar/aulas/create',[App\Http\Controllers\AulaController::class, 'store'])->name('aulas.store');
-Route::get('configurar/aulas/{id}/edit',[App\Http\Controllers\AulaController::class, 'edit'])->name('aulas.edit');
-Route::get('configurar/aulas/{id}/show',[App\Http\Controllers\AulaController::class, 'show'])->name('aulas.show');
-Route::put('configurar/aulas/{id}/edit',[App\Http\Controllers\AulaController::class, 'update'])->name('aulas.update');
-Route::delete('configurar/aulas/{id}',[App\Http\Controllers\AulaController::class, 'destroy'])->name('aulas.destroy');
+//
 
-// SesionController
-Route::get('configurar/sesions/index',[App\Http\Controllers\SesionController::class, 'index'])->name('sesions.index');
-Route::get('configurar/sesions/create',[App\Http\Controllers\SesionController::class, 'create'])->name('sesions.create');
-Route::post('configurar/sesions/create',[App\Http\Controllers\SesionController::class, 'store'])->name('sesions.store');
-Route::get('configurar/sesions/{id}/edit',[App\Http\Controllers\SesionController::class, 'edit'])->name('sesions.edit');
-Route::put('configurar/sesions/{id}/edit',[App\Http\Controllers\SesionController::class, 'update'])->name('sesions.update');
+// ============= AULAController ====================
 
-// ClaseController
-Route::get('configurar/clases/index',[App\Http\Controllers\ClaseController::class, 'index'])->name('clases.index');
-Route::get('configurar/clases/create',[App\Http\Controllers\ClaseController::class, 'create'])->name('clases.create');
-Route::post('configurar/clases/create',[App\Http\Controllers\ClaseController::class, 'store'])->name('clases.store');
-Route::get('configurar/clases/{clase}/edit',[App\Http\Controllers\ClaseController::class, 'edit'])->name('clases.edit');
-Route::put('configurar/clases/{clase}/edit',[App\Http\Controllers\ClaseController::class, 'update'])->name('clases.update');
-Route::delete('configurar/clases/{id}/edit',[App\Http\Controllers\ClaseController::class, 'destroy'])->name('clases.destroy');
+Route::get('etapaUso/vacias/{aula}',[App\Http\Controllers\AulaController::class, 'editMesasVacias'])->name('aulas.editMesasVacias');
+Route::put('configurar/vacias/{aula}',[App\Http\Controllers\AulaController::class, 'updateMesasVacias'])->name('aulas.updateMesasVacias');
 
-// PasoController
+// Route::resource('configurar/aulas', App\Http\Controllers\AulaController::class);
+
+Route::get('configurar/aulas',[App\Http\Controllers\AulaController::class, 'index'])->name('aulas.index');
+    Route::get('configurar/aulas/create',[App\Http\Controllers\AulaController::class, 'create'])->name('aulas.create');
+    Route::post('configurar/aulas',[App\Http\Controllers\AulaController::class, 'store'])->name('aulas.store');
+    Route::get('configurar/aulas/{aula}/edit',[App\Http\Controllers\AulaController::class, 'edit'])->name('aulas.edit');
+    // Route::get('aulas/{aula}/show',
+    Route::get('etapaUso/aulas/{aula}/show',
+    [App\Http\Controllers\AulaController::class, 'show'])->name('aulas.show');
+    Route::put('configurar/aulas/{aula}',[App\Http\Controllers\AulaController::class, 'update'])->name('aulas.update');
+    Route::delete('configurar/aulas/{aula}',[App\Http\Controllers\AulaController::class, 'destroy'])->name('aulas.destroy');
+//
+
+
+
+// ============= SESIONController ====================
+
+Route::resource('configurar/sesions', App\Http\Controllers\SesionController::class);
+
+// Route::get('configurar/sesions',[App\Http\Controllers\SesionController::class, 'index'])->name('sesions.index');
+    // Route::get('configurar/sesions/create',[App\Http\Controllers\SesionController::class, 'create'])->name('sesions.create');
+    // Route::post('configurar/sesions',[App\Http\Controllers\SesionController::class, 'store'])->name('sesions.store');
+    // Route::get('configurar/sesions/{sesion}/edit',[App\Http\Controllers\SesionController::class, 'edit'])->name('sesions.edit');
+    // Route::put('configurar/sesions/{sesion}',[App\Http\Controllers\SesionController::class, 'update'])->name('sesions.update');
+
+//
+
+
+// ============= CLASEController ====================
+
+Route::resource('configurar/clases', App\Http\Controllers\ClaseController::class);
+ 
+// Route::get('configurar/clases',[App\Http\Controllers\ClaseController::class, 'index'])->name('clases.index');
+    // Route::get('configurar/clases/create',[App\Http\Controllers\ClaseController::class, 'create'])->name('clases.create');
+    // Route::post('configurar/clases',[App\Http\Controllers\ClaseController::class, 'store'])->name('clases.store');
+    // Route::get('configurar/clases/{clase}/edit',[App\Http\Controllers\ClaseController::class, 'edit'])->name('clases.edit');
+    // Route::put('configurar/clases/{clase}',[App\Http\Controllers\ClaseController::class, 'update'])->name('clases.update');
+    // Route::delete('configurar/clases/{clase}',[App\Http\Controllers\ClaseController::class, 'destroy'])->name('clases.destroy');
+
+
+//
+
+
+// ============= PASOController ====================
+
 Route::put('home/crearCurso/{user}',[App\Http\Controllers\PasoController::class, 'crearCurso'])->name('crearCurso');
 Route::put('home/pasoMenos/{user}',[App\Http\Controllers\PasoController::class, 'updatePasoMenos'])->name('home.updatePasoMenos');
 Route::put('home/pasoMas/{user}',[App\Http\Controllers\PasoController::class, 'updatePasoMas'])->name('home.updatePasoMas');
 
 Route::get('/home/mostrarClase',[App\Http\Controllers\ClaseController::class, 'mostrarClase']);
+Route::get('/clasesPorDia',[App\Http\Controllers\ClaseController::class, 'clasesPorDia']);
 
-// EstudianteController
-Route::get('configurar/estudiantes/{id}/index', [App\Http\Controllers\EstudianteController::class, 'porMateria'])->name('estudiantes.porMateria');
-Route::get('configurar/estudiantes/index', [App\Http\Controllers\EstudianteController::class, 'index'])->name('estudiantes.index');
+
+// ============= ESTUDIANTEController ====================
+
+
+Route::get('mostrar/estudiantes/{materia_id}', [App\Http\Controllers\EstudianteController::class, 'porMateria'])->name('estudiantes.porMateria');
+Route::delete('borrar/estudiantes/{materia_id}', [App\Http\Controllers\EstudianteController::class, 'borrarGrupo'])->name('estudiantes.borrarGrupo');
+Route::get('configurar/estudiantes/{materia_id}', [App\Http\Controllers\EstudianteController::class, 'index'])->name('estudiantes.index');
+
+// Route::resource('configurar/estudiantes', App\Http\Controllers\EstudianteController::class);
+
 Route::get('configurar/estudiantes/create',[App\Http\Controllers\EstudianteController::class,'create'])->name('estudiantes.create');
-Route::post('configurar/estudiantes/create',[App\Http\Controllers\EstudianteController::class, 'store'])->name('estudiantes.store');
-Route::get('configurar/estudiantes/{id}/edit',[App\Http\Controllers\EstudianteController::class, 'edit'])->name('estudiantes.edit');
-Route::put('configurar/estudiantes/{id}/edit',[App\Http\Controllers\EstudianteController::class,'update'])->name('estudiantes.update');
-Route::delete('configurar/estudiantes/{id}/edit',[App\Http\Controllers\EstudianteController::class,'destroy'])->name('estudiantes.destroy');
+    Route::post('configurar/estudiantes',[App\Http\Controllers\EstudianteController::class, 'store'])->name('estudiantes.store');
+    Route::get('configurar/estudiantes/{estudiante}/edit',[App\Http\Controllers\EstudianteController::class, 'edit'])->name('estudiantes.edit');
+    Route::put('configurar/estudiantes/{estudiante}',[App\Http\Controllers\EstudianteController::class,'update'])->name('estudiantes.update');
+    Route::delete('configurar/estudiantes/{estudiante}',[App\Http\Controllers\EstudianteController::class,'destroy'])->name('estudiantes.destroy');
 
+// ============= MESAController ====================
 
-// MesaController
-Route::get('configurar/mesas/index',    [App\Http\Controllers\MesaController::class,  'index'])->name('mesas.index');
-Route::get('configurar/mesas/create',   [App\Http\Controllers\MesaController::class, 'create'])->name('mesas.create');
-Route::post('configurar/mesas/create',   [App\Http\Controllers\MesaController::class,  'store'])->name('mesas.store');
-Route::get('configurar/mesas/{id}/edit',[App\Http\Controllers\MesaController::class,   'edit'])->name('mesas.edit');
-Route::put('configurar/mesas/{id}/edit',[App\Http\Controllers\MesaController::class,' update'])->name('mesas.update');
-Route::delete('configurar/mesas/{id}/edit',[App\Http\Controllers\MesaController::class,'destroy'])->name('mesas.destroy');
+Route::get('/mesasPorClase/{clase}',[App\Http\Controllers\MesaController::class, 'clasesPorDia']);
+Route::resource('configurar/mesas', App\Http\Controllers\MesaController::class);
+
+// Route::get('configurar/mesas',    [App\Http\Controllers\MesaController::class,  'index'])->name('mesas.index');
+    // Route::get('configurar/mesas/create',   [App\Http\Controllers\MesaController::class, 'create'])->name('mesas.create');
+    // Route::post('configurar/mesas',   [App\Http\Controllers\MesaController::class,  'store'])->name('mesas.store');
+    // Route::get('configurar/mesas/{mesa}/edit',[App\Http\Controllers\MesaController::class,   'edit'])->name('mesas.edit');
+    // Route::put('configurar/mesas/{mesa}',[App\Http\Controllers\MesaController::class,' update'])->name('mesas.update');
+    // Route::delete('configurar/mesas/{mesa}',[App\Http\Controllers\MesaController::class,'destroy'])->name('mesas.destroy');
+

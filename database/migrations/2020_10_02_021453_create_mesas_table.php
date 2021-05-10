@@ -15,22 +15,31 @@ class CreateMesasTable extends Migration
     {
         Schema::create('mesas', function (Blueprint $table) {
             $table->id();
+            $table->string('mesa_name',8);
             $table->tinyInteger('columna');
             $table->tinyInteger('fila');
             $table->boolean('is_ocupada')
                   ->default(false);
-            $table->unsignedBigInteger('clase_id');
-            $table->foreign('clase_id')
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
                   ->references('id')
-                  ->on('clases');
-            $table->unsignedBigInteger('aula_id');
+                  ->on('users')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+
+            $table->unsignedBigInteger('aula_id')->nullable();;
             $table->foreign('aula_id')
                   ->references('id')
-                  ->on('aulas');
+                  ->on('aulas')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+
             $table->unsignedBigInteger('estudiante_id')->nullable();
             $table->foreign('estudiante_id')
                   ->references('id')
-                  ->on('estudiantes');
+                  ->on('estudiantes')
+                  ->onDelete('set null');
             $table->timestamps();
         });
     }

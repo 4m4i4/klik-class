@@ -4,11 +4,11 @@
 @section('tablas')
 <div>
 <div class="nomodal">
-  @include('include.formWindow')
+  @include('include.formBanner')
     <div class="px-6 caja-header text-center">
       <h3 class="form-title">Editar mesa</h3>
     </div>
-    <form class="px-6" action="{{route('mesas.update', $mesa->id) }}" method="POST" >
+    <form class="px-6" action="{{route('mesas.update', $mesa) }}" method="POST" >
        @csrf
        @method('PUT')
         <div class="pb-6">

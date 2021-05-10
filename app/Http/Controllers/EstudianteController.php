@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Estudiante;
 use App\Models\Materia;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Str;
@@ -16,33 +17,42 @@ class EstudianteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function index($materia_id=null)
     {   
         $user = auth()->user()->id;
+        $num_materias = Materia::where('user_id',$user)->count();
+        $materia = Materia::find($materia_id);
+        
         $materias = Materia::where('user_id',$user)->get();
-        //  dd($materias);
-        $estudiantes=Estudiante::orderBy('materia_id')->get();
-        // $estudiantes=Estudiante::with('materia')->get();
-        return view('configurar.estudiantes.index',compact('estudiantes','materias','user'));
+        $estudiantes = Estudiante::where('user_id',$user)->get();
+        $num_estudiantes = DB::table('estudiante_materia')->where('materia_id',$materia_id)->count();
+        $estudiante_materia = DB::table('estudiante_materia')->orderBy('materia_id')->paginate(25);
+        return view('configurar.estudiantes.index', compact('materia','materias','estudiantes','num_estudiantes','user','materia_id','estudiante_materia'));
     }
-    public function porMateria($id){
-        // $user = auth()->user()->id;
-        $materias = Materia::find($id);
-        $id=$materias->id;
-        
-        // $id=$materia->id;
-        $estudiantes=Estudiante::where('materia_id',$id)->get();
-        return view('configurar.estudiantes.index',compact('estudiantes','materias'));
-        
+
+    public function porMateria($porMateria_id){
+        $user = auth()->user()->id;
+        $current = url()->current();
+        $porMateria_id = Str::after($current, 'estudiantes/');
+        $materia = Materia::find($porMateria_id);
+        $materias = Materia::where('user_id',$user)->get();
+        $num_estudiantes = DB::table('estudiante_materia')->where('materia_id',$porMateria_id)->count();
+        $estudiantes = Estudiante::where('user_id',$user)->get();
+        return view('configurar.estudiantes.index', compact('estudiantes','materia','materias','porMateria_id','num_estudiantes'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
-        return view('configurar.estudiantes.create');
+        $current = url()->current();
+        $materia_id = Str::after($current, 'estudiantes/');
+        return view('configurar.estudiantes.create', compact('materia_id'));
     }
 
     /**
@@ -51,34 +61,52 @@ class EstudianteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-         
+        // TO-DO: validación de lista de estudiantes
+
+        $materia_id = request('create_materia_id');
+        $user_id = request('user_id');
         $cadena = request('lista_completa');
-        $materia_id = request('materia_id');
+        $cuantos = 1;
+        $nuevos = 1;
+        // Si la cadena acaba en punto y coma, lo quitamos
+        if(Str::endsWith($cadena,';')) $cadena = Str::beforeLast($cadena,';');
+        // obtenemos el array de estudiantes
         $arrApellidosNombre = Str::of($cadena)->explode(";");
         $num_estudiantes = count($arrApellidosNombre);
 
-        for ($i=0; $i <$num_estudiantes; $i++) { 
+        // recorrer el array, asignar nombre y apellidos (separados por coma) a las variables
+        for ($i = 0; $i < $num_estudiantes; $i++) { 
             $estudiante = Str::of( $arrApellidosNombre[$i])->explode(",");
-            $apellidos = $estudiante[0];
+            $apellidos = $estudiante[0]->trim();
             $nombre = Str::of($estudiante[1])->trim();
             $nombre_completo = $nombre." ".$apellidos;
-            
-
-            $estudiante = new Estudiante([
-                'nombre'=>$nombre,
-                'apellidos'=>$apellidos,
-                'nombre_completo'=>$nombre_completo,
-                'materia_id'=>$materia_id
-            ]);
-            // if($estudiante->validate(['nombre_completo'=>'unique:estudiantes']))
-            // {   
-            $mns_estudiantes ='Se han añadido todos los Estudiantes';
-            $estudiante->save();
-            // }
+            // la materia que cursa 
+            $materia = Materia::find($materia_id);
+            // comprobamos si el estudiante ya está registrado
+            $busca_estudiante = DB::table('estudiantes')->where('user_id',$user_id)->where('nombre_completo',$nombre_completo)->first();
+            // si no está registrado
+            if($busca_estudiante == null){
+                // insertamos los datos del estudiante obteniendo su id 
+                $estudiante_id = DB::table('estudiantes')->insertGetId(['nombre'=>$nombre,'apellidos'=>$apellidos,'nombre_completo'=>$nombre_completo,'user_id'=>$user_id]);
+                // guardamos el registro en la tabla estudiante_materia
+                $materia->estudiantes()->attach($estudiante_id);
+                $nuevos++;
+                $mns_nuevos = ' Hay '.$nuevos.' estudiantes nuevos.';
+            // si está registrado
+            }elseif($busca_estudiante !== null){
+                // obtenemos el id del estudiante;
+                $estudiante_id = DB::table('estudiantes')->where('user_id',$user_id)->where('nombre_completo',$nombre_completo)->value('id');
+                $materia->estudiantes()->attach($estudiante_id);   
+            }
+            // Crear el mensaje informativo para el usuario y guardar el registro
+            $mns_estudiantes ='Se han registrado '.$cuantos.' estudiantes en la materia.';
+            // $estudiante->save();
+            $cuantos++;
         }
-        return redirect()->route('materias.index')->with('success', $mns_estudiantes);
+        return redirect()->route('materias.index')->with('info', $mns_estudiantes.$mns_nuevos);
     }
 
     /**
@@ -87,9 +115,9 @@ class EstudianteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
-        //
     }
 
     /**
@@ -98,10 +126,13 @@ class EstudianteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id)
     {
         $estudiante = Estudiante::find($id);
-        return view('configurar.estudiantes.edit', compact( 'estudiante'));
+        $current = url()->previous();
+        $materia_id = Str::after($current, 'estudiantes/');
+        return view('configurar.estudiantes.edit', compact( 'estudiante','materia_id'));
     }
 
     /**
@@ -111,36 +142,58 @@ class EstudianteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
+        $materia_id = request('materia_id');
+        $mns ='';
+        $user_id = request('user_id');
         if($request->validate([
-                'nombre' =>'required',
-                'apellidos' =>'required',
-                ])
-            )
-        {   $estudiante=Estudiante::find($id);
-            $nombre=request('nombre');
-            $apellidos=request('apellidos');
-            $estudiante->nombre=$nombre;
-            $estudiante->apellidos=$apellidos;
-            $estudiante->nombre_completo=$nombre." ".$apellidos;
-            $estudiante->materia_id=request('materia_id');
-
+            'nombre' =>'required',
+            'apellidos' =>'required'
+            ])
+        )
+        {   $estudiante = Estudiante::find($id);
+            $nombre = request('nombre');
+            $apellidos = request('apellidos');
+            $estudiante->nombre = $nombre;
+            $estudiante->apellidos = $apellidos;
+            $estudiante->nombre_completo = $nombre." ".$apellidos;
+            $estudiante->user_id = $user_id;
             $estudiante->save();
+            $mns='Los datos de '.$nombre." ".$apellidos.' se han actualizado con éxito' ;
         }
-
-        return redirect()->route('estudiantes.index');
-    
-       
+        return redirect()->route('estudiantes.porMateria',$materia_id)->with('info', $mns);   
     }
+
+        //=========  COMPROBAR  BORRar por materias
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    public function destroy(Estudiante $estudiante)
     {
-        //
+        $mns_estudiante ='Estudiante borrado con éxito';
+        $estudiante->delete();
+        return redirect()->route('materias.index')->with('info', $mns_estudiante);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function borrarGrupo($porMateria_id)
+    {
+        $mns_grupo ='Grupo borrado con éxito';
+        $estudiantes = Estudiante::where('materia_id',$porMateria_id)->get();
+        foreach($estudiantes as $estudiante)
+        $estudiante->delete();
+        return redirect()->route('materias.index')->with('info', $mns_grupo);
     }
 }

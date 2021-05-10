@@ -1,9 +1,10 @@
 {{-- clases.create --}}
+{{-- no se usa --}}
 @extends('layouts.app')
 
 @section('tablas')
 <div class="nomodal">
-  @include('include.formWindow')
+  @include('include.formBanner')
     <div class="px-6 caja-header text-center">
       <h3 class="form-title">Introducir clase
       </h3>

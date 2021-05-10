@@ -16,21 +16,26 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 class MesaController extends Controller
 {
      use AuthenticatesUsers;
+     
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $user = Auth::user()->id;
-
         $aula_id = Aula::where('user_id',$user)->value('id');
-        $clase = Clase::where('user_id',$user)->with('materia','sesion','aula')->get();
-        $estudiantes = Estudiante::with('materia')->get();
+        $clase = Clase::where('user_id',$user)->with('materia','sesion')->get();
+        $estudiantes = Estudiante::get();
         $mesas = Mesa::all();
         return view('configurar.mesas.index', compact('mesas','estudiantes','clase','aula_id'));
-        
+    }
+
+    public function mesasPorClase(Clase $clase){ 
+        $mesas = Mesa::where('clase_id',$clase->id)->with('clase','aula','estudiante')->get();
+        return response()->json($mesas)->header('Content-Type','application/json');
     }
 
     /**
@@ -38,6 +43,7 @@ class MesaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         return view('configurar.mesas.create');
@@ -48,7 +54,8 @@ class MesaController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
+     */ 
+
     public function store(Request $request)
     {
         if($request->validate([
@@ -81,10 +88,7 @@ class MesaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    public function show(Mesa $mesa){ }
 
     /**
      * Show the form for editing the specified resource.
@@ -92,10 +96,8 @@ class MesaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+
+    public function edit(Mesa $mesa) { }
 
     /**
      * Update the specified resource in storage.
@@ -104,10 +106,8 @@ class MesaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+
+    public function update(Request $request, Mesa $mesa) {  }
 
     /**
      * Remove the specified resource from storage.
@@ -115,8 +115,11 @@ class MesaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    public function destroy(Mesa $mesa)
     {
-        //
+        $mns_mesa ='Mesa borrada con éxito';
+        $mesa->delete();
+        return redirect()->route('mesas.index')->with('info', $mns_mesa);
     }
-}
+ }

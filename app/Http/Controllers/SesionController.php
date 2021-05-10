@@ -14,6 +14,7 @@ class SesionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $user = auth()->user()->id; 
@@ -28,7 +29,13 @@ class SesionController extends Controller
      */
     public function create()
     {
-        return view('configurar.sesions.create');
+        $user = auth()->user()->id;
+        $sesions = Sesion::where('user_id',$user)->select('fin')->latest();
+        $last = $sesions->count();
+        $siguiente = "00:00";
+        
+        if($last > 0) $siguiente =  date_format(date_create($sesions->value('fin')),'H:i');
+        return view('configurar.sesions.create', compact('siguiente'));
     }
 
     /**
@@ -39,10 +46,10 @@ class SesionController extends Controller
      */
     public function store(Request $request)
     {
-           // si pasa la validación... 
+
         if($request->validate([
-                'inicio' =>'required',
-                'fin'=>'required'
+                'inicio' =>'required|date_format:H:i',
+                'fin'=>'required|date_format:H:i|after:inicio'
                 ])
             )
         {   
@@ -65,7 +72,7 @@ class SesionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Sesion $sesion)
     {
         //
     }
@@ -76,10 +83,10 @@ class SesionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Sesion $sesion)
     {
-        $sesion = Sesion::find($id);
-        return view('configurar.sesions.edit', compact( 'sesion'));
+        $user = Auth::user()->id;
+        return view('configurar.sesions.edit', compact( 'sesion','user'));
     }
 
     /**
@@ -89,16 +96,15 @@ class SesionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Sesion $sesion)
     {
-           // si pasa la validación... 
         if($request->validate([
-                'inicio' =>'required',
-                'fin'=>'required'
+                'inicio' =>'required|date_format:H:i',
+                'fin'=>'required|date_format:H:i|after:inicio'
                 ])
             )
         {   
-            $sesion = Sesion::find($id);
+
             $sesion->inicio = request('inicio');
             $sesion->fin = request('fin') ;
             $sesion->user_id = request('user_id');
@@ -116,7 +122,7 @@ class SesionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Sesion $sesion)
     {
         //
     }

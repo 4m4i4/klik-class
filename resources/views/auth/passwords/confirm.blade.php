@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('tablas')
-  @include('include.formWindow')
+<div class="nomodal">
+  @include('include.formBanner')
       <div class="px-6 caja-header text-center">
         <h3 class="form-title">{{ __('Confirm Password') }}
         </h3>
