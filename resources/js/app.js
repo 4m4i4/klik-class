@@ -15,7 +15,7 @@ function myTimer() {
   
   if(queDia!==null)
   // queDia.innerHTML = d.toLocaleDateString();
-  queDia.innerHTML = n+", "+ dias[dia];
+  queDia.innerHTML = n+" "+ dias[dia];
 } 
 
 
