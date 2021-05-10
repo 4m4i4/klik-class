@@ -14,11 +14,9 @@
       @method('PUT')  
       <div class="">
         <div class="mb-2"><!-- $clase->user_id  -->
-          @php $idss=[]; @endphp 
             {{-- <p>Usuari@: {{auth()->user()->name}}</p> --}}
           <p class="text-center"> {{$aula->aula_name}}</p>
           <p class="ejemplo">
-            {{-- {{$materia}}:  --}}
             <strong>{{$aula->num_columnas}}</strong> columnas y 
             <strong>{{$aula->num_filas}}</strong> filas;<br> 
             <strong>{{count($ids_estudiante)}}</strong> estudiantes y 
@@ -60,10 +58,10 @@
           <summary>Cambiar mesas vacías</summary>
           <div class=""><!-- Cambiar mesas vacías  -->
             <label class="d_inline" for="cambiarMesasVacias">Columna, fila</label>
-            <textarea name="cambiarMesasVacias" id="cambiarMesasVacias" class="d_block" rows="1" placeholder="1,3;3,2"></textarea>
+            <textarea name="cambiarMesasVacias" id="cambiarMesasVacias" class="d_block" rows="1" placeholder="1_3,3_2"></textarea>
           </div> 
           <div class="mt-1">
-            <small class="ejemplo"><strong>Esquema: columna, fila</strong> donde 1 es la primera columna de la izquierda y 3 es la tercera fila desde delante.</small>
+            <small class="ejemplo"><strong>Esquema: columna_fila</strong> donde 1 es la primera columna de la izquierda y 3 es la tercera fila desde delante.</small>
           </div>
         </details>
         <details class="mt-2">
