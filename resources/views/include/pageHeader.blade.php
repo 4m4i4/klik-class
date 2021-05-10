@@ -1,106 +1,121 @@
 
-@section('pageHeader')
+{{-- @section('pageHeader') --}}
   <div class="container-header">
-    <nav class="navbar navbar-expand-sm ">
+    <nav class="navbar">
 
       <div class="logo">
-        <a  href="{{ url('/') }}">
-           <svg class="logoMenu"
+        <a class="d_block" href="{{ url('/home') }}" title="Ir a Home">
+          <svg class="logoMenu"
             width="128px" height="128px" 
             viewBox="0 0 512 512">
-            <g id="circleLogo">
-              <path id="mesa3" fill="#00DFE7" d="M507 208l-77 0 0 -140c39,36 67,85 77,140z"/>
-              <path id="fondo" fill="#363636" d="M256 0c67,0 128,26 174,68l0 140 77 0c3,15 5,31 5,48 0,24 -3,48 -10,70l-72 0 0 89 -72 -113 78 -29 -123 -73 0 -155 -203 0c42,-28 92,-45 146,-45zm174 444c-46,42 -107,68 -174,68 -38,0 -75,-8 -107,-24l164 0 0 -153 70 111c3,5 11,7 16,3l28 -18c1,-1 2,-2 3,-3l0 16zm-388 -48c-27,-40 -42,-88 -42,-140 0,-52 15,-100 42,-140l0 92 188 0 11 118 -199 0 0 70z"/>
-              <path id="mesa2" fill="#00ABD6" d="M42 326l199 0 6 69 64 -62 2 2 0 154 -164 0c-44,-21 -81,-53 -107,-93l0 -70z"/>
-              <path id="mesa1" fill="#FFEE00" d="M110 45l203 0 0 155 -89 -52 6 60 -188 0 0 -92c18,-28 41,-52 68,-71z"/>
-              <path id="mesa4" fill="#00ABD6" d="M430 326l72 0c-13,46 -38,86 -72,118l0 -16c2,-4 3,-9 0,-13l0 0 0 -89z"/>
-              <path id="flecha" fill="#FF0066" d="M224 148l212 125 -78 29 72 113c3,6 2,13 -3,16l-28 18c-5,4 -13,2 -16,-3l-72 -113 -64 62 -23 -247z"/>
-            </g>
+            @include('include.logoCircle')
           </svg>
-
         </a>
       </div>
 
-      <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarMenuCategorias" aria-controls="navbarMenuCategorias" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <nav class="menu">
-        <a class="navbar-brand smallCaps nav-sup active" href="{{ url('/home') }}">
+       {{--  Menú principal  --}}
+      <nav class="main-menu"> 
+        <h2>
+          <a class="navbar-brand smallCaps active" 
+           href="{{ url('/') }}"
+            title="Ir a Inicio">
           {{ config('app.name', 'Laravel') }}
-        </a>
+          </a>
+        </h2>
 
-        <div class="collapse navbar-collapse" id="navbarMenuCategorias">
-            <!-- Left Side Of Navbar -->
-           @if(auth()->user()!==null && auth()->user()->paso ==4)
-            <a class="nav-sup" href="#">Personalizar</a>
-            <a class="nav-sup" href="#">Exportar</a>
-            @endif              
-    
-          <ul class="navbar-nav mr-auto menu-colapsable">
-    
-{{-- 
-            <a class="nav-sup  nav-sub" href="{{route('estudiantes.index')}}">item3</a> --}}
+        <div class="menuUso">
 
-          </ul>
+          {{-- si se acaba la configuración se muestra el menú-  paso 6 --}}
+          @if(auth()->user()!==null && auth()->user()->paso == 6)
+          
+            <a id="rutaBotones" class="{{ Request::path() === 'botones' ? 'active' : '' }} nav-sub" href="/botones" >Personalizar</a>
+            <a id="rutaExportar" class="{{ Request::path() === 'exportar' ? 'active' : '' }} nav-sub" href="/exportar">Exportar</a>
+          @endif
+
         </div>
-
-                    <!-- FIN: SubMenú Categorías -->
       </nav>
-                   <!-- Menu user: Authentication Links -->
-                    <!-- Right Side Of Navbar -->
-      <ul class="navbar-nav menu-user">
-        <!-- Authentication Links -->
+              {{-- FIN del Menú principal --}}
+             {{-- Menú de usuario --}}
+      <ul class="mt-4 ml-4 menu-user">
+            {{-- Si no hay user registrado: login y registro --}}
         @guest
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                <a class="user-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                
             </li>
             @if (Route::has('register'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    <a class="user-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                 </li>
             @endif
         @else
-            <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            {{-- Si hay user registrado: menú de usuario -dropdown --}}
+            <li id="userMenuTrigger" class="nav-item dropdown" onclick="verUserMenu()">
+                <a class="user-link" href="#" title="menú de usuario">
                     {{ Auth::user()->name }}
                     <span class="caret"></span>
                     @php
                         $user=Auth::user();
                     @endphp
                 </a>
-
-                <div class="dropdown-menu-right dropdown-menu"aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item btn" href="#">Favoritos</a>
-                  <a class="dropdown-item btn warning-reves" href="#">Mi perfil</a>
-                  <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
-                   @csrf
-                   @method("PUT")
-                  <button type="submit" class="d_block default-reves">Sumar paso </button>
-                  </form>
-
-                  <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
-                   @csrf
-                   @method("PUT")
-                  <button type="submit" class="d_block default-reves">Restar paso</button>
-                  </form>
-                  <a class="dropdown-item btn warning-reves" href="{{route('materias.index')}}">Materias</a>
-                  <a class="dropdown-item btn warning-reves" href="{{route('sesions.index')}}">Sesiones</a>
-                  <a class="dropdown-item btn warning-reves" href="{{route('clases.index')}}">Horario</a>    
-                  <a class="dropdown-item btn" href="{{ route('logout') }}"
+                  {{-- Itéms del  menú de usuario dropdown --}}
+                <div id= "userDropdown" class="dropdown-menu">
+                  {{-- El usuario verá el perfil y favoritos cuando esté en el paso 6. --}}
+                  {{-- @if(auth()->user()!==null && auth()->user()->paso == 6) --}}
+                    <a class="dropdown-item crear" href="#">Mi perfil</a>
+                    <a class="dropdown-item oscuro-reves" href="#">Favoritos</a>
+                  {{-- Solo para desarrollo --}}
+                    <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
+                      @csrf
+                      @method("PUT")
+                      <button type="submit" class="dropdown-item  continuar">Sumar paso </button>
+                    </form>
+                    <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
+                      @csrf
+                      @method("PUT")
+                      <button type="submit" class="dropdown-item atras">Restar Paso</button>
+                    </form>
+                    <a class="dropdown-item crear" href="{{route('materias.index')}}">Materias</a>
+                    <a class="dropdown-item editar" href="{{route('sesions.index')}}">Sesiones</a>
+                    <a class="dropdown-item warning" href="{{route('clases.index')}}">Clases</a>  
+                    <a class="dropdown-item ver" href="{{route('aulas.index')}}">Aulas</a>    
+                    <a class="dropdown-item crearCurso" href="{{route('mesas.index')}}">Mesas</a>
+                    <a class="dropdown-item enviar" href="{{route('estudiantes.index')}}">Estudiantes</a>
+                    <a class="dropdown-item borrar" href="{{route('estudiantes.index')}}">Ver Aula</a>
+                    <a class="dropdown-item cancelar" href=/botones>botones</a>
+                  {{-- @endif --}}
+                  {{-- formulario para salir --}}
+                  <a class="dropdown-item oscuro " href="{{ route('logout') }}"
                      onclick="event.preventDefault();
                                    document.getElementById('logout-form').submit();">
-                      {{ __('Logout') }}
+                    {{ __('Logout') }}
                   </a>
-
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST"  style="display: none;">
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                   </form>
                 </div>
               </li>
         @endguest
-      </ul>
+      </ul>    
+            {{-- Fin de  Menu usuario --}}
     </nav>
   </div>
 
-@show
+<script>
+  // var menuUser-name = document.getElementById('menuUser-name');
+
+  // menuUser-name.onclick = function(){
+  //   // userDropdown.classList.toggle('show');
+  //   userDropdown.style.display = "block";
+  // }
+  function verUserMenu(){
+    let userDropdown = document.getElementById('userDropdown');  
+    userDropdown.classList.toggle('show');
+  }
+  window.onclick = function(event){
+    if(event.target == document.getElementById('userMenuTrigger')){
+          let userDropdown = document.getElementById('userDropdown');  
+    userDropdown.classList.toggle('show');
+    }
+  }
+  </script>

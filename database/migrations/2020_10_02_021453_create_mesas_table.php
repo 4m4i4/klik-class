@@ -21,13 +21,18 @@ class CreateMesasTable extends Migration
                   ->default(false);
             $table->unsignedBigInteger('clase_id');
             $table->foreign('clase_id')
-                  ->references('id')->on('clases');
-            $table->unsignedBigInteger('aula_id');
+                  ->references('id')
+                  ->on('clases');
+            $table->unsignedBigInteger('aula_id')->nullable();;
             $table->foreign('aula_id')
-                  ->references('id')->on('aulas');
-            $table->unsignedBigInteger('estudiante_id');
+                  ->references('id')
+                  ->on('aulas');
+            $table->unsignedBigInteger('estudiante_id')->nullable();
             $table->foreign('estudiante_id')
-                  ->references('id')->on('estudiantes');
+                  ->references('id')
+                  ->on('estudiantes')
+                  ->onDelete('set null');
+                  
             $table->timestamps();
         });
     }

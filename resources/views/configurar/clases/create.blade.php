@@ -2,7 +2,8 @@
 @extends('layouts.app')
 
 @section('tablas')
-  @include('include.formWindow')
+<div class="nomodal">
+  @include('include.formBanner')
     <div class="px-6 caja-header text-center">
       <h3 class="form-title">Introducir clase
       </h3>
@@ -66,15 +67,18 @@
               <small class="t_red">* {{ $message }}</small><br>
             @enderror   
         </div>
-        <div class="py-6 my-4">
-          <button class="boton d_block blue" type="submit">Guardar</button>
+        <div>
+          <button type="submit" 
+          title="Guardar clase"  
+          class="bt_xxl mt-6 enviar" >Guardar</button>
         </div>
       </div>
     </form>
 
-      <div class="px-6 py-4 mt-4 light-grey">
-      <a href="{{route('clases.index')}}" type="button" class=" boton danger">Cancelar</a>
+    <div class="px-6 py-4 mt-6 light-grey">
+      <a href="{{route('clases.index')}}"  title="Cancelar y volver al índice"
+      class="cancelar">Cancelar</a>
     </div>
-  </div>
+</div>
   
 @endsection

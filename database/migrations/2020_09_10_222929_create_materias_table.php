@@ -16,11 +16,13 @@ class CreateMateriasTable extends Migration
         Schema::create('materias', function (Blueprint $table) {
             $table->id();
             $table->string('materia_name', 25)->unique();
-            $table->string('grupo', 25)->nullable();
+            $table->string('grupo', 20)->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                   ->references('id')
-                  ->on('users'); 
+                  ->on('users')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
             $table->timestamps();
         });
     }

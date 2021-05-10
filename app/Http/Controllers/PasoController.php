@@ -14,7 +14,20 @@ class PasoController extends Controller
     
     
   
+    public function crearCurso( Request $request,User $user)
+    {
+       
+        if(Auth::check()){
+          $user = $request->user();
+          $paso = $user->paso;
+          if($paso =='0'){
+            $user->paso = '1';
+            $user->save();       
+          }
+        }
 
+        return redirect( route('home'));
+    }
 
       /**
      * Update the specified resource in storage.
@@ -26,37 +39,43 @@ class PasoController extends Controller
     
     public function updatePasoMas( Request $request,User $user)
     {
-        $usuario=$request->user();
-         $user = Auth::user();
-       if($user==$usuario){
-        // dd($user);
-        // $user = auth()->user();                    
-        $paso = $user->paso; 
-        // dd($paso);
-        $user->paso = $paso + 1;
-        $user->save();
-        if($user->paso ==2) return redirect( route('sesions.index'));
-        if($user->paso ==3) return redirect( route('clases.index'));
-        if($user->paso ==5) return redirect( route('aulas.index'));
-       }
+
+      if($user = $request->user()){
+          $paso = $user->paso;
+          if($paso !== 6){
+            $user->paso = (string)((int)$paso + 1);
+            $user->save();
+            $user->refresh();
+          }        
+          if($user->paso ==2) return redirect( route('sesions.index'));
+          if($user->paso ==3) return redirect( route('clases.index'));
+          if($user->paso ==5) return redirect( route('aulas.index'));
+
+        }
      
-       return redirect( route('home'));
+        return redirect( route('home'));
     }
 
     
     public function updatePasoMenos( Request $request,User $user)
     {
-        // $user = Auth::user();
-      if($user=$request->user()){
-        // $user= User::find($id);
-        // $user = auth()->user();
-        $paso = $user->paso; 
-        $user->paso = $paso - 1;
-        $user->save();
+
+      if($user = $request->user()){
+        $paso = $user->paso;
+        // Se limita que paso pueda ser inferior a 0
+        // resta un paso y redirige a la página
+        if($paso > 0){
+          $user->paso = (string)((int)$paso - 1);
+          $user->save();
+          $user->refresh();
+        }
+        if($user->paso ==0) return redirect( route('home'));   
         if($user->paso ==1) return redirect( route('materias.index'));
         if($user->paso ==2) return redirect( route('sesions.index'));
         if($user->paso ==3) return redirect( route('clases.index'));
+        if($user->paso ==4) return redirect( route('materias.index'));
+        if($user->paso ==5) return redirect( route('home'));
       }
-       return redirect( url()->previous());
+      return redirect( url()->previous());
     }
 }

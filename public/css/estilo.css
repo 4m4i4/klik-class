@@ -1,0 +1,476 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+:root {
+  --columnas: 5;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  height: 100%;
+  font-size: 16px;
+  overflow-y: hidden;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  line-height: 1.4rem;
+  color: #555;
+  background-color: #f8fafc;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+hr {
+  color: hsl(189, 58%, 26%);
+}
+
+.container {
+  margin: .5rem auto;
+  padding: 0;
+  max-width: 1024px;
+}
+.menu {
+    /* display: grid;
+  grid-template-columns: auto auto auto auto;
+  justify-content: space-between;
+  align-items: stretch; */
+  /* margin-top: .5rem;
+  margin-bottom: .5rem; */
+}
+.menuBt {
+  text-decoration: none;
+  box-sizing: border-box;
+  display: inline-block;
+  width: calc(17% - 4 * 4px );
+  margin: .2rem  .2rem; 
+  text-align: center;
+  /* max-width: 20%; */
+  background-color: rgb(90, 90, 90);
+  color: white;
+  padding: .3rem 1rem;
+
+}
+
+.menuBt:hover {
+    background-color: gold;
+    color: #555;
+    transition: background-color 1s;
+}
+input {
+  text-align: center;
+}
+
+input[type=text]:focus {
+  background-color: hsl(51, 53%, 79%);
+}
+/* .input{padding:8px;display:block;border:none;border-bottom:1px solid #ccc;width:100%}
+.select{padding:9px 0;width:100%;border:none;border-bottom:1px solid #ccc} */
+@media screen and (max-width: 640px) {
+  .container {
+    max-width: 98%;
+  }
+  .celda>input,
+  .celda>select {
+    width: calc(100% - 2*3px);
+  }
+}
+
+@media screen and (min-width: 641px) and (max-width: 768px) {
+  .container {
+    max-width: 94%;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1070px) {
+  .container {
+    max-width: 96%;
+  }
+  
+}
+@media screen and (min-width: 769px){
+  .celda>input,
+  .celda>select {
+    max-width: calc(50% - 2 * 3px);
+  }
+}
+
+footer {
+  width: 100%;
+  min-height: 2rem;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  bottom: 0;
+  background-color: #282828;
+}
+    
+#clase,
+#calendar,
+#header {
+  border: 1px solid #ccc;
+}
+#header {
+  min-height: 2.4rem;
+  display: grid;
+  grid-template-columns: auto auto auto ;  
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+#calendar {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+
+}
+
+.mesa,
+.celda {
+  box-sizing: border-box;
+  padding: 3px;
+  border: 1px solid #ddd;
+}
+
+.mesa {
+  display: inline-block;  
+  width: calc(100% / var(--columnas) - 2 * 30px);
+  margin: 24px 30px;  
+}
+
+.celda {
+  display: flex;
+  justify-content: space-between;
+  /* width: calc(100% / 6 - 2 * 4px); */
+  min-width: 65px;
+  margin: 4px;
+  background-color: rgb(228, 231, 231);
+}
+.celda>input,
+.celda>select {
+  width: calc(100% - 2*3px);
+  border: 1px solid rgb(202, 228, 228);
+}
+
+.celdaHead{
+  justify-content: center;
+  font-variant: small-caps;
+  background-color: hsl(60, 71%, 50%);
+}
+
+.celdaHeadV{
+  background-color: hsl(60, 71%, 50%);
+}
+
+.celdaHeadV>input {
+  border: 1px solid hsl(60, 71%, 45%);
+}
+
+.mesa>.studentName {
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  font-variant: small-caps;
+  background-color:#555; 
+  color: #fff;
+}
+
+.mesa>.studentName:hover {
+  color: #333;
+  background-color:#ccc;
+  transition: background-color 1s;
+}
+
+button {
+  border: 1px solid #ddd;
+  padding-top:.5rem; 
+  padding-bottom: .5rem;
+  background-color:  #00DFE7;
+   /* hsl(60, 71%, 45%); */
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+.falta {
+  background-color:#555;
+  color: #ffffff;
+}
+
+.config {
+  padding: 5px .8rem;
+  font-size: 12px;
+  text-align: center;
+}
+button:hover,
+.config:hover {
+  color: #ffffff;
+  background-color:#FF0066; 
+  /* rgb(49, 146, 184); */
+  border: 1px solid #ffffff;
+  transition: background-color 1s;
+}
+
+.propiedad_A {
+  background-color: #FFEE00;
+  width: 40%;
+}
+
+.propiedad_B {
+  background-color: #00DFE7;
+  width: 40%;
+}
+
+.propiedad_A:hover:not(:disabled),
+.propiedad_B:hover:not(:disabled),
+.active {
+  color: #fff;
+  background-color: #FF0066; 
+   /* rgb(49, 184, 184); */
+  border: 1px solid #ffffff;
+  transition: background-color .5s;
+}
+
+.d_inline {display: inline-block}
+.d_block {display:block;width: 100%}
+
+.f_right {float:right;margin-left:5px}
+.f_left {float:left;margin-right:5px}
+.p_left {padding-left:1rem}
+.p_right {padding-right:1rem}
+.p_x {padding-left:1rem;padding-right:1rem}
+.p_x1 {padding-left:1.5rem;padding-right:1.5rem}
+.p_x2 {padding-left:2rem;padding-right:2rem}
+.p_y {padding-top: 1rem;padding-bottom: 1rem}
+.p_y1 {padding-top: 1.5rem;padding-bottom: 1.5rem}
+.p_y2 {padding-top: 2rem;padding-bottom:2rem}
+.m_auto {margin:auto}
+.m_left{margin-left:1rem}
+.m_right{margin-right: 1rem}
+.m_sup {margin-top:1rem}
+.m_sup1 {margin-top:1.5rem}
+.m_sup2 {margin-top:2rem}
+.m_inf {margin-bottom:1rem}
+.m_inf1 {margin-bottom:1.5rem}
+.m_inf2 {margin-bottom:2rem}
+
+
+
+/* Style The Dropdown Button */
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+
+
+  table {
+    border-spacing: 4px;
+    box-sizing: border-box;
+    background-color: hsl(60, 61%, 80%);
+  }
+  th, td{
+      box-sizing: border-box;
+      margin: 0;
+      border-collapse: collapse;
+  }
+  th {
+    font-variant: small-caps;
+    border: 1px solid hsl(189, 58%, 26%);
+    border: 1px solid hsl(189, 58%, 86%);
+    background-color: hsl(60, 71%, 50%);
+  }
+  td {
+    display:table-cell;
+    padding: 0;
+    border: 1px solid hsl(189, 58%, 96%);
+    background-color:  hsl(60, 61%, 90%);
+
+  }
+  thead {
+    /* width: 100%; */
+  }
+  
+  .tHead ,.dia{
+    min-width: 16.6% ;
+    width: 200px;
+    padding: 1rem 0;
+  }
+  .horas {
+    min-width: 20%;
+    background-color: hsl(60, 70%, 45%);
+  }
+  .bt_horario
+   {
+    display: block;
+    box-sizing: border-box;
+    margin: 0;
+    margin: auto;width: 90%;
+     width: 90%; 
+    height: 4rem;
+    color: #333;
+    /* background-color: hsl(189, 58%, 46%);
+    border: 6px solid  hsl(189, 58%, 36%); */
+    background-color:  hsl(60, 61%, 70%);
+    border: 6px solid   hsl(60, 61%, 70%);
+        /* background-color:  hsl(60, 61%, 90%);
+    border: 6px solid   hsl(60, 61%, 86%); */
+    border-radius:1px;
+  
+  }
+  .circle {
+    border-radius: 50%;
+  }
+  .bt_horario:hover{
+    background: hsl(189, 58%, 46%);
+    /* background-color: hsl(60, 71%, 30%); */
+    width: 4rem;
+    color: #fff;
+    border: 6px solid  hsl(189, 58%, 36%);
+    border-radius: 50%;
+    transition: background-color 1.5s, width .5s, border-radius .7s;
+
+  }
+  [type=number]{
+    width: 4rem;
+  }
+  input {
+    padding:.5rem;
+    border: 1px solid rgb(231, 225, 196);
+    box-sizing: border-box;}
+
+  .modal{
+    z-index:3;
+    display:none;
+    padding-top:100px;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    overflow:auto;
+    background-color:rgb(0,0,0);
+    background-color:rgba(0,0,0,0.4)
+    }
+.modal-content{
+  margin:auto;
+  background-color:#fff;
+  position:relative;
+  padding:0;
+  outline:0;
+  width:600px
+  }
+.animate-zoom {
+  animation:animatezoom 0.6s
+  }
+@keyframes animatezoom{
+  from{transform:scale(0)} to{transform:scale(1)}
+  }
+.btn{
+  border:none;
+  display:inline-block;
+  padding:8px 16px;
+  vertical-align:middle;
+  overflow:hidden;
+  text-decoration:none;
+  color:inherit;
+  background-color:inherit;
+  text-align:center;
+  cursor:pointer;
+  white-space:nowrap
+  }
+.btn {
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none}   
+.btn:hover{
+  color:#000;
+  background-color:#ccc
+  }
+  .xlarge{font-size:24px}
+.red {
+  background-color: hsl(6, 90%, 58%); 
+}
+/* .red:hover {
+  background-color: hsl(6, 80%, 38%); transition: background-color 1s;
+} */
+.orange {
+  background-color: hsl(17, 90%, 50%); 
+}
+.orange:hover {
+  background-color: hsl(17, 20%, 46%); transition: background-color 1s;
+}
+.blue {
+  background-color: hsl(197, 58%, 46%);
+}
+.blue:hover {
+
+  /* background-color: hsl(197, 58%, 26%);  transition: background-color 1s; */
+}
+
+  .d_topright{
+    position:absolute;
+    right:0;
+    top:0
+  }
+
+ .center {
+    text-align: center;
+  }

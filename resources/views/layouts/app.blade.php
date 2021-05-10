@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     <script src="{{ asset('js/custom.js') }}" defer></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -24,46 +24,54 @@
 <body>
     <div id="app">
                 <!--HEADER: La navegación -->
-        <header class="page-header">
-            @include('include/pageHeader')
-        </header>
+        @if (str_contains(url()->current(), 'etapaUso'))
+            <header class="clase-header items-center">
+                @include('include/etapaUsoHeader')
+            </header>  
+        @else
+            <header class="main-header page-header">
+                @include('include/pageHeader')
+            </header>                     
+        @endif
+
                 <!--FIN: Header -->
 
                 <!--MAIN: El contenido -->
-
-        <main class="pb-4">
+        @yield('etapaUso')
+        <main class="main">
             @yield('tablas')
             
-            <div class="container mb-8">
+            <div class="container mb-8 sm:px-0 sm:mx-0">
                 <div>
-                    <div class="mt-4 bg-white dark:bg-gray-800 overflow-hidden ashadow sm:rounded-lg">
+                    <div class="mt-4 bg-white ashadow sm:rounded-lg">
                         @yield('content')
-                        @yield('pasitos')
-                        
+                        @yield('pasos')
                     </div>
                 </div>
             </div>
         </main>
                 <!--FIN: Main -->
 
-                <!--FOOTER: Sin desarrollar)-->
-        <footer>
-        
-            <div class="page-footer">
-                @include('include/pageFooter')
-            </div>
-        </footer>
-
+                <!--FOOTER)-->
     </div>
+        @if (!str_contains(url()->current(), 'etapaUso'))
+           
+            <footer class="footer">
+                <div class="page-footer">
+                    @include('include/pageFooter')
+                </div>
+            </footer>   
+        @else
+            <div class="noFooter"></div>           
+        @endif
+
+
+    @yield('script')
     <!--FIN: App -->
         <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" type="text/js"></script>
+    <script src="{{ asset('js/custom.js') }}" type="text/js"></script>
 
 
-{{-- <button onclick="clearInterval(myVar)">Stop time</button> --}}
-
-<script>
-
-</script>
 </body>
 </html>

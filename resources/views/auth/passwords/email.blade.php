@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('tablas')
-  @include('include.formWindow')
+<div class="nomodal">
+  @include('include.formBanner')
       <div class="px-6 caja-header text-center">
         <h3 class="form-title">{{ __('Reset Password') }}
         </h3>
@@ -20,11 +21,13 @@
              @enderror
            </div>
            <div>
-            <button type="submit" class="boton d_block mt-6 mb-2 blue">{{ __('Send Password Reset Link') }}</button>
+            <button type="submit" 
+            title="{{ __('Send Password Reset Link') }}"
+              class="bt_xxl mt-6 enviar"> {{ __('Send Password Reset Link') }}</button>
            </div>
       </form>
       <div class="px-6 py-4 mt-6 light-grey">
-        <a href="/" title="Volver a la página anterior" class="d_inline boton danger">Cancelar</a>
+        <a href="/" title="Volver a la página anterior" class="cancelar">Cancelar</a>
       </div>
     </div>
 </div>

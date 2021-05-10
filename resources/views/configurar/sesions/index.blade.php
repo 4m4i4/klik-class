@@ -17,30 +17,44 @@
         <div class = "caja-header">
           <div class = "grid grid-cols-3-fr items-center">
                 @php
-                  $user = auth()->user();  
+                  $user = auth()->user()->id;
                   $dias=['Horario','Lu','Ma','Mi','Ju','Vi'];
                   $count = count($dias);
                   use  App\Models\Sesion;
-                  $sesiones = Sesion::get();
+                  $sesiones = Sesion::where('user_id',$user)->get();
                   $num_sesiones= $sesiones->count();
                 @endphp
-            <h2 class="ml-2" >Sesión: Inicio y final</h2>
-            <a href="{{route('sesions.create')}}" class="boton blue" >{{ __('Add') }} <span class="ico-shadow"> ⌚ </span></a>              
-            <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
+            <h2 class="title text-overflow">Sesión: Inicio y final</h2>
+
+            <a href="{{route('sesions.create')}}" 
+              title="Crear sesión" 
+              class= "btn px-4 crear" 
+              autofocus>
+              <p class="">{{ __('Add') }} 
+                <span class="ico-shadow"> ⌚ </span>
+              </p>
+            </a>              
+            <form method="POST" action="{{route('home.updatePasoMas',$user)}}">
                @csrf
                 @method("PUT")
-                  <button type="submit" title="Horario completado" class="ml-2 btn secondary-reves"><span class="ico-shadow">✅ </span> Siguiente </button>
+                  <button type="submit" 
+                    title="Horario completado: Ir a rellenar Horario"
+                    class="ml-1 btn continuar">
+                    <span class="ico-shadow">✅&nbsp </span> 
+                    <span class="">{{ __('Next')}}</span>
+                    <span class="ico-shadow">👉 </span>
+                  </button>
             </form>
           </div>
         </div>
       </div>      <!-- fin de CABECERA sesiones-->
 
       <div class="caja">  <!--body-TABLA sesiones-->
-        <div class = "caja-body py-2">
-          <table  class = "tabla table-responsive mx-auto">
+        <div class = "caja-body">
+          <table id="tabla-config-sesion" class = "tabla table-responsive mx-auto">
             <caption>
-              Haz click en <strong>Añadir</strong> para crear la siguiente sesión.<br> 
-              Para <strong>Cambiar </strong> un horario haz click sobre él
+              Haz click en <strong>Añadir</strong> para crear una sesión.<br>
+              Para <strong>Cambiar </strong> un horario haz click sobre él. <br> Si tienes todas las sesiones pulsa <strong>Continuar</strong>.
             </caption>
             <thead>
                 <tr>
@@ -50,11 +64,11 @@
                 </tr>
             </thead>
             <tbody>
-              @foreach ($sesiones as $sesion)
-                  <tr id={{$sesion->id}}>
-                    <th class="text-center">
-                      <a href="{{route('sesions.edit', $sesion->id)}}" title="Cambiar el horario" class="boton d_inline naranja px-4">
-                        <span class="ico-shadow"> 📝 </span> {{date_format(date_create($sesion->inicio), "H:i")}} |  
+              @foreach ($sesions as $sesion)
+                  <tr id={{$sesion->id}} class="">
+                    <th class="flex  justify-center">
+                      <a href="{{route('sesions.edit', $sesion->id)}}" title="Cambiar el horario" class="editar flex justify-center items-center">
+                        <span class="ico-shadow"> 📝 &nbsp</span> {{date_format(date_create($sesion->inicio), "H:i")}} |  
                         {{date_format(date_create($sesion->fin), "H:i")}}
                       </a>
                     </th>
@@ -67,6 +81,7 @@
           </table>
         </div> {{-- fin caja-body --}}
       </div>      <!-- fin de body-TABLA sesiones -->
+      <div class="h-8"></div>
     </div> {{-- fin div --}}
   </div> {{-- fin container --}}
 @endsection
