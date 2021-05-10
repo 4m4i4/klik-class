@@ -104,7 +104,7 @@ class AulaController extends Controller
         // dd($estudiantes);
         $index = 0;
         $mesasIndex = [];
-        $studentIndex = [];
+
         $contador = 0;
         // Si el aula no tiene mesas las ponemos
         if($aula_hasMesas == null){
@@ -128,9 +128,9 @@ class AulaController extends Controller
             $n_mesas = $aula->num_mesas;
             $dif = $n_mesas - $n_student;
             
-            $estaMesa = Mesa::where('user_id', $user)->where('aula_id',$aula->id)->get();
-            $firstMesa = $estaMesa[0]->id;
-            $lastMesa = $firstMesa + $estaMesa->count() -1;   
+            $vaciarMesa = Mesa::where('user_id', $user)->where('aula_id',$aula->id)->get();
+            $firstMesa = $vaciarMesa[0]->id;
+            $lastMesa = $firstMesa + $vaciarMesa->count() -1;   
               // si hay mesas vacías
             if($dif > 0){
               $mesasIndex = Arr::shuffle($mesasIndex);
@@ -166,7 +166,7 @@ class AulaController extends Controller
     public function edit(Aula $aula)
     {
         $user = Auth::user()->id;
-        $materia=DB::table('materias')->where('user_id',$user)->where('grupo',$aula->aula_name)->first();
+        $materia = DB::table('materias')->where('user_id',$user)->where('grupo',$aula->aula_name)->first();
         $materia_id = $materia->id;
         $num_estudiantes = Materia::find($materia_id)->estudiantes()->count();
         return view('configurar.aulas.edit', compact('aula','num_estudiantes'));
@@ -190,6 +190,7 @@ class AulaController extends Controller
         $mesas_aula = Mesa::where('user_id',$user)->where('aula_id', $aula->id)->get();
         //   dd($mesas_aula);
         $miAula = Aula::where('id', $aula->id)->with('mesas')->get();
+        dd($miAula);
 
         $nombreAula = request('aula_name');
         $columnas = request('num_columnas');
@@ -200,14 +201,15 @@ class AulaController extends Controller
         $msn ='Parece que has olvidado introducir el grupo de estudiantes de ' .$nombreAula;
 
         if($mesas_aula->count() > 0){
-        // si hay cambios en el número de  columnas y filas, actualizar los campos columna y fila de las mesas
+        // si hay cambios en el número de columnas y filas, actualiza los campos columna y fila de las mesas
             if((intVal($columnas)!==$old_num_columnas)||(intVal($filas)!==$old_num_filas)){
-                // echo "las columnas no son iguales";
                 $indice= 0;
                 for ($row = $filas;  $row > 0; $row--){
                     for ($col = 1; $col <= $columnas; $col++){
-                        $id = $mesas_aula[$indice]->id;
-                        DB::table('mesas')->where('id', $id)->update(['mesa_name'=>$aula->id.'_'.$col.'_'.$row,'columna'=>$col,'fila'=>$row]);
+                        if($mesas_aula->count() < $indice){
+                            $id = $mesas_aula[$indice]->id;
+                            DB::table('mesas')->where('id', $id)->update(['mesa_name'=>$aula->id.'_'.$col.'_'.$row,'columna'=>$col,'fila'=>$row]);
+                        }
                         $indice++;
                     }
                 }
@@ -215,7 +217,7 @@ class AulaController extends Controller
             
             $msn_maxMesas = 'Has puesto '.intval($mesas - $maxMesas) .' mesas más que las que caben en '.$columnas .' columnas x '.$filas. ' filas';
 
-            if($mesas > $maxMesas)return redirect()->route('materias.index')->with('info', $msn_maxMesas);
+            if($mesas > $maxMesas) return redirect()->route('materias.index')->with('info', $msn_maxMesas);
         }
         if($request->validate([
                 'aula_name' =>'required|string',
@@ -232,7 +234,7 @@ class AulaController extends Controller
             $aula->user_id = request('user_id');
             $aula->save();
             $aula->refresh();
-            if($num_estudiantes == '0')return redirect()->route('materias.index')->with('info', $msn);
+            if($num_estudiantes == '0') return redirect()->route('materias.index')->with('info', $msn);
             else
             return redirect()->route('materias.index')->with('info', 'El aula '.$nombreAula.' se ha actualizado con éxito. Pulsa ver para sentar a los estudiantes');
         }
@@ -254,17 +256,20 @@ class AulaController extends Controller
 
     public function editMesasVacias(Aula $aula)
     {
+        // hace falta validar los datos, si no en caso de fallo hay resultdos inesperados: guardar solo un cambio y duplicar un estudiante --> la siguiente será un fallo de offset
         $user = Auth::user()->id;
-        $ids_estudiante =[];  // ids de los estudiantes que hay en el aula
+        // declaramos la variable para guardar los id de los estudiantes
+        $ids_estudiante =[];  
+        // obtenemos la materia que corresponde al aula
         $materia = Materia::where('user_id',$user)->where('grupo', $aula->aula_name)->first();
-        $materia_id =$materia->id;
+        // Recorremos la materia guardando los ids de los estudiantes en un array 
         foreach($materia->estudiantes as $estudiante){
             array_push( $ids_estudiante, $estudiante->pivot->estudiante_id);
         }
-        $estudiantes = Estudiante::where('user_id',$user)->get();
-        $mesas = Mesa::where('user_id',$user)->where('aula_id',$aula->id)->get();
+        // $estudiantes = Estudiante::where('user_id',$user)->get();
+        // $mesas = Mesa::where('user_id',$user)->where('aula_id',$aula->id)->get();
         $vacias = Mesa::where('aula_id',$aula->id)->where('is_ocupada',0)->get('id');
-        return view('configurar.vacias', compact('aula', 'user','materia','ids_estudiante','estudiantes','mesas','vacias'));
+        return view('configurar.vacias', compact('aula', 'ids_estudiante','vacias'));
     }
 
 
@@ -282,29 +287,34 @@ class AulaController extends Controller
             array_push( $ids_mesas, $mesa->id);
             array_push( $ids_estudiante, $mesa->estudiante_id);
         }
-        // $clase = Clase::where('user_id',$user)->where('aula_id', $aula->id)->value('materia_id');
 
-        $materia = Materia::where('user_id', $user)->where('grupo', $aula->aula_name)->first();
+        $materia = Materia::where('user_id', $user)
+                    ->where('grupo', $aula->aula_name)
+                    ->first();
         $estudiantes = $materia->estudiantes;// dd($estudiantes);
         $n_student = $estudiantes->count();// dd($n_student);
-        $sentar = request('sentarEstudiantes');
+
         $cambiarVacias = request('cambiarMesasVacias');
         // si se van a cambiar las mesas vacías
         if(!$cambiarVacias == null){
-            $arrLevantar= Str::of($cambiarVacias)->explode(";");// dd($arrLevantar);
-            $num_mesas_levantar = count($arrLevantar) ;
-            // $ids_mesas = [];
-            for($i = 0; $i < $num_mesas_levantar; $i++){
-                $arrColRow = $arrLevantar[$i];
-                $arrMesa = Str::of($arrColRow)->explode(",");
-                $columna =  Str::before( $arrColRow, ',');// dd($columna);
-                $fila = Str::after( $arrColRow, ','); // dd($fila);              
-                $id_vaciar = DB::table('mesas')->where('aula_id', $aula->id)->where('columna',$columna)->where('fila',$fila)->value('id');// dd($id_vaciar);
-                $estaMesa = Mesa::find( $id_vaciar);
-                $estaMesa->is_ocupada = false;
-                $estaMesa->estudiante_id = null;
-                $estaMesa->save();
-                $estaMesa->refresh();
+            $arr_mesasVacias= Str::of($cambiarVacias)->explode(",");// dd($arrLevantar);
+            $num_mesasVacias = count($arr_mesasVacias) ;
+            for($i = 0; $i < $num_mesasVacias; $i++){
+                $mesaColRow = $arr_mesasVacias[$i];
+                // $arrMesa = Str::of($mesaColRow)->explode("_");
+                // $columna =  Str::before($mesaColRow, '_');// dd($columna);
+                // $fila = Str::after($mesaColRow, '_'); // dd($fila);              
+                $id_vaciar = DB::table('mesas')
+                            ->where('mesa_name',$aula->id.'_'.$mesaColRow)
+                            // ->where('aula_id', $aula->id)
+                            // ->where('columna',$columna)
+                            // ->where('fila',$fila)
+                            ->value('id');// dd($id_vaciar);
+                $vaciarMesa = Mesa::find( $id_vaciar);
+                $vaciarMesa->is_ocupada = false;
+                $vaciarMesa->estudiante_id = null;
+                $vaciarMesa->save();
+                $vaciarMesa->refresh();
             }
 
             foreach ($vacias as $vacia){
@@ -315,15 +325,19 @@ class AulaController extends Controller
             for($i = 0; $i < $n_student; $i++){
                 array_push( $estudiantePosicion, $estudiantes[$i]->id);
             }
-            $newOcupadas = Mesa::where('aula_id',$aula->id)->where('is_ocupada',1)->get();
+            $newOcupadas = Mesa::where('aula_id', $aula->id)
+                            ->where('is_ocupada',1)
+                            ->get();
             $i = 0;
-            
             foreach ($newOcupadas as $mesa){
                 $id = $mesa->id;
-                DB::table('mesas')->where('id', $id)->update(['estudiante_id'=> $estudiantePosicion[$i]]);
+                DB::table('mesas')
+                    ->where('id', $id)
+                    ->update(['estudiante_id'=> $estudiantePosicion[$i]]);
                 $i++;
             }
         }
+        $sentar = request('sentarEstudiantes');
         // Cambiar estudiantes de mesas
         if(!$sentar == null){
             $arrSentar = Str::of($sentar)->explode(",");
@@ -335,9 +349,9 @@ class AulaController extends Controller
             }
 
             for($i = 0; $i < $num_sentar; $i++){
-                $estaMesa = Mesa::find( $ids_mesas[$i]);
-                $estaMesa->estudiante_id = $estudiantePosicion[$i];
-                $estaMesa->save();
+                $vaciarMesa = Mesa::find( $ids_mesas[$i]);
+                $vaciarMesa->estudiante_id = $estudiantePosicion[$i];
+                $vaciarMesa->save();
             }
         }
         return redirect()->route('aulas.show', compact('aula'));
