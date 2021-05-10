@@ -55,16 +55,21 @@
             ¡¡Enhorabuena {{auth()->user()->name}} !! Lo has conseguido!! 
         </p>
         @endif
-
+        {{-- <form id="enviaHora" > --}}
         <div class="caja marcoReloj">
-           <div class="relojEnorme text-center" id="khora"></div>
+           {{-- <textarea class="relojEnorme text-center" id="ahora" name="ahora"></textarea> --}}
+            <div class="relojEnorme text-center" id="khora" name="ahora" 
+            {{-- onchange="enviaHora(this.id)" --}}
+            ></div>
+            {{-- <button type="submit">Enviar</button> --}}
         </div>
+        {{-- </form> --}}
+
         <p class="text-vw3 mt-2 mb-4 px-4 text-center text-blue-30">
-            No tienes clase
+        No tienes clase
         </p>  
       @endif
     </div>
-
 @endsection 
 
 
@@ -99,3 +104,59 @@
    
     @endsection 
 @endif
+
+<script>
+    // var ahora = document.getElementById('khora');
+    // function myTimer(){
+    //   var x = new Date();
+    //   var options = {hour:'2-digit', minute: '2-digit',hour12: false};
+    //   // console.log(new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g,'-').replace(',',''));
+    //   ahora.innerHTML = new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g,'-').replace(',',''); 
+    //   // queHora.innerHTML = d.toLocaleTimeString(); 
+    //   var queDia = document.getElementById("kdiaes");
+    //   var dias = ["Domingo","Lunes", "Martes", "Miércoles","Jueves","Viernes","Sábado"];
+    //   var dia = x.getDay();
+    //   var n = x.getDate();
+  
+    //   if(queDia!==null)
+    //   // queDia.innerHTML = d.toLocaleDateString();
+    //   queDia.innerHTML = n+" "+ dias[dia];
+    // }
+
+
+  
+    //   var ya = ahora.value;
+    //   console.log(ya);
+    //   var enviaHora = document.getElementById('enviaHora');
+    //   enviaHora.addEventListener('submit',function(e){
+    //       e.preventDefault();
+    //       console.log('has hecho click');
+    //       var datos = newFormData('enviaHora');
+
+
+    // var datos =  document.getElementById('khora');
+    //   console.log(datos.get('ahora'));
+    //   fetch('http://127.0.0.1:8000/home/mostrarClase',{
+    //       method:'post',
+    //       body:'datos'
+    //   })
+    //   .then(res=>res.json())
+    //   .then(data=>{
+    //       console.log(data);
+    //   });
+ 
+    function enviaHora(cadena){
+      let x = document.getElementById(cadena);
+      ahora = x.value;
+      console.log("hora: "+ahora);
+        //   document.getElementById(cadena).value = value_materia_id;
+        //   var xhr = new XMLHttpRequest();
+        //   xhr.open('POST',`{{route('home')}}`,true);
+        //   xhr.setRequestHeader('Content-Type','application/json');
+        //   xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+        // xhr.onreadystatechange = function(){
+        //   document.getElementById('respuesta').innerHTML = xhr.responseText;
+        // }
+        //   xhr.send(location.replace(value_materia_id));
+    }
+</script>
