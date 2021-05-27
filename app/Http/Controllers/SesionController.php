@@ -46,7 +46,24 @@ class SesionController extends Controller
      */
     public function store(Request $request)
     {
-
+        $inicio = request('inicio');
+        $fin =request('fin');
+        $msn = "";
+        $sesiones = Sesion::where('user_id',request('user_id'))->get();
+        foreach($sesiones as $sesion){
+            // if(!($inicio > $sesion->inicio) && !($inicio< $sesion->inicio) && !($fin > $sesion->fin) && !($fin < $sesion->fin)){
+            // $msn = "El horario de la sesión está repetido";
+            // return back()->withInput()->withErrors(['inicio'=>$msn]);
+            // }else 
+            if(($inicio > $sesion->inicio && $fin < $sesion->fin)||($inicio > $sesion->inicio && $inicio < $sesion->fin)){
+            $msn = "El horario de la sesión se solapa con otra";
+            return back()->withInput()->withErrors(['inicio'=>$msn]);
+            }
+            else if($inicio > $fin){
+            $msn = "Una sesión no puede acabar antes de que empiece";
+            return back()->withInput()->withErrors(['inicio'=>$msn]);
+            }
+        }
         if($request->validate([
                 'inicio' =>'required|date_format:H:i',
                 'fin'=>'required|date_format:H:i|after:inicio'
@@ -98,6 +115,24 @@ class SesionController extends Controller
      */
     public function update(Request $request, Sesion $sesion)
     {
+        $inicio = request('inicio');
+        $fin =request('fin');
+        $msn = "";
+        $sesiones = Sesion::where('user_id',request('user_id'))->get();
+       foreach($sesiones as $sesion){
+            // if(!$inicio > $sesion->inicio && !$inicio< $sesion->inicio &&!$fin > $sesion->fin &&!$fin < $sesion->fin){
+            // $msn = "El horario de la sesión está repetido";
+            // return back()->withInput()->withErrors(['inicio'=>$msn]);
+            // }else 
+            if(($inicio > $sesion->inicio && $fin < $sesion->fin)||($inicio > $sesion->inicio && $inicio < $sesion->fin)){
+            $msn = "El horario de la sesión se solapa con otra";
+            return back()->withInput()->withErrors(['inicio'=>$msn]);
+            }
+            else if($inicio > $fin){
+            $msn = "Una sesión no puede acabar antes de que empiece";
+            return back()->withInput()->withErrors(['inicio'=>$msn]);
+            }
+        }
         if($request->validate([
                 'inicio' =>'required|date_format:H:i',
                 'fin'=>'required|date_format:H:i|after:inicio'

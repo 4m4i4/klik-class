@@ -32,7 +32,15 @@ class ClaseController extends Controller
             return view('configurar.clases.index', compact('materias','aulas','clases'));
         }
     }
-
+    public function misClases(){
+         if(Auth::check()){
+            $user = Auth::user()->id;
+            // $materias = Materia::where('user_id',$user)->get();
+            // $aulas= Aula::where('user_id',$user)->get();
+            $clases = Clase::where('user_id',$user)->with('user','materia','sesion')->get();
+            return response()->json(['success' => true, 'clases' => $clases], 200);
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *

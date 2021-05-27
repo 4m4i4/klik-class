@@ -31,6 +31,13 @@ class MateriaController extends Controller
         return view('configurar.materias.index', compact('materias','user'));
         }
     }
+    public function misMaterias(){
+         if(Auth::check()){
+            $user = Auth::user()->id;
+            $materias = Materia::where('user_id',$user)->with('user','estudiantes','clases')->get();
+            return response()->json(['success' => true, 'materias' => $materias], 200);
+        }
+    }
 
     /**
      * Show the form for creating a new resource.

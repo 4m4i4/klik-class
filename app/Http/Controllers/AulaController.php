@@ -7,7 +7,8 @@ use App\Models\Mesa;
 use App\Models\Materia;
 use App\Models\Estudiante;
 use App\Models\User;
-        use Illuminate\Support\Arr;   use Illuminate\Support\Str;       
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;       
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -68,6 +69,7 @@ class AulaController extends Controller
                 'num_columnas' =>'required|integer|max:9|min:1',
                 'num_filas' =>'required|integer|max:9|min:1',
                 'num_mesas' =>'required|integer|max:30',
+                'check' =>'required|boolean'
                 // 'num_estudiante' =>'nullable',
             ])
         )
@@ -77,7 +79,8 @@ class AulaController extends Controller
                'num_columnas'=>request('num_columnas'),
                'num_filas'=>request('num_filas'),
                'num_mesas'=>request('num_mesas'),
-               'user_id'=>request('user_id')
+               'user_id'=>request('user_id'),
+               'check'=>request('check')
             ]);
             $aula->save();
             return redirect()->route('materias.index');
@@ -111,7 +114,7 @@ class AulaController extends Controller
             for ($row = $aula->num_filas;  $row > 0; $row--){
               for ($col = 1; $col <= $aula->num_columnas; $col++){
                   $mesa = new Mesa;
-                  $mesa->mesa_name = $aula->id.'_'.$col.'_'.$row;
+                //   $mesa->mesa_name = $aula->id.'_'.$col.'_'.$row;
                   $mesa->columna = $col;
                   $mesa->fila = $row;
                   $mesa->aula_id = $aula->id;
@@ -153,7 +156,7 @@ class AulaController extends Controller
                 } 
             } 
         }
-        return view('configurar.aulas.show', compact('aula', 'user','mesas'));
+        return view('configurar.aulas.show', compact('aula', 'user','mesas', 'estudiantes'));
     }
 
     /**
@@ -190,7 +193,7 @@ class AulaController extends Controller
         $mesas_aula = Mesa::where('user_id',$user)->where('aula_id', $aula->id)->get();
         //   dd($mesas_aula);
         $miAula = Aula::where('id', $aula->id)->with('mesas')->get();
-        dd($miAula);
+        // dd($miAula);
 
         $nombreAula = request('aula_name');
         $columnas = request('num_columnas');
@@ -208,7 +211,7 @@ class AulaController extends Controller
                     for ($col = 1; $col <= $columnas; $col++){
                         if($mesas_aula->count() < $indice){
                             $id = $mesas_aula[$indice]->id;
-                            DB::table('mesas')->where('id', $id)->update(['mesa_name'=>$aula->id.'_'.$col.'_'.$row,'columna'=>$col,'fila'=>$row]);
+                            DB::table('mesas')->where('id', $id)->update(['columna'=>$col,'fila'=>$row]);
                         }
                         $indice++;
                     }
@@ -223,7 +226,9 @@ class AulaController extends Controller
                 'aula_name' =>'required|string',
                 'num_columnas' =>'required|integer|max:9|min:1',
                 'num_filas' =>'required|integer|max:9|min:1',
-                'num_mesas' =>'required|integer|max:'.$maxMesas
+                'num_mesas' =>'required|integer|max:'.$maxMesas,
+                'check' =>'required|boolean'
+
              ])
         )
         {
@@ -232,6 +237,7 @@ class AulaController extends Controller
             $aula->num_filas = request('num_filas');
             $aula->num_mesas = request('num_mesas');
             $aula->user_id = request('user_id');
+            $aula->check = request('check');
             $aula->save();
             $aula->refresh();
             if($num_estudiantes == '0') return redirect()->route('materias.index')->with('info', $msn);
@@ -302,13 +308,13 @@ class AulaController extends Controller
             for($i = 0; $i < $num_mesasVacias; $i++){
                 $mesaColRow = $arr_mesasVacias[$i];
                 // $arrMesa = Str::of($mesaColRow)->explode("_");
-                // $columna =  Str::before($mesaColRow, '_');// dd($columna);
-                // $fila = Str::after($mesaColRow, '_'); // dd($fila);              
+                $columna =  Str::before($mesaColRow, '_');// dd($columna);
+                $fila = Str::after($mesaColRow, '_'); // dd($fila);              
                 $id_vaciar = DB::table('mesas')
-                            ->where('mesa_name',$aula->id.'_'.$mesaColRow)
-                            // ->where('aula_id', $aula->id)
-                            // ->where('columna',$columna)
-                            // ->where('fila',$fila)
+                            // ->where('mesa_name',$aula->id.'_'.$mesaColRow)
+                            ->where('aula_id', $aula->id)
+                            ->where('columna',$columna)
+                            ->where('fila',$fila)
                             ->value('id');// dd($id_vaciar);
                 $vaciarMesa = Mesa::find( $id_vaciar);
                 $vaciarMesa->is_ocupada = false;
