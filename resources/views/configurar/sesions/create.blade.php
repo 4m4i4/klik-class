@@ -22,11 +22,15 @@
            value={{ auth()->user()->id }} readonly />
         </div>
         <label for="siguiente"><b></b></label>
-            <input type="hidden" id="sigiente" value="{{ $siguiente }}" >
+            <input type="hidden" id="siguiente" value="{{ $siguiente }}" >
         <div class="pb-6 grid grid-cols-2 justify-between">
           <div class="mr-1">
             <label for="inicio"><b>Empieza:</b></label>
+            @if ($errors->any())
+            <input type="time" id="inicio" value="{{ old('inicio') }}" name="inicio" autofocus class="d_block" >
+            @else
             <input type="time" id="inicio" value="{{ $siguiente }}" name="inicio" autofocus class="d_block" >
+            @endif
           </div>
           <div class="ml-1">
             <label for="fin"><b>Acaba: </b></label>

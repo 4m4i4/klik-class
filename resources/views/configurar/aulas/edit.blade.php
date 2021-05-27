@@ -21,6 +21,8 @@
         <div class="hidden"><!-- User_name -->
           <label for="user_id">user</label>
           <input type="text" name="user_id" value={{ auth()->user()->id }} readonly />
+          <label for="check"></label>
+          <input type="hidden" name="check" value='1' />
         </div>         
 
         <div class="pb-6">  

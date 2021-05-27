@@ -22,7 +22,7 @@
                   $count = count($dias);
                   use  App\Models\Sesion;
                   $sesiones = Sesion::where('user_id',$user)->get();
-                  $num_sesiones= $sesiones->count();
+                  $num_sesiones = $sesiones->count();
                 @endphp
             <h2 class="title text-overflow">Sesión: Inicio y final</h2>
 

@@ -172,7 +172,13 @@
                           <!-- si no lo están, se enlaza el formulario para crear el grupo de estudiantes -->
                       @if($isStudent == null)
                         <td class="pt-02 mt-0">   <!-- Grupo -->  
-                          <a href="#" id="{{$materia->grupo}}_{{$materia->id}}" title="Añadir estudiantes de {{$materia->grupo }}" class="d_block pt-02 editar" onclick="estudiantesModal(this.id)">
+                          <a href="#"
+                          {{-- <a href="{{ route('estudiantes.create', $materia->id) }}"   --}}
+                          id="{{$materia->materia_name}}_{{$materia->id}}" 
+                          title="Añadir estudiantes de {{$materia->grupo }}" 
+                          class="d_block pt-02 editar" 
+                          onclick="estudiantesModal(this.id)"
+                          >
                              {{ $materia->grupo }} {{ __('Add')}}
                           </a>
                         </td>
@@ -182,6 +188,7 @@
                       @elseif($isStudent !== null)
                           <!-- si existen se marca como hecho y se enlaza el formulario para actualizar el aula -->
                         @php
+                          DB::table('materias')->where('id',$materia->id)->update(['check'=>true]);
                           $countStudents = $materia->estudiantes()->where('materia_id', $materia->id)->count();
                           $aula_id = $materia->aula_id;
                           // dd($aula_id);
@@ -205,6 +212,7 @@
                           </a>
                         </td>
                         <td class="">   <!-- Mostrar la disposición de mesas en el aula -->
+                        @if($aula->check && $materia->check)
                           <a href="{{ route('aulas.show', $aula->id) }}" 
                             id="verMesasAula{{ $aula->id }}" 
                             class="d_block ver pt-02" 
@@ -212,6 +220,7 @@
                               <span class="ico-shadow"> 👀 </span>
                               <span class="bt-text-hide">{{ __('Show')}} </span>
                           </a>
+                        @endif
                         </td>
                       @endif 
                     @endif
