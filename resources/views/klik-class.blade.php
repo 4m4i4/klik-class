@@ -42,8 +42,8 @@
         if(xxhr.status==200){
           var json = JSON.parse(xxhr.responseText);
           var template=``;
-          var date= new Date('2021/5/27 11:41:00');
-          // var date= new Date();
+          // var date= new Date('2021/5/27 11:41:00');
+          var date= new Date();
           var d= new Intl.DateTimeFormat('es-ES',{dateStyle:'short'}).format(date);
           // console.log("fecha= "+date);
           // console.log("fecha d= "+d);
@@ -63,14 +63,14 @@
               && t_actual <= timeStr2Millis(data.sesion.fin))
               {     
               //  // OPCIÓN QUE FUNCIONA
-              //  template="";
-              // template+=
-              // `<h2>${data.dia} </h2>
-              // <strong>${data.sesion.inicio}-${data.sesion.fin}</strong>
-              // <p>${data.materia.materia_name}</p>
-              // <p>Tienes clase en el AULA = ${data.materia.aula_id}</p>
-              // `
-              // return template;
+               template="";
+              template+=
+              `<h2>${data.dia} </h2>
+              <strong>${data.sesion.inicio}-${data.sesion.fin}</strong>
+              <p>${data.materia.materia_name}</p>
+              <p>Tienes clase en el AULA = ${data.materia.aula_id}</p>
+              `
+              return template;
               //  // fin de OPCIÓN QUE FUNCIONA
 
             //   // // OPCIÓN QUE NO ENTIENDO PORQUÉ NO FUNCIONA
@@ -79,9 +79,9 @@
             //   // template=`${data.materia.aula_id}`
             //   // return template;
 
-             template= setTimeOut(function(){alertFunc(`${data.materia.aula_id}`);
-               },5000); 
-                return template;
+            //  template= setTimeOut(function(){alertFunc(`${data.materia.aula_id}`);
+            //    },5000); 
+            //     return template;
             //   // // fin de OPCIÓN QUE NO ENTIENDO PORQUÉ NO FUNCIONA
             }
             function alertFunc(parametro){

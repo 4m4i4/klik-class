@@ -58,9 +58,9 @@
         {{-- <form id="enviaHora" > --}}
         <div class="caja marcoReloj">
            {{-- <textarea class="relojEnorme text-center" id="ahora" name="ahora"></textarea> --}}
-            <div class="relojEnorme text-center" id="khora" name="ahora" 
+            <div class="relojEnorme text-center" id="khora" ></div>
             {{-- onchange="enviaHora(this.id)" --}}
-            ></div>
+           
             {{-- <button type="submit">Enviar</button> --}}
         </div>
         {{-- </form> --}}
@@ -106,6 +106,18 @@
 @endif
 
 <script>
+    var ahora=document.getElementById('khora');
+    // var horaHome = document.getElementById('horaHome');
+    // var miVar = setInterval(function(){
+    //   var d = new Date();
+    //     var options = {
+    //         hour: '2-digit',
+    //         minute: '2-digit',
+    //         hour12: false
+    //     };
+    //     horaHome.innerHTML = new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g, '-').replace(',', '');
+    // },1000);
+ 
     // var ahora = document.getElementById('khora');
     // function myTimer(){
     //   var x = new Date();
@@ -145,18 +157,18 @@
     //       console.log(data);
     //   });
  
-    function enviaHora(cadena){
-      let x = document.getElementById(cadena);
-      ahora = x.value;
-      console.log("hora: "+ahora);
-        //   document.getElementById(cadena).value = value_materia_id;
-        //   var xhr = new XMLHttpRequest();
-        //   xhr.open('POST',`{{route('home')}}`,true);
-        //   xhr.setRequestHeader('Content-Type','application/json');
-        //   xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-        // xhr.onreadystatechange = function(){
-        //   document.getElementById('respuesta').innerHTML = xhr.responseText;
-        // }
-        //   xhr.send(location.replace(value_materia_id));
-    }
+    // function enviaHora(cadena){
+    //   let x = document.getElementById(cadena);
+    //   ahora = x.value;
+    //   console.log("hora: "+ahora);
+    //     //   document.getElementById(cadena).value = value_materia_id;
+    //     //   var xhr = new XMLHttpRequest();
+    //     //   xhr.open('POST',`{{route('home')}}`,true);
+    //     //   xhr.setRequestHeader('Content-Type','application/json');
+    //     //   xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+    //     // xhr.onreadystatechange = function(){
+    //     //   document.getElementById('respuesta').innerHTML = xhr.responseText;
+    //     // }
+    //     //   xhr.send(location.replace(value_materia_id));
+    // }
 </script>
