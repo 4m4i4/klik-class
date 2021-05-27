@@ -15,7 +15,6 @@ class CreateMesasTable extends Migration
     {
         Schema::create('mesas', function (Blueprint $table) {
             $table->id();
-            $table->string('mesa_name',8);
             $table->tinyInteger('columna');
             $table->tinyInteger('fila');
             $table->boolean('is_ocupada')
@@ -28,7 +27,7 @@ class CreateMesasTable extends Migration
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
 
-            $table->unsignedBigInteger('aula_id')->nullable();;
+            $table->unsignedBigInteger('aula_id')->nullable();
             $table->foreign('aula_id')
                   ->references('id')
                   ->on('aulas')
