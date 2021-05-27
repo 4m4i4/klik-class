@@ -9,7 +9,6 @@ class Mesa extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'mesa_name',
         'columna',
         'fila',
         'is_ocupada',

@@ -12,6 +12,7 @@ class Aula extends Model
         'num_columnas',
         'num_filas',
         'num_mesas',
+        'check',
         'user_id'
     ];
 

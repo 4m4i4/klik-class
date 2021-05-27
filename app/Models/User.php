@@ -81,4 +81,8 @@ class User extends Authenticatable
     public function mesas(){
         return $this->hasMany('App\Models\Mesa');
     }
+    // One to many
+    public function botons(){
+        return $this->hasMany('App\Models\Boton');
+    }
 }

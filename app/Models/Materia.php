@@ -11,8 +11,12 @@ class Materia extends Model
     protected $fillable = [
         'materia_name', 
         'grupo',
+        'check',
         'aula_id',
-        'user_id'
+        'user_id',
+        'boton_izq',
+        'boton_dch',
+        'boton_abajo'
     ];
 
     /**

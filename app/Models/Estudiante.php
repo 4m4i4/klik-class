@@ -12,6 +12,7 @@ class Estudiante extends Model
         'nombre',
         'apellidos',
         'nombre_completo',
+        'check',
         'user_id'
     ];
 
