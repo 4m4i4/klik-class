@@ -1,4 +1,5 @@
 
+
 var screenWidth=screen.availWidth;
 if(screenWidth>=414)
   var semana=`'Horario','Lunes','Martes','Miercoles','Jueves','Viernes'`;
@@ -7,16 +8,17 @@ var semana=`'Hora','Lun','Mar','Mie','Jue','Vie'`;
 // document.getElementById("semana").innerHTML=semana;
 
 var myVar = setInterval(myTimer, 1000);
-var queHora = document.getElementById("khora");
-
-
+var ahora;
+if(typeof ahora !=='undefined'){
+  ahora = document.getElementById("khora");
+}
 
 function myTimer() {
   var d = new Date();
   var options = {hour:'2-digit', minute: '2-digit',hour12: false};
   // console.log(new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g,'-').replace(',',''));
-  queHora.innerHTML = new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g,'-').replace(',',''); 
-  // queHora.innerHTML = d.toLocaleTimeString(); 
+  ahora.innerHTML = new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g,'-').replace(',',''); 
+  // ahora.innerHTML = d.toLocaleTimeString(); 
   var queDia = document.getElementById("kdiaes");
   var dias = ["Domingo","Lunes", "Martes", "Miércoles","Jueves","Viernes","Sábado"];
   var dia = d.getDay();
@@ -39,7 +41,7 @@ function fFecha(x){
   var d = h.getDate();  // día (número del mes)
   var m = h.getMonth();  // mes (número del 0 al 11)
   var y = h.getFullYear();
-  myTimer();
+  // myTimer();
   var dias = ["DOMINGO","LUNES", "MARTES", "MIÉRCOLES","JUEVES","VIERNES","SÁBADO"];
   var dia = h.getDay();
   var meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
@@ -153,48 +155,75 @@ function crearBoton(parent, text, id) {
     parent.appendChild(x);
 }
 
-function desabilita(id){
+  function desabilita(id){
     let dni = id;
     console.log(dni);
     let m = document.getElementById(dni);
     // m.classList.add ("falta");
     m.setAttribute("disabled","true");
-    let A_bt = document.getElementById("A_bt_" +dni);
+    let A_bt = document.getElementById("bt_izq_" +dni);
     A_bt.setAttribute("disabled","true");
-    let B_bt = document.getElementById("B_bt_" +dni);
+    let B_bt = document.getElementById("bt_dcha_" +dni);
     B_bt.setAttribute("disabled","true");
     let name = document.getElementById("name_" +dni);
     name.setAttribute("disabled","true");
-}
+  }
 
   function suma(x, y=1){
     let res = x.innerHTML;
     res = parseInt(res) + y;
     x.innerHTML = res;
   }
-   function sino(x){
+  function sino(x){
     let res = x.innerHTML;
     if(res == "Sí"){
       res = "No";
-      x.classList.remove('bg-sobreB');
-      x.classList.add('bg-sobreN');
+      x.classList.remove('bg-fucsia','text-white');
+      x.classList.add('bg-amarillo','text-gray-900');
     }else if(res == "No"){
       res = "Sí";
-      x.classList.remove('bg-sobreN');
-      x.classList.add('bg-sobreB');
+      x.classList.remove('bg-amarillo','text-gray-900');
+      x.classList.add('bg-fucsia','text-white');
     }
     x.innerHTML = res;
     console.log(res); 
-    // x.classList.toggle('bg-sobreN');
   }
 
-  function lee(x){
-    let valor = document.getElementById(x).innerHTML;
+  function lee(laid){
+    let valor = document.getElementById(laid).innerHTML;
     console.log("v: "+valor);
-    let cero = parseInt(valor)%50;
-    console.log("resto: "+cero);
-    if(cero == 0){
-      document.getElementById(x).classList.toggle('bg-blue');
+      if( parseInt(valor) < 50){        
+        valor = parseInt(valor) + 10;
+        document.getElementById(laid).innerHTML = valor; 
+        let colorGradual = parseInt(valor) % 60;
+        console.log("color gradual: "+colorGradual);
+        switchColor(colorGradual,laid);
+      }
+  }
+
+  function switchColor(x,id){
+    let ele = document.getElementById(id);
+    switch (x) {
+      case 10:ele.classList.remove('bg-gradual1');
+             ele.classList.add('bg-gradual2');
+        break;
+      case 20:ele.classList.remove('bg-gradual2');
+              ele.classList.add('bg-gradual3');
+        break;
+      case 30:ele.classList.remove('bg-gradual3');
+              ele.classList.add('bg-gradual4');
+        break;
+      case 40:ele.classList.remove('bg-gradual4');
+              ele.classList.add('bg-gradual5');
+        break;
+      case 50:ele.classList.remove('bg-gradual5');
+              ele.classList.add('bg-gradual6');
+        break;
+      case 50:ele.classList.remove('bg-gradual6');
+              ele.classList.add('bg-gradual6');
+        break;
+      default:document.getElementById(id).classlist.toggle('bg-gradual1');
+        break;
     }
   }
   
@@ -287,7 +316,6 @@ function configurarHorario(){
   }
   aula.appendChild(tablaHorarios);
  }        
-
 
 
         var acaba=true;        

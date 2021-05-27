@@ -115,7 +115,7 @@ function fFecha(x) {
   var d = h.getDate();
   var m = h.getMonth();
   var y = h.getFullYear();
-  myTimer();
+  // myTimer();
   var dias = ["DOMINGO", "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO"];
   var dia = h.getDay();
   var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];

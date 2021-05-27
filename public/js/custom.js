@@ -1,103 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
-/******/ })
-/************************************************************************/
-/******/ ({
 
-/***/ "./resources/js/custom.js":
-/*!********************************!*\
-  !*** ./resources/js/custom.js ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
 
 var screenWidth = screen.availWidth;
 if (screenWidth >= 414) var semana = "'Horario','Lunes','Martes','Miercoles','Jueves','Viernes'";else var semana = "'Hora','Lun','Mar','Mie','Jue','Vie'"; // document.getElementById("semana").innerHTML=semana;
 
 var myVar = setInterval(myTimer, 1000);
-var queHora = document.getElementById("khora");
+var ahora;
+
+if (typeof ahora !== 'undefined') {
+  ahora = document.getElementById("khora");
+}
 
 function myTimer() {
   var d = new Date();
@@ -107,7 +18,7 @@ function myTimer() {
     hour12: false
   }; // console.log(new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g,'-').replace(',',''));
 
-  queHora.innerHTML = new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g, '-').replace(',', ''); // queHora.innerHTML = d.toLocaleTimeString(); 
+  ahora.innerHTML = new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g, '-').replace(',', ''); // ahora.innerHTML = d.toLocaleTimeString(); 
 
   var queDia = document.getElementById("kdiaes");
   var dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
@@ -130,8 +41,8 @@ function fFecha(x) {
 
   var m = h.getMonth(); // mes (número del 0 al 11)
 
-  var y = h.getFullYear();
-  myTimer();
+  var y = h.getFullYear(); // myTimer();
+
   var dias = ["DOMINGO", "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO"];
   var dia = h.getDay();
   var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -270,9 +181,9 @@ function desabilita(id) {
   var m = document.getElementById(dni); // m.classList.add ("falta");
 
   m.setAttribute("disabled", "true");
-  var A_bt = document.getElementById("A_bt_" + dni);
+  var A_bt = document.getElementById("bt_izq_" + dni);
   A_bt.setAttribute("disabled", "true");
-  var B_bt = document.getElementById("B_bt_" + dni);
+  var B_bt = document.getElementById("bt_dcha_" + dni);
   B_bt.setAttribute("disabled", "true");
   var name = document.getElementById("name_" + dni);
   name.setAttribute("disabled", "true");
@@ -290,26 +201,68 @@ function sino(x) {
 
   if (res == "Sí") {
     res = "No";
-    x.classList.remove('bg-sobreB');
-    x.classList.add('bg-sobreN');
+    x.classList.remove('bg-fucsia', 'text-white');
+    x.classList.add('bg-amarillo', 'text-gray-900');
   } else if (res == "No") {
     res = "Sí";
-    x.classList.remove('bg-sobreN');
-    x.classList.add('bg-sobreB');
+    x.classList.remove('bg-amarillo', 'text-gray-900');
+    x.classList.add('bg-fucsia', 'text-white');
   }
 
   x.innerHTML = res;
-  console.log(res); // x.classList.toggle('bg-sobreN');
+  console.log(res);
 }
 
-function lee(x) {
-  var valor = document.getElementById(x).innerHTML;
+function lee(laid) {
+  var valor = document.getElementById(laid).innerHTML;
   console.log("v: " + valor);
-  var cero = parseInt(valor) % 50;
-  console.log("resto: " + cero);
 
-  if (cero == 0) {
-    document.getElementById(x).classList.toggle('bg-blue');
+  if (parseInt(valor) < 50) {
+    valor = parseInt(valor) + 10;
+    document.getElementById(laid).innerHTML = valor;
+    var colorGradual = parseInt(valor) % 60;
+    console.log("color gradual: " + colorGradual);
+    switchColor(colorGradual, laid);
+  }
+}
+
+function switchColor(x, id) {
+  var ele = document.getElementById(id);
+
+  switch (x) {
+    case 10:
+      ele.classList.remove('bg-gradual1');
+      ele.classList.add('bg-gradual2');
+      break;
+
+    case 20:
+      ele.classList.remove('bg-gradual2');
+      ele.classList.add('bg-gradual3');
+      break;
+
+    case 30:
+      ele.classList.remove('bg-gradual3');
+      ele.classList.add('bg-gradual4');
+      break;
+
+    case 40:
+      ele.classList.remove('bg-gradual4');
+      ele.classList.add('bg-gradual5');
+      break;
+
+    case 50:
+      ele.classList.remove('bg-gradual5');
+      ele.classList.add('bg-gradual6');
+      break;
+
+    case 50:
+      ele.classList.remove('bg-gradual6');
+      ele.classList.add('bg-gradual6');
+      break;
+
+    default:
+      document.getElementById(id).classlist.toggle('bg-gradual1');
+      break;
   }
 }
 
@@ -410,31 +363,3 @@ function acabar() {
   document.enviar.var_php.value = acaba;
   document.enviar.submit();
 }
-
-/***/ }),
-
-/***/ "./resources/sass/customApp.scss":
-/*!***************************************!*\
-  !*** ./resources/sass/customApp.scss ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 0:
-/*!**********************************************************************!*\
-  !*** multi ./resources/js/custom.js ./resources/sass/customApp.scss ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(/*! C:\Users\vvvv\Desktop\Proyectos\schoolMap\resources\js\custom.js */"./resources/js/custom.js");
-module.exports = __webpack_require__(/*! C:\Users\vvvv\Desktop\Proyectos\schoolMap\resources\sass\customApp.scss */"./resources/sass/customApp.scss");
-
-
-/***/ })
-
-/******/ });

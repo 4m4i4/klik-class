@@ -1,22 +1,22 @@
 // require('./bootstrap');
 
-var myVar = setInterval(myTimer, 1000);
-var queHora = document.getElementById("khora");
+// var myVar = setInterval(myTimer, 1000);
+// var queHora = document.getElementById("khora");
 
 
 
-function myTimer() {
-  var d = new Date();
-  queHora.innerHTML = d.toLocaleTimeString(); 
-  var queDia = document.getElementById("kdiaes");
-  var dias = ["Domingo","Lunes", "Martes", "Miércoles","Jueves","Viernes","Sábado"];
-  var dia = d.getDay();
-  var n = d.getDate();
+// function myTimer() {
+//   var d = new Date();
+//   queHora.innerHTML = d.toLocaleTimeString(); 
+//   var queDia = document.getElementById("kdiaes");
+//   var dias = ["Domingo","Lunes", "Martes", "Miércoles","Jueves","Viernes","Sábado"];
+//   var dia = d.getDay();
+//   var n = d.getDate();
   
-  if(queDia!==null)
-  // queDia.innerHTML = d.toLocaleDateString();
-  queDia.innerHTML = n+" "+ dias[dia];
-} 
+//   if(queDia!==null)
+//   // queDia.innerHTML = d.toLocaleDateString();
+//   queDia.innerHTML = n+" "+ dias[dia];
+// } 
 
 
 
@@ -74,7 +74,13 @@ function fFecha(x){
 // // document.getElementById("semana").innerHTML=semana;
 
 
-
+var estudianteBotones = [1, 2, 4, 6];
+// se obtiene el valor del botón 
+var valor_bt = estudianteBotones[2];
+// se aplica el método para calcular el nuevo valor
+var nuevoValor_bt = cambiaValue(valor_bt);
+// y se actualiza el valor del botón en la instancia
+estudianteBotones[2] = nuevoValor_bt;
 
 
 
@@ -155,19 +161,19 @@ function crearBoton(parent, text, id) {
     parent.appendChild(x);
 }
 
-function desabilita(id){
+  function desabilita(id){
     let dni = id;
     console.log(dni);
     let m = document.getElementById(dni);
     // m.classList.add ("falta");
     m.setAttribute("disabled","true");
-    let A_bt = document.getElementById("A_bt_" +dni);
+    let A_bt = document.getElementById("bt_izq_" +dni);
     A_bt.setAttribute("disabled","true");
-    let B_bt = document.getElementById("B_bt_" +dni);
+    let B_bt = document.getElementById("bt_dcha_" +dni);
     B_bt.setAttribute("disabled","true");
     let name = document.getElementById("name_" +dni);
     name.setAttribute("disabled","true");
-}
+  }
 
   function suma(x, y = 1){
     let res = x.innerHTML;
