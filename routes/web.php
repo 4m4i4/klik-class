@@ -23,8 +23,8 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/botones', function(){
-    return view('botones');
+Route::get('/personalizar', function(){
+    return view('personalizar');
 });
 Route::get('/exportar', function(){
     return view('exportar');
@@ -36,7 +36,10 @@ Route::get('/horario', function(){
 Route::get('/klik-class', function(){
     return view('klik-class');
 });
-
+Route::get('/clases',[App\Http\Controllers\claseController::class, 'misClases']);
+Route::get('/botons',[App\Http\Controllers\botonController::class, 'index']);
+Route::get('/materias',[App\Http\Controllers\materiaController::class, 'misMaterias']);
+Route::get('/estudiantes',[App\Http\Controllers\estudianteController::class, 'misEstudiantes']);
 
 // ============= MATERIAController ====================
 
@@ -120,8 +123,8 @@ Route::get('configurar/estudiantes/{materia_id}', [App\Http\Controllers\Estudian
 
 // Route::resource('configurar/estudiantes', App\Http\Controllers\EstudianteController::class);
 
-Route::get('configurar/estudiantes/create',[App\Http\Controllers\EstudianteController::class,'create'])->name('estudiantes.create');
-    Route::post('configurar/estudiantes',[App\Http\Controllers\EstudianteController::class, 'store'])->name('estudiantes.store');
+Route::get('configurar/estudiantes/create/{materia_id}',[App\Http\Controllers\EstudianteController::class,'create'])->name('estudiantes.create');
+    Route::post('configurar/estudiantes/create',[App\Http\Controllers\EstudianteController::class, 'store'])->name('estudiantes.store');
     Route::get('configurar/estudiantes/{estudiante}/edit',[App\Http\Controllers\EstudianteController::class, 'edit'])->name('estudiantes.edit');
     Route::put('configurar/estudiantes/{estudiante}',[App\Http\Controllers\EstudianteController::class,'update'])->name('estudiantes.update');
     Route::delete('configurar/estudiantes/{estudiante}',[App\Http\Controllers\EstudianteController::class,'destroy'])->name('estudiantes.destroy');
@@ -137,4 +140,11 @@ Route::resource('configurar/mesas', App\Http\Controllers\MesaController::class);
     // Route::get('configurar/mesas/{mesa}/edit',[App\Http\Controllers\MesaController::class,   'edit'])->name('mesas.edit');
     // Route::put('configurar/mesas/{mesa}',[App\Http\Controllers\MesaController::class,' update'])->name('mesas.update');
     // Route::delete('configurar/mesas/{mesa}',[App\Http\Controllers\MesaController::class,'destroy'])->name('mesas.destroy');
+
+// ============= BOTONController ====================
+
+Route::get('personalizar#cloneBooleano',[App\Http\Controllers\BotonController::class, 'cloneBooleano'])->name('botones.cloneBooleano');
+Route::get('personalizar#cloneGradual',[App\Http\Controllers\BotonController::class, 'cloneBooleano'])->name('botones.cloneGradual');
+Route::get('personalizar#cloneAsistencia',[App\Http\Controllers\BotonController::class, 'cloneAsistencia'])->name('botones.cloneAsistencia');
+Route::post('personalizar',[App\Http\Controllers\BotonController::class, 'store'])->name('botones.store');
 
