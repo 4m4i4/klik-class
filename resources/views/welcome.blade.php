@@ -42,7 +42,7 @@
                 </svg>
 
                 <div class="py-4 text-center font-semibold ">
-                    <h2>kk Klik-Class</h2>
+                    <h2>Klik-Class</h2>
 
                 </div>
                 
