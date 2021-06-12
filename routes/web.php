@@ -25,7 +25,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/personalizar', function(){
     return view('personalizar');
-});
+})->name('personalizar');
 Route::get('/exportar', function(){
     return view('exportar');
 });
@@ -36,8 +36,10 @@ Route::get('/horario', function(){
 Route::get('/klik-class', function(){
     return view('klik-class');
 });
-Route::get('/clases',[App\Http\Controllers\claseController::class, 'misClases']);
+// Route::get('/clases',[App\Http\Controllers\claseController::class, 'misClases']);
 Route::get('/botons',[App\Http\Controllers\botonController::class, 'index']);
+Route::get('/inicializar_botones',[App\Http\Controllers\botonController::class, 'inicializarBotones'])->name('botones.inicializa');
+Route::put('/inicializar_botones/{user}',[App\Http\Controllers\botonController::class, 'inicializarBotones'])->name('botones.inicializa');;
 Route::get('/materias',[App\Http\Controllers\materiaController::class, 'misMaterias']);
 Route::get('/estudiantes',[App\Http\Controllers\estudianteController::class, 'misEstudiantes']);
 

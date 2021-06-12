@@ -47,13 +47,11 @@ class PasoController extends Controller
             $user->save();
             $user->refresh();
           }        
-          if($user->paso ==2) return redirect( route('sesions.index'));
-          if($user->paso ==3) return redirect( route('clases.index'));
-           return redirect( route('home'));
+          if($user->paso == 2) return redirect( route('sesions.index'));
+          if($user->paso == 3) return redirect( route('clases.index'));
+          if($user->paso == 5) return redirect( route('home'));
           // si ha acabado la fase de configuración, y sale de la página home: el objetivo es quitar el mensaje de enhorabuena
-          if($user->paso==5){
-            dd($request->path());
-          }
+          if($user->paso == 6) return redirect( route('personalizar'));
           
           // if($user->paso ==5 &&  !$request->path() === 'home'){
           //   $user->paso = (string)((int)$paso + 1);
@@ -79,12 +77,12 @@ class PasoController extends Controller
           $user->save();
           $user->refresh();
         }
-        if($user->paso ==0) return redirect( route('home'));   
-        if($user->paso ==1) return redirect( route('materias.index'));
-        if($user->paso ==2) return redirect( route('sesions.index'));
-        if($user->paso ==3) return redirect( route('clases.index'));
-        if($user->paso ==4) return redirect( route('materias.index'));
-        if($user->paso ==5) return redirect( route('home'));
+        if($user->paso == 0) return redirect( route('home'));   
+        if($user->paso == 1) return redirect( route('materias.index'));
+        if($user->paso == 2) return redirect( route('sesions.index'));
+        if($user->paso == 3) return redirect( route('clases.index'));
+        if($user->paso == 4) return redirect( route('materias.index'));
+        if($user->paso == 5) return redirect( route('home'));
       }
       return redirect( url()->previous());
     }

@@ -15,7 +15,7 @@
       <div class="">
         <div class="mb-2"><!-- $clase->user_id  -->
             {{-- <p>Usuari@: {{auth()->user()->name}}</p> --}}
-          <p class="text-center"> {{$aula->aula_name}}</p>
+          <p class="text-center"> {{$materia_name}}</p>
           <p class="ejemplo">
             <strong>{{$aula->num_columnas}}</strong> columnas y 
             <strong>{{$aula->num_filas}}</strong> filas;<br> 

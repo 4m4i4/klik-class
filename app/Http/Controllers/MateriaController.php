@@ -27,7 +27,7 @@ class MateriaController extends Controller
     {  
         if(Auth::check()){
             $user = Auth::user()->id; 
-            $materias = Materia::where('user_id',$user)->with('user','estudiantes','clases')->paginate(12);
+            $materias = Materia::where('user_id',$user)->with('user','estudiantes','aula','clases')->paginate(12);
         return view('configurar.materias.index', compact('materias','user'));
         }
     }

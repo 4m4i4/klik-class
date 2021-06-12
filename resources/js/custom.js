@@ -8,12 +8,12 @@ var semana=`'Hora','Lun','Mar','Mie','Jue','Vie'`;
 // document.getElementById("semana").innerHTML=semana;
 
 var myVar = setInterval(myTimer, 1000);
-var ahora;
+// var ahora;
 if(typeof ahora !=='undefined'){
-  ahora = document.getElementById("khora");
+ var ahora = document.getElementById("khora");
 }
 
-function myTimer() {
+// function myTimer() {
   var d = new Date();
   var options = {hour:'2-digit', minute: '2-digit',hour12: false};
   // console.log(new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g,'-').replace(',',''));
@@ -27,7 +27,7 @@ function myTimer() {
   if(queDia!==null)
   // queDia.innerHTML = d.toLocaleDateString();
   queDia.innerHTML = n+" "+ dias[dia];
-} 
+// } 
 
 function configuraFecha(){
 var x= document.getElementById("configFecha").value;

@@ -32,15 +32,6 @@
   $dmes = $meses[date("n")];
   $danio = date("Y");
   $fecha = $diaSemana." ". $ddia." de ". $dmes. " de ".$danio;
-  // $diaMes=  $ddia." de ". $dmes;
-  // $ahora = new DateTime();
-  // $laHora = $ahora->format('H:i');
-  // $laHora = date_format($date, "H:i");
-  // $laHora = $ahora;
-  // $ahora= new DateTime();
-  // $ahora= $ahora->format('i');
-  // $ahora = date('H : i');
-
 
 
 
@@ -71,17 +62,4 @@
     {{-- <div><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Creative Commons Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional License" ><img alt="Licencia de Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png"/></a></div> --}}
 <script>
   var ahora = document.getElementById('khora');
-  var myVar = setInterval(myTimer,1000);
-  function myTimer(){
-    var d = new Date();
-    var options = {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-    };
-    ahora.innerHTML = new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g, '-').replace(',', '');
-  }
-
-
-
-  </script>
+</script>

@@ -120,8 +120,9 @@ class EstudianteController extends Controller
                 
                 $materia->estudiantes()->attach($estudiante_id);
                 // $estudiante_materia = DB::table('estudiante_materia')->insert(['materia_id'=>$materia_id, 'estudiante_id'=>$estudiante_id]);
-                $nuevos++;
                 $mns_nuevos = ' Hay '.$nuevos.' estudiantes nuevos.';
+                $nuevos++;
+                
             // si está registrado
             }elseif($busca_estudiante !== null){
                 // obtenemos el id del estudiante;

@@ -38,7 +38,7 @@
                @csrf
                 @method("PUT")
                   <button type="submit" 
-                    title="Horario completado: Ir a rellenar Horario"
+                    title="Horario completado: Ir a poner Clases"
                     class="ml-1 btn continuar">
                     <span class="ico-shadow">✅&nbsp </span> 
                     <span class="">{{ __('Next')}}</span>

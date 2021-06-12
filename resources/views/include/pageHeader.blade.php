@@ -27,20 +27,27 @@
 
           {{-- si se acaba la configuración se muestra el menú-  paso 6 --}}
           @if(auth()->user()!==null && auth()->user()->paso == 5)
-                      <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}" class=" menuUso d_inline">
-                        @csrf
-                        @method("PUT")
-                        <button type="submit" class="nav-sub bg-transparent">Personalizar </button>
-                      </form>
-                      <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}" class="menuUso d_inline">
-                        @csrf
-                        @method("PUT")
-                        <button type="submit" class="nav-sub bg-transparent">Exportar </button>
-                      </form>
+            <a class="nav-sub" href="{{ route('botones.inicializa',auth()->user()->id) }}"
+              onclick="event.preventDefault();
+              document.getElementById('bt_init-form').submit();
+               document.getElementById('pasomas-form').submit();
+              ">
+              
+            Personalizar</a>
+            <form id="bt_init-form" method="POST" action="{{route('botones.inicializa',auth()->user()->id)}}"  style="display: none;">
+              @csrf
+              @method("PUT")
+            </form>   
+
+            <form id="pasomas-form" method="POST" action="{{route('home.updatePasoMas',auth()->user()->id)}}"  style="display: none;">
+              @csrf
+              @method("PUT")
+            </form>
+
           @endif
           @if(auth()->user()!==null && auth()->user()->paso >5)
           
-            <a id="rutaBotones" class="{{ Request::path() === 'personalizar' ? 'active' : '' }} nav-sub" href="/personalizar" onclick="quitaMns()"> Personalizar</a>
+            <a id="rutaBotones" class="{{ Request::path() === 'personalizar' ? 'active' : '' }} nav-sub" href="/personalizar" > Personalizar</a>
             
             <a id="rutaExportar" class="{{ Request::path() === 'exportar' ? 'active' : '' }} nav-sub" href="/exportar">Exportar</a>
 
@@ -75,10 +82,10 @@
                   {{-- Itéms del menú de usuario dropdown --}}
                 <div id= "userDropdown" class="dropdown-menu">
                   {{-- El usuario verá el perfil y favoritos cuando esté en el paso 5. --}}
-                  @if(auth()->user()!==null && auth()->user()->paso >= 5)
+                  {{-- @if(auth()->user()!==null && auth()->user()->paso >= 5) --}}
                     <a class="dropdown-item crear" href="#">Mi perfil</a>
                     <a class="dropdown-item crearCurso" href="/clasesPorDia">Favoritos</a>
-                    <a class="dropdown-item oscuro-reves" href="/horario">Curso</a>
+                    <a class="dropdown-item oscuro-reves" href="/horario">Horario</a>
                     <a class="dropdown-item enviar" href="/klik-class">Klik-Class</a>
                     {{-- Funciones para desarrollo, la clase permite ocultarlas/mostrarlas --}}
                     <div class="hide-dev">
@@ -95,13 +102,13 @@
                       <a class="dropdown-item crear" href="{{route('materias.index')}}">Materias</a>
                       <a class="dropdown-item editar" href="{{route('sesions.index')}}">Sesiones</a>
                       <a class="dropdown-item warning" href="{{route('clases.index')}}">Clases</a>  
-                      <a class="dropdown-item ver" href="{{route('aulas.index')}}">Aulas</a>    
+                      <a class="dropdown-item ver" href="/clases">Mis clases</a>    
                       <a class="dropdown-item oscuro-reves" href="{{route('mesas.index')}}">Mesas</a>
                       <a class="dropdown-item enviar" href="/klik-class">Klik-Class</a>
-                      <a class="dropdown-item borrar" href="{{route('estudiantes.index',1)}}">Ver Aula</a>
-                      <a class="dropdown-item cancelar" href=/botones>botones</a>
+                      <a class="dropdown-item borrar" href="{{route('estudiantes.index',1)}}">Estudiantes</a>
+                      <a class="dropdown-item cancelar" href=/botons>botones</a>
                     </div>
-                  @endif
+                  {{-- @endif --}}
                   {{-- formulario para salir --}}
                   <a class="dropdown-item oscuro " href="{{ route('logout') }}"
                      onclick="event.preventDefault();
@@ -130,4 +137,4 @@
       userDropdown.classList.toggle('show');
     }
   }
-  </script>
+</script>

@@ -42,14 +42,14 @@
                 </svg>
 
                 <div class="py-4 text-center font-semibold ">
-                    <h2>kk Klik-Class</h2>
+                    <h2>Klik-Class</h2>
 
                 </div>
                 
                 @if (Route::has('login'))
                     @auth
                         <div class="text-center mb-4 h-12">
-                            <a href="{{ url('/home') }}" class="d_block text-lg botones ">Home</a>
+                            <a href="{{ url('/home') }}" class="d_block text-lg botones ">Para Itzi</a>
                         </div>
                     @else
                         <div class="text-center mt-2 mb-4 h-12">

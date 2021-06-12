@@ -53,7 +53,7 @@
                 <!--FIN: Main -->
 
                 <!--FOOTER)-->
-    </div>
+
         @if (!str_contains(url()->current(), 'etapaUso'))
            
             <footer class="footer">
@@ -62,15 +62,18 @@
                 </div>
             </footer>   
         @else
-            <div class="noFooter"></div>           
+            <div class="noFooter"></div> 
+            <script>
+                var ahora = document.getElementById('khora');
+            </script>          
         @endif
-
+    </div>
 
     @yield('script')
     <!--FIN: App -->
         <!-- Scripts -->
     {{-- <script src="{{ asset('js/app.js') }}" type="text/js"></script> --}}
-    <script src="{{ asset('js/custom.js') }}" type="text/js"></script>
+    {{-- <script src="{{ asset('js/custom.js') }}" type="text/js"></script> --}}
 
 
 </body>

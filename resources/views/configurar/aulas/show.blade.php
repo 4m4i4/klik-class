@@ -8,19 +8,20 @@
  
     {{-- <hr class="h-2">   --}}
     <div class="bg-666 w-100 h-100 mx-auto  ">  
-      <div class="grid  grid-rows-{{$aula->num_filas}} h-90 content-center justify-between grid-cols-{{$aula->num_columnas}}">
+      {{-- <div class="grid grid-rows-{{$aula->num_filas}} h-90  content-center  justify-between grid-cols-{{$aula->num_columnas}}-auto aula-mesas"> --}}
+      <div class="grid grid-rows-{{$aula->num_filas}} h-90 content-center justify-between grid-cols-{{$aula->num_columnas}}">
         @foreach ($mesas->where('user_id', auth()->user()->id)->where('aula_id', $aula->id) as $mesa)
           <div id={{$mesa->id}}
-           class="mesa text-center flex-column justify-center" 
+           class="mesa text-center " 
            title="mesa{{$mesa->id}} Columna{{$mesa->columna}} Fila{{$mesa->fila}}">
             @if($mesa->is_ocupada == true)
               <div>       
                 <button id="bt_izq_{{$mesa->id}}" 
-                    class="bt_mesa bt_mesaIzq bg-amarillo text-gray-900"
+                    class="bt_mesa bg-amarillo text-gray-900"
                     {{-- title="Mesa id: {{$mesa->id}}. Columna {{$mesa->columna}}, Fila {{$mesa->fila}}" --}}
-                    onclick="sino(bt_izq_{{$mesa->id}})">Sí</button>
+                    onclick="sino(bt_izq_{{$mesa->id}})">No</button>
                 <button id="bt_dcha_{{$mesa->id}}" 
-                    class="bt_mesa bt_mesaDcha bg-gradual1 f_right" 
+                    class="bt_mesa bg-gradual1 f_right" 
                     {{-- title="Mesa id: {{$mesa->id}}. Columna {{$mesa->columna}}, Fila {{$mesa->fila}}" --}}
                     onmousedown="lee('bt_dcha_{{$mesa->id}}')"
                     {{-- onmouseup="suma(bt_dcha_{{$mesa->id}},10)"  --}}
@@ -62,6 +63,9 @@
     <!-- Scripts -->
 
   <script>
+ var ahora=document.getElementById('hora');
+ var myVar = setInterval(myTimer,1000);
+
 
   function desabilita(id){
     let dni = id;
@@ -83,16 +87,16 @@
     x.innerHTML = res; 
   }
 
-  function sino(x){
+   function sino(x){
     let res = x.innerHTML;
     if(res == "Sí"){
-      res = "No";
-      x.classList.remove('bg-fucsia','text-white');
-      x.classList.add('bg-amarillo','text-gray-900');
-    }else if(res == "No"){
-      res = "Sí";
+      res = "No"; x.classList.add('bg-fucsia','text-white');
       x.classList.remove('bg-amarillo','text-gray-900');
-      x.classList.add('bg-fucsia','text-white');
+     
+    }else if(res == "No"){
+      res = "Sí";      x.classList.add('bg-amarillo','text-gray-900');
+      x.classList.remove('bg-fucsia','text-white');
+
     }
     x.innerHTML = res;
     console.log(res); 

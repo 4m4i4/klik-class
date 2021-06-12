@@ -30,28 +30,23 @@ $cancelarh: rgb(255, 77, 136);
 $borrarBrd: rgb(244, 52, 61);
 $borrtext:  rgb(184, 10, 18);
 
-$enviar:    rgb(49, 147, 179);
-$ver:       rgb(0, 149, 179);
-$contBrd:   rgb(0, 173, 179);
-$crearCrso: rgb(0, 197, 204);
-$linkHover: rgb(0, 222, 230);
-$azulHielo: rgb(159, 223, 223);
-$continuar: rgb(198, 235, 236);
-$inputFoc:  rgb(218, 246, 247);
-$cajaGrid:  rgb(224, 237, 240);
-$body-bg:   rgb(248, 250, 252);
+$c_az190:   hsl(190, 100%, 35%);
+$contBrd:   hsl(182, 100%, 35%);
+$crearCrso: hsl(182, 100%, 40%);
+$azulHielo: hsl(180, 50%, 75%);
+$continuar: hsl(182, 50%, 85%);
+$inputFoc:  hsl(182, 64%, 91%);
+$cajaGrid:  hsl(190, 35%, 91%);
+$body-bg:   hsl(210, 40%, 98%);
 
 
-$verBrd:    rgb(186, 169, 69); 
-$borrBrd:   rgb(200, 186, 106);
-$atrasBrd:  rgb(214, 203, 143);
-$crearBrd:  rgb(211, 200, 136);
-$borde:     rgb(225, 217, 173); 
-$inputBrd:  rgb(231, 226, 197);
-$oscuroBrd: rgb(238, 234, 210);
-$fondo:     rgb(240, 235, 209);
-$bg_logo:   rgb(236, 234, 223);
-$caja-bg:   rgb(252, 252, 247);
+$c_brd50:   hsl(51, 46%, 50%); 
+$c_brd68:   hsl(51, 46%, 68%);
+$c_brd78:   hsl(51, 46%, 78%); 
+$c_brd84:   hsl(51, 46%, 84%);
+$fondo:     hsl(51, 51%, 88%);
+$bg_base:   hsl(51, 25%, 90%);
+$caja-bg:   hsl(60, 45%, 98%);
 
 
 $caption:   rgb(255, 244, 122);
@@ -139,7 +134,7 @@ $details:   rgb(249, 250, 227);
 // $borrarBrd: #c8ba6a;
 // $atrasBrd:  #d6cb8f;
 // $crearBrd:  #d3c888;
-// $borde:     #e1d9ad; 
+// $c_borde:     #e1d9ad; 
 // $inputBrd:  #e7e2c5;
 // $oscuroBrd: #eeead2;
 // $fondo:     #f0ebd1;

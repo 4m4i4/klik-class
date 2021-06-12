@@ -3,12 +3,7 @@
 var screenWidth = screen.availWidth;
 if (screenWidth >= 414) var semana = "'Horario','Lunes','Martes','Miercoles','Jueves','Viernes'";else var semana = "'Hora','Lun','Mar','Mie','Jue','Vie'"; // document.getElementById("semana").innerHTML=semana;
 
-var myVar = setInterval(myTimer, 1000);
-var ahora;
 
-if (typeof ahora !== 'undefined') {
-  ahora = document.getElementById("khora");
-}
 
 function myTimer() {
   var d = new Date();
@@ -18,7 +13,7 @@ function myTimer() {
     hour12: false
   }; // console.log(new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g,'-').replace(',',''));
 
-  ahora.innerHTML = new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g, '-').replace(',', ''); // ahora.innerHTML = d.toLocaleTimeString(); 
+  ahora.innerHTML = new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g, '-'); // ahora.innerHTML = d.toLocaleTimeString(); 
 
   var queDia = document.getElementById("kdiaes");
   var dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
@@ -27,6 +22,14 @@ function myTimer() {
   if (queDia !== null) // queDia.innerHTML = d.toLocaleDateString();
     queDia.innerHTML = n + " " + dias[dia];
 }
+
+var myVar = setInterval(myTimer, 1000);
+// var ahora;
+
+if (typeof ahora !== 'undefined') {
+ var ahora = document.getElementById("khora");
+}
+
 
 function configuraFecha() {
   var x = document.getElementById("configFecha").value;

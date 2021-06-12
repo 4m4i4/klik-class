@@ -156,10 +156,10 @@
           </table>
         </div>
          @if (request()->is('configurar/estudiantes/*'))
-          <div class="center">{{ $estudiantes->links() }}</div>
+          <div id= "paginar" class=" mx-auto">{{ $estudiantes->links() }}</div>
         @endif
          
-      </div>      <!-- fin de body-TABLA estudiantes -->
+      </div>      
       <div class="h-8"></div>
     </div>
 

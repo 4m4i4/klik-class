@@ -18,8 +18,8 @@
         </p>  
         <div class="caja" >
             <div class="caja-header leading-7 mx-auto text-gray-600 ">
-                <p class="mb-4 mt-1 text-center">Tenemos todo preparado para que puedas </p>
-                <h2 class="text-center mb-1 text-blue-30 pasos-title-1 sm:pasos-title">
+                <p class="mb-2 mt-1 text-center">Tenemos todo preparado para que puedas </p>
+                <h2 class="text-center mb-1 text-blue-30 pasos-title-1 ">
                     <strong>Crear un Curso</strong>
                 </h2>
             </div>
@@ -59,6 +59,7 @@
         <div class="caja marcoReloj">
            {{-- <textarea class="relojEnorme text-center" id="ahora" name="ahora"></textarea> --}}
             <div class="relojEnorme text-center" id="khora" ></div>
+            {{-- <div class="relojEnorme text-center"  >10:09</div> --}}
             {{-- onchange="enviaHora(this.id)" --}}
            
             {{-- <button type="submit">Enviar</button> --}}
@@ -67,6 +68,9 @@
 
         <p class="text-vw3 mt-2 mb-4 px-4 text-center text-blue-30">
         No tienes clase
+        {{-- En un minuto: 
+        <br>
+        <br>Clase de BOMBO en 1C ESO --}}
         </p>  
       @endif
     </div>
@@ -76,7 +80,7 @@
 @if(auth()->user()->paso > 0 && auth()->user()->paso < 5) 
         {{-- Los tres pasos para introducir los datos: navegación lineal --}}
     @section('content')    
-        <div class="p-6  m-1  border-gray-200  md:border-l">
+        <div class="px-6 pt-6 sm:p-4 m-1  border-gray-200  md:border-l">
             <div class="text-lg leading-7 text-gray-600 ">
                 <h2 class="text-center pasos-title-1 text-gray-800">{{ __('Create course')}}. {{ __('Step')}} 
                     @if(auth()->user()->paso==1) 1 @endif
@@ -85,7 +89,7 @@
                     @if(auth()->user()->paso==4) 3 @endif
                     {{-- @if(auth()->user()->paso==5) 3 @endif --}}
                 </h2>
-                <p class="text-6 my-2 text-center">{{ __('Entering course data') }}</p>
+                <p class="text-6 mt-2 text-center">{{ __('Entering course data') }}</p>
             </div>
         </div>
     @endsection        

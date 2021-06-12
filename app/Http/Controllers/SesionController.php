@@ -55,7 +55,8 @@ class SesionController extends Controller
             // $msn = "El horario de la sesión está repetido";
             // return back()->withInput()->withErrors(['inicio'=>$msn]);
             // }else 
-            if(($inicio > $sesion->inicio && $fin < $sesion->fin)||($inicio > $sesion->inicio && $inicio < $sesion->fin)){
+            if($inicio > $sesion->inicio && $fin < $sesion->fin){
+                //  if(($inicio > $sesion->inicio && $fin < $sesion->fin)||($inicio > $sesion->inicio && $inicio < $sesion->fin)){
             $msn = "El horario de la sesión se solapa con otra";
             return back()->withInput()->withErrors(['inicio'=>$msn]);
             }
@@ -159,6 +160,7 @@ class SesionController extends Controller
      */
     public function destroy(Sesion $sesion)
     {
-        //
+ $sesion->delete();
+        return redirect()->route('sesions.index')->with('info', 'Sesion borrada');
     }
 }

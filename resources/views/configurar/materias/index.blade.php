@@ -86,7 +86,8 @@
                   @if($user->paso >= 4)
                     <h2 class="title">{{ __('My')}} {{ __('Groups')}}</h2>
                     <a href="{{ route('estudiantes.index',$materia_id) }}"
-                      class=" btn ver">
+                      class=" btn ver"
+                      title="Ver lista de todos los estudiantes">
                       <p class="px-2 ">
                         <span class="ico-shadow">👀 </span>
                         {{__('Show')}} {{__('List')}}
@@ -97,7 +98,7 @@
                         @csrf
                         @method("PUT")
                         <button type="submit" 
-                        title="Ir a configurar aulas"  
+                        title="Acabar: Se han introducido los datos del curso"  
                         class="ml-1 btn continuar text-overflow">
                           <span class="ico-shadow"> ✅ </span>
                           <span class="bt-text-hide">{{ __('Next')}}</span>
@@ -213,7 +214,7 @@
                         </td>
                         <td class="">   <!-- Mostrar la disposición de mesas en el aula -->
                         @if($aula->check && $materia->check)
-                          <a href="{{ route('aulas.show', $aula->id) }}" 
+                          <a href="{{ route('aulas.show', $aula->id,$materia->id) }}" 
                             id="verMesasAula{{ $aula->id }}" 
                             class="d_block ver pt-02" 
                             title ="Ver mesas aula id= {{ $aula->id }}">

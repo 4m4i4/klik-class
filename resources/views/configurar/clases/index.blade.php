@@ -15,12 +15,13 @@
     <div class="caja">  <!-- CABECERA clases -->
       <div class = "caja-header">
         <div class = "grid grid-cols-3-fr items-center w-100">
-            @php
+            {{-- @php
               $user = Auth::user();
-            @endphp
-           @if($user->paso == 3)
+            @endphp --}}
+           {{-- @if($user->paso == 3) --}}
+           @if(auth()->user()->paso == 3)
               <h2 class="title">Añadir mis Clases</h2>
-              <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
+              <form method="POST" action="{{route('home.updatePasoMenos',$user)}}">
                   @csrf
                   @method("PUT")
                     <button type="submit" 
@@ -30,7 +31,7 @@
                       <span class="ico-shadow"> ⌚ </span>
                     </button> 
               </form>
-              <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
+              <form method="POST" action="{{route('home.updatePasoMas',$user)}}">
                   @csrf
                   @method("PUT")
                     <button type="submit" 
@@ -42,9 +43,10 @@
                     </button>
               </form>
           @endif
-          @if($user->paso >= 4)
+          {{-- @if($user->paso >= 4) --}}
+           @if(auth()->user()->paso >= 4)
               <h2 class="title">Horario de clases</h2>
-              <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
+              <form method="POST" action="{{route('home.updatePasoMenos',$user)}}">
                 @csrf
                 @method("PUT")
                   <button type="submit" 
@@ -72,16 +74,16 @@
         <table id="tabla-config-horario" class="tabla table-responsive mx-auto">
           <caption>Para <strong>Añadir</strong> una clase haz click en su celda. <br>Para <strong>modificarla</strong> haz click sobre ella.<br>Cuando tengas todas las clases pulsa <strong>Continuar</strong>.</caption>
             @php
-              $user = auth()->user()->id;
+              // $user = auth()->user()->id;
               $dias = ['Horario','Lunes','Martes','Miercoles','Jueves','Viernes'];
               $num_dias = count($dias);
-              use App\Models\Sesion;
-              $sesiones = Sesion::where('user_id',$user)->get();
+              // use App\Models\Sesion;
+              // $sesiones = Sesion::where('user_id',$user)->get();
               // dd($sesiones);
               $num_sesiones = count($sesiones);
-              use App\Models\Clase;
-              $clases = Clase::where('user_id',$user)
-                              ->with('user','materia','sesion')->get();
+              // use App\Models\Clase;
+              // $clases = Clase::where('user_id',$user)
+              //                 ->with('user','materia','sesion')->get();
             @endphp
           <thead>  <!-- pintar PRIMERA FILA -cabecera: array dias-->
             <tr>

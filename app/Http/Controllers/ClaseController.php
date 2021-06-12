@@ -28,19 +28,23 @@ class ClaseController extends Controller
             $user = Auth::user()->id;
             $materias = Materia::where('user_id',$user)->get();
             $aulas= Aula::where('user_id',$user)->get();
+            $sesiones= Sesion::where('user_id',$user)->get();
             $clases = Clase::where('user_id',$user)->with('user','materia','sesion')->get();
-            return view('configurar.clases.index', compact('materias','aulas','clases'));
+            return view('configurar.clases.index', compact('user','sesiones','materias','aulas','clases'));
         }
     }
+
+
     public function misClases(){
          if(Auth::check()){
             $user = Auth::user()->id;
-            // $materias = Materia::where('user_id',$user)->get();
-            // $aulas= Aula::where('user_id',$user)->get();
+            $aulas= Aula::where('user_id',$user)->get();
             $clases = Clase::where('user_id',$user)->with('user','materia','sesion')->get();
-            return response()->json(['success' => true, 'clases' => $clases], 200);
+            return response()->json(['success' => true, 'clases' => $clases, 'aulas' => $aulas], 200);
         }
     }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -53,6 +57,8 @@ class ClaseController extends Controller
         $aulas = Aula::where('user_id',$user)->get();
         return view('configurar.clases.create', compact('materias','aulas'));
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -82,6 +88,92 @@ class ClaseController extends Controller
              return redirect()->route('clases.index')->with('info', 'Clase añadida');
          }
     }
+
+
+
+    public function clasesPorDia()
+    {
+        $user = auth()->user()->id;
+        $clases = Clase::where('user_id',$user)
+            ->select('dia','id','sesion_id','materia_id')
+            ->with('sesion','materia')
+            // ->orderBy('dia')
+            ->orderBy('dia')->orderBy('sesion_id')
+            ->get();
+        return response()->json($clases)->header('Content-Type','application/json');
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function show(Clase $clase) {}
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+
+    public function edit(Clase $clase)
+    {
+        $user = Auth::user()->id;
+        $materias = Materia::where('user_id', $user)->get();
+        // $aulas = Aula::where('user_id', $user)->get();
+        return view('configurar.clases.edit', compact('clase', 'materias'));
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function update(Request $request, Clase $clase)
+    {
+        if($request->validate([
+                'dia' =>'required',
+                'sesion_id'=>'required',
+                'user_id' => 'required',
+                'materia_id'=>'required'
+           ])
+         )
+         {
+            $clase->dia = request('dia');
+            $clase->sesion_id = request('sesion_id');
+            $clase->user_id = request('user_id');
+            $clase->materia_id = request('materia_id');
+
+            $clase->save();            
+            return redirect()->route('clases.index')->with('info', 'Clase actualizada');
+         }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function destroy(Clase $clase)
+    {
+        $clase->delete();
+        return redirect()->route('clases.index')->with('info', 'Clase borrada');
+    }
+
+
+
+
 
     public function mostrarClase()
     {
@@ -233,81 +325,4 @@ class ClaseController extends Controller
     }
 
 
-    public function clasesPorDia()
-    {
-        $user = auth()->user()->id;
-        $clases = Clase::where('user_id',$user)
-            ->select('dia','id','sesion_id','materia_id')
-            ->with('sesion','materia')
-            // ->orderBy('dia')
-            ->orderBy('dia')->orderBy('sesion_id')
-            ->get();
-        return response()->json($clases)->header('Content-Type','application/json');
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-    public function show(Clase $clase) {}
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-    public function edit(Clase $clase)
-    {
-        $user = Auth::user()->id;
-        $materias = Materia::where('user_id', $user)->get();
-        $aulas = Aula::where('user_id', $user)->get();
-        return view('configurar.clases.edit', compact('clase', 'materias','aulas'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-    public function update(Request $request, Clase $clase)
-    {
-        if($request->validate([
-                'dia' =>'required',
-                'sesion_id'=>'required',
-                'user_id' => 'required',
-                'materia_id'=>'required'
-           ])
-         )
-         {
-            $clase->dia = request('dia');
-            $clase->sesion_id = request('sesion_id');
-            $clase->user_id = request('user_id');
-            $clase->materia_id = request('materia_id');
-
-            $clase->save();            
-            return redirect()->route('clases.index')->with('info', 'Clase actualizada');
-         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-    public function destroy(Clase $clase)
-    {
-        $clase->delete();
-        return redirect()->route('clases.index')->with('info', 'Clase borrada');
-    }
 }

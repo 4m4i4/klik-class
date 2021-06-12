@@ -47,11 +47,9 @@
               <div class="grid grid-cols-2-auto ml-2">
                 <div class="d_block mr-1">
                   <input type="radio" id="avanzado" name="modo" value="avanzado">
-                  <label class="d_inline my-2">Cambiar a nivel avanzado</label>
-                </div>
-                <div class="d_block ml-2 hidden">                 
-                  <input type="radio" id="novel" name="modo" value="novel" checked>
-                  <label class="d_inline my-2"></label>
+                  <label class="d_inline my-2">Nivel avanzado</label>
+                  <input class="ml-2" type="radio" id="novel" name="modo" checked value="novel">
+                  <label class="d_inline my-2">Nivel simple</label>
                 </div>
               </div>
             </details>

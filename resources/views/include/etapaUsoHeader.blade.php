@@ -6,8 +6,8 @@
         </svg>
       </a>   
       <span id="khora" class=" reloj"></span> 
-      <span id="renderAula" class="bt-clase-header bg-sky text-overflow" title="{{$aula->id}}">{{$aula->aula_name}}</span>
-      <a href="{{route('aulas.editMesasVacias',$aula->id)}}" title="Sentar de nuevo a los estudiantes" class="bt-clase-header mx-2 editar">Mesas</a>
+      <span id="renderAula" class="bt-clase-header pt-03 bg-sky text-overflow" title="{{$aula->id}}">{{$materia_name}}</span>
+      <a href="{{route('aulas.editMesasVacias',$aula->id)}}" title="Sentar de nuevo a los estudiantes" class="bt-clase-header pt-03 mx-2 editar"><span>Mesas</span></a>
     </div>
     <div class="flex-row items-center">
        
@@ -24,3 +24,7 @@
       <span class="bt-text-hide" title="Volver a la lista"> Atrás</span></a>
     </div>  
   </div> 
+
+  <script>
+  // var ahora = document.getElementById('khora');
+  </script>

@@ -23,4 +23,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     // Permissions
 //     Route::apiResource('permissions', 'PermissionsApiController');
 // });
+Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\User','middleware' => ['auth:api']], function () {
+    // Permissions
+    Route::apiResource('aulas', 'AulaController');
+});
+
 // Route::get('/clases',[App\Http\Controllers\claseController::class, 'misClases']);
+// Route::middleware('auth:api')->get('/aulas', function (Request $request) {
+//     return $request->aulas();
+// });
+// app\Http\Resources\AulaResource.php
