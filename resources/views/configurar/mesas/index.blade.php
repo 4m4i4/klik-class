@@ -19,7 +19,7 @@
               @php
                   $user = auth()->user();  
               @endphp            
-            <h2  class="ml-2" >Mis mesas ({{$mesas->count()}})</h2>
+            <h2  class="ml-2 title" >Mis mesas ({{$mesas->count()}})</h2>
 
             <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
                   @csrf
