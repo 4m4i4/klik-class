@@ -12,11 +12,11 @@
               <h2 class="title">Mi horario de clases</h2>
               <a href="{{route('clases.index')}}" 
                   title=" Ir a la tabla de clases editable" 
-                  class="boton warning px-4 mr-1">¿Editar?
+                  class="boton editar smallCaps px-4 mr-1">¿Editar?
               </a>
               <a href="{{route('home')}}" 
                   title="a home" 
-                  class="boton continuar px-4 mr-1">Continuar 
+                  class="boton continuar smallCaps px-4 mr-1">Continuar 
                     <span class="ico-shadow">👉 </span> 
               </a>
          
@@ -72,13 +72,13 @@
                   @if ($col > 0 && $clase !== null)
                      <!-- Si la consulta $clase devuelve contenido... -->
                                            
-                    <td id ={{$fila + 1}}{{$dias[$col]}} class="text-centermx-auto bg-yellow">
+                    <td id ={{$fila + 1}}{{$dias[$col]}} class="text-centermx-auto bg-ver">
                       <!-- nombre del grupo y la materia -->
-                    <a href="{{route('aulas.show', $clase->materia->aula_id)}}" title="Ir al aula para cambiar las mesas" class="d_block bg-yellow " >   
+                    <a href="{{route('materia.show', $clase->materia_id)}}" title="Ir al aula para cambiar las mesas" class="d_block bg-ver " >   
                         <p>
                           <span>{{ Str::before($clase->materia->materia_name," ") }}</span>
                         </p>
-                        <span class="text-gray-600 text-xs">{{$clase->materia->grupo}}</span>
+                        <span class="text-black text-xs">{{$clase->materia->grupo}}</span>
                     </a>  
                     </td>
                   @elseif($col > 0 && $clase == null)

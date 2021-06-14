@@ -21,7 +21,7 @@
     <link href="{{ asset('css/customApp.css') }}" type="text/css"  rel="stylesheet">
 
 </head>
-<body>
+<body onload="screenResize()" onresize="screenResize()">
     <div id="app">
                 <!--HEADER: La navegación -->
         @if (str_contains(url()->current(), 'etapaUso'))
