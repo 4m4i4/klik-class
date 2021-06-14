@@ -18,20 +18,13 @@ class EstudianteController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index($materia_id=null)
+    public function index()
     {   
         $user = auth()->user()->id;
-        // $num_materias = Materia::where('user_id',$user)->count();
-        // $materia = Materia::find($materia_id);
-        
         $materia = Materia::where('user_id',$user)->get();
-        // $estudiantes = Estudiante::where('user_id',$user)->get();
         $estudiante_materia = DB::table('estudiante_materia')->get();
         $estudiantes = Estudiante::where('user_id',$user)->with('materias')->paginate(25);
 
-        // $num_estudiantes = DB::table('estudiante_materia')->where('materia_id',$materia_id)->count();
-       
-        // return view('configurar.estudiantes.index', compact('materia','materias','estudiantes','num_estudiantes','user','materia_id','estudiante_materia'));
         return view('configurar.estudiantes.index', compact('materia','estudiante_materia','estudiantes','user'));
     }
 
@@ -46,12 +39,75 @@ class EstudianteController extends Controller
         return view('configurar.estudiantes.index', compact('estudiantes','materia','materias','materia_id','num_estudiantes'));
     }
     
+    // public function misEstudiantes(){
+    //      if(Auth::check()){
+    //         $user = Auth::user()->id;
+    //         $materias = Materia::where('user_id',$user)->with('aula')->get();
+    //         $estudiantes = Estudiante::where('user_id',$user)->with('mesa')->get();
+    //         $estudiante_materia= DB::table('estudiante_materia')->get();
+    //         // dd($materias);
+    //         $num_materias= $materias->count();
+    //         // dd($num_materias);   
+    //         $materia = [];      
+    //         $ids_estudiante = [];  
+    //         $ids_materia = [];
+    //         for($i= 0; $i < $num_materias; $i++){
+    //             $materia = $materias[$i];
+    //             $materia_id = $materia->id;
+
+    //             // $estudiante_materia = DB::table('estudiante_materia')->where('materia_id',$materia_id)->get();
+    //             foreach($materia->estudiantes as $estudiante){
+    //                 $estudiante_id = $estudiante->pivot->estudiante_id;
+    //                 $estudiantes = Estudiante::where('user_id',$user)->find( $estudiante_id)->get();
+    //                 array_push( $ids_estudiante, $estudiantes);
+    //             }
+    //             array_push( $ids_materia,  $materia, $ids_estudiante);
+    //         }
+    //         return response()->json(['success' => true, 'ids_materia'=>$ids_materia ], 200);
+    //     }
+    // }
+
+
     public function misEstudiantes(){
          if(Auth::check()){
             $user = Auth::user()->id;
-            $estudiantes = Estudiante::where('user_id',$user)->with('user','materias','clases','mesa')->get();
-            return response()->json(['success' => true, 'estudiantes' => $estudiantes], 200);
+            $materias = Materia::where('user_id',$user)->with('aula')->get();
+            $estudiantes = Estudiante::where('user_id',$user)->with('mesa')->get();
+            $estudiante_materia= DB::table('estudiante_materia')->get();
+            // dd($materias);
+            $num_materias= $materias->count();
+            // dd($num_materias);
+            $id_estaMateria = [];
+                
+            $ids_estudiante = [];  
+            $ids_materia = []; 
+            $lista_materias = [];array('estudiantes por materia'=>array('materias'=>$ids_materia,'estudiantes'=>$ids_estudiante)); 
+            for($i= 0; $i < $num_materias; $i++){
+                $materia = $materias[$i];
+                $materia_id = $materia->id;
+                array_push($ids_materia,$materia_id);
+            }
+            for($i= 0; $i < $num_materias; $i++){
+                $materia_id = $ids_materia[$i];
+                $estudiante_materia = DB::table('estudiante_materia')->where('materia_id',$materia_id)->get();
+                $num_estudiantes = $estudiante_materia->count();
+                foreach($estudiante_materia as $estudiante){
+                    $estudiante_id = $estudiante->estudiante_id;
+
+                    // array_push($lista_materias,$i,array_push($ids_estudiante,$estudiante_id ));
+                    array_push($ids_estudiante,$estudiante_id );
+                }
+                $lista_materias[$i]=array('estudiantes por materia'=>array('materia'=>$ids_materia[$i]),array('estudiantes'=>$ids_estudiante));
+                unset($ids_estudiante);
+                 $ids_estudiante = [];
+
+
+            }
+
+
         }
+        return response()->json(['success' => true, 'lista_materias'=>$lista_materias ], 200);
+        
     }
     /**
      * Show the form for creating a new resource.
@@ -89,7 +145,7 @@ class EstudianteController extends Controller
         // dd($materia_id);
         $user_id = request('user_id');
         $cadena = request('lista_completa');
-        $check = request('check');
+        // $check = request('check');
         $cuantos = 1;
         $nuevos = 1;
         $mns_nuevos='';
@@ -114,7 +170,7 @@ class EstudianteController extends Controller
             // si no está registrado
             if($busca_estudiante == null){
                 // insertamos los datos del estudiante obteniendo su id 
-                $estudiante_id = DB::table('estudiantes')->insertGetId(['nombre'=>$nombre,'apellidos'=>$apellidos,'nombre_completo'=>$nombre_completo,'user_id'=>$user_id,'check'=>$check]);
+                $estudiante_id = DB::table('estudiantes')->insertGetId(['nombre'=>$nombre,'apellidos'=>$apellidos,'nombre_completo'=>$nombre_completo,'user_id'=>$user_id]);
                 // dd($estudiante_id);
                 // guardamos el registro en la tabla estudiante_materia
                 
@@ -135,12 +191,6 @@ class EstudianteController extends Controller
             $cuantos++;
         }
         return redirect()->route('materias.index')->with('info', $mns_estudiantes.$mns_nuevos);
-        //}
-        // else{
-        //     $msn="Formatodfjahfd";
-        //                 return back()->withInput()->withErrors(['lista_completa'=>$msn]);
-            
-        // }
     }
 
     /**
@@ -200,7 +250,6 @@ class EstudianteController extends Controller
         return redirect()->route('estudiantes.porMateria',$materia_id)->with('info', $mns);   
     }
 
-        //=========  COMPROBAR  BORRar por materias
     /**
      * Remove the specified resource from storage.
      *

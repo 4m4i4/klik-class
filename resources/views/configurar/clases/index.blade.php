@@ -15,10 +15,6 @@
     <div class="caja">  <!-- CABECERA clases -->
       <div class = "caja-header">
         <div class = "grid grid-cols-3-fr items-center w-100">
-            {{-- @php
-              $user = Auth::user();
-            @endphp --}}
-           {{-- @if($user->paso == 3) --}}
            @if(auth()->user()->paso == 3)
               <h2 class="title">Añadir mis Clases</h2>
               <form method="POST" action="{{route('home.updatePasoMenos',$user)}}">
@@ -43,8 +39,8 @@
                     </button>
               </form>
           @endif
-          {{-- @if($user->paso >= 4) --}}
-           @if(auth()->user()->paso >= 4)
+
+          @if(auth()->user()->paso >= 4)
               <h2 class="title">Horario de clases</h2>
               <form method="POST" action="{{route('home.updatePasoMenos',$user)}}">
                 @csrf
@@ -74,16 +70,9 @@
         <table id="tabla-config-horario" class="tabla table-responsive mx-auto">
           <caption>Para <strong>Añadir</strong> una clase haz click en su celda. <br>Para <strong>modificarla</strong> haz click sobre ella.<br>Cuando tengas todas las clases pulsa <strong>Continuar</strong>.</caption>
             @php
-              // $user = auth()->user()->id;
               $dias = ['Horario','Lunes','Martes','Miercoles','Jueves','Viernes'];
               $num_dias = count($dias);
-              // use App\Models\Sesion;
-              // $sesiones = Sesion::where('user_id',$user)->get();
-              // dd($sesiones);
               $num_sesiones = count($sesiones);
-              // use App\Models\Clase;
-              // $clases = Clase::where('user_id',$user)
-              //                 ->with('user','materia','sesion')->get();
             @endphp
           <thead>  <!-- pintar PRIMERA FILA -cabecera: array dias-->
             <tr>
@@ -97,20 +86,21 @@
             @for ($fila = 0; $fila < $num_sesiones; $fila++)
               <tr id={{$sesiones[$fila]->id}}>
                 @for ($col = 0; $col < $num_dias; $col++)
-                  @if ($col == 0)  <!-- PRIMERA COLUMNA: HORARIO (sesiones de inicio y final)-->
+                  @if ($col == 0)  <!-- PRIMERA COLUMNA: HORARIO (sesiones)-->
                     <th class="text-center">
                       {{date_format(date_create($sesiones[$fila]->inicio), "H:i")}}
                         <br>
                       {{date_format(date_create($sesiones[$fila]->fin), "H:i")}}
                     </th>
                   @endif
-                  @if ($col > 0)  <!-- RESTO DE COLUMNAS: CLASES (materia y aula) por día de la semana-->
+                  @if ($col > 0)  <!-- RESTO COLS: CLASES (materia y aula) por día-->
                     <td id ={{$fila + 1}}{{$dias[$col]}} class="">
                       @php
-                        $estasesion = $sesiones[$fila]->id;  // obtener el número de sesión (su id)
-                        $estedia = $dias[$col];  // obtener el día de la semana
-                        // consulta $clase: obtener el valor para este user, esta sesión y este día
-                        $clase = $clases->where('user_id',$user)->where('sesion_id', $estasesion)
+                        $estasesion = $sesiones[$fila]->id;  // número de sesión (id)
+                        $estedia = $dias[$col];  // día de la semana
+                        // consulta $clase para este user, esta sesión y este día
+                        $clase = $clases->where('user_id',$user)
+                          ->where('sesion_id', $estasesion)
                           ->where('dia', $estedia)
                           ->first();                          
                       @endphp
@@ -145,7 +135,7 @@
 
       </div>  {{--  fin caja-body --}}
       
-    </div>        <!-- fin de body-TABLA clases -->
+    </div>   <!-- fin de body-TABLA clases -->
     <div class="h-8"></div>
   </div>  <!-- fin de div -->
 </div>  <!-- fin de container -->

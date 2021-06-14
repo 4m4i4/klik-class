@@ -97,7 +97,6 @@ class ClaseController extends Controller
         $clases = Clase::where('user_id',$user)
             ->select('dia','id','sesion_id','materia_id')
             ->with('sesion','materia')
-            // ->orderBy('dia')
             ->orderBy('dia')->orderBy('sesion_id')
             ->get();
         return response()->json($clases)->header('Content-Type','application/json');
