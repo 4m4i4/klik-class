@@ -1,10 +1,16 @@
 
-
 var screenWidth=screen.availWidth;
-if(screenWidth>=414)
-  var semana=`'Horario','Lunes','Martes','Miercoles','Jueves','Viernes'`;
-else
-var semana=`'Hora','Lun','Mar','Mie','Jue','Vie'`;
+
+if(screenWidth>=414) var semana=`'Horario','Lunes','Martes','Miercoles','Jueves','Viernes'`;
+
+if(screenWidth<414) var semana=`'Hora','Lun','Mar','Mie','Jue','Vie'`;
+
+
+
+
+
+
+
 // document.getElementById("semana").innerHTML=semana;
 
 var myVar = setInterval(myTimer, 1000);
@@ -20,7 +26,7 @@ if(typeof ahora !=='undefined'){
   ahora.innerHTML = new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g,'-').replace(',',''); 
   // ahora.innerHTML = d.toLocaleTimeString(); 
   var queDia = document.getElementById("kdiaes");
-  var dias = ["Domingo","Lunes", "Martes", "Miércoles","Jueves","Viernes","Sábado"];
+
   var dia = d.getDay();
   var n = d.getDate();
   
@@ -42,7 +48,7 @@ function fFecha(x){
   var m = h.getMonth();  // mes (número del 0 al 11)
   var y = h.getFullYear();
   // myTimer();
-  var dias = ["DOMINGO","LUNES", "MARTES", "MIÉRCOLES","JUEVES","VIERNES","SÁBADO"];
+  // var dias = ["DOMINGO","LUNES", "MARTES", "MIÉRCOLES","JUEVES","VIERNES","SÁBADO"];
   var dia = h.getDay();
   var meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 

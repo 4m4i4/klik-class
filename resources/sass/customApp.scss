@@ -155,64 +155,7 @@ kbd{
 ul,li{list-style-type:none}
 
 
-/* =========== FONT/Text =========== */
 
-
-.text-xs{font-size:.75rem}          
-.text-sm{font-size:.875rem}
-.text-4{font-size:1rem}
-.text-lg{font-size:1.125rem}
-.text-6{font-size:1.5rem}
-.text-vw2{font-size:2vw}
-.text-vw3{font-size:3vw}
-
-
-.l-height{line-height:.5;margin-top:7px;}
-.leading-7{line-height:1.75rem}
-
-.text-center{text-align:center}
-.text-left{text-align:left}
-.text-justify{text-align:justify}
-
-.font-semibold{font-weight:600}
-.condensed{font-family: $f-condensed}
-.sans-serif{font-family: $f-sans-serif}
-.underline{text-decoration:underline}
-.antialiased{-webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale}
-.text-overflow{
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis
-}
-.ico-shadow{text-shadow:$textShadow}
-.smallCaps{font-variant:small-caps}
-
-.pasos-title-1{
-    font-size:3rem;
-    font-family:$f-sans-serif;
-    font-variant:small-caps}
-
-.pasos-title-2{
-    font-size:2rem;
-    margin-top:1rem;
-    font-weight:300}
-
-.pasos-title-3{
-    font-size:1.2rem;
-    font-variant:small-caps}
-
-@media (max-width:550px){.bt-text-hide{display:none}}
-
-.t_red{color:#cc004b;line-height:1.2}
-.ejemplo{color:#0092b3;font-family:$f-condensed}
-
-.hr{
-    color:hsl(180, 48%, 83%);
-    padding-top: 4px;
-    background-color:#bfe8e8;
-    border: 0px solid;
-}
 
 /* =========== IMAGE =========== */
 
@@ -598,45 +541,27 @@ a.btn:hover,button.btn:hover,
 }
 
 
-.bt-clase-header{
-    height:2rem;
-    margin:3px;
-    margin-left:1rem;
-    padding:.1rem 1rem .25rem 1rem;
-    border:2px solid #c6ebec;
-    border-radius:3px;
-    font-family:$f-condensed;
-    a,span{vertical-align: text-bottom}
-    box-sizing: border-box}
-
-.reloj{margin-left:1rem;font-size:1.5rem}
-
-@media screen and (max-width:550px){
-    .bt-clase-header{
-        padding:.1rem .5rem .25rem .5rem;
-        margin-left:.25rem}
-    .reloj{
-        margin-left:.5rem;
-        font-size:1rem}
-}
-
 .continuar{
     border:2px solid $c_az190;
     background-color: #c6ebec;
     color:#333;
     &:hover{
+        border:2px solid $c_brd50; 
         background-color:$azulBrand;
         color:#fff}
 }
 
 .atras {
-    border:2px solid  $c_brd68;
+    border:2px solid   $c_az190;
     background-color: #eceadf;
-    color:#706529; 
+    color:#333; 
     &:hover {
-        border:2px solid $c_brd50; 
-        background-color: #c6ebec;
-        color: #222}
+        border:2px solid #958737; 
+         background-color:$azulBrand;
+        color:#fff
+        // background-color: #c6ebec;
+        // color: #222
+        }
 }
 
 .crear {
@@ -681,10 +606,16 @@ a.btn:hover,button.btn:hover,
         color:$c_az190}
 }
 
-.bg-ver{background-color:$c_az190;color:#fff}
+.bg-ver{background-color:$c_az190;
+    color:#fff;
+        &:hover{
+        border-color:$c_az190; 
+        background-color: $fondo;
+        color:$black36}
+}
 
 .crearCurso {
-    border:2px solid $c_brd78;
+    border:2px solid $azulBrand;
     background-color: #00c5cc;
     color: #fff;
     font-variant: small-caps;
@@ -695,7 +626,7 @@ a.btn:hover,button.btn:hover,
 
 .enviar {
     border:2px solid $c_brd68; 
-    background-color: #3193b9;
+    background-color: $azulBrand;
     font-variant: small-caps;
     color: #fff;
     &:hover {
@@ -714,14 +645,14 @@ a.btn:hover,button.btn:hover,
         color:#b80a12}
 }
 .borrarLarge{
-    border:2px solid $c_brd50;
+    border:2px solid   $c_az190;
     background-color: #ff4d88;
     font-variant: small-caps;
-    color:#fff;
+    color:#000;
     &:hover{
-        border-color:$c_brd68;
+        border-color:#717171;
         background-color: #ff0066;
-        // color: #222
+        color: #fff
         }
 }
 
@@ -817,9 +748,7 @@ div.cancelar{
 
 
 /* =========== Container  =========== */
- @media screen and (min-width:120px) and (max-width:414px) {
-    .caja-body{padding-right:0;padding-left:0} 
-}
+
 @media screen and (min-width:20px) and (max-width:640px){
     .container{
         max-width:100%;
@@ -827,24 +756,21 @@ div.cancelar{
         padding-left:0}
     .caja{
         margin-right:0;
-        margin-left:0;
-    }
+        margin-left:0}
     .caja-body{padding:.5rem .3rem .8rem .3rem}
-    .caja-header{padding:.1rem .5rem;
-        h2{font-size:1.2rem}
-    }
+    .caja-header{padding:.1rem .5rem}
     .caja-header.btn,
     .caja-header select,
     .caja-header button.btn,
     .caja-header a.btn,
-    // .caja-header.boton{height:1.8rem;padding:2px .3rem;font-size:1rem}
-    .caja-header.boton{height:1.8rem;padding-right:.3rem;padding-left:.3rem;font-size: 1rem}
+    .caja-header.boton{height:1.8rem;padding-right:.25rem;padding-left:.25rem;min-width:1.9rem;font-size:.9rem}
+    .caja-header select,option{font-size:.8rem; padding-right:0}
     .caja-header>.grid>a.btn{padding-top:1px}
-    .pasos-title-1 {font-size:2rem}
+    .pasos-title-1,.title {font-size:1.1rem}
     html {font-size:14px}
     .alert,.alert-info{font-size:.9rem; font-family: $f-condensed;}
     .caja-header select{
-        padding-top:3px;padding-bottom:3px}
+        padding-top:2px;padding-bottom:3px}
     .caja-header select  option{
         height: 1.8rem;
         margin-top:0;
@@ -853,7 +779,9 @@ div.cancelar{
         padding-bottom:0
     }
 }
-
+@media screen and (min-width:20px) and (max-width:414px) {
+    .caja-body{padding-right:3px;padding-left:3px} 
+}
 @media screen and (min-width:641px) and (max-width:768px){
     .container{max-width:95%;margin:auto}
     .alert{padding-right:1.5rem;padding-left:1.5rem}
@@ -869,7 +797,8 @@ div.cancelar{
     // .caja-header.boton{height:2rem;padding:2px .8rem;font-size:.9rem}
     .caja-header.boton{height:2rem;padding-right:.8rem;padding-left:.8rem;font-size: .9rem}
     .caja-header select{
-        padding-top:3px;padding-bottom:3px;font-size: 1.3rem}
+        padding-top:3px;padding-bottom:3px;
+        font-size:.9rem}
     .caja-header select  option{
         height: 2rem;
         line-height: 2rem;
@@ -1118,13 +1047,17 @@ input[type=time]{
     border:2px solid $c_brd68;
     border-radius: 3px;
     margin-top:.2rem;
+    color:#363636;
     background-color:#f7f6f2}
-
+select{
+    font-size:.7rem;
+}
+select:focus,
 input:focus,
 textarea:focus,
 input[type=text]:focus{
     background-color:#daf6f7;
-    border-color:$cyanBrand}
+    border-color:$azulBrand}
 
 input[type=number]{max-width:4rem}
 
@@ -1134,8 +1067,39 @@ select{margin-top:-1px}
 
 
 
-/* =========== MESA/BT_MESA =========== */
+/* =========== ETAPA-USO HEADER =========== */
 
+.bt-clase-header{
+    height:2rem;
+    min-width:2.5rem;    
+    margin:3px;
+    padding:.2rem 1rem .25rem 1rem;
+    border:2px solid $azulBrand;
+    border-radius:3px;
+    text-align:center;
+    font-family:$f-condensed;
+    font-variant:small-caps;
+    // overflow:hidden;
+    // white-space:nowrap;
+    // text-overflow:ellipsis;
+    box-sizing: border-box}
+
+.reloj{margin-left:1rem;margin-right:.5rem;font-size:1.25rem}
+
+@media screen and (max-width:640px){
+    .bt-clase-header{
+        padding:.3rem .4rem .25rem .4rem;
+        margin-left:.25rem}
+    .reloj{
+        margin-left:.4rem;margin-right:.4rem;
+        font-size:1rem;
+        }
+}
+@media screen and (max-width:640px){
+    .header-uso{font-size:.9rem}
+}
+
+/* =========== MESA/BT_MESA =========== */
 .aula-mesa{
     grid-gap: 10px 10px;
 }
@@ -1185,29 +1149,33 @@ select{margin-top:-1px}
 
 .bt90x90{
     width:90px;
-    height:80px;
+    height:90px;
     text-align:center;
-    border:2px solid $c_brd68;
+    border:2px  solid $c_brd50;
+    background-color:darkgray;
 
 }
 .plantilla-bt{
     margin:.25rem .25rem .5rem .25rem;
     border:1px solid #ddd;
+    
     box-shadow:0px 1px 4px 0px rgba(0,0,0,.1),0 1px 1px 0 rgba(0,0,0,.06)
 }
+.no_border{border:0 solid }
 .resultado-bt{
+    height: 3rem;
     margin-bottom:.25rem;
-    padding-top:.5rem;
-    padding-bottom:.5rem;
-    border:2px solid $c_brd78;
-    text-align:left;
-    padding-left: .5rem;
+    padding-top:.25rem;
+    padding-bottom:.25rem;
+    border:2px  solid $c_brd50;
+    // text-align:left;
+    // padding-left: .5rem;
     background-color:#c6ebec;
     color:#363636
 }
 .plantilla-body{ 
     margin: auto;
-    border:2px solid $c_brd78;
+    border:2px solid $c_brd68;
     display:block;
     width:calc(100% - 2*2px);
     display:grid;
@@ -1218,7 +1186,7 @@ select{margin-top:-1px}
 }
 .plantilla-footer{
     margin:.25rem;
-    padding:.75rem 1.5rem;
+    padding:.75rem 1.5rem;font-family: $f-condensed;
     color:#fff;
     background-color:$azulBrand;;
 }
@@ -1277,7 +1245,13 @@ select{margin-top:-1px}
     }
 }
 
-@media screen and (min-width:641px) and (max-width:768px){
+@media screen and (min-width:641px) and (max-width:768px) and(orientation: portrait){
+    .mesa{
+        width:6rem;height:8rem;
+        >div>.nombre_mesa{font-size:.9rem}
+    }
+}
+@media screen and (min-width:641px) and (max-width:768px) and(orientation: landscape){
     .mesa{
         width:6rem;height:5rem;
         >div>.nombre_mesa{font-size:.9rem}
@@ -1290,9 +1264,7 @@ select{margin-top:-1px}
 }
 
 @media screen and (min-width:1025px){
-    .mesa{     
-        //  margin:15px 12px;
-        width:12rem;max-height:5.5rem}
+    .mesa{width:12rem;max-height:5.5rem}
 }
 @media screen and (max-width:412px){
     .bt_mesa,.nombre_mesa{
@@ -1437,6 +1409,7 @@ img{max-width:100%;height:auto}
 .grid-cols-9-auto{grid-template-columns:auto auto auto auto auto auto auto auto auto}
 .grid-cols-3-fr{grid-template-columns:1fr auto auto}
 .grid-cols-4-fr{grid-template-columns:1fr auto auto auto}
+.grid-cols-5-fr{grid-template-columns:1fr auto auto auto auto}
 .grid-cols4{grid-template-columns:1fr auto auto auto}
 
 .grid-rows-1{grid-template-rows:repeat(1,100%)}
@@ -1469,14 +1442,14 @@ img{max-width:100%;height:auto}
     background-color:$yellBrand;
     :hover{background-color:#AAEEEE}
 }
-.bg-sky{background-color:#00f0f0; color:#333}
-.bg-blue{background-color:#AAEEEE}
-.bg-gradual1{background-color:hsl(180, 90%, 90%)}
-.bg-gradual2{background-color:hsl(180, 90%, 80%)}
-.bg-gradual3{background-color:hsl(180, 90%, 65%)}
-.bg-gradual4{background-color:hsl(182, 100%, 50%)}
-.bg-gradual5{background-color:hsl(182, 90%, 45%)}
-.bg-gradual6{background-color:hsl(184, 100%, 45%); color:#ffffff}
+.bg-sky{background-color:hsl(180, 100%, 47%); color:#333}
+.bg-blue{background-color:hsl(180, 67%, 80%)}
+.bg-gradual1{background-color:hsl(180, 90%, 89%)}
+.bg-gradual2{background-color:hsl(180, 100%, 80%)}
+.bg-gradual3{background-color:hsl(180, 100%, 65%)}
+.bg-gradual4{background-color:hsl(180, 100%, 50%)}
+.bg-gradual5{background-color:hsl(190, 90%, 55%)}
+.bg-gradual6{background-color:hsl(190, 100%, 40%); color:#ffffff}
 .bg-azul-kc{background-color:$azulBrand}
 .bg-fucsia{background-color:#ff0066}
 .bg-amarillo{background-color: $yellBrand}
@@ -1491,6 +1464,7 @@ img{max-width:100%;height:auto}
 .bg-transparent{background-color:#00000000}
 
 .text-white{color:#ffffff}
+.text-black{color:#000000}
 .text-gray-200{color:#ededed}
 .text-gray-300{color:#e2e2e2}
 .text-gray-400{color:#cbcbcb}
@@ -1623,7 +1597,9 @@ img{max-width:100%;height:auto}
 .w-90{width:50%}
 .w-100{width:100%}
 
-
+.informacion{
+    font-size: .9rem;
+}
 /* =========== Medias =========== */
 
 @media(min-width:420px){
@@ -1659,18 +1635,17 @@ img{max-width:100%;height:auto}
 
 #paginar{
     position:relative;
-    width: 50%;
+    width: 70%;
     height:3rem;
     bottom: .2rem;
-    // left:25%;
     >nav{
         display: block;
-        width: 50%;
+        width: 70%;
         height:2rem;
         margin: auto;
         justify-content: center;
             >div{
-            display: block;
+            // display: block;
             margin: auto;
             >span,
             >a{
@@ -1694,19 +1669,109 @@ img{max-width:100%;height:auto}
 
 @media screen and (max-width:360px) and(orientation: portrait){
     #paginar{
-        width:80%;
+        width:70%;
         >nav>div> a,
-        >nav>div> span{      
-        font-size:.7rem; font-family: $f-condensed;
+        >nav>div> span{ 
+            padding:4px 5px 4px 5px;     
+        font-size:.8rem; font-family: $f-condensed;
         }
     }
 }
+// @media screen and (max-width:640){
+//     #paginar{
+//         width:80%;
+//         >nav>div>a,
+//         >nav>div>span{
+//             position:static;
+//             padding:4px 0;
+//             font-size:smaller;
+//             font-family: $f-condensed}
+//     }
+
+// }
+
+
 // #paginar>nav>div>a{
 //     display:inline-block;
 //     position:static;
 //     bottom: 6rem;
 //     left:40%
 // }
+
+
+/* =========== FONT/Text =========== */
+
+
+.text-xs{font-size:.75rem}          
+.text-sm{font-size:.875rem}
+.text-4{font-size:1rem}
+.text-lg{font-size:1.125rem}
+.text-6{font-size:1.5rem}
+.text-vw2{font-size:2vw}
+.text-vw3{font-size:3vw}
+
+
+.l-height{line-height:.5;margin-top:7px;}
+.leading-7{line-height:1.75rem}
+
+.text-center{text-align:center}
+.text-left{text-align:left}
+.text-justify{text-align:justify}
+
+.font-semibold{font-weight:600}
+.condensed{font-family: $f-condensed}
+.sans-serif{font-family: $f-sans-serif}
+.underline{text-decoration:underline}
+.antialiased{-webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale}
+.text-overflow{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis
+}
+.ico-shadow{text-shadow:$textShadow}
+.smallCaps{font-variant:small-caps}
+
+.pasos-title-1{
+    font-size:3rem;
+    font-family:$f-sans-serif;
+    font-variant:small-caps}
+
+.pasos-title-2{
+    font-size:2rem;
+    margin-top:1rem;
+    font-weight:300}
+
+.pasos-title-3{
+    font-size:1.2rem;
+    font-variant:small-caps}
+
+@media (max-width:550px){.bt-text-hide{display:none}}
+
+.t_red{color:#cc004b;line-height:1.2}
+.ejemplo{color:#0092b3;font-family:$f-condensed}
+
+.hr{
+    color:hsl(180, 48%, 83%);color:$azulBrand;
+    padding-top: 2px;
+    background-color:#bfe8e8;
+    background-color:$azulBrand;
+    border: 0px solid;
+}
+
+.personalizar{
+    margin: 3px 3px; 
+    border: 2px  solid $c_brd50;
+    summary{
+        border:0 solid;
+        font-variant: small-caps;
+        background-color: $yellBrand;
+    }
+    .resultado_bt{
+        border:2px  solid $c_brd50;
+    }
+
+}
 /* =========== dev =========== */
 .hide-dev{display:block}
 // .hide-dev{display:none}

@@ -22,7 +22,9 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/informacion', function(){
+    return view('informacion');
+})->name('informacion');
 Route::get('/personalizar', function(){
     return view('personalizar');
 })->name('personalizar');
@@ -36,25 +38,28 @@ Route::get('/horario', function(){
 Route::get('/klik-class', function(){
     return view('klik-class');
 });
-// Route::get('/clases',[App\Http\Controllers\claseController::class, 'misClases']);
+Route::get('/clases',[App\Http\Controllers\claseController::class, 'misClases']);
 Route::get('/botons',[App\Http\Controllers\botonController::class, 'index']);
 Route::get('/inicializar_botones',[App\Http\Controllers\botonController::class, 'inicializarBotones'])->name('botones.inicializa');
 Route::put('/inicializar_botones/{user}',[App\Http\Controllers\botonController::class, 'inicializarBotones'])->name('botones.inicializa');;
 Route::get('/materias',[App\Http\Controllers\materiaController::class, 'misMaterias']);
 Route::get('/estudiantes',[App\Http\Controllers\estudianteController::class, 'misEstudiantes']);
+// Route::get('/is_tinMat/{id}',[App\Http\Controllers\materiaController::class, 'showMesasMateria']);
 
 // ============= MATERIAController ====================
 
 Route::get('configurar/materias/createall',[App\Http\Controllers\MateriaController::class, 'createall'])->name('materias.createall');
 Route::post('configurar/materias/createall',[App\Http\Controllers\MateriaController::class, 'storeall'])->name('materias.storeall');
-Route::resource('configurar/materias', App\Http\Controllers\MateriaController::class);
+Route::get('etapaUso/materias/{id}/show', [App\Http\Controllers\MateriaController::class, 'show'])->name('materias.show');
+// Route::get('etapaUso/materias/{id}/show', [App\Http\Controllers\MateriaController::class, 'showMesasMateria'])->name('materias.show');
+// Route::resource('configurar/materias', App\Http\Controllers\MateriaController::class);
 
-// Route::get('configurar/materias',[App\Http\Controllers\MateriaController::class, 'index'])->name('materias.index');
-    // Route::get('configurar/materias/create',[App\Http\Controllers\MateriaController::class, 'create'])->name('materias.create');
-    // Route::post('configurar/materias',[App\Http\Controllers\MateriaController::class, 'store'])->name('materias.store');
-    // Route::get('configurar/materias/{materia}/edit',[App\Http\Controllers\MateriaController::class, 'edit'])->name('materias.edit');
-    // Route::put('configurar/materias/{materia}',[App\Http\Controllers\MateriaController::class, 'update'])->name('materias.update');
-    // Route::delete('configurar/materias/{materia}',[App\Http\Controllers\MateriaController::class, 'destroy'])->name('materias.destroy');
+Route::get('configurar/materias',[App\Http\Controllers\MateriaController::class, 'index'])->name('materias.index');
+    Route::get('configurar/materias/create',[App\Http\Controllers\MateriaController::class, 'create'])->name('materias.create');
+    Route::post('configurar/materias',[App\Http\Controllers\MateriaController::class, 'store'])->name('materias.store');
+    Route::get('configurar/materias/{materia}',[App\Http\Controllers\MateriaController::class, 'edit'])->name('materias.edit');
+    Route::put('configurar/materias/{materia}',[App\Http\Controllers\MateriaController::class, 'update'])->name('materias.update');
+    Route::delete('configurar/materias/{materia}',[App\Http\Controllers\MateriaController::class, 'destroy'])->name('materias.destroy');
 
 //
 
@@ -70,8 +75,8 @@ Route::get('configurar/aulas',[App\Http\Controllers\AulaController::class, 'inde
     Route::post('configurar/aulas',[App\Http\Controllers\AulaController::class, 'store'])->name('aulas.store');
     Route::get('configurar/aulas/{aula}/edit',[App\Http\Controllers\AulaController::class, 'edit'])->name('aulas.edit');
     // Route::get('aulas/{aula}/show',
-    Route::get('etapaUso/aulas/{aula}/show',
-    [App\Http\Controllers\AulaController::class, 'show'])->name('aulas.show');
+    // Route::get('etapaUso/aulas/{aula}/show',
+    // [App\Http\Controllers\AulaController::class, 'show'])->name('aulas.show');
     Route::put('configurar/aulas/{aula}',[App\Http\Controllers\AulaController::class, 'update'])->name('aulas.update');
     Route::delete('configurar/aulas/{aula}',[App\Http\Controllers\AulaController::class, 'destroy'])->name('aulas.destroy');
 //
@@ -121,7 +126,7 @@ Route::get('/clasesPorDia',[App\Http\Controllers\ClaseController::class, 'clases
 
 Route::get('mostrar/estudiantes/{materia_id}', [App\Http\Controllers\EstudianteController::class, 'porMateria'])->name('estudiantes.porMateria');
 Route::delete('borrar/estudiantes/{materia_id}', [App\Http\Controllers\EstudianteController::class, 'borrarGrupo'])->name('estudiantes.borrarGrupo');
-Route::get('configurar/estudiantes/{materia_id}', [App\Http\Controllers\EstudianteController::class, 'index'])->name('estudiantes.index');
+Route::get('configurar/estudiantes', [App\Http\Controllers\EstudianteController::class, 'index'])->name('estudiantes.index');
 
 // Route::resource('configurar/estudiantes', App\Http\Controllers\EstudianteController::class);
 
