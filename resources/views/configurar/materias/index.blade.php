@@ -80,12 +80,10 @@
                         </button>
                     </form>
                   @endif
-                  @php
-                      $materia_id=1
-                  @endphp
+
                   @if($user->paso >= 4)
                     <h2 class="title">{{ __('My')}} {{ __('Groups')}}</h2>
-                    <a href="{{ route('estudiantes.index',$materia_id) }}"
+                    <a href="{{ route('estudiantes.index') }}"
                       class=" btn ver"
                       title="Ver lista de todos los estudiantes">
                       <p class="px-2 ">
@@ -146,7 +144,7 @@
                   <tr>
                       @php
                           $aula = DB::table('aulas')->find($materia->aula_id);
-                      @endphp                    
+                      @endphp                   
                     <td class="id">   <!-- -id -->
                           {{ $materia->id }}
                     </td>
@@ -156,7 +154,6 @@
                       
                     @if($user->paso < 4)
                       <td>   <!-- Grupo -->
-
                           {{ $aula->aula_name }}
                       </td>
                     @endif
@@ -168,13 +165,15 @@
                     @if($user->paso >= 4)
                           <!-- se comprueba si los estudiantes de esa materia están ya registrados -->
                       @php
+                        // $isStudent = $materia->estudiantes()->where('materia_id', $materia->id)->get();
+                        // 
                         $isStudent = $materia->estudiantes()->where('materia_id', $materia->id)->first();
+                        // dd($isStudent);
                       @endphp
                           <!-- si no lo están, se enlaza el formulario para crear el grupo de estudiantes -->
                       @if($isStudent == null)
                         <td class="pt-02 mt-0">   <!-- Grupo -->  
                           <a href="#"
-                          {{-- <a href="{{ route('estudiantes.create', $materia->id) }}"   --}}
                           id="{{$materia->materia_name}}_{{$materia->id}}" 
                           title="Añadir estudiantes de {{$materia->grupo }}" 
                           class="d_block pt-02 editar" 
@@ -207,17 +206,17 @@
                         <td class="">  <!-- Editar Aula -->
                           <a href="{{ route('aulas.edit', $aula->id) }}" 
                             class= "d_block editar pt-02" 
-                            title="editar aula de {{$aula->aula_name}}">
+                            title="editar aula id= {{$aula->id}} de {{$aula->aula_name}}">
                             <span class="ico-shadow"> 📝 </span>
                             <span>{{$aula->aula_name}}</span>
                           </a>
                         </td>
                         <td class="">   <!-- Mostrar la disposición de mesas en el aula -->
                         @if($aula->check && $materia->check)
-                          <a href="{{ route('aulas.show', $aula->id,$materia->id) }}" 
+                          <a href="{{ route('materias.show', $materia->id) }}" 
                             id="verMesasAula{{ $aula->id }}" 
                             class="d_block ver pt-02" 
-                            title ="Ver mesas aula id= {{ $aula->id }}">
+                            title ="Ver mesas materia id= {{$materia->id}}, {{$materia->materia_name}} en el aula id= {{ $aula->id }}">
                               <span class="ico-shadow"> 👀 </span>
                               <span class="bt-text-hide">{{ __('Show')}} </span>
                           </a>
@@ -282,4 +281,3 @@
   </div>   <!--fin de container-->
         
 @endsection
-{{-- @show --}}

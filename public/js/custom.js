@@ -1,9 +1,16 @@
 
+var screenWidth=screen.availWidth;
 
-var screenWidth = screen.availWidth;
-if (screenWidth >= 414) var semana = "'Horario','Lunes','Martes','Miercoles','Jueves','Viernes'";else var semana = "'Hora','Lun','Mar','Mie','Jue','Vie'"; // document.getElementById("semana").innerHTML=semana;
+if(screenWidth>=414) var semana=`'Horario','Lunes','Martes','Miercoles','Jueves','Viernes'`;
 
+if(screenWidth<414) var semana=`'Hora','Lun','Mar','Mie','Jue','Vie'`;
 
+function screenResize(){
+  var screenWidth=screen.availWidth;
+  if(screenWidth>=414) var dias = ["Domingo","Lunes", "Martes", "Miércoles","Jueves","Viernes","Sábado"];
+  if(screenWidth<414) var dias = ["Do","Lu", "Ma", "Mi","Ju","Vi","Sa"];
+  return dias;
+}
 
 function myTimer() {
   var d = new Date();
@@ -11,12 +18,13 @@ function myTimer() {
     hour: '2-digit',
     minute: '2-digit',
     hour12: false
-  }; // console.log(new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g,'-').replace(',',''));
+  };
 
-  ahora.innerHTML = new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g, '-'); // ahora.innerHTML = d.toLocaleTimeString(); 
+  ahora.innerHTML = new Intl.DateTimeFormat('es-ES', options).format(d).replace(/\//g, '-'); 
+  // ahora.innerHTML = d.toLocaleTimeString(); 
 
   var queDia = document.getElementById("kdiaes");
-  var dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+  var dias =screenResize();
   var dia = d.getDay();
   var n = d.getDate();
   if (queDia !== null) // queDia.innerHTML = d.toLocaleDateString();
@@ -53,61 +61,36 @@ function fFecha(x) {
   switch (x) {
     case 0:
       fecha = d + " de " + meses[m]; // 29 de febrero
-
       break;
-
     case 1:
       fecha = d + " de " + meses[m] + " - " + dias[dia]; // 29 de febrero - Martes
-
       break;
-
     case 2:
       fecha = dias[dia] + " - " + d + " de " + meses[m]; // Martes - 29 de febrero
-
       break;
-
     case 3:
       fecha = d + " de " + meses[m] + " de " + y; // 29 de febrero de 1890
-
       break;
-
     case 4:
       fecha = d + " / " + m + " / " + y + "  ,  " + dias[dia]; //29 / 02 / 1890 Martes 
-
       break;
-
     case 5:
       fecha = local; //  29/02/1890 
-
       break;
-
     case 6:
       fecha = local + "  " + dias[dia]; //  29/02/1890 Martes 
-
       break;
-
     case 7:
       fecha = d + " " + dias[dia]; //   29 Martes 
-
       break;
-
     default:
       fecha = dias[dia] + ", " + d + " de " + meses[m] + " de " + y; // Martes, 29 de febrero de 1890
-
       break;
   }
 
   document.getElementById("kdiaes").innerHTML = fecha;
-} // function verMesas(valor_id){
-//   let ar_id = valor_id.split('_');
-//   let bt_verMesas= "verMesasAula"+ar_id[1];
-//   console.log(bt_verMesas);
-//   var x = document.referrer; 
-//   console.log(x);
-//   // location.replace(x);
-//   var element= document.getElementById(bt_verMesas);
-//   element.classList.remove("hidden");
-// }
+} 
+
 
 
 function crearElemParent(parent, elem, attr, text) {
