@@ -33,8 +33,8 @@
       <div>
         <button type="submit" 
             title="clonar booleano" 
-            class="bt_xxl mt-6 default">Guardar</button>
-        </div>
+            class="bt_xxl mt-6 enviar">Guardar</button>
+      </div>
     </form>
-    </details>
+  </details>
 

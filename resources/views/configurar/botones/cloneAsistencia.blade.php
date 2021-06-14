@@ -5,7 +5,7 @@
     $plantilla = Boton::find(3);
   @endphp
   <details>
-    <summary>Configuración avanzada</summary>
+    <summary class="bg-yellow">Configuración avanzada</summary>
     <form id="asistencia_btform" class="mx-2" method="POST" action="{{ route('botones.store') }}">
       @csrf
         <input type="hidden" name="user_id" value={{ auth()->user()->id }}/>
@@ -37,7 +37,7 @@
       <div>
         <button type="submit" 
             title="clonar asistencia" 
-            class="bt_xxl mt-6 default">Guardar</button>
-        </div>
+            class="bt_xxl mt-6 enviar">Guardar</button>
+      </div>
     </form>
-    </details>
+  </details>
