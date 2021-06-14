@@ -24,10 +24,15 @@ class Aula extends Model
     public function user(){
        return $this->belongsTo('App\Models\User');
     }
-    // One to One (inverse)
-    public function materia(){
-        return $this->belongsTo('App\Models\Materia');
+    // One to many
+    public function materias(){
+        return $this->hasMany('App\Models\Materia');
     }
+
+    // // One to One (inverse)
+    // public function materia(){
+    //     return $this->belongsTo('App\Models\Materia');
+    // }
     // One to many
     public function mesas(){
         return $this->hasMany('App\Models\Mesa');

@@ -27,10 +27,14 @@ class Materia extends Model
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
-    // One to one
+    // One to many (inverse)
     public function aula(){
-        return $this->hasOne('App\Models\Aula');
+        return $this->belongsTo('App\Models\Aula');
     }
+    // // One to one
+    // public function aula(){
+    //     return $this->hasOne('App\Models\Aula');
+    // }
     // One to many
     public function clases(){
         return $this->hasMany('App\Models\Clase');
