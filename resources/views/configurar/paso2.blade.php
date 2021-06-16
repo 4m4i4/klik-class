@@ -21,10 +21,10 @@
 
     <div class="ml-1 mt-2">
       @if(auth()->user()->paso==2)
-        <a href="{{route('sesions.index')}}" title="Añadir horarios" class="bt_pasos boton oscuro">{{ __('Add') }} {{ __('Timetable') }}</a>
+        <a href="{{route('sesions.index')}}" title="Añadir horarios" class="bt_pasos oscuro">{{ __('Add') }} {{ __('Timetable') }}</a>
       @endif
       @if(auth()->user()->paso==3)
-        <a href="{{route('clases.index')}}" title="Añadir clases" class="bt_pasos boton oscuro">Añadir Clases</a>
+        <a href="{{route('clases.index')}}" title="Añadir clases" class="bt_pasos oscuro">Añadir Clases</a>
       @endif
     </div>
   </div>

@@ -25,7 +25,7 @@
       <div class="ml-1 my-2 text-lg font-semibold">
         <p class="pasos-title-3">{{__('Third step')}}</p>
           @if(auth()->user()->paso>=4)
-            <h3 class="pasos-title-2"><span class="ico-shadow">😶 </span>{{ __('My Groups') }}</h3>
+            <h3 class="pasos-title-2"><span class="ico-shadow">😶 </span>{{ __('Groups') }}</h3>
           @endif
           {{-- @if(auth()->user()->paso==5)
             <h3 class="pasos-title-2"><span class="ico-shadow">😶 </span>{{ __('My') }} {{ __('Classrooms') }}</h3>
@@ -34,7 +34,7 @@
 
     <div class="ml-1 mt-2">
         @if(auth()->user()->paso>=4)
-          <a class="bt_pasos boton oscuro" href="{{route('materias.index')}}">{{ __('Add') }} {{ __('Groups') }}</a>
+          <a class="bt_pasos  oscuro" href="{{route('materias.index')}}">{{ __('Add') }} {{ __('Groups') }}</a>
         @endif
         {{-- @if(auth()->user()->paso==5)
           <a class="bt_pasos boton oscuro" href="{{route('aulas.index')}}">{{ __('Configure') }} {{ __('Classrooms') }}</a>
