@@ -84,9 +84,8 @@
                   {{-- El usuario verá el perfil y favoritos cuando esté en el paso 5. --}}
                   {{-- @if(auth()->user()!==null && auth()->user()->paso >= 5) --}}
                     <a class="dropdown-item editar" href="/informacion">Información</a>
-                    
                     {{-- Funciones para desarrollo, la clase permite ocultarlas/mostrarlas --}}
-                    <div class="hide-dev">
+                    {{-- <div class="hide-dev"> --}}
                       <form method="POST" action="{{route('home.updatePasoMas',$user->id)}}">
                         @csrf
                         @method("PUT")
@@ -100,20 +99,19 @@
                       <a class="dropdown-item crearCurso" href="{{route('materias.index')}}">Materias</a>
                       <a class="dropdown-item crearCurso" href="{{route('sesions.index')}}">Sesiones</a>
                       <a class="dropdown-item crearCurso" href="{{route('clases.index')}}">Clases</a>
-                      <a class="dropdown-item crearCurso" href="{{route('estudiantes.index')}}">Estudiantes</a>                      
+                      <a class="dropdown-item crearCurso" href="{{route('estudiantes.index')}}">Estudiantes</a>
+                      <a class="dropdown-item crearCurso" href="{{route('aulas.index')}}">Aulas</a>                     
                       <a class="dropdown-item crearCurso" href="{{route('mesas.index')}}">Mesas</a>
-
                       <a class="dropdown-item continuar" href="/klik-class">Ajax</a>
                       <a class="dropdown-item continuar" title="Materias con estudiantes, aulas y clases" href="/materias">Materias.json</a>
                       <a class="dropdown-item continuar" title="Clases por dia y hora del usuario" href="/clasesPorDia">Clases.json</a>
                       <a class="dropdown-item continuar" href="/botons">Botones.json</a>
                       <a class="dropdown-item continuar" href="/estudiantes">Estudiantes.json</a>
-                    </div>
+                    {{-- </div> --}}
                   {{-- @endif --}}
 
                     <a class="dropdown-item oscuro-reves" href="/horario">Horario</a>
                     <a class="dropdown-item oscuro-reves" href="/personalizar">Favoritos</a>
-                    
                   {{-- formulario para salir --}}
                   <a class="dropdown-item oscuro-reves " href="{{ route('logout') }}"
                      onclick="event.preventDefault();
