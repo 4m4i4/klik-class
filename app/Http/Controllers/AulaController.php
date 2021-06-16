@@ -27,16 +27,10 @@ class AulaController extends Controller
     public function index()
     {
             $user = auth()->user()->id; 
-            // // versión A (el modelo Estudiante se importa en el index):
-            // $aulas = Aula::where('user_id',$user)->with('user','clase','mesas')->get();
-
-            // return view('configurar.aulas.index', compact('aulas'));
-
-            // // versión B (El modelo Estudiante se importa aquí)
             $aulas = Aula::where('user_id',$user)->get();
-            $clase = Clase::select('materia_id')->get();
-            $estudiantes = Estudiante::select('id')->get();
-            return view('configurar.aulas.index', compact('aulas', 'clase', 'estudiantes'));
+            $materia = Materia::where('user_id',$user)->get();
+
+            return view('configurar.aulas.index', compact('aulas', 'materia'));
 
             // // versión C (El modelo Estudiante se importa aquí)
             // $aulas = Aula::where('user_id',$user)->with('user','clase','mesas')->get();
@@ -156,7 +150,7 @@ class AulaController extends Controller
                 } 
             } 
         }
-        return view('configurar.aulas.show', compact('aula', 'user','mesas', 'estudiantes','materia_name'));
+        return view('configurar.aulas.show', compact('aula', 'user','mesas', 'estudiantes','materia','materia_name'));
     }
 
     /**
