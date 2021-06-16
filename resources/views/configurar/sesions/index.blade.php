@@ -66,8 +66,8 @@
             <tbody>
               @foreach ($sesions as $sesion)
                   <tr id={{$sesion->id}} class="">
-                    <th class="flex  justify-center">
-                      <a href="{{route('sesions.edit', $sesion->id)}}" title="Cambiar el horario" class="editar flex justify-center items-center">
+                    <th class="flex justify-center">
+                      <a href="{{route('sesions.edit', $sesion->id)}}" title="Cambiar el horario" class="editar h-8 flex justify-center items-center">
                         <span class="ico-shadow"> 📝 &nbsp</span> {{date_format(date_create($sesion->inicio), "H:i")}} |  
                         {{date_format(date_create($sesion->fin), "H:i")}}
                       </a>

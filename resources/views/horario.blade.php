@@ -74,7 +74,7 @@
                                            
                     <td id ={{$fila + 1}}{{$dias[$col]}} class="text-centermx-auto bg-ver">
                       <!-- nombre del grupo y la materia -->
-                    <a href="{{route('materia.show', $clase->materia_id)}}" title="Ir al aula para cambiar las mesas" class="d_block bg-ver " >   
+                    <a href="{{route('materias.show', $clase->materia_id)}}" title="Ir al aula para cambiar las mesas" class="d_block bg-ver " >   
                         <p>
                           <span>{{ Str::before($clase->materia->materia_name," ") }}</span>
                         </p>

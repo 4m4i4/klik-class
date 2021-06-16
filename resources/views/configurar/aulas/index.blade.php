@@ -58,7 +58,8 @@
                   <th class="id">Id</th>
                   <th title="Nombre del aula">Aula</th>
                   <th title="Columnas/Filas">Cols/Filas</th>
-                  <th title="Mesas/Estudiantes">Mesas/Pers</th>
+                  <th title="Mesas">Mesas</th>
+                  <th title="Materias">Materias</th>
                   <th title="Configurar aula">Editar</th>
                   <th title="Ver mesas y aula">Ver Aula</th>
                 </tr>
@@ -70,40 +71,17 @@
                     <td class="id"><!-- Aula-id -->
                         {{ $aula->id }}
                     </td>
-                    <td>
+                    <td><!-- Aula-name -->
                         {{ $aula->aula_name }}
                     </td>
-                    <td>
+                    <td><!-- número de columnas y filas -->
                         {{ $aula->num_columnas }}/{{$aula->num_filas }}
                     </td>
-                    <td>
-                        {{ $aula->num_mesas }}/
-                         @php 
-                            
-                          // Para la versión A del controlador (requiere importar aquí el modelo Estudiante)
-
-                            // $estaClase = $aula->clase;
-                            // // dd($estaClase);
-                            // $materiaId =  $estaClase->materia_id;
-                            // $estudian = Estudiante::where('materia_id', $materiaId)->count();
-
-                            // Para la versión B del controlador
-                            // $estaClase = $clase->firstWhere('aula_id',$aula->id)->only('materia_id');
-                            $clase = Clase::where('aula_id',$aula->id)->first();
-                            // dd($clase);
-                            $materiaId=$clase->materia_id;
-                            // dd($materiaId);
-                            // $materiaId = $estaClase['materia_id'];
-                            $estudian = $estudiantes->whereIn('materia_id', $materiaId)->count();
-
-                            // // Para la versión C del controlador
-                            // $clase = $aula->clase;
-                            // $materiaId = $clase->materia_id;
-                            // $estudian = $estudiantes->whereIn('materia_id', $materiaId)->count();
-                            // $estudian = $estudiantes->where('materia_id', $materiaId)->count();
-                          // dd($estudian);
-                         @endphp
-                         {{$estudian}} 
+                    <td><!-- número de mesas -->
+                        {{ $aula->num_mesas }}
+                    </td>
+                    <td><!-- Materias -->
+                        {{DB::table('materias')->where('aula_id',$aula->id)->pluck('materia_name')}}
                     </td>
                     <td>
                       <a href="{{ route('aulas.edit', $aula) }}" 

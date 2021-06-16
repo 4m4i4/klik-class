@@ -48,7 +48,6 @@
               <thead>
                 <tr>
                   <th>Id</th>
-                  <th>Nombre</th>
                   <th>Columna</th>
                   <th>Fila</th>
                   <th>Ocupada</th>
@@ -62,9 +61,6 @@
                   <tr>
                     <td><!-- Mesa-id -->
                         {{ $mesa->id }}
-                    </td>
-                     <td>
-                        {{ $mesa->mesa_name }}
                     </td>
                     <td>
                         {{ $mesa->columna }}

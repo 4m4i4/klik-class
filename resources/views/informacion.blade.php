@@ -49,7 +49,9 @@
     <div class="caja-body">
       <div class="my-4 mx-4 informacion">
         <h2 class="mb-2">Se avanza en 7 pasos: del 0 al 6</h2>
-        <ol>Desde la etapa de configuración a la etapa de uso. <br><code>/home</code> pasa por <strong>todos: </strong>
+        <p>Desde la etapa de configuración a la etapa de uso.</p>
+        <p> El <strong>paso actual</strong> se puede ver en el <strong>pié de página</strong> (no estaría disponible para el usuario final).</p>
+        <ol> <br>Haciendo clic en el logo enlazamos a <code>/home</code>: muestra la vista que corresponde <strong>en cada paso </strong>. El usuario avanza haciendo clic en el botón continuar que hay en las páginas principales:
           <li class="d_block ml-4 my-2"><strong>Paso 0:</strong> Crear <span class="smallCaps text-blue-30">curso</span>.<br><span class="smallCaps text-blue-30">Inicio de la Etapa de Configuración</span>  <br><code>url= /home</code></li>
           <li class="d_block ml-4 my-2"><strong>Paso 1:</strong> Introducir <span class="smallCaps text-blue-30">materias</span>.  <br><code>url= /configurar/materias</code></li>
           <li class="d_block ml-4 my-2"><strong>Paso 2:</strong> Introducir <span class="smallCaps text-blue-30">sesiones</span>.  <br><code>url= /configurar/sesions</code></li>
@@ -81,7 +83,13 @@
     </div>
     <div class="caja-body">
       <div class="my-4 mx-4 informacion">
-        <p>Enlaces a las <span class="smallCaps text-blue-30">vistas.</span> (son las url que están en el primer botón)</p>
+        <p>Enlaces a las vistas de páginas <span class="smallCaps text-blue-30">no-formulario</span>:
+        </p>
+        <ul>
+          <li class="d_block ml-4 my-2"><strong>Páginas principales</strong>, tienen botón 'continuar': Materias, Sesiones, Clases</li>
+          <li class="d_block ml-4 my-2"><strong>Páginas secundarias</strong> a las que se accede desde las principales: Estudiantes</li>
+          <li class="d_block ml-4 my-2"><strong>Páginas sin acceso</strong>: Mesas, Aulas</li>
+        </ul>
       </div>
       <div class="my-4 mx-4 h-12">
         <p class=" mb-4"><a class="f_right btn smallCaps h-8 px-4 oscuro-reves" href="#indice_0"><span class="text-sm">Volver al Índice</span></a></p>

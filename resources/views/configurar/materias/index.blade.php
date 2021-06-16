@@ -227,7 +227,7 @@
                     @if($user->paso == 1)   <!-- botones EDIT DELETE -->
                         <td>   <!-- Editar -->
                           <a href="{{ route('materias.edit', $materia) }}" 
-                          class= "btn editar  text-overflow" 
+                          class= "btn editar block text-overflow" 
                           title= "Editar materia id= {{ $materia->id}}">
                             <span class="ico-shadow"> 📝 </span>
                             <span class="bt-text-hide">{{ __('Edit') }}</span> 
@@ -238,7 +238,7 @@
                             @csrf
                             @method('delete')
                             <button type="submit" 
-                            class="btn borrar text-overflow" 
+                            class="btn borrar block text-overflow" 
                             title="Borrar materia id= {{ $materia->id }}">
                               <span class="ico-shadow"> ❌ </span>
                               <span class="bt-text-hide">{{ __('Delete') }}</span>
