@@ -149,6 +149,7 @@ kbd{
     background-color:$yellBrand;
     border-radius:3px;
     padding:0 5px;
+    font-weight:700;
     color:#222;
 }
 
@@ -298,10 +299,10 @@ hr{color:#555;background-color:#555}
         .dropdown-item{
             display:block;
             width:calc(100% - 2*2px);
-            margin:2px;
+            margin:1px 2px;
             padding:.25rem 1.5rem;
             border-radius:3px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-variant:small-caps;
             text-align: center}
     }
@@ -563,14 +564,14 @@ a.btn:hover,button.btn:hover,
     &:hover{ 
         border-color:$azulBrand;
         background-color:$bg_base;
-        color:$azulBrand}
+        color:$c_az190}
 }
 
 .editar {
     border:2px solid $c_brd50;
     border-radius:3px;
     background-color:$yellBrand; 
-    color:#222;
+    color:#333;
     &:hover{
         border-color:$c_brd68; 
         background-color:$bg_base;
@@ -584,7 +585,7 @@ a.btn:hover,button.btn:hover,
     &:hover{
         border-color: $c_brd78; 
         background-color: $yellBrand; 
-        color: #222}
+        color: #333}
 }
 
 .ver{
@@ -607,14 +608,13 @@ a.btn:hover,button.btn:hover,
 }
 
 .crearCurso {
-    border:2px solid $azulBrand;
+    border:2px solid  $c_brd40; 
     background-color:$crearCrso;
-;
     color: #fff;
     font-variant: small-caps;
-    &:hover {
+    &:hover {border:2px solid $c_brd78; 
         background-color:$azulHielo;
-        color: #222}
+        color: #333}
 }
 
 .enviar {
@@ -625,13 +625,13 @@ a.btn:hover,button.btn:hover,
     &:hover {
         border-color:$c_brd50;
         background-color: $azulHielo;
-        color: #222}
+        color: #333}
 }
 
 .borrar {
     border:2px solid $c_brd50; 
     background-color: hsl(350, 100%, 80%);
-    color: #222;
+    color: #333;
     &:hover{
         border:2px solid hsl(340, 100%, 65%);
         background-color: $bg_base;
@@ -639,13 +639,13 @@ a.btn:hover,button.btn:hover,
 }
 
 .borrarLarge{
-    border:2px solid   $c_az190;
-    background-color: hsl(340, 100%, 65%);
+    border:2px solid $c_brd50; 
+    background-color: hsl(350, 100%, 80%);
     font-variant: small-caps;
-    color:#000;
+    color:#333;
     &:hover{
-        border-color:#717171;
-        background-color: #ff0066;
+        border-color: $c_brd68; 
+        background-color: hsl(336, 90%, 60%);
         color: #fff
         }
 }
@@ -660,7 +660,7 @@ a.btn:hover,button.btn:hover,
     &:hover{
         border-color:$c_brd50;
         background-color: hsl(350, 100%, 80%);
-        color: #222}
+        color: #333}
 }
 
 div.cancelar{
@@ -674,10 +674,10 @@ div.cancelar{
 .oscuro{
     border:2px solid $c_brd78; 
     background-color:#494949;
-    color:#e5feff;
-    &:hover {border: 2px solid#717171;
+    color:$c_azbebe;
+    &:hover {border: 2px solid $c_brd40;
         background-color:$crearCrso;
-        color: #222}
+        color: #fff}
 }
 
 .oscuro.disabled,
@@ -686,17 +686,17 @@ div.cancelar{
     &:hover{
     border:2px solid $c_brd78; 
     background-color:#494949;
-    color:#99fcff}
+    color:$c_azbebe}
 }
 
 .oscuro-reves{
-    border:2px solid #958737; 
+    border:2px solid  $c_brd40; 
     background-color:$bg_base;
-    color:#222;
+    color:#333;
     &:hover{
         border:2px solid $c_brd78; 
-        background-color:rgb(73, 73, 73);
-        color:#fafafa}
+        background-color:#494949;
+        color:$c_azbebe}
 }
 
 .light-grey {
@@ -862,7 +862,7 @@ div.cancelar{
       border:2px solid $c_brd84;
       border-radius:4px;
       color:#333;
-      background-color:hsl(55, 100%, 74%)}
+      background-color:$caption}
 }
         
 
@@ -886,7 +886,7 @@ div.cancelar{
 
 .tabla td{
     border-bottom:2px solid #ddd;
-    // display:inline-flex
+    text-align: center;
     // vertical-align:middle
 }
 .tabla .ver>span{font-family:$f-condensed}
@@ -912,10 +912,11 @@ tbody > tr > td > form {margin-bottom:0; display:inline-block}
         padding-right:0;
         text-align:center;
         >a span,
-        >.btn,
+        >.btn,>div>a.btn,
         >form>button>span{
             // height:2rem;
-            // padding-left:2px;padding-right:2px;
+            margin-left:0;margin-right:0;
+            margin:auto;
             font-size:.8rem;
             // text-overflow:ellipsis
             }
@@ -974,34 +975,34 @@ tbody > tr > td > form {margin-bottom:0; display:inline-block}
 @media screen and (max-width:414px) {
     .tabla .btn,
     .tabla a.btn,
-    .tabla form button{width:3.2rem;height:1.7rem}
+    .tabla form button{width:3.2rem;height:1.7rem; margin:4px auto}
     td > p >span{max-width:4rem}
     tr>td>.editar,tr>td>form>.borrar,
-    tr>td>.ver{height:1.7rem;margin-top:.25rem;margin-bottom:.25rem}
+    tr>td>.ver{height:1.7rem;margin:.25rem 0}
 }
 
 @media screen and (min-width:415px) and (max-width:640px) {
     .tabla .btn,
     .tabla a.btn,
-    .tabla form button{width:4rem;height:1.8rem}
+    .tabla form button{width:4rem;height:1.8rem; margin:4px auto}
     td > p >span{max-width:4rem}
     tr>td>.editar,tr>td>form>.borrar,
-    tr>td>.ver{height:1.8rem;margin-top:.25rem;margin-bottom:.25rem}
+    tr>td>.ver{height:1.8rem;margin:.25rem 0;}
 }
 
 @media screen and (min-width:641px) and (max-width:768px) {
     .tabla .btn,
     .tabla a.btn,
-    .tabla form button{width:5.1rem;height:2rem}
+    .tabla form button{width:5.1rem;height:2rem; margin:4px auto}
     td > p >span{max-width:5.1rem}
     tr>td>.editar,tr>td>form>.borrar,
-    tr>td>.ver{height:2rem;margin-top:.25rem;margin-bottom:.25rem}
+    tr>td>.ver{height:2rem;margin:.25rem 0}
 }
 
 @media screen and (min-width:769px) and (max-width:1024px) {
     .tabla .btn,
     .tabla a.btn,
-    .tabla form button{width:6rem;height:2rem}
+    .tabla form button{width:6rem;height:2rem;margin:4px auto}
     td > p >span{max-width:6rem}
     tr>td>.editar,tr>td>form>.borrar,
     tr>td>.ver{height:2rem;margin-top:.25rem;margin-bottom:.25rem}
@@ -1010,7 +1011,7 @@ tbody > tr > td > form {margin-bottom:0; display:inline-block}
 @media screen and (min-width:1025px) {
     .tabla .btn,
     .tabla a.btn,
-    .tabla form button{width:6rem;height:2rem}
+    .tabla form button{width:6rem;height:2rem;margin:4px auto}
     td > p >span{max-width:6rem}
     tr>td>.editar,tr>td>form>.borrar,
         tr>td>.ver{height:2rem;margin-top:.25rem;margin-bottom:.25rem}
@@ -1019,15 +1020,13 @@ tbody > tr > td > form {margin-bottom:0; display:inline-block}
 #tabla-config-horario .editar,
 #tabla-config-horario .crear{
     height:4rem;
-    margin:3px;
-    // display:flex;
-    // justify-content: center;
-    // align-items: center;
+    margin:3px
 }
+
 #tabla-config-sesion .editar{
     width:80%;
     height:2rem;margin:3px;
-    font-size:1.2rem;
+    font-size:1.1rem;
     }
 
 .table-responsive{
@@ -1498,13 +1497,13 @@ img{max-width:100%;height:auto}
 /* =========== MARGIN =========== */
 
 
-.mx-auto{margin-left:auto;margin-right:auto}
+
 .-mt-px{margin-top:-1px}
 
 .mt--1{margin-top:-3px}
 .mt--03{margin-top:-3px}
 .m-1{margin:.25rem}
-
+.mx-0{margin-left:0;margin-right:0}
 .mt-0{margin-top:0}
 .my-0{margin-top:0;margin-bottom:0}
 
@@ -1540,7 +1539,7 @@ img{max-width:100%;height:auto}
 .ml-8{margin-left:2rem}
 
 .ml-12{margin-left:3rem}
-
+.mx-auto{margin-left:auto;margin-right:auto}
 
 
 /* =========== PADDING =========== */
@@ -1594,10 +1593,10 @@ img{max-width:100%;height:auto}
 .w-20{width:20%}
 .w-30{width:30%}
 .w-50{width:50%}
-.w-60{width:33%}
+.w-60{width:60%}
 .w-70{width:70%}
-.w-80{width:15%}
-.w-90{width:50%}
+.w-80{width:80%}
+.w-90{width:90%}
 .w-100{width:100%}
 
 .informacion{
