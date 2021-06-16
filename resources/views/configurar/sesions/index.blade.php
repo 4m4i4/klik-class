@@ -67,7 +67,7 @@
               @foreach ($sesions as $sesion)
                   <tr id={{$sesion->id}} class="">
                     <th class="flex justify-center">
-                      <a href="{{route('sesions.edit', $sesion->id)}}" title="Cambiar el horario" class="editar h-8 sans-serif flex justify-center items-center">
+                      <a href="{{route('sesions.edit', $sesion->id)}} "title="Cambiar el horario" class="editar h-8 sans-serif flex justify-center items-center">
                         <span class="ico-shadow"> 📝 &nbsp</span> {{date_format(date_create($sesion->inicio), "H:i")}} |  
                         {{date_format(date_create($sesion->fin), "H:i")}}
                       </a>
@@ -101,7 +101,7 @@ function  abrirFormulario(evObject) {
   var tecla = evObject.keyCode;
     console.log(tecla);
   if(tecla == 171 ){
-    window.open("/configurar/sesions/create");
+    window.open("/configurar/sesions/create", '_self');
   }
   // else if (tecla !== 32) {
   //   msg = 'has pulsado '+tecla;
