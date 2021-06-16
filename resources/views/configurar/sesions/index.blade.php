@@ -53,7 +53,7 @@
         <div class = "caja-body">
           <table id="tabla-config-sesion" class = "tabla table-responsive mx-auto">
             <caption>
-              Haz click en <strong>Añadir</strong> para crear una sesión.<br>
+              Para <strong>Crear</strong> una sesión haz click en <strong>Añadir</strong>, o pulsa <kbd>+</kbd> en tu teclado.<br>
               Para <strong>Cambiar </strong> un horario haz click sobre él. <br> Si tienes todas las sesiones pulsa <strong>Continuar</strong>.
             </caption>
             <thead>
@@ -67,7 +67,7 @@
               @foreach ($sesions as $sesion)
                   <tr id={{$sesion->id}} class="">
                     <th class="flex justify-center">
-                      <a href="{{route('sesions.edit', $sesion->id)}}" title="Cambiar el horario" class="editar h-8 flex justify-center items-center">
+                      <a href="{{route('sesions.edit', $sesion->id)}}" title="Cambiar el horario" class="editar h-8 sans-serif flex justify-center items-center">
                         <span class="ico-shadow"> 📝 &nbsp</span> {{date_format(date_create($sesion->inicio), "H:i")}} |  
                         {{date_format(date_create($sesion->fin), "H:i")}}
                       </a>
@@ -85,3 +85,38 @@
     </div> {{-- fin div --}}
   </div> {{-- fin container --}}
 @endsection
+@section('script')
+<script>
+window.onload = function() { 
+  document.onkeyup =abrirFormulario; 
+}
+
+
+function  abrirFormulario(evObject) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST',`{{route('sesions.index')}}`,true);
+  xhr.setRequestHeader('Content-Type','application/json');
+  xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+  // var msg = ''; 
+  var tecla = evObject.keyCode;
+    console.log(tecla);
+  if(tecla == 171 ){
+    window.open("/configurar/sesions/create");
+  }
+  // else if (tecla !== 32) {
+  //   msg = 'has pulsado '+tecla;
+  // }
+  // if (msg) {
+  //   control.innerHTML += msg + '<br/>';
+  // }
+  // xhr.send(location.replace(value_materia_id));
+}
+
+ 
+
+
+
+
+
+  </script>
+  @endsection

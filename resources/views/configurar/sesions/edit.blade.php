@@ -52,16 +52,16 @@
       @method('DELETE')
 
 
-        <div class="hidden"><!-- User_id -->
+        {{-- <div class="hidden"><!-- User_id --> --}}
             <label for="user_id"></label>
-            <input type="text" name="user_id" value="{{ auth()->user()->id }}" readonly />
-        </div>  
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}" readonly />
+        {{-- </div>   --}}
         
         <div>
           <label> Sesión: {{date_format(date_create($sesion->inicio), "H:i")}} -  {{date_format(date_create( $sesion->fin), "H:i")}}</label>
           <button type="submit" 
           title="Vaciar la sesión  {{date_format(date_create( $sesion->inicio), "H:i")}} -  {{date_format(date_create( $sesion->fin), "H:i")}}" 
-          class="bt_xxl borrarLarge my-0">Borrar</button>
+          class="w-100 mx-auto h-8 borrarLarge mb-4">Borrar</button>
           {{-- <small class="condensed" >Vaciar la celda <strong> donde NO tienes clase</strong> (registrada por error)</small> --}}
         </div>
     </form>
