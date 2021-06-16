@@ -6,7 +6,7 @@
   <div class="caja mt-4">
     <div  id= "indice_0" class="caja-header mt-2">
       <details class="mt-2 mx-2">
-        <summary class="smallCaps title editar">Información</summary>
+        <summary class="smallCaps title text-6 editar">Información importante</summary>
           <div class="my-4 mx-4 informacion">
             <ul class="mb-2">Se explican los <strong> ítems del menú de desarrollo</strong> (sin acceso para el usuario). Se ha dejado disponible porque: 
 
@@ -17,8 +17,8 @@
           </div>
           <div class="my-4 mx-4 informacion">
             <ul class= "mb-2">Se añaden un par de usuarios (con sus datos del curso, y las contraseñas) por si se quieren utilizar:
-              <li class="d_block ml-4 my-2"><strong>Usuarios:</strong> nueva; new</li>
-              <li class="d_block ml-4 my-2"><strong>Correo:</strong>  nueva@a.com; new@a.com</li>
+              <li class="d_block ml-4 my-2"><strong>Usuarios:</strong> new</li>
+              <li class="d_block ml-4 my-2"><strong>Correo:</strong> new@a.com</li>
               <li class="d_block ml-4 my-2"><strong>Contraseñas:</strong>  klikclass</li>
 
             </ul>
@@ -86,7 +86,7 @@
         <p>Enlaces a las vistas de páginas <span class="smallCaps text-blue-30">no-formulario</span>:
         </p>
         <ul>
-          <li class="d_block ml-4 my-2"><strong>Páginas principales</strong>, tienen botón 'continuar': Materias, Sesiones, Clases</li>
+          <li class="d_block ml-4 my-2"><strong>Páginas principales</strong>, tienen botón 'Continuar': Materias, Sesiones, Clases</li>
           <li class="d_block ml-4 my-2"><strong>Páginas secundarias</strong> a las que se accede desde las principales: Estudiantes</li>
           <li class="d_block ml-4 my-2"><strong>Páginas sin acceso</strong>: Mesas, Aulas</li>
         </ul>
