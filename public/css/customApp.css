@@ -269,12 +269,12 @@ hr {
 }
 
 .main-menu .navbar-brand.active:hover {
-  color: #00eeee;
+  color: #00f0f0;
   transition: 0.5s;
 }
 
 .logoMenu #mesaUno:hover {
-  fill: #00eeee;
+  fill: #00f0f0;
 }
 
 /* ===========- MENÚ USER =========== */
@@ -311,7 +311,7 @@ hr {
 }
 
 .menu-user .user-link:hover {
-  color: #00eeee;
+  color: #00f0f0;
 }
 
 .menu-user > .nav-item > .show {
@@ -528,7 +528,6 @@ hr {
 .encabezamiento .h1 {
   color: #fafafa;
   font-family: "Nunito", sans-serif;
-  font-size: 1rem;
   text-align: center;
   font-variant: small-caps;
   letter-spacing: 0.09em;
@@ -547,7 +546,7 @@ hr {
 .alert-info {
   top: 0.8rem;
   color: #333;
-  background-color: #d9f1f2;
+  background-color: #c6ebec;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
   margin: auto;
 }
@@ -646,7 +645,7 @@ button.btn:hover,
 }
 
 .continuar:hover {
-  border: 2px solid #baa945;
+  border: 2px solid #958737;
   background-color: #00aacc;
   color: #fff;
 }
@@ -664,14 +663,14 @@ button.btn:hover,
 }
 
 .crear {
-  border: 2px solid #d3c888;
+  border: 2px solid #958737;
   background-color: #0095b3;
   color: #fff;
 }
 
 .crear:hover {
   border-color: #00aacc;
-  background-color: #f0ebd1;
+  background-color: #eceadf;
   color: #00aacc;
 }
 
@@ -683,9 +682,9 @@ button.btn:hover,
 }
 
 .editar:hover {
-  border-color: #958737;
-  background-color: #f0ebd1;
-  color: #57570f;
+  border-color: #d3c888;
+  background-color: #eceadf;
+  color: #4a431c;
 }
 
 .warning {
@@ -701,7 +700,7 @@ button.btn:hover,
 }
 
 .ver {
-  border: 2px solid #baa945;
+  border: 2px solid #958737;
   border-radius: 3px;
   background-color: #0095b3;
   color: #fff;
@@ -709,7 +708,7 @@ button.btn:hover,
 
 .ver:hover {
   border-color: #0095b3;
-  background-color: #f0ebd1;
+  background-color: #eceadf;
   color: #0095b3;
 }
 
@@ -756,9 +755,9 @@ button.btn:hover,
 }
 
 .borrar:hover {
-  border-color: #f4343d;
-  background-color: #f0ebd1;
-  color: #b80a12;
+  border: 2px solid #ff4d88;
+  background-color: #eceadf;
+  color: #ff4d88;
 }
 
 .borrarLarge {
@@ -776,6 +775,7 @@ button.btn:hover,
 
 .cancelar {
   border: 2px solid #d3c888;
+  border-radius: 3px;
   background-color: #ff0066;
   color: #fff;
   padding: 0.25rem 1.5rem;
@@ -783,7 +783,7 @@ button.btn:hover,
 
 .cancelar:hover {
   border-color: #baa945;
-  background-color: #ff4d88;
+  background-color: #ff99aa;
   color: #222;
 }
 
@@ -1176,6 +1176,7 @@ table th {
 
 tbody > tr > td > form {
   margin-bottom: 0;
+  display: inline-block;
 }
 
 /* =========== TABLE @media 640px =========== */
@@ -1199,9 +1200,6 @@ tbody > tr > td > form {
   .tabla td > a span,
   .tabla td > .btn,
   .tabla td > form > button > span {
-    height: 2rem;
-    padding-left: 2px;
-    padding-right: 2px;
     font-size: 0.8rem;
   }
 
@@ -1292,6 +1290,7 @@ tbody > tr > td > form {
   }
 
   tr > td > .editar,
+  tr > td > form > .borrar,
   tr > td > .ver {
     height: 1.7rem;
     margin-top: 0.25rem;
@@ -1312,9 +1311,11 @@ tbody > tr > td > form {
   }
 
   tr > td > .editar,
+  tr > td > form > .borrar,
   tr > td > .ver {
     height: 1.8rem;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
   }
 }
 
@@ -1331,8 +1332,9 @@ tbody > tr > td > form {
   }
 
   tr > td > .editar,
+  tr > td > form > .borrar,
   tr > td > .ver {
-    height: 1.7rem;
+    height: 2rem;
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
   }
@@ -1351,9 +1353,9 @@ tbody > tr > td > form {
   }
 
   tr > td > .editar,
-  tr > td > .borrar,
+  tr > td > form > .borrar,
   tr > td > .ver {
-    height: 1.7rem;
+    height: 2rem;
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
   }
@@ -1372,9 +1374,11 @@ tbody > tr > td > form {
   }
 
   tr > td > .editar,
+  tr > td > form > .borrar,
   tr > td > .ver {
     height: 2rem;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
   }
 }
 
@@ -1386,7 +1390,7 @@ tbody > tr > td > form {
 
 #tabla-config-sesion .editar {
   width: 80%;
-  height: 3rem;
+  height: 2rem;
   margin: 3px;
   font-size: 1.2rem;
 }
@@ -1420,8 +1424,9 @@ select:focus,
 input:focus,
 textarea:focus,
 input[type=text]:focus {
-  background-color: #daf6f7;
+  background-color: #d9f6f7;
   border-color: #00aacc;
+  outline: none;
 }
 
 input[type=number] {
@@ -1484,7 +1489,7 @@ select {
 }
 
 .mesa {
-  background-color: #f3f2ea;
+  background-color: #f4f3ec;
   border: 1px solid #ccc;
   margin: 5px;
   margin: auto;
@@ -1497,7 +1502,7 @@ select {
   text-overflow: ellipsis;
   cursor: pointer;
   color: #333;
-  background-color: #e9e9e9;
+  background-color: #e8e8e8;
 }
 
 .bt_mesa {
@@ -1783,7 +1788,7 @@ select {
 
 details {
   font-family: "Roboto Condensed", sans-serif;
-  background-color: #f9fae3;
+  background-color: #f9fae5;
 }
 
 details p {
@@ -1869,6 +1874,10 @@ img {
 
 .inline {
   display: inline;
+}
+
+.block {
+  display: block;
 }
 
 .d_block {
@@ -2070,7 +2079,7 @@ img {
 }
 
 .bg-yellow :hover {
-  background-color: #AAEEEE;
+  background-color: #aaeeee;
 }
 
 .bg-sky {
@@ -2128,7 +2137,7 @@ img {
 }
 
 .bg-marfil {
-  background-color: #f9fae3;
+  background-color: #f9fae5;
 }
 
 .bg-666 {
@@ -2678,7 +2687,7 @@ img {
 #paginar > nav > div > span,
 #paginar > nav > div > a {
   position: static;
-  background-color: #AAEEEE;
+  background-color: #aaeeee;
   margin: 3px 2px;
   padding: 0.3rem 0.5rem;
   border-radius: 3px;

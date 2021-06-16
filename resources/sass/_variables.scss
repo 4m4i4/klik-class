@@ -18,17 +18,17 @@ $cyan: #6cb2eb;
 
 
 $dd: rgb(237, 217, 193);
-$fucsBrand: rgb(255, 0, 102);
-$yellBrand: rgb(255, 238, 0);
-$cyanBrand: rgb(0, 238, 238);
-$azulBrand: rgb(0, 170, 204);
+$fucsBrand: hsl(336, 100%, 50%);
+$yellBrand: hsl(56, 100%, 50%);
+$cyanBrand: hsl(180, 100%, 47%);
+$azulBrand: hsl(190, 100%, 40%);
 $black36:   rgb(54, 54, 54);
 
 
-$borrar:    rgb(255, 153, 170);
-$cancelarh: rgb(255, 77, 136);
-$borrarBrd: rgb(244, 52, 61);
-$borrtext:  rgb(184, 10, 18);
+$borrar:    hsl(350, 100%, 80%);
+$cancelarh: hsl(340, 100%, 65%);
+$borrarBrd: hsl(357, 90%, 58%);
+$borrtext:  hsl(357, 90%, 38%);
 
 $c_az190:   hsl(190, 100%, 35%);
 $contBrd:   hsl(182, 100%, 35%);
@@ -39,7 +39,8 @@ $inputFoc:  hsl(182, 64%, 91%);
 $cajaGrid:  hsl(190, 35%, 91%);
 $body-bg:   hsl(210, 40%, 98%);
 
-
+$c_brd20:   hsl(51, 46%, 20%); 
+$c_brd40:   hsl(51, 46%, 40%); 
 $c_brd50:   hsl(51, 46%, 50%); 
 $c_brd68:   hsl(51, 46%, 68%);
 $c_brd78:   hsl(51, 46%, 78%); 
@@ -49,9 +50,9 @@ $bg_base:   hsl(51, 25%, 90%);
 $caja-bg:   hsl(60, 45%, 98%);
 
 
-$caption:   rgb(255, 244, 122);
-$mostaza:   rgb(245, 245, 188);
-$details:   rgb(249, 250, 227);
+$caption:   hsl(55, 100%, 74%);
+$mostaza:   hsl(60, 74%, 85%);
+$details:   hsl(63, 70%, 94%);
 
 
 

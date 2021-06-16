@@ -21,7 +21,7 @@ body{
     font-family:$f-sans-serif;
     font-size:1rem;
     color:#444;
-    background-color:#eceadf;
+    background-color:$bg_base;
     overflow-y:auto;
     overflow-x:hidden;
 }
@@ -73,7 +73,7 @@ body{
     font-variant: small-caps;
     color:#fafafa;
     a{
-    color:#99fcff;
+    color:hsl(182, 100%, 80%);
         &:hover{
             color:#fafafa;
             transition:1s;
@@ -168,8 +168,6 @@ figure{margin:0}
 
 figcaption{
     margin:.3rem .2rem 1.6rem .2rem;
-    // margin-bottom: 1.6rem;
-    // margin-top:.3rem;
     font-size: .8rem;
     text-align: center;
     color:#555555;
@@ -437,19 +435,14 @@ hr{color:#555;background-color:#555}
  .encabezamiento{
         box-shadow: $boxShadow;
         background-color: $azulBrand;
-        // border:1px solid #ededed;
         margin-bottom:.5rem;
         .h1{
             color:#fafafa;
-            // text-shadow: $textShadow;
             font-family: $f-sans-serif;
-            font-size:1rem;
-            // border:1px solid #cbcbcb;
             text-align: center;
             font-variant: small-caps;
             letter-spacing: .09em;
         }
-        
     }
 
 /* =========== ALERTS =========== */
@@ -464,7 +457,7 @@ hr{color:#555;background-color:#555}
 .alert-info{
     top:.8rem;
     color:#333;
-    background-color:#d9f1f2;
+    background-color:$continuar;
     box-shadow:$boxShadow;
     margin:auto}
 
@@ -483,7 +476,8 @@ a.btn,
 .boton{
     margin:2px;
     // padding:3px .6rem;
-    border-radius:3px;border-width: 2px;
+    border-radius:3px;
+    border-width: 2px;
     font-family:$f-sans-serif;
     font-size:1.1rem;
     text-align:center;
@@ -511,9 +505,9 @@ a.btn,
     > .ico-shadow{font-size:2rem}
 }
 .tx-btn{
-   color:#298ba3;
+   color:hsl(192, 60%, 40%);
    font-family:$f-condensed;
-   &:hover{background-color:#d9f6f7}
+   &:hover{background-color:$inputFoc}
 }
 
 .bt_pasos:hover,button:hover,
@@ -524,7 +518,7 @@ a.btn:hover,button.btn:hover,
     display:block;
     width:100%;
     margin:1rem 0;
-    height: 2.4rem}
+    height:2.4rem}
 .disabled,
 .disabled:hover{
     background-color:#cfcfcf;
@@ -543,52 +537,50 @@ a.btn:hover,button.btn:hover,
 
 .continuar{
     border:2px solid $c_az190;
-    background-color: #c6ebec;
+    background-color:$continuar;
     color:#333;
     &:hover{
-        border:2px solid $c_brd50; 
+        border:2px solid $c_brd40; 
         background-color:$azulBrand;
         color:#fff}
 }
 
 .atras {
-    border:2px solid   $c_az190;
-    background-color: #eceadf;
+    border:2px solid $c_az190;
+    background-color:$bg_base;
     color:#333; 
     &:hover {
-        border:2px solid #958737; 
+        border:2px solid $c_brd40; 
          background-color:$azulBrand;
         color:#fff
-        // background-color: #c6ebec;
-        // color: #222
         }
 }
 
 .crear {
-    border:2px solid $c_brd68;
-    background-color:hsl(190, 100%, 35%);
+    border:2px solid $c_brd40;
+    background-color:$c_az190;
     color:#fff;
     &:hover{ 
         border-color:$azulBrand;
-        background-color: $fondo;
+        background-color:$bg_base;
         color:$azulBrand}
 }
 
 .editar {
     border:2px solid $c_brd50;
     border-radius:3px;
-    background-color: $yellBrand; 
-    color: #222;
+    background-color:$yellBrand; 
+    color:#222;
     &:hover{
-        border-color:#958737; 
-        background-color: $fondo;
-        color:#57570f}
+        border-color:$c_brd68; 
+        background-color:$bg_base;
+        color:$c_brd20}
 }
 
 .warning{
     border:2px solid $c_brd50; 
-    background-color: #f5f5bc;
-    color:#57570f;
+    background-color:$mostaza;
+    color:hsl(60, 71%, 20%);
     &:hover{
         border-color: $c_brd78; 
         background-color: $yellBrand; 
@@ -596,13 +588,13 @@ a.btn:hover,button.btn:hover,
 }
 
 .ver{
-    border:2px solid $c_brd50;
+    border:2px solid $c_brd40;
     border-radius:3px;
     background-color: $c_az190;
     color: #fff;
     &:hover{
         border-color:$c_az190; 
-        background-color: $fondo;
+        background-color: $bg_base;
         color:$c_az190}
 }
 
@@ -616,11 +608,12 @@ a.btn:hover,button.btn:hover,
 
 .crearCurso {
     border:2px solid $azulBrand;
-    background-color: #00c5cc;
+    background-color:$crearCrso;
+;
     color: #fff;
     font-variant: small-caps;
     &:hover {
-        background-color: #9fdfdf;
+        background-color:$azulHielo;
         color: #222}
 }
 
@@ -631,22 +624,23 @@ a.btn:hover,button.btn:hover,
     color: #fff;
     &:hover {
         border-color:$c_brd50;
-        background-color: #9fdfdf;
+        background-color: $azulHielo;
         color: #222}
 }
 
 .borrar {
     border:2px solid $c_brd50; 
-    background-color: #ff99aa;
+    background-color: hsl(350, 100%, 80%);
     color: #222;
     &:hover{
-        border-color:#f4343d;
-        background-color: $fondo;
-        color:#b80a12}
+        border:2px solid hsl(340, 100%, 65%);
+        background-color: $bg_base;
+        color: hsl(340, 100%, 65%)}
 }
+
 .borrarLarge{
     border:2px solid   $c_az190;
-    background-color: #ff4d88;
+    background-color: hsl(340, 100%, 65%);
     font-variant: small-caps;
     color:#000;
     &:hover{
@@ -658,12 +652,14 @@ a.btn:hover,button.btn:hover,
 
 .cancelar{
     border:2px solid $c_brd68;
-    background-color: #ff0066;
+    border-radius: 3px;
+    background-color:$fucsBrand;
+    // background-color: #ff4d88;  
     color:#fff;
     padding:.25rem 1.5rem;
     &:hover{
         border-color:$c_brd50;
-        background-color: #ff4d88;
+        background-color: hsl(350, 100%, 80%);
         color: #222}
 }
 
@@ -680,7 +676,7 @@ div.cancelar{
     background-color:#494949;
     color:#e5feff;
     &:hover {border: 2px solid#717171;
-        background-color:#00c5cc;
+        background-color:$crearCrso;
         color: #222}
 }
 
@@ -710,7 +706,7 @@ div.cancelar{
 
 .default{
     border-color: $c_az190;
-    background-color: #c6ebec;
+    background-color: $continuar;
     color:#333;
     &:hover{
         background-color:$azulBrand;
@@ -737,7 +733,7 @@ div.cancelar{
 
 .caja-grid{
     border:2px solid $c_brd78;
-    background-color: hsl(191, 35%, 91%);
+    background-color: $cajaGrid;
     padding-bottom:1.5rem; 
     padding-top:1.5rem;
     margin-bottom:1rem}
@@ -866,7 +862,7 @@ div.cancelar{
       border:2px solid $c_brd84;
       border-radius:4px;
       color:#333;
-      background-color:#fff47a}
+      background-color:hsl(55, 100%, 74%)}
 }
         
 
@@ -888,7 +884,11 @@ div.cancelar{
     white-space:nowrap;
     text-overflow:ellipsis}
 
-.tabla td{border-bottom:2px solid #ddd}
+.tabla td{
+    border-bottom:2px solid #ddd;
+    // display:inline-flex
+    // vertical-align:middle
+}
 .tabla .ver>span{font-family:$f-condensed}
 
 table th{
@@ -898,7 +898,7 @@ table th{
     font-variant:small-caps;
     color:$azulBrand}
 
-tbody > tr > td > form {margin-bottom:0}
+tbody > tr > td > form {margin-bottom:0; display:inline-block}
 
 /* =========== TABLE @media 640px =========== */
 
@@ -914,8 +914,8 @@ tbody > tr > td > form {margin-bottom:0}
         >a span,
         >.btn,
         >form>button>span{
-            height:2rem;
-            padding-left:2px;padding-right:2px;
+            // height:2rem;
+            // padding-left:2px;padding-right:2px;
             font-size:.8rem;
             // text-overflow:ellipsis
             }
@@ -976,7 +976,7 @@ tbody > tr > td > form {margin-bottom:0}
     .tabla a.btn,
     .tabla form button{width:3.2rem;height:1.7rem}
     td > p >span{max-width:4rem}
-    tr>td>.editar,
+    tr>td>.editar,tr>td>form>.borrar,
     tr>td>.ver{height:1.7rem;margin-top:.25rem;margin-bottom:.25rem}
 }
 
@@ -985,8 +985,8 @@ tbody > tr > td > form {margin-bottom:0}
     .tabla a.btn,
     .tabla form button{width:4rem;height:1.8rem}
     td > p >span{max-width:4rem}
-    tr>td>.editar,
-    tr>td>.ver{height:1.8rem;margin-top:.5rem}
+    tr>td>.editar,tr>td>form>.borrar,
+    tr>td>.ver{height:1.8rem;margin-top:.25rem;margin-bottom:.25rem}
 }
 
 @media screen and (min-width:641px) and (max-width:768px) {
@@ -994,8 +994,8 @@ tbody > tr > td > form {margin-bottom:0}
     .tabla a.btn,
     .tabla form button{width:5.1rem;height:2rem}
     td > p >span{max-width:5.1rem}
-    tr>td>.editar,
-    tr>td>.ver{height:1.7rem;margin-top:.25rem;margin-bottom:.25rem}
+    tr>td>.editar,tr>td>form>.borrar,
+    tr>td>.ver{height:2rem;margin-top:.25rem;margin-bottom:.25rem}
 }
 
 @media screen and (min-width:769px) and (max-width:1024px) {
@@ -1003,8 +1003,8 @@ tbody > tr > td > form {margin-bottom:0}
     .tabla a.btn,
     .tabla form button{width:6rem;height:2rem}
     td > p >span{max-width:6rem}
-    tr>td>.editar,tr>td>.borrar,
-    tr>td>.ver{height:1.7rem;margin-top:.25rem;margin-bottom:.25rem}
+    tr>td>.editar,tr>td>form>.borrar,
+    tr>td>.ver{height:2rem;margin-top:.25rem;margin-bottom:.25rem}
 }
 
 @media screen and (min-width:1025px) {
@@ -1012,8 +1012,9 @@ tbody > tr > td > form {margin-bottom:0}
     .tabla a.btn,
     .tabla form button{width:6rem;height:2rem}
     td > p >span{max-width:6rem}
-    tr>td>.editar,
-    tr>td>.ver{height:2rem;margin-top:.5rem}
+    tr>td>.editar,tr>td>form>.borrar,
+        tr>td>.ver{height:2rem;margin-top:.25rem;margin-bottom:.25rem}
+
 }
 #tabla-config-horario .editar,
 #tabla-config-horario .crear{
@@ -1025,7 +1026,7 @@ tbody > tr > td > form {margin-bottom:0}
 }
 #tabla-config-sesion .editar{
     width:80%;
-    height:3rem;margin:3px;
+    height:2rem;margin:3px;
     font-size:1.2rem;
     }
 
@@ -1048,7 +1049,7 @@ input[type=time]{
     border-radius: 3px;
     margin-top:.2rem;
     color:#363636;
-    background-color:#f7f6f2}
+    background-color:hsl(48, 24%, 96%)}
 select{
     font-size:.7rem;
 }
@@ -1056,8 +1057,9 @@ select:focus,
 input:focus,
 textarea:focus,
 input[type=text]:focus{
-    background-color:#daf6f7;
-    border-color:$azulBrand}
+    background-color:$inputFoc;
+    border-color:$azulBrand;
+    outline:none}
 
 input[type=number]{max-width:4rem}
 
@@ -1104,7 +1106,7 @@ select{margin-top:-1px}
     grid-gap: 10px 10px;
 }
 .mesa{
-    background-color:#f3f2ea;
+    background-color:hsl(53, 27%, 94%);
     border:1px solid #ccc;
     margin:5px;
     margin:auto}
@@ -1116,7 +1118,7 @@ select{margin-top:-1px}
     text-overflow:ellipsis;
     cursor:pointer;
     color:#333;
-    background-color:#e9e9e9}
+    background-color:hsl(0, 0%, 91%)}
 
 .bt_mesa{
     margin-top:3px;
@@ -1170,7 +1172,7 @@ select{margin-top:-1px}
     border:2px  solid $c_brd50;
     // text-align:left;
     // padding-left: .5rem;
-    background-color:#c6ebec;
+    background-color:$continuar;
     color:#363636
 }
 .plantilla-body{ 
@@ -1307,7 +1309,7 @@ select{margin-top:-1px}
   max-width:360px;
   h3{
       font-size:1.5rem;
-      color:#3193b9;
+      color:hsl(197, 58%, 46%);
   }
 }
 .animate-zoom{animation:animatezoom 0.6s}
@@ -1322,7 +1324,7 @@ select{margin-top:-1px}
 
 details{
     font-family:$f-condensed; 
-    background-color:#f9fae3;
+    background-color:$details;
     p{
         margin-left:.25rem;
         font-size:.9rem
@@ -1330,12 +1332,12 @@ details{
     summary{
         padding:.4rem;
         border:2px solid $c_brd84;
-        background-color:#f5f5bc;
+        background-color:$mostaza;
         cursor:pointer
     }
     >.destacado{
         background-color:hsl(0, 0%, 30%);
-        color:#f5f4ef;
+        color:hsl(50, 23%, 95%);
         margin-top:.5rem;
         padding:.5rem;
         p{font-size:.8rem}
@@ -1371,6 +1373,7 @@ img{max-width:100%;height:auto}
 .d_none{display:none}
 .d_inline{display:inline-block}
 .inline{display:inline}
+.block{display:block}
 .d_block{display:block;width:calc(100% - 2*2px); margin: auto}
 
 
@@ -1440,7 +1443,7 @@ img{max-width:100%;height:auto}
 
 .bg-yellow{
     background-color:$yellBrand;
-    :hover{background-color:#AAEEEE}
+    :hover{background-color:hsl(180, 67%, 80%)}
 }
 .bg-sky{background-color:hsl(180, 100%, 47%); color:#333}
 .bg-blue{background-color:hsl(180, 67%, 80%)}
@@ -1451,11 +1454,11 @@ img{max-width:100%;height:auto}
 .bg-gradual5{background-color:hsl(190, 90%, 55%)}
 .bg-gradual6{background-color:hsl(190, 100%, 40%); color:#ffffff}
 .bg-azul-kc{background-color:$azulBrand}
-.bg-fucsia{background-color:#ff0066}
+.bg-fucsia{background-color:hsl(336, 100%, 50%)}
 .bg-amarillo{background-color: $yellBrand}
-.bg-beige{background-color: #eceadf;}
-.bg-mostaza{background-color:#f5f5bc}
-.bg-marfil{background-color:#f9fae3}
+.bg-beige{background-color: hsl(51, 25%, 90%);}
+.bg-mostaza{background-color:hsl(60, 74%, 85%)}
+.bg-marfil{background-color:hsl(63, 70%, 94%)}
 .bg-666{background-color: #666}
 .bg-36{background-color: #363636;color:#fff}
 .sino{background-color:#2c2c2c;color:#fff}
@@ -1487,7 +1490,7 @@ img{max-width:100%;height:auto}
     padding-top:4rem;
     padding-bottom:4rem;
     background-color:$c_az190;
-    border:8px solid hsl(40, 23%, 97%);
+    border:8px solid hsl(40, 20%, 97%);
     border-radius: .5rem;
     box-shadow: 1px 1px 8px rgba(0, 58, 65, .85)}
 
@@ -1650,14 +1653,14 @@ img{max-width:100%;height:auto}
             >span,
             >a{
                 position:static;
-                background-color: #AAEEEE;
+                background-color: hsl(180, 67%, 80%);
                 margin:3px 2px;
                 padding:.3rem .5rem;
                 border-radius: 3px;
                 font-variant: small-caps;
-                border: 2px solid rgb(186, 169, 69);
+                border: 2px solid hsl(51, 46%, 50%);
                 &:hover{
-                   background-color:rgb(0, 170, 204);
+                   background-color:hsl(190, 100%, 40%);
                    color: #fff;
                    transition:background-color 1s;
                    }
@@ -1748,13 +1751,13 @@ img{max-width:100%;height:auto}
 
 @media (max-width:550px){.bt-text-hide{display:none}}
 
-.t_red{color:#cc004b;line-height:1.2}
-.ejemplo{color:#0092b3;font-family:$f-condensed}
+.t_red{color:hsl(338, 100%, 40%);line-height:1.2}
+.ejemplo{color:hsl(191, 100%, 35%);font-family:$f-condensed}
 
 .hr{
-    color:hsl(180, 48%, 83%);color:$azulBrand;
+    color:hsl(180, 47%, 83%);color:$azulBrand;
     padding-top: 2px;
-    background-color:#bfe8e8;
+    background-color:hsl(180, 47%, 83%);
     background-color:$azulBrand;
     border: 0px solid;
 }
