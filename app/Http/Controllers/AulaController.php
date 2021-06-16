@@ -29,13 +29,10 @@ class AulaController extends Controller
             $user = auth()->user()->id; 
             $aulas = Aula::where('user_id',$user)->get();
             $materia = Materia::where('user_id',$user)->get();
+            // $aula_id = Aula::where('user_id',$user)->value('id');
+            // $materias_aula= DB::table('materias')->where('aula_id',$aula_id)->pluck('materia_name');
 
             return view('configurar.aulas.index', compact('aulas', 'materia'));
-
-            // // versión C (El modelo Estudiante se importa aquí)
-            // $aulas = Aula::where('user_id',$user)->with('user','clase','mesas')->get();
-            // $estudiantes = Estudiante::select('id','materia_id')->get();
-            // return view('configurar.aulas.index', compact('aulas', 'estudiantes'));
     }
 
     /**
