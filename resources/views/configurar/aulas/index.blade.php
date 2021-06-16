@@ -81,7 +81,12 @@
                         {{ $aula->num_mesas }}
                     </td>
                     <td><!-- Materias -->
-                        {{DB::table('materias')->where('aula_id',$aula->id)->pluck('materia_name')}}
+                    @php
+                        $materias_x_aula = DB::table('materias')->where('aula_id',$aula->id)->pluck('materia_name');
+                        $cadena='';
+                        foreach($materias_x_aula as $item)$cadena .=Str::before($item, ' ').', ';
+                    @endphp
+                       {{ Str::beforeLast($cadena, ',')}}
                     </td>
                     <td>
                       <a href="{{ route('aulas.edit', $aula) }}" 
