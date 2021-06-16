@@ -23,14 +23,14 @@
           @error('materia_name')
             <small class="t_red">* {{ $message }}</small><br>
           @enderror            
-          <small><strong>Ejemplo:</strong> ingles 3c eso</small>
+          <small><strong>Ejemplo:</strong> inglés-inicio 3c eso</small>
         </div>
 
         <div class="mt-4">
           <details class="mt-2">
             <summary>Ayuda formato:</summary>
             <p class="mt-2">
-              Usa solo <strong>Números </strong> y <strong>Letras sin tilde </strong>
+              Usa solo <strong>Números </strong> y <strong>Letras, -,_ </strong>
             </p>
             <div class="py-2">
               <p class="py-2">Materia <kbd>space</kbd> NºLetra <kbd>space</kbd> Etapa</p>

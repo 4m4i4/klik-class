@@ -34,10 +34,10 @@
             <details class="mt-2">
               <summary>Ayuda formato:</summary>
               <p class="mt-2">
-                Usa solo <strong>Números </strong> y <strong>Letras sin tilde </strong>
+                Usa solo <strong>Números </strong> y <strong>Letras, -,_ </strong>
               </p>
               <div class="destacado py-2">
-                <p class="destacado py-2"><strong>Materia </strong><kbd>space</kbd><strong> NºLetra </strong> <kbd>space</kbd><strong> Etapa</strong></p>
+                <p class="destacado py-2"><strong>Materia-uno </strong><kbd>space</kbd><strong> NºLetra </strong> <kbd>space</kbd><strong> Etapa</strong></p>
               </div>  
               <p class="mt-2 pb-4">Las letras siempre se guardarán en <strong>MAYÚSCULA</strong> aunque escribas <strong>minúsculas</strong> </p>
             </details>

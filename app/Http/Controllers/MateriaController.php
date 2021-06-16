@@ -74,7 +74,10 @@ class MateriaController extends Controller
     {   // si pasa la validación... no funciona en el formulario modal
         
         if($request->validate([
-                'materia_name' =>'required|regex:/^[a-zA-Z]{3,16}\s\d[a-zA-Z]{1,3}\s[a-zA-Z]{3,10}/|unique:materias'
+           
+            //     'materia_name' =>'required|regex:/^\D{3,20}\s\d[a-zA-Z]{1,3}\s[a-zA-Z]{3,10}/|unique:materias'
+               'materia_name' =>'required|regex:/^[a-z\-_áéíóú]{3,20}\s\d[a-zA-Z]{1,3}\s[a-zA-Z]{3,10}/|unique:materias'
+            //    'materia_name' =>'required|regex:/^[a-z\-_]{3,20}\s\d[a-zA-Z]{1,3}\s[a-zA-Z]{3,10}/|unique:materias'
                 ])
             )
         {   
@@ -319,7 +322,8 @@ class MateriaController extends Controller
     public function update(Request $request, Materia $materia)
     {
         if($request->validate([
-                'materia_name' =>'required|regex:/^[a-zA-Z]{3,16}\s\d[a-zA-Z]{1,3}\s[a-zA-Z]{3,10}/|unique:materias'
+                // 'materia_name' =>'required|regex:/^\D{3,20}\s\d[a-zA-Z]{1,3}\s[a-zA-Z]{3,10}/|unique:materias'
+                'materia_name' =>'required|regex:/^[a-z\-_áéíóú]{3,20}\s\d[a-zA-Z]{1,3}\s[a-zA-Z]{3,10}/|unique:materias'
                 ])
             )
         {

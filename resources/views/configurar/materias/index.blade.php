@@ -44,6 +44,7 @@
                         </button>
                     </form>
                   @endif
+
                   @if($user->paso == 2)
                     <h2 class="title">{{ __('My')}} {{ __('Subjects')}}</h2>
                     <form method="POST" action="{{route('home.updatePasoMenos',$user->id)}}">
@@ -60,11 +61,11 @@
                       title="Ir a home" 
                       class="ml-1 btn atras">
                       <span class="ico-shadow">✅ </span> 
-                      {{__('Previous')}} 
+                      {{__('Home')}} 
                       <span class="ico-shadow"> 👉 </span>
                     </a>
-
                   @endif
+
                   @if($user->paso == 3)
                     <h2 class="title"> {{ __('My')}} {{ __('Subjects')}}</h2>
                     <a href="{{ route('home') }}" title= "Volver a home" class="btn atras">{{__('Previous')}} </a>
@@ -104,11 +105,14 @@
                         </button>
                     </form>
                   @endif
+
             </div>
           </div>
-        </div>       <!--fin de CABECERA control-->
+        </div>
+       <!--fin de CABECERA control-->
 
-        <div class="caja">  <!--body-TABLA control-->
+       <!--body-TABLA control-->
+        <div class="caja">  
           <div class = "caja-body">
             <table id="tabla-config-materias" class = "tabla table-responsive mx-auto">
                   <!--caption según paso -->
@@ -154,12 +158,13 @@
                       
                     @if($user->paso < 4)
                       <td>   <!-- Grupo -->
-                          {{ $aula->aula_name }}
+                      {{ $materia->aula->aula_name }}
+                          {{-- {{ $aula->aula_name }} --}}
                       </td>
                     @endif
                     @if($user->paso == 1) 
-                      <td>  <!-- Aula -->
-                          {{ $materia->aula_id }}
+                      <td class="mx-auto">  <!-- Aula -->
+                          {{ $materia->aula->aula_name }}
                       </td>
                     @endif
                     @if($user->paso >= 4)
@@ -203,7 +208,7 @@
                             <span>{{ $materia->grupo }} -  {{ $countStudents}}</span>
                           </a>
                         </td>
-                        <td class="">  <!-- Editar Aula -->
+                        <td class="mx-auto">  <!-- Editar Aula -->
                           <a href="{{ route('aulas.edit', $aula->id) }}" 
                             class= "d_block editar pt-02" 
                             title="editar aula id= {{$aula->id}} de {{$aula->aula_name}}">
@@ -226,12 +231,15 @@
                     @endif
                     @if($user->paso == 1)   <!-- botones EDIT DELETE -->
                         <td>   <!-- Editar -->
+                        <div class="mx-auto text-center">
                           <a href="{{ route('materias.edit', $materia) }}" 
-                          class= "btn editar block text-overflow" 
+                          class= "btn editar mx-0 block mx-auto text-overflow" 
                           title= "Editar materia id= {{ $materia->id}}">
                             <span class="ico-shadow"> 📝 </span>
                             <span class="bt-text-hide">{{ __('Edit') }}</span> 
                           </a>
+
+                        </div>
                         </td>
                         <td>    <!-- Borrar -->
                           <form action="{{ route('materias.destroy', $materia) }}" method="POST">
