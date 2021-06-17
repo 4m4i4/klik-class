@@ -752,14 +752,14 @@ button.btn:hover,
 
 .borrar {
   border: 2px solid #baa945;
-  background-color: #ff99aa;
+  background-color: #ecc6d4;
   color: #333;
 }
 
 .borrar:hover {
-  border: 2px solid #ff4d88;
+  border: 2px solid #e23670;
   background-color: #eceadf;
-  color: #ff4d88;
+  color: #e23670;
 }
 
 .borrarLarge {

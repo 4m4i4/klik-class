@@ -630,12 +630,12 @@ a.btn:hover,button.btn:hover,
 
 .borrar {
     border:2px solid $c_brd50; 
-    background-color: hsl(350, 100%, 80%);
+    background-color: $c_borrar;
     color: #333;
     &:hover{
-        border:2px solid hsl(340, 100%, 65%);
+        border:2px solid $c_cancelh;
         background-color: $bg_base;
-        color: hsl(340, 100%, 65%)}
+        color:$c_cancelh}
 }
 
 .borrarLarge{
