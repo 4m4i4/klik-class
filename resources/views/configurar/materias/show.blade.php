@@ -2,8 +2,12 @@
 @extends('layouts.app')
 
   @section('etapaUso')
-
-    <div class="bg-666 w-100 h-100 mx-auto  ">  
+    @if(session()->get('info'))
+        <div class = "text-center alert alert-info">
+          {{ session()->get('info') }}  
+        </div>
+    @endif
+    <div class="bg-666 w-100 h-100 mx-auto">  
 
       <div class="grid grid-rows-{{$aula->num_filas}} h-90 content-center justify-between grid-cols-{{$aula->num_columnas}}">
         @foreach ($mesas->where('user_id', auth()->user()->id)->where('aula_id', $aula->id) as $mesa)

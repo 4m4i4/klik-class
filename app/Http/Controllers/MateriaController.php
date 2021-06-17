@@ -206,8 +206,10 @@ class MateriaController extends Controller
         $index = 0;
         $mesasIndex = [];
         $contador = 0;
+        $msn ='';
         // Si el aula no tiene mesas las ponemos
         if($aula_hasMesas == null){
+            $msn = "Estamos colocando las mesas... Regresa a la página anterior mientras acabamos";
             for ($row = $aula->num_filas;  $row > 0; $row--){
               for ($col = 1; $col <= $aula->num_columnas; $col++){
                   $mesa = new Mesa;
@@ -253,7 +255,7 @@ class MateriaController extends Controller
                 } 
             } 
         }
-        return view('configurar.materias.show', compact('materia','aula', 'user','mesas', 'estudiantes','materia_name'));
+        return view('configurar.materias.show', compact('materia','aula', 'user','mesas', 'estudiantes','materia_name'))->with('info',  $msn);
     }
     
 
