@@ -97,7 +97,7 @@ class AulaController extends Controller
         // $materia = DB::table('materias')->where('user_id',$user)->where('grupo',$aula->aula_name)->first();
         $materia_id = $materias_x_aula[1];
         $materia = Materia::find('materia_id');
-        dd($materia_id,$materia);
+        // dd($materia_id,$materia);
         $materia_name = $materia->materia_name;
         // dd($materia_id, $materias_x_aula);
         $estudiantes = Materia::find($materia_id)->estudiantes()->get();
@@ -171,7 +171,7 @@ class AulaController extends Controller
         $user = Auth::user()->id;
         $materia = DB::table('materias')->where('user_id',$user)->where('grupo',$aula->aula_name)->first();
         $materiasDelAula = $aula->materias()->pluck('materia_name');
-        dd( $materiasDelAula);
+        // dd( $materiasDelAula);
         $materia_id = $materia->id;
         $num_estudiantes = Materia::find($materia_id)->estudiantes()->count();
         return view('configurar.aulas.edit', compact('aula','num_estudiantes'));
