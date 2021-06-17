@@ -41,6 +41,7 @@
               </a>
               <form action="{{ route('estudiantes.borrarGrupo', $materia_id) }}" method="POST">
                 @csrf
+                @method('DELETE')
                   <button type="submit" 
                     class="btn borrar" 
                     title="Borrar grupo">

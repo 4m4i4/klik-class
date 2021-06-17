@@ -28,7 +28,8 @@
                     class="nombre_mesa d_block py-0" 
                     title="Estudiante id: {{$mesa->estudiante_id}}"
                     onclick= "desabilita({{$mesa->id}})">
-                    {{$mesa->estudiante->nombre}} {{Str::limit($mesa->estudiante->apellidos, 1)}}
+                    {{DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('nombre')}}  {{DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('apellidos')}}
+                    {{-- {{$mesa->estudiante->nombre}} {{Str::limit($mesa->estudiante->apellidos, 1)}} --}}
                     </button>
               </div> 
             @else

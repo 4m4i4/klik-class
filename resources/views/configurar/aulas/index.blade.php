@@ -61,7 +61,7 @@
                   <th title="Mesas">Mesas</th>
                   <th title="Materias">Materias</th>
                   <th title="Configurar aula">Editar</th>
-                  <th title="Ver mesas y aula">Ver Aula</th>
+                  {{-- <th title="Ver mesas y aula">Ver Aula</th> --}}
                 </tr>
               </thead>
               <tbody>
@@ -82,11 +82,12 @@
                     </td>
                     <td><!-- Materias -->
                     @php
-                        $materias_x_aula = DB::table('materias')->where('aula_id',$aula->id)->pluck('materia_name');
-                        $cadena='';
-                        foreach($materias_x_aula as $item)$cadena .=Str::before($item, ' ').', ';
+                        $materias_x_aula = DB::table('materias')->where('aula_id',$aula->id)->pluck('materia_name')->map(function($item,$key){
+                          return Str::before($item, ' ');
+                        })->join(', ');
+
                     @endphp
-                       {{ Str::beforeLast($cadena, ',')}}
+                       {{$materias_x_aula}}
                     </td>
                     <td>
                       <a href="{{ route('aulas.edit', $aula) }}" 
@@ -96,14 +97,14 @@
                         <span class="bt-text-hide">Editar </span>
                       </a>
                     </td>
-                    <td>
+                    {{-- <td>
                       <a href="{{ route('aulas.show', $aula) }}" 
                         title = "Ver aula {{ $aula->aula_name }}"
                         class="btn ver" >
                         <span class="ico-shadow">👀 </span>
                         <span class="bt-text-hide">{{ __('Show')}} </span>
                       </a>
-                    </td>
+                    </td> --}}
                   </tr>
                 @endforeach
               </tbody>

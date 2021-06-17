@@ -29,9 +29,6 @@ class AulaController extends Controller
             $user = auth()->user()->id; 
             $aulas = Aula::where('user_id',$user)->get();
             $materia = Materia::where('user_id',$user)->get();
-            // $aula_id = Aula::where('user_id',$user)->value('id');
-            // $materias_aula= DB::table('materias')->where('aula_id',$aula_id)->pluck('materia_name');
-
             return view('configurar.aulas.index', compact('aulas', 'materia'));
     }
 
@@ -91,11 +88,23 @@ class AulaController extends Controller
         $mesas = Mesa::all();
 
         $aula_hasMesas = $mesas->where('user_id', $user)->where('aula_id',$aula->id)->first();
-        $materia = DB::table('materias')->where('user_id',$user)->where('grupo',$aula->aula_name)->first();
-        $materia_id = $materia->id;
+        $materias_x_aula = DB::table('materias')->where('aula_id',$aula->id)->pluck('id');
+        
+        $num_materias = count( $materias_x_aula );
+
+        // $cadena='';
+        // foreach($materias_x_aula as $item)$cadena .=$item.', ';
+        // $materia = DB::table('materias')->where('user_id',$user)->where('grupo',$aula->aula_name)->first();
+        $materia_id = $materias_x_aula[1];
+        $materia = Materia::find('materia_id');
+        dd($materia_id,$materia);
+        $materia_name = $materia->materia_name;
+        // dd($materia_id, $materias_x_aula);
         $estudiantes = Materia::find($materia_id)->estudiantes()->get();
+       
         $n_student = $estudiantes->count();
         $materia_name = DB::table('materias')->where('user_id',$user)->where('aula_id',$aula->id)->value('materia_name');
+        //  dd( $materia_name,$n_student,$estudiantes);
         // dd( $materia_name);
         $index = 0;
         $mesasIndex = [];
@@ -161,6 +170,8 @@ class AulaController extends Controller
     {
         $user = Auth::user()->id;
         $materia = DB::table('materias')->where('user_id',$user)->where('grupo',$aula->aula_name)->first();
+        $materiasDelAula = $aula->materias()->pluck('materia_name');
+        dd( $materiasDelAula);
         $materia_id = $materia->id;
         $num_estudiantes = Materia::find($materia_id)->estudiantes()->count();
         return view('configurar.aulas.edit', compact('aula','num_estudiantes'));

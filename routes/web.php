@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\MateriaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\AulaResource;
@@ -46,11 +46,20 @@ Route::get('/materias',[App\Http\Controllers\materiaController::class, 'misMater
 Route::get('/estudiantes',[App\Http\Controllers\estudianteController::class, 'misEstudiantes']);
 // Route::get('/is_tinMat/{id}',[App\Http\Controllers\materiaController::class, 'showMesasMateria']);
 
+
+
+Route::apiResources([
+    'materias' =>MateriaController::class,
+    'estudiantes' => EstudianteController::class,
+    'mesas' => MesaController::class,
+    'clases'  =>ClaseController::class, ]);
+
+
 // ============= MATERIAController ====================
 
 Route::get('configurar/materias/createall',[App\Http\Controllers\MateriaController::class, 'createall'])->name('materias.createall');
 Route::post('configurar/materias/createall',[App\Http\Controllers\MateriaController::class, 'storeall'])->name('materias.storeall');
-Route::get('etapaUso/materias/{id}/show', [App\Http\Controllers\MateriaController::class, 'show'])->name('materias.show');
+Route::get('etapaUso/materias/{id}', [App\Http\Controllers\MateriaController::class, 'show'])->name('materias.show');
 // Route::get('etapaUso/materias/{id}/show', [App\Http\Controllers\MateriaController::class, 'showMesasMateria'])->name('materias.show');
 // Route::resource('configurar/materias', App\Http\Controllers\MateriaController::class);
 
@@ -74,8 +83,8 @@ Route::get('configurar/aulas',[App\Http\Controllers\AulaController::class, 'inde
     Route::get('configurar/aulas/create',[App\Http\Controllers\AulaController::class, 'create'])->name('aulas.create');
     Route::post('configurar/aulas',[App\Http\Controllers\AulaController::class, 'store'])->name('aulas.store');
     Route::get('configurar/aulas/{aula}/edit',[App\Http\Controllers\AulaController::class, 'edit'])->name('aulas.edit');
-
-    Route::get('etapaUso/aulas/{aula}/show', [App\Http\Controllers\AulaController::class, 'show'])->name('aulas.show');
+    Route::get('etapaUso/aulas/{aula}', [App\Http\Controllers\AulaController::class, 'show'])->name('aulas.show');
+    // Route::get('etapaUso/aulas/{aula}/materias/{materia}/show', [App\Http\Controllers\AulaController::class, 'show'])->name('aulas.show');
     Route::put('configurar/aulas/{aula}',[App\Http\Controllers\AulaController::class, 'update'])->name('aulas.update');
     Route::delete('configurar/aulas/{aula}',[App\Http\Controllers\AulaController::class, 'destroy'])->name('aulas.destroy');
 //

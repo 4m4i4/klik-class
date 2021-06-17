@@ -33,6 +33,8 @@ class MateriaController extends Controller
         return view('configurar.materias.index', compact('materias','user'));
         }
     }
+
+
     public function misMaterias(){
          if(Auth::check()){
             $user = Auth::user()->id;
@@ -76,8 +78,8 @@ class MateriaController extends Controller
         if($request->validate([
            
             //     'materia_name' =>'required|regex:/^\D{3,20}\s\d[a-zA-Z]{1,3}\s[a-zA-Z]{3,10}/|unique:materias'
-               'materia_name' =>'required|regex:/^[a-z\-_áéíóú]{3,20}\s\d[a-zA-Z]{1,3}\s[a-zA-Z]{3,10}/|unique:materias'
-            //    'materia_name' =>'required|regex:/^[a-z\-_]{3,20}\s\d[a-zA-Z]{1,3}\s[a-zA-Z]{3,10}/|unique:materias'
+            //    'materia_name' =>'required|regex:/^[a-z\-_áéíóú]{3,20}\s\d[a-zA-Z]{1,3}\s[a-zA-Z]{3,10}/|unique:materias'
+               'materia_name' =>'required|regex:/^[a-z\-_]{3,20}\s\d[a-zA-Z]{1,3}\s[a-zA-Z]{3,10}/|unique:materias'
                 ])
             )
         {   
@@ -182,21 +184,23 @@ class MateriaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function show($id) {
+    public function show($id)
+     {
+
         $user = Auth::user()->id;
         $mesas = Mesa::all();
         $materia = Materia::find($id);
-    
+
         $aula_id = $materia->aula_id;
         $materia_id = $materia->id;
         $materia_name = $materia->materia_name;
         $aula = Aula::find($aula_id);
-        // $aula_hasMesas = $mesas->where('user_id', $user)->where('aula_id',$aula_id)->first();
-        $aula_hasMesas = $mesas->where('user_id', $user)->where('aula_id',$aula_id)->values('id');
+        $aula_hasMesas = $mesas->where('user_id', $user)->where('aula_id',$aula_id)->first();
+        // $aula_hasMesas = $mesas->where('user_id', $user)->where('aula_id',$aula_id)->values('id');
 // dd($aula_hasMesas);
         $estudiantes = Materia::find($materia_id)->estudiantes()->get();
         // $mesaxSt = $estudiantes[0]->mesa();
-        
+
         $num_student = $estudiantes->count();
         // dd($num_student);
         $index = 0;
@@ -207,7 +211,6 @@ class MateriaController extends Controller
             for ($row = $aula->num_filas;  $row > 0; $row--){
               for ($col = 1; $col <= $aula->num_columnas; $col++){
                   $mesa = new Mesa;
-
                   $mesa->columna = $col;
                   $mesa->fila = $row;
                   $mesa->aula_id = $aula->id;
@@ -223,7 +226,7 @@ class MateriaController extends Controller
             }
             $num_mesas = $aula->num_mesas;
             $num_mesasVacias = $num_mesas - $num_student;
-            
+
             $mesasDelAula = Mesa::where('user_id', $user)->where('aula_id',$aula->id)->get();
             $firstMesa = $mesasDelAula[0]->id;
             $lastMesa = $firstMesa + $mesasDelAula->count() -1;   
@@ -252,6 +255,7 @@ class MateriaController extends Controller
         }
         return view('configurar.materias.show', compact('materia','aula', 'user','mesas', 'estudiantes','materia_name'));
     }
+    
 
 
     /**
