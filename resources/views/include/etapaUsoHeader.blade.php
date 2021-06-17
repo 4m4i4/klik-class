@@ -6,7 +6,7 @@
         </svg>
       </a>   
       <span id="khora" class=" reloj"></span> 
-      <span id="renderAula" class="bt-clase-header bg-blue text-black" title="{{$aula->id}}">{{ Str::before($materia->materia_name," ") }} <strong class="bt-text-hide">{{Str::after($materia->materia_name," ") }}</strong></span>
+      <span id="renderAula" class="bt-clase-header bg-blue text-blue-30" title="{{$aula->id}}">{{ Str::before($materia->materia_name," ") }} <strong class="bt-text-hide">{{Str::after($materia->materia_name," ") }}</strong></span>
       <a href="{{route('aulas.editMesasVacias',$aula->id)}}" title="Sentar de nuevo a los estudiantes" class="bt-clase-header mx-2 editar"><span>Mesas</span></a>
     </div>
     <div class="flex-row  items-center mr-4">
