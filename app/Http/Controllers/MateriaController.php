@@ -40,7 +40,8 @@ class MateriaController extends Controller
             $user = Auth::user()->id;
             // $materias = Materia::where('user_id',$user)->with('user','estudiantes','aula','clases')->get();
             $materias = Materia::where('user_id',$user)->with('estudiantes.mesa')->get();
-            return response()->json(['success' => true, 'materias' => $materias], 200);
+            // return response()->json(['success' => true, 'materias' => $materias], 200);
+            return response()->json($materias)->header('Content-Type','application/json');
         }
     }
 

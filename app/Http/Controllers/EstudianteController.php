@@ -103,6 +103,7 @@ class EstudianteController extends Controller
             }
         }
         return response()->json(['success' => true, 'lista_materias'=>$lista_materias ], 200);
+
        
     }
 public function estudianteMateriasMesa(){
@@ -115,7 +116,7 @@ public function estudianteMateriasMesa(){
             // ->join('mesas','estudiante.id','=','mesas.estudiante_id')
             // ->select('estudiantes.*','materias.materia_name','mesas.columna','mesas.fila','mesas.aula_id')
             // ->get();
-    return response()->json(['success' => true, 'estudiante' => $estudiante], 200);
+    return response()->header('Content-Type','application/json')->json(['success' => true, 'estudiante' => $estudiante], 200); 
 }
 
 
@@ -258,6 +259,7 @@ public function estudianteMateriasMesa(){
             $mns='Los datos de '.$nombre." ".$apellidos.' se han actualizado con éxito' ;
         }
         return redirect()->route('estudiantes.porMateria',$materia_id)->with('info', $mns);   
+       
     }
 
     /**
