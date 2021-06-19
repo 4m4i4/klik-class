@@ -41,7 +41,7 @@ class MateriaController extends Controller
             // $materias = Materia::where('user_id',$user)->with('user','estudiantes','aula','clases')->get();
             $materias = Materia::where('user_id',$user)->with('estudiantes.mesa')->get();
             // return response()->json(['success' => true, 'materias' => $materias], 200);
-            return response()->json($materias)->header('Content-Type','application/json');
+            return response()->header('Content-Type','application/json')->json(['success' => true, 'materias' => $materias], 200);
         }
     }
 
@@ -186,7 +186,7 @@ class MateriaController extends Controller
          $aula_id = $materia->aula_id
 ;        $laMateria = Materia::where('id',$id)->with('estudiantes.mesa')->get();
          $elAula = Aula::where('id',$aula_id)->with('mesas')->get();
-           return response()->json(['success' => true, 'laMateria' => $laMateria, 'elAula'=>$elAula], 200);
+           return response()->header('Content-Type','application/json')->json(['success' => true, 'laMateria' => $laMateria, 'elAula'=>$elAula], 200);
      }
     /**
      * Display the specified resource.
