@@ -85,6 +85,7 @@
                         $materias_x_aula = DB::table('materias')->where('aula_id',$aula->id)->pluck('materia_name')->map(function($item,$key){
                           return Str::before($item, ' ');
                         })->join(', ');
+                       
 
                     @endphp
                        {{$materias_x_aula}}

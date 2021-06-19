@@ -1440,11 +1440,12 @@ input[type=text]:focus {
 
 input[type=number] {
   max-width: 4rem;
+  font-size: 1.2;
 }
 
 label {
   font-family: "Roboto Condensed", sans-serif;
-  color: #222;
+  color: #333;
 }
 
 select {
@@ -1859,6 +1860,10 @@ img {
   overflow: hidden;
 }
 
+.radius3 {
+  border-radius: 3px;
+}
+
 /* =========== DISPLAY FLOAT POSITION =========== */
 
 .f_right {
@@ -2101,27 +2106,27 @@ img {
 }
 
 .bg-gradual1 {
-  background-color: #cafcfc;
+  background-color: #caf4fc;
 }
 
 .bg-gradual2 {
-  background-color: #99ffff;
+  background-color: #99eeff;
 }
 
 .bg-gradual3 {
-  background-color: #4dffff;
+  background-color: #33ddff;
 }
 
 .bg-gradual4 {
-  background-color: aqua;
+  background-color: #0dccf2;
 }
 
 .bg-gradual5 {
-  background-color: #25d1f4;
+  background-color: #0bb8da;
 }
 
 .bg-gradual6 {
-  background-color: #00aacc;
+  background-color: #0aa3c2;
   color: #ffffff;
 }
 

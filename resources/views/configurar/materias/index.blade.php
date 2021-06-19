@@ -223,7 +223,7 @@
                         <td class="mx-auto">  <!-- Aula -->
                           <a href="{{ route('aulas.edit', $aula->id) }}" 
                             class= "d_block editar pt-02" 
-                            title="editar aula id= {{$aula->id}} de {{$aula->aula_name}}">
+                            title="editar aula id= {{$aula->id}} de {{$materia->materia_name}}">
                             <span class="ico-shadow"> 📝 </span>
                             <span>{{$aula->aula_name}}</span>
                           </a>

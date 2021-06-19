@@ -30,7 +30,6 @@
             <a class="nav-sub" href="{{ route('botones.inicializa',auth()->user()->id) }}"
               onclick="event.preventDefault();
               document.getElementById('bt_init-form').submit();
-               document.getElementById('pasomas-form').submit();
               ">
               
             Personalizar</a>
@@ -39,10 +38,7 @@
               @method("PUT")
             </form>   
 
-            <form id="pasomas-form" method="POST" action="{{route('home.updatePasoMas',auth()->user()->id)}}"  style="display: none;">
-              @csrf
-              @method("PUT")
-            </form>
+
 
           @endif
           @if(auth()->user()!==null && auth()->user()->paso >5)

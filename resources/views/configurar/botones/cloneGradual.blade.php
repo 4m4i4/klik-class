@@ -6,10 +6,10 @@
   @endphp
   <details>
     <summary>Configuración avanzada</summary>
-    <form  id="gradual_btform" class="mx-2" method="POST" action="{{ route('botones.store') }}">
+    <form  id="clone_gradual_bt" class="mx-2" method="POST" action="{{ route('botones.store') }}">
       @csrf
         <input type="hidden" name="user_id" value={{ auth()->user()->id }}/>
-        <input type="hidden" name="tipoBt_id" value=2 />
+        <input type="hidden" name="botontipo_id" value=2 />
         <input type="hidden" name="items" value=null />
         <label class="d_block mt-2" for="bt_name"><strong>Nombre del botón</strong></label>
         <input id="gradual_bt_name" onchange="getValor(this.id)" class="d_block" type="text" name="bt_name" value="{{ $plantilla->bt_name }}" />

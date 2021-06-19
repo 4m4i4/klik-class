@@ -95,8 +95,11 @@ class ClaseController extends Controller
     {
         $user = auth()->user()->id;
         $clases = Clase::where('user_id',$user)
+            // ->where('dia', 'Lunes')
+            // ->whereTime('sesion_id','09:00:00')
+            // ->with('sesion','materia.aula.mesas')
+            ->with('sesion','materia.estudiantes')
             ->select('dia','id','sesion_id','materia_id')
-            ->with('sesion','materia')
             ->orderBy('dia')->orderBy('sesion_id')
             ->get();
         return response()->json($clases)->header('Content-Type','application/json');

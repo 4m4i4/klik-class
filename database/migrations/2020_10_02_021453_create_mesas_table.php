@@ -38,7 +38,8 @@ class CreateMesasTable extends Migration
             $table->foreign('estudiante_id')
                   ->references('id')
                   ->on('estudiantes')
-                  ->onDelete('set null');
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
             $table->timestamps();
         });
     }

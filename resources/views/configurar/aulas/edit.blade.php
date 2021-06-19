@@ -12,7 +12,9 @@
       @csrf
       @method('PUT')
         <div class="text-center">
-          <label for="aula_name">Aula {{ $aula->aula_name }}:</label>
+
+          <label for="materia_name">Aula {{ $materia_name }}:</label>
+          <label for="aula_name"></label>          
           <input class="d_block" type="hidden" name="aula_name" required value="{{ $aula->aula_name }}">
           <label for="num_estudiantes">{{$num_estudiantes}} estudiantes</label>
           <input type="hidden" name="num_estudiantes" value={{$num_estudiantes}}> 

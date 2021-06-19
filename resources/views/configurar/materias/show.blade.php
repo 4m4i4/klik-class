@@ -1,6 +1,9 @@
 {{-- materias.show --}}
 @extends('layouts.app')
-
+@php
+    use App\models\Mesa;
+    $mesas = Mesa::all();
+@endphp
   @section('etapaUso')
     @if(session()->get('info'))
         <div class = "text-center alert alert-info">
@@ -32,8 +35,7 @@
                     class="nombre_mesa d_block py-0" 
                     title="Estudiante id: {{$mesa->estudiante_id}}"
                     onclick= "desabilita({{$mesa->id}})">
-                    {{DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('nombre')}}  {{DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('apellidos')}}
-                    {{-- {{$mesa->estudiante->nombre}} {{Str::limit($mesa->estudiante->apellidos, 1)}} --}}
+                    {{DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('nombre')}}  {{Str::limit(DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('apellidos'),1)}}
                     </button>
               </div> 
             @else

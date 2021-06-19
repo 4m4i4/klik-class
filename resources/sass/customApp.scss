@@ -39,11 +39,7 @@ body{
 .b-box{box-sizing: border-box}
 .c-box{box-sizing: content-box}
 
-// .ssss_aula{height:calc(100% - 2.2rem)}
-// .aula-uso{
-    // margin-left:1rem;
 
-// }
 /* =========== FOOTER =========== */
 
 .footer{
@@ -54,12 +50,14 @@ body{
     background-color:$black36;
     z-index:1000;
 }
+
 // .noFooter{
 //     width:100%;
 //     height:0;
 //     position:absolute;
 //     top:calc(100% );
 // }
+
 .page-footer{
     height:2.5rem;
     width:95%;
@@ -80,12 +78,14 @@ body{
         }
     }
 }
+
 @media screen and (min-width:120px) and (max-width:414px) {
     footer .page-footer{
         font-size:.7rem;
         line-height:1.2;
     }
 }
+
 @media screen and (min-width:415px) and (max-width:640px) {
     footer .page-footer{
         font-size:.9rem;
@@ -211,6 +211,7 @@ hr{color:#555;background-color:#555}
         height:5rem;
         margin:0 0 2rem 0}
 }
+
 /* =========== MENÚ-principal =========== */
 
 @media screen and (min-width:769px){
@@ -359,6 +360,7 @@ hr{color:#555;background-color:#555}
     }   
     .dropdown-menu{margin-top:-.5rem} 
 }
+
 .active{color:$azulBrand}
 
 
@@ -423,14 +425,13 @@ hr{color:#555;background-color:#555}
         font-variant: small-caps;
         text-align: center}
 }
+
 @media screen and (max-width:550px){
     .menu-botones{
         display:flex;
         flex-direction:column;
         font-size: 1rem;
-        .items-menu-botones{
-            width:100%;
-        }
+        .items-menu-botones{width:100%}
     }
 }
  .encabezamiento{
@@ -476,7 +477,6 @@ a.btn,
 .btn,
 .boton{
     margin:2px;
-    // padding:3px .6rem;
     border-radius:3px;
     border-width: 2px;
     font-family:$f-sans-serif;
@@ -488,9 +488,6 @@ a.btn,
 .btn{
     display:inline-block;
     text-decoration:none;
-    // padding:0 .6rem 2rem .6rem;
-    // overflow:hidden;
-    // white-space:nowrap;
     color:inherit}
 
 .bt_pasos{
@@ -505,6 +502,7 @@ a.btn,
     font-size:1.2rem;
     > .ico-shadow{font-size:2rem}
 }
+
 .tx-btn{
    color:hsl(192, 60%, 40%);
    font-family:$f-condensed;
@@ -520,6 +518,7 @@ a.btn:hover,button.btn:hover,
     width:100%;
     margin:1rem 0;
     height:2.4rem}
+
 .disabled,
 .disabled:hover{
     background-color:#cfcfcf;
@@ -534,7 +533,6 @@ a.btn:hover,button.btn:hover,
     &:hover{cursor:not-allowed;
         background-color:rgba(148, 207, 209, 0.4)}
 }
-
 
 .continuar{
     border:2px solid $c_az190;
@@ -599,7 +597,8 @@ a.btn:hover,button.btn:hover,
         color:$c_az190}
 }
 
-.bg-ver{background-color:$c_az190;
+.bg-ver{
+    background-color:$c_az190;
     color:#fff;
         &:hover{
         border-color:$c_az190; 
@@ -646,15 +645,13 @@ a.btn:hover,button.btn:hover,
     &:hover{
         border-color: $c_brd68; 
         background-color: hsl(336, 90%, 60%);
-        color: #fff
-        }
+        color: #fff}
 }
 
 .cancelar{
     border:2px solid $c_brd68;
     border-radius: 3px;
     background-color:$fucsBrand;
-    // background-color: #ff4d88;  
     color:#fff;
     padding:.25rem 1.5rem;
     &:hover{
@@ -663,13 +660,9 @@ a.btn:hover,button.btn:hover,
         color: #333}
 }
 
-div.cancelar{
-    margin-top:1rem;
-}
-.enviar,.cancelar{
-    font-weight:500;
-    font-size:1.2rem;
-}
+div.cancelar{margin-top:1rem}
+
+.enviar,.cancelar{font-weight:500;font-size:1.2rem}
 
 .oscuro{
     border:2px solid $c_brd78; 
@@ -701,8 +694,7 @@ div.cancelar{
 
 .light-grey {
     border-top: 2px solid $c_brd78;
-    background-color: hsl(49, 35%, 91%);
-}
+    background-color: hsl(49, 35%, 91%)}
 
 .default{
     border-color: $c_az190;
@@ -733,7 +725,7 @@ div.cancelar{
 
 .caja-grid{
     border:2px solid $c_brd78;
-    background-color: $cajaGrid;
+    background-color:$cajaGrid;
     padding-bottom:1.5rem; 
     padding-top:1.5rem;
     margin-bottom:1rem}
@@ -764,9 +756,8 @@ div.cancelar{
     .caja-header>.grid>a.btn{padding-top:1px}
     .pasos-title-1,.title {font-size:1.1rem}
     html {font-size:14px}
-    .alert,.alert-info{font-size:.9rem; font-family: $f-condensed;}
-    .caja-header select{
-        padding-top:2px;padding-bottom:3px}
+    .alert,.alert-info{font-size:.9rem; font-family:$f-condensed}
+    .caja-header select{padding-top:2px;padding-bottom:3px}
     .caja-header select  option{
         height: 1.8rem;
         margin-top:0;
@@ -775,23 +766,25 @@ div.cancelar{
         padding-bottom:0
     }
 }
+
 @media screen and (min-width:20px) and (max-width:414px) {
     .caja-body{padding-right:3px;padding-left:3px} 
 }
+
 @media screen and (min-width:641px) and (max-width:768px){
     .container{max-width:95%;margin:auto}
     .alert{padding-right:1.5rem;padding-left:1.5rem}
     .caja .pasos-title-1{font-size:3.5rem}    
     .caja-body{padding:.5rem 1.5rem}
-    .caja-header{padding:.5rem 1.5rem .4rem 1.5rem;
+    .caja-header{
+        padding:.5rem 1.5rem .4rem 1.5rem;
         h2{font-size:1.4rem}
     }
     .caja-header.btn,
     .caja-header select,
     .caja-header a.btn,
     .caja-header form> button,
-    // .caja-header.boton{height:2rem;padding:2px .8rem;font-size:.9rem}
-    .caja-header.boton{height:2rem;padding-right:.8rem;padding-left:.8rem;font-size: .9rem}
+    .caja-header.boton{height:2rem;padding-right:.8rem;padding-left:.8rem;font-size:.9rem}
     .caja-header select{
         padding-top:3px;padding-bottom:3px;
         font-size:.9rem}
@@ -812,7 +805,8 @@ div.cancelar{
     .container{max-width:90%}
     .alert{padding-right:2.5rem;padding-left: 2.5rem}
     .caja-body{padding:1.25rem 2.5rem}
-    .caja-header{padding:.75rem 2.5rem;
+    .caja-header{
+        padding:.75rem 2.5rem;
         h2{font-size:1.6rem}
     }
     .caja-header.btn,
@@ -820,10 +814,8 @@ div.cancelar{
     .caja-header a.btn,
     .caja-header button,
     .caja-header.boton{height:2.2rem;padding-right:1rem;padding-left:1rem}
-    // .caja-header.boton{height:2.2rem;padding:2px 1rem}
     .caja-header>.grid>a>p{margin-top:-2px}
     .caja-header>.grid>a.btn{padding-top:5px}
-    
     html{font-size:16px}
 }
 
@@ -837,7 +829,6 @@ div.cancelar{
     .caja-header select,
     .caja-header a.btn,
     .caja-header button,
-    // .caja-header.boton{height:2.2rem;padding:2px 1rem}
     .caja-header.boton{height:2.2rem;padding-right:1rem;padding-left:1rem}
     .caja-header>.grid>a>p{margin-top:-2px}
     .caja-header>.grid>a.btn{padding-top:5px}
@@ -887,8 +878,8 @@ div.cancelar{
 .tabla td{
     border-bottom:2px solid #ddd;
     text-align: center;
-    // vertical-align:middle
 }
+
 .tabla .ver>span{font-family:$f-condensed}
 
 table th{
@@ -928,6 +919,7 @@ tbody > tr > td > form {margin-bottom:0; display:inline-block}
             font-variant:small-caps}
     }
 }
+
 @media screen and (max-width:359px){
     .tabla{
         font-size:.7rem;
@@ -937,6 +929,7 @@ tbody > tr > td > form {margin-bottom:0; display:inline-block}
         white-space:nowrap;text-overflow:ellipsis}
     }
 }
+
 @media screen and (max-width:414px){
     .tabla{
         font-size:.8rem;
@@ -1014,9 +1007,9 @@ tbody > tr > td > form {margin-bottom:0; display:inline-block}
     .tabla form button{width:6rem;height:2rem;margin:4px auto}
     td > p >span{max-width:6rem}
     tr>td>.editar,tr>td>form>.borrar,
-        tr>td>.ver{height:2rem;margin-top:.25rem;margin-bottom:.25rem}
-
+    tr>td>.ver{height:2rem;margin-top:.25rem;margin-bottom:.25rem}
 }
+
 #tabla-config-horario .editar,
 #tabla-config-horario .crear{
     height:4rem;
@@ -1027,7 +1020,7 @@ tbody > tr > td > form {margin-bottom:0; display:inline-block}
     width:80%;
     height:2rem;margin:3px;
     font-size:1.1rem;
-    }
+}
 
 .table-responsive{
     width:100%;
@@ -1049,9 +1042,9 @@ input[type=time]{
     margin-top:.2rem;
     color:#363636;
     background-color:hsl(48, 24%, 96%)}
-select{
-    font-size:.7rem;
-}
+
+select{font-size:.7rem}
+
 select:focus,
 input:focus,
 textarea:focus,
@@ -1060,9 +1053,9 @@ input[type=text]:focus{
     border-color:$azulBrand;
     outline:none}
 
-input[type=number]{max-width:4rem}
+input[type=number]{max-width:4rem; font-size: 1.2}
 
-label{font-family:$f-condensed;color:#222}
+label{font-family:$f-condensed;color:#333}
 
 select{margin-top:-1px}
 
@@ -1080,9 +1073,6 @@ select{margin-top:-1px}
     text-align:center;
     font-family:$f-condensed;
     font-variant:small-caps;
-    // overflow:hidden;
-    // white-space:nowrap;
-    // text-overflow:ellipsis;
     box-sizing: border-box}
 
 .reloj{margin-left:1rem;margin-right:.5rem;font-size:1.25rem}
@@ -1092,9 +1082,10 @@ select{margin-top:-1px}
         padding:.3rem .4rem .25rem .4rem;
         margin-left:.25rem}
     .reloj{
-        margin-left:.4rem;margin-right:.4rem;
-        font-size:1rem;
-        }
+        margin-left:.4rem;
+        margin-right:.4rem;
+        font-size:1rem
+    }
 }
 @media screen and (max-width:640px){
     .header-uso{font-size:.9rem}
@@ -1104,6 +1095,7 @@ select{margin-top:-1px}
 .aula-mesa{
     grid-gap: 10px 10px;
 }
+
 .mesa{
     background-color:hsl(53, 27%, 94%);
     border:1px solid #ccc;
@@ -1152,28 +1144,25 @@ select{margin-top:-1px}
     width:90px;
     height:90px;
     text-align:center;
-    border:2px  solid $c_brd50;
-    background-color:darkgray;
+    border:2px solid $c_brd50;
+    background-color:darkgray}
 
-}
 .plantilla-bt{
     margin:.25rem .25rem .5rem .25rem;
     border:1px solid #ddd;
-    
-    box-shadow:0px 1px 4px 0px rgba(0,0,0,.1),0 1px 1px 0 rgba(0,0,0,.06)
-}
+    box-shadow:0px 1px 4px 0px rgba(0,0,0,.1),0 1px 1px 0 rgba(0,0,0,.06)}
+
 .no_border{border:0 solid }
+
 .resultado-bt{
     height: 3rem;
     margin-bottom:.25rem;
     padding-top:.25rem;
     padding-bottom:.25rem;
     border:2px  solid $c_brd50;
-    // text-align:left;
-    // padding-left: .5rem;
     background-color:$continuar;
-    color:#363636
-}
+    color:#363636}
+
 .plantilla-body{ 
     margin: auto;
     border:2px solid $c_brd68;
@@ -1183,14 +1172,14 @@ select{margin-top:-1px}
     grid-template-columns:repeat(1,minmax(0,1fr)) ;
     align-items: center;
     justify-content: center;
-    background-color:  #eceadf;
-}
+    background-color:  #eceadf}
+
 .plantilla-footer{
     margin:.25rem;
-    padding:.75rem 1.5rem;font-family: $f-condensed;
+    padding:.75rem 1.5rem;
+    font-family: $f-condensed;
     color:#fff;
-    background-color:$azulBrand;;
-}
+    background-color:$azulBrand}
 
 @media screen and (orientation: landscape){
     .mesa{      
@@ -1210,6 +1199,7 @@ select{margin-top:-1px}
         padding:.7rem 0}
     }
 }
+
 @media screen and (max-width:360px) and(orientation: landscape){
     .mesa{      
         width:4rem;
@@ -1217,20 +1207,23 @@ select{margin-top:-1px}
         .nombre_mesa{font-size:.8rem}
     }
 }
+
 @media screen and (max-width:360px) and(orientation: portrait){
     .mesa{      
         width:3.7rem;
         height:7rem;
         .nombre_mesa{font-size:.8rem}
-        }
+    }
 }
+
 @media screen and (min-width:361px) and (max-width:412px)and(orientation: portrait){
     .mesa{     
         width:4rem; 
         height: 7.5rem;
         >div>.nombre_mesa{font-size:.8rem}
-        }
+    }
 }
+
 @media screen and (min-width:413px) and (max-width:640px) and(orientation: portrait){
     .mesa{      
         width:4.5rem;
@@ -1238,6 +1231,7 @@ select{margin-top:-1px}
         >div>.nombre_mesa{font-size:.8rem}
     }
 }
+
 @media screen and (min-width:413px) and (max-width:640px) and(orientation: landscape){
     .mesa{      
         width:5.5rem;
@@ -1252,6 +1246,7 @@ select{margin-top:-1px}
         >div>.nombre_mesa{font-size:.9rem}
     }
 }
+
 @media screen and (min-width:641px) and (max-width:768px) and(orientation: landscape){
     .mesa{
         width:6rem;height:5rem;
@@ -1259,14 +1254,13 @@ select{margin-top:-1px}
     }
 }
 @media screen and (min-width:769px) and (max-width:1024px){
-    .mesa{      
-        width:8rem;
-        max-height:5rem}
+    .mesa{width:8rem; max-height:5rem}
 }
 
 @media screen and (min-width:1025px){
     .mesa{width:12rem;max-height:5.5rem}
 }
+
 @media screen and (max-width:412px){
     .bt_mesa,.nombre_mesa{
         font-size:.8rem;
@@ -1293,27 +1287,28 @@ select{margin-top:-1px}
     height:calc(100% - 3.5rem);
     overflow:auto;
 }
+
 .modal{
     display:none;
     background-color:rgba(0,0,0,0.2)
 }
 
 .modal-content{
-  margin:auto;
-  background-color:#fff;
-  position:relative;
-  padding:0;
-  border:1px solid #ddd;
-  box-shadow:1px 1px 4px hsla(180, 9%, 26%, 0.8);
-  max-width:360px;
-  h3{
-      font-size:1.5rem;
-      color:hsl(197, 58%, 46%);
-  }
+    margin:auto;
+    background-color:#fff;
+    position:relative;
+    padding:0;
+    border:1px solid #ddd;
+    box-shadow:1px 1px 4px hsla(180, 9%, 26%, 0.8);
+    max-width:360px;
+    h3{font-size:1.5rem;color:hsl(197, 58%, 46%)}
 }
+
 .animate-zoom{animation:animatezoom 0.6s}
+
 @keyframes animatezoom{
-  from{transform:scale(0)} to{transform:scale(1)}
+    from{transform:scale(0)} 
+    to{transform:scale(1)}
 }
 
 
@@ -1359,6 +1354,7 @@ img{max-width:100%;height:auto}
 .border-t{border-top-width:1px}
 .shadow{box-shadow:0px 1px 4px 0px rgba(0,0,0,.1),0 1px 1px 0 rgba(0,0,0,.06)}
 .overflow-hidden{overflow:hidden}
+.radius3{border-radius: 3px}
 
 
 
@@ -1446,12 +1442,12 @@ img{max-width:100%;height:auto}
 }
 .bg-sky{background-color:hsl(180, 100%, 47%); color:#333}
 .bg-blue{background-color:hsl(180, 67%, 80%)}
-.bg-gradual1{background-color:hsl(180, 90%, 89%)}
-.bg-gradual2{background-color:hsl(180, 100%, 80%)}
-.bg-gradual3{background-color:hsl(180, 100%, 65%)}
-.bg-gradual4{background-color:hsl(180, 100%, 50%)}
-.bg-gradual5{background-color:hsl(190, 90%, 55%)}
-.bg-gradual6{background-color:hsl(190, 100%, 40%); color:#ffffff}
+.bg-gradual1{background-color:hsl(190, 90%, 89%)}
+.bg-gradual2{background-color:hsl(190, 100%, 80%)}
+.bg-gradual3{background-color:hsl(190, 100%, 60%)}
+.bg-gradual4{background-color:hsl(190, 90%, 50%)}
+.bg-gradual5{background-color:hsl(190, 90%, 45%)}
+.bg-gradual6{background-color:hsl(190, 90%, 40%); color:#ffffff}
 .bg-azul-kc{background-color:$azulBrand}
 .bg-fucsia{background-color:hsl(336, 100%, 50%)}
 .bg-amarillo{background-color: $yellBrand}

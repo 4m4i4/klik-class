@@ -100,15 +100,25 @@ class EstudianteController extends Controller
                 $lista_materias[$i]=array('estudiantes por materia'=>array('materia'=>$ids_materia[$i]),array('estudiantes'=>$ids_estudiante));
                 unset($ids_estudiante);
                  $ids_estudiante = [];
-
-
             }
-
-
         }
         return response()->json(['success' => true, 'lista_materias'=>$lista_materias ], 200);
-        
+       
     }
+public function estudianteMateriasMesa(){
+    $user_id = auth()->user()->id;
+    $materia = Materia::where('user_id',$user_id)->get();
+    $estudiante = DB::table('estudiantes')
+                ->crossJoin('materias')
+                ->get();
+            // ->join('materias','estudiante.id','=','materias.estudiante_id')
+            // ->join('mesas','estudiante.id','=','mesas.estudiante_id')
+            // ->select('estudiantes.*','materias.materia_name','mesas.columna','mesas.fila','mesas.aula_id')
+            // ->get();
+    return response()->json(['success' => true, 'estudiante' => $estudiante], 200);
+}
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -276,9 +286,13 @@ class EstudianteController extends Controller
         $mns_grupo ='Grupo borrado con éxito';
         $materia = Materia::find($materia_id);
         $estudiantes = DB::table('estudiante_materia')->where('materia_id',$materia_id)->get();
+        $aula_id = $materia->aula_id;
+        
         // $estudiantes = Estudiante::where('materia_id',$materia_id)->get();
         foreach ($materia->estudiantes as $estudiante)
         $estudiante->delete();
+        DB::table('aulas')->where('id',$aula_id)->update(['num_columnas'=>5,'num_filas'=>5,'num_mesas'=>25, 'check'=>0]);
+        DB::table('mesas')->where('aula_id',$aula_id)->delete();
         return redirect()->route('materias.index')->with('info', $mns_grupo);
     }
 }

@@ -1,21 +1,20 @@
-@extends('configurar.aulas.show') 
+@extends('configurar.materias.show') 
 
 @section('content')
-{{-- <div id="ver_modal" class="modal"> --}}
-{{-- <div id="edit_vacias" class="modal"> --}}
+
 <div class="nomodal">
   @include('include.formBanner')
   <div>
     <div class="px-6 caja-header text-center">
       <h3>Cambiar mesas del aula</h3>
     </div>
-    <form class="px-6" method="POST" action="{{route('aulas.updateMesasVacias', $aula->id) }}" method="POST" >
+    <form class="px-6" method="POST" action="{{route('materias.updateMesasVacias', $materia->id) }}" method="POST" >
       @csrf 
       @method('PUT')  
       <div class="">
         <div class="mb-2"><!-- $clase->user_id  -->
             {{-- <p>Usuari@: {{auth()->user()->name}}</p> --}}
-          <p class="text-center"> {{$materia_name}}</p>
+          <p class="text-center"> {{$materia->materia_name}}</p>
           <p class="ejemplo">
             <strong>{{$aula->num_columnas}}</strong> columnas y 
             <strong>{{$aula->num_filas}}</strong> filas;<br> 

@@ -32,6 +32,16 @@ class AulaController extends Controller
             return view('configurar.aulas.index', compact('aulas', 'materia'));
     }
 
+    public function estudiantesPorMateria_Aula(){
+        $aula_id = 1;
+        $aulas = DB::table('aulas')
+            ->join('materias', 'aulas.id', '=', 'materias.aula_id')
+            ->join('mesas', 'aulas.id', '=', 'mesas.aula_id')
+            ->select('aulas.aula_name', 'materias.materia_name', 'mesas.estudiante_id','mesas.columna','mesas.fila')
+            ->get();
+        return response()->json(['success' => true, 'aulas' => $aulas], 200);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -169,12 +179,19 @@ class AulaController extends Controller
     public function edit(Aula $aula)
     {
         $user = Auth::user()->id;
-        $materia = DB::table('materias')->where('user_id',$user)->where('grupo',$aula->aula_name)->first();
-        $materiasDelAula = $aula->materias()->pluck('materia_name');
-        // dd( $materiasDelAula);
+        // $materia = Materia::where('user_id',$user)->where('aula_id',$aula->id)->get();
+         $materia = DB::table('materias')->where('user_id',$user)->where('grupo',$aula->aula_name)->first();
+        // $arr_materia_id = $aula->materias()->pluck('id');
+        // $mat_id_count = count($arr_materia_id);
+        // for( $i = 0; $i <  $mat_id_count; $i++ ){
+
+        // }
+        // $max_est = Materia::where('user_id',$user)->where('aula_id',$aula->id)->get();
+        //  dd( $max_est, count($arr_materia_id));
         $materia_id = $materia->id;
+        $materia_name = $materia->materia_name;
         $num_estudiantes = Materia::find($materia_id)->estudiantes()->count();
-        return view('configurar.aulas.edit', compact('aula','num_estudiantes'));
+        return view('configurar.aulas.edit', compact('aula','materia_name','num_estudiantes'));
     }
 
     /**
@@ -191,40 +208,69 @@ class AulaController extends Controller
         // obtener los valores anteriores de columnas y filas
         $old_num_columnas = intVal($aula->num_columnas);
         $old_num_filas = intVal($aula->num_filas);
-        $old_num_mesas = $aula->num_mesas;
+        // tabla mesas
         $mesas_aula = Mesa::where('user_id',$user)->where('aula_id', $aula->id)->get();
+        // dd($mesas_aula->count());
+
         //   dd($mesas_aula);
-        $miAula = Aula::where('id', $aula->id)->with('mesas')->get();
+        // $miAula = Aula::where('id', $aula->id)->with('mesas')->get();
         // dd($miAula);
-
+        $index = 0;
+        $mesasIndex = [];
+        // valores formulario
         $nombreAula = request('aula_name');
-        $columnas = request('num_columnas');
-        $filas = request('num_filas');
-        $mesas = request('num_mesas');
-        $maxMesas = $columnas * $filas;
-        $num_estudiantes = request('num_estudiantes');
-        $msn ='Parece que has olvidado introducir el grupo de estudiantes de ' .$nombreAula;
-        $columnas= intVal($columnas);
-        $filas = intVal($filas);
-        if($mesas_aula->count() > 0){
-        // si hay cambios en el número de columnas y filas, actualiza los campos columna y fila de las mesas
-            if(!($columnas === $old_num_columnas)||!($filas === $old_num_filas)){
-                $indice= 0;
-                for ($row = $filas;  $row > 0; $row--){
-                    for ($col = 1; $col <= $columnas; $col++){
-                        if($mesas_aula->count() < $indice){
-                            $id = $mesas_aula[$indice]->id;
-                            DB::table('mesas')->where('id', $id)->update(['columna'=>$col,'fila'=>$row]);
-                        }
-                        $indice++;
-                    }
-                }
-            }
-            
-            $msn_maxMesas = 'Has puesto '.intval($mesas - $maxMesas) .' mesas más que las que caben en '.$columnas .' columnas x '.$filas. ' filas';
+        $columnas = intVal(request('num_columnas'));
+        $filas =  intVal(request('num_filas'));
+        $mesas =  intVal(request('num_mesas'));
 
-            if($mesas > $maxMesas) return redirect()->route('materias.index')->with('info', $msn_maxMesas);
+        // $num_estudiantes = request('num_estudiantes');
+        // $msn ='Parece que has olvidado introducir el grupo de estudiantes de ' .$nombreAula;
+        // $columnas= intVal($columnas);
+        // $filas = intVal($filas);
+
+
+        $maxMesas = $columnas * $filas;
+        $msn_maxMesas = 'Has puesto '.intval($mesas - $maxMesas) .' mesas más que las que caben en '.$columnas .' columnas x '.$filas. ' filas';
+
+        if($mesas > $maxMesas) return redirect()->route('materias.index')->with('info', $msn_maxMesas);
+
+
+
+        if($mesas_aula->count() === 0){
+            echo "count es cero";
+            for ($row = $filas;  $row > 0; $row--){
+              for ($col = 1; $col <= $columnas; $col++){
+                  $mesa = new Mesa;
+                  $mesa->columna = $col;
+                  $mesa->fila = $row;
+                  $mesa->aula_id = $aula->id;
+                  $mesa->user_id = $user;
+                  $mesa->is_ocupada = true;
+                  if($index < $mesas) {
+                    $mesa->save();
+                    $mesa->refresh();
+                  }
+                  $mesasIndex[$index] = $index;
+                  $index++;
+              }
+            }
         }
+        // else if($mesas_aula->count() > 0){
+        // // si hay cambios en el número de columnas y filas, actualiza los campos columna y fila de las mesas
+        //     if(!($columnas === $old_num_columnas)||!($filas === $old_num_filas)){
+        //         $indice= 0;
+        //         for ($row = $filas;  $row > 0; $row--){
+        //             for ($col = 1; $col <= $columnas; $col++){
+        //                 if($mesas_aula->count() < $indice){
+        //                     $id = $mesas_aula[$indice]->id;
+        //                     DB::table('mesas')->where('id', $id)->update(['columna'=>$col,'fila'=>$row]);
+        //                 }
+        //             $indice++;
+        //             }
+
+        //         }
+        //     }
+        // }
         if($request->validate([
                 'aula_name' =>'required|string',
                 'num_columnas' =>'required|integer|max:9|min:1',
@@ -243,8 +289,8 @@ class AulaController extends Controller
             $aula->check = request('check');
             $aula->save();
             $aula->refresh();
-            if($num_estudiantes == '0') return redirect()->route('materias.index')->with('info', $msn);
-            else
+            // if($num_estudiantes == '0') return redirect()->route('materias.index')->with('info', $msn);
+            // else
             return redirect()->route('materias.index')->with('info', 'El aula '.$nombreAula.' se ha actualizado con éxito. Pulsa ver para sentar a los estudiantes');
         }
     }

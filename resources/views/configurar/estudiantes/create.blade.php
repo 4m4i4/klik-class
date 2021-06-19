@@ -18,8 +18,8 @@
               <input type="hidden" id="create_materia_id" name="create_materia_id" value="" >
               <label for="user_id"></label>
               <input type="hidden" id="user_id" name="user_id" value="{{auth()->user()->id }}" >
-              <label for="check"></label>
-              <input type="hidden" id="check" name="check" value="1" >
+              {{-- <label for="check"></label>
+              <input type="hidden" id="check" name="check" value="1" > --}}
           </div>
           <div class="mt-4">
               <label for="lista_completa">Lista de estudiantes</label>
