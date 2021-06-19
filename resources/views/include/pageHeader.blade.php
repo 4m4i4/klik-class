@@ -99,10 +99,14 @@
                       <a class="dropdown-item crearCurso" href="{{route('aulas.index')}}">Aulas</a>                     
                       <a class="dropdown-item crearCurso" href="{{route('mesas.index')}}">Mesas</a>
                       <a class="dropdown-item continuar" href="/klik-class">Ajax</a>
-                      <a class="dropdown-item continuar" title="Materias con estudiantes, aulas y clases" href="/materias">Materias.json</a>
-                      <a class="dropdown-item continuar" title="Clases por dia y hora del usuario" href="/clasesPorDia">Clases.json</a>
-                      <a class="dropdown-item continuar" href="/botons">Botones.json</a>
-                      <a class="dropdown-item continuar" href="/estudiantes">Estudiantes.json</a>
+                      <a class="dropdown-item continuar" title="Materias con estudiantes, aulas y clases"
+                         href="/misMaterias">Materias.json</a>
+                      <a class="dropdown-item continuar" title="Clases por dia y hora del usuario"
+                         href="/clasesPorDia">Clases.json</a>
+                      <a class="dropdown-item continuar" 
+                         href="/losBotones">Botones.json</a>
+                      <a class="dropdown-item continuar"
+                         href="/estudianteMateriasMesa">Estudiantes.json</a>
                     {{-- </div> --}}
                   {{-- @endif --}}
 
