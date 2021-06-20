@@ -101,12 +101,12 @@
                       <a class="dropdown-item continuar" href="/klik-class">Ajax</a>
                       <a class="dropdown-item continuar" title="Materias con estudiantes, aulas y clases"
                          href="/jsonmaterias">Materias.json</a>
-                      <a class="dropdown-item continuar" title="Clases por dia y hora del usuario"
+                      <a class="dropdown-item continuar" title="Clases por dia y hora (con materias y estudiantes)"
                          href="/clasesPorDia">Clases.json</a>
-                      <a class="dropdown-item continuar" 
-                         href="/jsonclases">cccnes.json</a>
+                      <a class="dropdown-item continuar"  title="Aulas con mesas"
+                         href="/jsonaulas">Aulas.json</a>
                       <a class="dropdown-item continuar"
-                         href="/estudianteMateriasMesa">Estudiantes.json</a>
+                         href="/jsonbotones">Botones.json</a>
                     {{-- </div> --}}
                   {{-- @endif --}}
 
