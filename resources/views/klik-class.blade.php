@@ -24,6 +24,7 @@
       var xhr = new XMLHttpRequest();
       xhr.open('GET','http://127.0.0.1:8000/home/mostrarClase',true);
       xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+      xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
       // var pinta_aula = '';
       xhr.onreadystatechange = function(){
         document.getElementById('respuesta').innerHTML = xhr.responseText;
@@ -37,7 +38,7 @@
       var xxhr = new XMLHttpRequest();
       xxhr.open('GET','/clasesPorDia',true);
       xxhr.setRequestHeader('Content-Type','application/json');
-            xxhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+     xxhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
       xxhr.onload = function(){
         if(xxhr.status==200){
           var json = JSON.parse(xxhr.responseText);

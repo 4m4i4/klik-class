@@ -41,7 +41,7 @@ class ClaseController extends Controller
             $aulas= Aula::where('user_id',$user)->get();
             $clases = Clase::where('user_id',$user)->with('user','materia','sesion')->get();
             // return response()->json(['success' => true, 'clases' => $clases, 'aulas' => $aulas], 200);
-            return response()->json([$clases, $aulas])->header('Content-Type','application/json');
+            return response()->json([$clases,$aulas])->header('Content-Type','application/json');
         }
     }
 
