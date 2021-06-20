@@ -38,15 +38,15 @@ Route::get('/horario', function(){
 Route::get('/klik-class', function(){
     return view('klik-class');
 });
-Route::get('/clases',[App\Http\Controllers\claseController::class, 'misClases']);
-Route::get('/losBotones',[App\Http\Controllers\botonController::class, 'index']);
-Route::get('/estudianteMateriasMesa',[App\Http\Controllers\estudianteController::class, 'estudianteMateriasMesa']);
-Route::get('/estudiantesPorMateria_Aula',[App\Http\Controllers\aulaController::class, 'estudiantesPorMateria_Aula']);
+Route::get('api/clases',[App\Http\Controllers\claseController::class, 'misClases']);
+Route::get('api/losBotones',[App\Http\Controllers\botonController::class, 'index']);
+Route::get('api/estudianteMateriasMesa',[App\Http\Controllers\estudianteController::class, 'estudianteMateriasMesa']);
+Route::get('api/estudiantesPorMateria_Aula',[App\Http\Controllers\aulaController::class, 'estudiantesPorMateria_Aula']);
 Route::get('/inicializar_botones',[App\Http\Controllers\botonController::class, 'inicializarBotones'])->name('botones.inicializa');
 Route::put('/inicializar_botones/{user}',[App\Http\Controllers\botonController::class, 'inicializarBotones'])->name('botones.inicializa');
-Route::get('/misMaterias',[App\Http\Controllers\materiaController::class, 'misMaterias']);
-Route::get('/laMateria/{id}',[App\Http\Controllers\materiaController::class, 'laMateria']);
-Route::get('/estudiantes',[App\Http\Controllers\estudianteController::class, 'misEstudiantes']);
+Route::get('api/misMaterias',[App\Http\Controllers\materiaController::class, 'misMaterias']);
+Route::get('api/laMateria/{id}',[App\Http\Controllers\materiaController::class, 'laMateria']);
+Route::get('api/estudiantes',[App\Http\Controllers\estudianteController::class, 'misEstudiantes']);
 // Route::get('/is_tinMat/{id}',[App\Http\Controllers\materiaController::class, 'showMesasMateria']);
 
 
