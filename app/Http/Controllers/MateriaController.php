@@ -221,7 +221,7 @@ class MateriaController extends Controller
         // dd($num_estudiantes);
         $index = $num_estudiantes;
         foreach($mesasDelAula as $mesas){
-            if($index>=0){
+            if($index >= 0 && $mesas->is_ocupada ==0){
                 $mesa_id = $mesas->id;
                 $mesa = DB::table('mesas')->where('id', $mesas->id)->update(['estudiante_id'=>$estudiantes[$index], 'is_ocupada'=>1]);
                 $estudiante = DB::table('estudiantes')->where('id',$estudiantes[$index])->update(['check'=> 1]);
