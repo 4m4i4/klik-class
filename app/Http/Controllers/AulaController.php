@@ -179,7 +179,6 @@ class AulaController extends Controller
     public function edit(Aula $aula)
     {
         $user = Auth::user()->id;
-        // $materia = Materia::where('user_id',$user)->where('aula_id',$aula->id)->get();
          $materia = DB::table('materias')->where('user_id',$user)->where('grupo',$aula->aula_name)->first();
         // $arr_materia_id = $aula->materias()->pluck('id');
         // $mat_id_count = count($arr_materia_id);
@@ -245,7 +244,7 @@ class AulaController extends Controller
                   $mesa->fila = $row;
                   $mesa->aula_id = $aula->id;
                   $mesa->user_id = $user;
-                  $mesa->is_ocupada = true;
+                  $mesa->is_ocupada = false;
                   if($index < $mesas) {
                     $mesa->save();
                     $mesa->refresh();

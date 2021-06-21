@@ -197,10 +197,15 @@ class MateriaController extends Controller
 
     public function show($id)
      {  
+        // $materia = Materia::find($id);
+        // $aula_id = $materia->aula_id;
+        // $aula = Aula::where('id',$aula_id)->get();
+        // $mesasAula = $aula->mesas()->get();
+        // // $materia = Materia::where('id',$id)->where('aula')->with('aula.mesas')->get();
+        // // // dd($materia);
+        // dd($mesasAula);
     
-
-
-        $user = Auth::user()->id;
+  $user = Auth::user()->id;
         $mesas = Mesa::all();
         $materia = Materia::find($id);
         $materia_name = $materia->materia_name;
@@ -208,46 +213,70 @@ class MateriaController extends Controller
 
         $aula = Aula::find($aula_id);
         $num_mesas = $aula->num_mesas;
+        // dd($num_mesas);
         $mesasDelAula = Mesa::where('user_id', $user)->where('aula_id',$aula->id)->get();
-        $estudiantes = Materia::find($id)->estudiantes()->get();
-        $num_student = $estudiantes->count();
-        $mesasIndex = [];
-        $contador = 0;
-        $msn ='';
-        // Si el aula no tiene mesas las ponemos
-        if($mesasDelAula->count() == $num_mesas){
-            // $msn = "Estamos colocando las mesas... Regresa a la página anterior mientras acabamos";
-            for($i = 0; $i < $num_mesas; $i++){
-                $mesasIndex[$i] = $i;
+        // dd($mesasDelAula->count());
+        $estudiantes = Materia::find($id)->estudiantes()->pluck('estudiante_id');
+        $num_estudiantes = count($estudiantes) -1;
+        // dd($num_estudiantes);
+        $index = $num_estudiantes;
+        foreach($mesasDelAula as $mesas){
+            if($index>=0){
+                $mesa_id = $mesas->id;
+                $mesa = DB::table('mesas')->where('id', $mesas->id)->update(['estudiante_id'=>$estudiantes[$index], 'is_ocupada'=>1]);
+                $estudiante = DB::table('estudiantes')->where('id',$estudiantes[$index])->update(['check'=> 1]);
+                $index--;
             }
-           
-            $num_mesasVacias = $num_mesas - $num_student;
-            $firstMesa = $mesasDelAula[0]->id;
-            $lastMesa = $firstMesa + $mesasDelAula->count() -1;   
-              // si hay mesas vacías
-            if($num_mesasVacias > 0){
-              $mesasIndex = Arr::shuffle($mesasIndex);
-              $mesasVacias = Arr::random($mesasIndex, $num_mesasVacias);
-                // dd($mesasIndex);
-              for ($ii = 0; $ii < count($mesasVacias); $ii++){
-                $indice = $mesasVacias[$ii] + $firstMesa;
-                // asignar null a estudiante_id en las mesas vacías 
-                DB::table('mesas')->where('id',$indice)->update(['is_ocupada'=>false]);
-              }  
-            }
-            for($i = $firstMesa; $i <= $lastMesa; $i++){
-                $mesa_id = Mesa::find($i);
-                if($mesa_id->is_ocupada == true  && $contador < $estudiantes->count()){
-                    $mesa_id->is_ocupada = true;
-                    DB::table('estudiantes')->where('id',  $estudiantes[$contador]->id)->update(['check'=>true]);
-                    $mesa_id->estudiante_id = $estudiantes[$contador]->id;
-                    $mesa_id->save();
-                    $mesa_id->refresh();
-                    $contador++;
-                } 
-            } 
         }
-        return view('configurar.materias.show', compact('materia','aula', 'user','mesas', 'estudiantes','materia_name'))->with('info',  $msn);
+
+        // $user = Auth::user()->id;
+        // $mesas = Mesa::all();
+        // $materia = Materia::find($id);
+        // $materia_name = $materia->materia_name;
+        // $aula_id = $materia->aula_id;
+
+        // $aula = Aula::find($aula_id);
+        // $num_mesas = $aula->num_mesas;
+        // $mesasDelAula = Mesa::where('user_id', $user)->where('aula_id',$aula->id)->get();
+        // $estudiantes = Materia::find($id)->estudiantes()->get();
+        // $num_student = $estudiantes->count();
+        // $mesasIndex = [];
+        // $contador = 0;
+        // $msn ='';
+        // // Si el aula no tiene mesas las ponemos
+        // if($mesasDelAula->count() == $num_mesas){
+        //     // $msn = "Estamos colocando las mesas... Regresa a la página anterior mientras acabamos";
+        //     for($i = 0; $i < $num_mesas; $i++){
+        //         $mesasIndex[$i] = $i;
+        //     }
+           
+        //     $num_mesasVacias = $num_mesas - $num_student;
+        //     $firstMesa = $mesasDelAula[0]->id;
+        //     $lastMesa = $firstMesa + $mesasDelAula->count() -1;   
+        //       // si hay mesas vacías
+        //     if($num_mesasVacias > 0){
+        //       $mesasIndex = Arr::shuffle($mesasIndex);
+        //       $mesasVacias = Arr::random($mesasIndex, $num_mesasVacias);
+        //         // dd($mesasIndex);
+        //       for ($ii = 0; $ii < count($mesasVacias); $ii++){
+        //         $indice = $mesasVacias[$ii] + $firstMesa;
+        //         // asignar null a estudiante_id en las mesas vacías 
+        //         DB::table('mesas')->where('id',$indice)->update(['is_ocupada'=>false]);
+        //       }  
+        //     }
+        //     for($i = $firstMesa; $i <= $lastMesa; $i++){
+        //         $mesa_id = Mesa::find($i);
+        //         if($mesa_id->is_ocupada == true  && $contador < $estudiantes->count()){
+        //             $mesa_id->is_ocupada = true;
+        //             DB::table('estudiantes')->where('id',  $estudiantes[$contador]->id)->update(['check'=>true]);
+        //             $mesa_id->estudiante_id = $estudiantes[$contador]->id;
+        //             $mesa_id->save();
+        //             $mesa_id->refresh();
+        //             $contador++;
+        //         } 
+        //     } 
+        // }
+        return view('configurar.materias.show', compact('materia','aula', 'user','mesas', 'estudiantes','materia_name'));
     }
     
 
@@ -495,7 +524,7 @@ class MateriaController extends Controller
             $newOcupadas = Mesa::where('aula_id', $aula_id)
                             ->where('is_ocupada',1)
                             ->get();
-            $i = 0;
+            $i = 1;
             foreach ($newOcupadas as $mesa){
                 $id = $mesa->id;
                 DB::table('mesas')
