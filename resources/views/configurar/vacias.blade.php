@@ -21,29 +21,6 @@
             <strong>{{count($ids_estudiante)}}</strong> estudiantes y 
             <strong>{{$vacias->count()}}</strong> mesas vacías.
           </p> 
-                  {{-- <p>
-                    @foreach ($estudiantes as $estudiante)
-                      {{$estudiante->id}}: {{$estudiante->apellidos}},{{$estudiante->nombre}};<br> 
-                    @endforeach
-                      </p> --}}
-                      {{-- <p>
-                        Mesas: {{$mesas->count()}}<br>
-                        @foreach ($mesas as $mesa)
-                          {{$mesa->id}}: {{$mesa->estudiante_id}},
-                            @php
-                              array_push( $id,$mesa->estudiante_id);
-                              $i = 0;
-                            @endphp
-                            ;<br> 
-                        @endforeach
-                      </p> --}}
-                        {{-- ids: {{count($id)}} --}}
-                      {{-- <p>
-                        @foreach ($estudiantes as $estudiante)
-                          {{ $id[$i]}};
-                          @php $i++; @endphp
-                        @endforeach
-                  </p>    --}}
                   
           <div class="ml-8 mt-2">
             <small>

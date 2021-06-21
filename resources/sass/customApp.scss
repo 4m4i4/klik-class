@@ -230,13 +230,14 @@ hr{color:#555;background-color:#555}
 
 .main-menu{
     position:absolute;
-    top:2.7rem;
+    top:2.8rem;
     margin-left:9rem;
     .nav-sub{
-        padding:.5rem 1rem .5rem 0;
+        padding:0 .25rem;
+        background-color:hsla(51, 25%, 90%, 0.65);
         font-family:$f-condensed;  
         font-size:1.4rem;
-        height:1.6em;
+        height:1.8em;
         color:#222;
         &:hover{
             color:$azulBrand;
@@ -324,7 +325,9 @@ hr{color:#555;background-color:#555}
         position:relative;
         margin-top:-.4rem; 
         .nav-sub{
+            padding:0 .25rem;
             font-size:1rem;
+            height:.8rem;
             color:#363636;
             margin-bottom: .5rem;
             &:hover{color:$azulBrand}
@@ -347,7 +350,7 @@ hr{color:#555;background-color:#555}
 
     // main-menu
     .main-menu{
-        top:-.3rem; 
+        top:-.1rem; 
         margin-left:3.6rem;
         .navbar-brand{font-size:1.5rem}
     }
@@ -394,12 +397,12 @@ hr{color:#555;background-color:#555}
     }
     .menuUso{
         position:relative;
-        margin-top:-.15rem; 
+        margin-top:.05rem; 
         .nav-sub{
             font-size:1.3rem;
-            padding:.5rem 1rem 1rem 0;
+            padding:0 .25rem;
             color:#363636;
-            height:1.6;
+            height:1.2;
             &:hover{color:$azulBrand}
         }
         .active{color:$azulBrand}
@@ -746,7 +749,7 @@ div.cancelar{margin-top:1rem}
         margin-right:0;
         margin-left:0}
     .caja-body{padding:.5rem .3rem .8rem .3rem}
-    .caja-header{padding:.1rem .5rem}
+    .caja-header{padding:.2rem .5rem}
     .caja-header.btn,
     .caja-header select,
     .caja-header button.btn,
@@ -784,7 +787,7 @@ div.cancelar{margin-top:1rem}
     .caja-header select,
     .caja-header a.btn,
     .caja-header form> button,
-    .caja-header.boton{height:2rem;padding-right:.8rem;padding-left:.8rem;font-size:.9rem}
+    .caja-header.boton{height:2rem;padding-right:.5rem;padding-left:.5rem;font-size:.8rem}
     .caja-header select{
         padding-top:3px;padding-bottom:3px;
         font-size:.9rem}
@@ -797,11 +800,11 @@ div.cancelar{margin-top:1rem}
         padding-bottom:0
     }
     .caja-header>.grid>a>p{margin-top:1px}
-    .caja-header>.grid>a.btn{padding-top:2px}
-    html{font-size:16px}
+    .caja-header>.grid>a.btn{padding-top:5px}
+    html{font-size:15px}
 }
 
-@media screen and (min-width:769px) and (max-width:1200px){
+@media screen and (min-width:769px) and (max-width:960px){
     .container{max-width:90%}
     .alert{padding-right:2.5rem;padding-left: 2.5rem}
     .caja-body{padding:1.25rem 2.5rem}
@@ -813,13 +816,13 @@ div.cancelar{margin-top:1rem}
     .caja-header select,
     .caja-header a.btn,
     .caja-header button,
-    .caja-header.boton{height:2.2rem;padding-right:1rem;padding-left:1rem}
+    .caja-header.boton{height:2.2rem;padding-right:.5rem;padding-left:.5rem;font-size:.8rem}
     .caja-header>.grid>a>p{margin-top:-2px}
     .caja-header>.grid>a.btn{padding-top:5px}
     html{font-size:16px}
 }
 
-@media screen and (min-width:1201px){
+@media screen and (min-width:961px){
     .container,
     .container-header{max-width:1280px}
     .alert{padding-right:4.5rem;padding-left:4.5rem}
@@ -968,7 +971,7 @@ tbody > tr > td > form {margin-bottom:0; display:inline-block}
 @media screen and (max-width:414px) {
     .tabla .btn,
     .tabla a.btn,
-    .tabla form button{width:3.2rem;height:1.7rem; margin:4px auto}
+    .tabla form button{min-width:3.2rem;height:1.7rem; margin:4px auto}
     td > p >span{max-width:4rem}
     tr>td>.editar,tr>td>form>.borrar,
     tr>td>.ver{height:1.7rem;margin:.25rem 0}
@@ -977,7 +980,7 @@ tbody > tr > td > form {margin-bottom:0; display:inline-block}
 @media screen and (min-width:415px) and (max-width:640px) {
     .tabla .btn,
     .tabla a.btn,
-    .tabla form button{width:4rem;height:1.8rem; margin:4px auto}
+    .tabla form button{min-width:4rem;height:1.8rem; margin:4px auto}
     td > p >span{max-width:4rem}
     tr>td>.editar,tr>td>form>.borrar,
     tr>td>.ver{height:1.8rem;margin:.25rem 0;}
@@ -1092,6 +1095,7 @@ select{margin-top:-1px}
 }
 
 /* =========== MESA/BT_MESA =========== */
+
 .aula-mesa{
     grid-gap: 10px 10px;
 }
@@ -1120,7 +1124,9 @@ select{margin-top:-1px}
     font-family:$f-condensed;
     font-size:1.1rem;
     font-weight:400;
-    text-align:center}
+    text-align:center;
+    box-shadow: -2px 3px 4px rgba(0,0,0,0.2);
+    }
 
 .bt_mesaIzq{
     width:calc(50% - 5px);
@@ -1140,46 +1146,7 @@ select{margin-top:-1px}
   opacity:0.2;
   cursor:not-allowed}
 
-.bt90x90{
-    width:90px;
-    height:90px;
-    text-align:center;
-    border:2px solid $c_brd50;
-    background-color:darkgray}
-
-.plantilla-bt{
-    margin:.25rem .25rem .5rem .25rem;
-    border:1px solid #ddd;
-    box-shadow:0px 1px 4px 0px rgba(0,0,0,.1),0 1px 1px 0 rgba(0,0,0,.06)}
-
-.no_border{border:0 solid }
-
-.resultado-bt{
-    height: 3rem;
-    margin-bottom:.25rem;
-    padding-top:.25rem;
-    padding-bottom:.25rem;
-    border:2px  solid $c_brd50;
-    background-color:$continuar;
-    color:#363636}
-
-.plantilla-body{ 
-    margin: auto;
-    border:2px solid $c_brd68;
-    display:block;
-    width:calc(100% - 2*2px);
-    display:grid;
-    grid-template-columns:repeat(1,minmax(0,1fr)) ;
-    align-items: center;
-    justify-content: center;
-    background-color:  #eceadf}
-
-.plantilla-footer{
-    margin:.25rem;
-    padding:.75rem 1.5rem;
-    font-family: $f-condensed;
-    color:#fff;
-    background-color:$azulBrand}
+/* =========== @medias MESA/BT_MESA =========== */
 
 @media screen and (orientation: landscape){
     .mesa{      
@@ -1201,7 +1168,7 @@ select{margin-top:-1px}
 }
 
 @media screen and (max-width:360px) and(orientation: landscape){
-    .mesa{      
+    .mesa,.radio-bt-div{      
         width:4rem;
         height:3.5rem;
         .nombre_mesa{font-size:.8rem}
@@ -1233,7 +1200,7 @@ select{margin-top:-1px}
 }
 
 @media screen and (min-width:413px) and (max-width:640px) and(orientation: landscape){
-    .mesa{      
+    .mesa, .radio-bt-div{      
         width:5.5rem;
         height:4.3rem;
         >div>.nombre_mesa{font-size:.8rem}
@@ -1248,7 +1215,7 @@ select{margin-top:-1px}
 }
 
 @media screen and (min-width:641px) and (max-width:768px) and(orientation: landscape){
-    .mesa{
+    .mesa,.radio-bt-div{
         width:6rem;height:5rem;
         >div>.nombre_mesa{font-size:.9rem}
     }
@@ -1258,7 +1225,7 @@ select{margin-top:-1px}
 }
 
 @media screen and (min-width:1025px){
-    .mesa{width:12rem;max-height:5.5rem}
+    .mesa,.radio-bt-div{width:12rem;max-height:5.5rem}
 }
 
 @media screen and (max-width:412px){
@@ -1272,6 +1239,106 @@ select{margin-top:-1px}
 @media screen and (max-width:412px){
     .bt_mesaIzq{width:calc(50% - 3px);margin-left:1px}
     .bt_mesaDcha{width:calc(50% - 3px);margin-right:1px}
+}
+
+/* =========== PERSONALIZAR =========== */
+
+.bt90x90{
+    width:90px;
+    height:90px;
+    text-align:center;
+    border:2px solid $c_brd50;
+    font-size:1.6rem;
+    background-color:darkgray}
+
+.plantilla-bt{
+    margin:.25rem .25rem .5rem .25rem;
+    border:1px solid #ddd;
+    box-shadow:0px 1px 4px 0px rgba(0,0,0,.1),0 1px 1px 0 rgba(0,0,0,.06)}
+
+.no_border{border:0 solid }
+
+.resultado-bt{
+    height:2.5rem;
+    margin-bottom:.25rem;
+    border:2px solid $c_brd50;
+    background-color:$continuar;
+    color:#363636}
+
+.plantilla-body{ 
+    width:calc(100% - 2*2px);
+    height:8rem;
+    margin:auto;
+    border:2px solid $c_brd68;    
+    display:grid;
+    grid-template-columns:repeat(1,minmax(0,1fr)) ;
+    align-items: center;
+    justify-content: center;
+    background-color:#eceadf}
+
+.plantilla-footer{
+    margin:.25rem;
+    padding: 0;
+    font-family: $f-condensed;
+    color:#333;border:2px solid $c_brd68;    
+    background-color:$azulBrand}
+
+
+/* =========== RADIO-BUTTON =========== */
+
+.radio-bt-div{
+    position: relative;
+    width: calc(100% - 2*2px);
+    border:1px solid #ccc;
+    // height:50px;
+    // margin-top:1rem;
+    margin-left:2px;
+    // border:2px solid $c_brd68;
+    // border-radius: 3px;;
+    text-align: center;
+
+    background-color:hsl(53, 27%, 94%);;
+}
+.hide{
+    display:none
+}
+.radio-label{
+    display:inline-block;
+    width:calc(50% - 6px);
+    // height: 36px;
+    padding-top:.4rem;
+    padding-bottom: .4rem;
+    margin:5px 0px;
+    border:1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+    color: $bg_base;
+    background:$bg_base;
+    // box-shadow: -2px 3px 4px rgba(0,0,0,0.2);
+    &:hover {
+        background: darken($bg_base, 10%);
+        color: rgb(255, 255, 255);
+    }
+
+}
+#boton_izq:checked + .radio-label {
+  background: $cyanBrand;
+  color: #555;
+  &:hover {
+    background: darken($cyanBrand, 5%);
+    // background: $azulBrand;
+    color: #fff;
+  }
+}
+
+#boton_dcha:checked + .radio-label {
+  background: $cyanBrand;
+  color: #555;
+  &:hover {
+    background: darken($cyanBrand, 5%);
+    // background: $azulBrand;
+    color: #fff;
+  }
 }
 
 /* =========== MODAL =========== */
@@ -1442,13 +1509,13 @@ img{max-width:100%;height:auto}
 }
 .bg-sky{background-color:hsl(180, 100%, 47%); color:#333}
 .bg-blue{background-color:hsl(180, 67%, 80%)}
-.bg-gradual1{background-color:hsl(190, 90%, 89%)}
-.bg-gradual2{background-color:hsl(190, 100%, 80%)}
-.bg-gradual3{background-color:hsl(190, 100%, 60%)}
-.bg-gradual4{background-color:hsl(190, 90%, 50%)}
-.bg-gradual5{background-color:hsl(190, 90%, 45%)}
-.bg-gradual6{background-color:hsl(190, 90%, 40%); color:#ffffff}
-.bg-azul-kc{background-color:$azulBrand}
+.bg-gradual1{background-color:hsl(182, 90%, 89%)}
+.bg-gradual2{background-color:hsl(182, 100%, 80%)}
+.bg-gradual3{background-color:hsl(182, 100%, 60%)}
+.bg-gradual4{background-color:hsl(182, 90%, 50%)}
+.bg-gradual5{background-color:hsl(182, 90%, 45%)}
+.bg-gradual6{background-color:hsl(182, 90%, 40%); color:#ffffff}
+.bg-azul{background-color:$azulBrand}
 .bg-fucsia{background-color:hsl(336, 100%, 50%)}
 .bg-amarillo{background-color: $yellBrand}
 .bg-beige{background-color: hsl(51, 25%, 90%);}

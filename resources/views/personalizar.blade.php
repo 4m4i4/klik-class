@@ -17,24 +17,13 @@
 
   <div class="caja mt-4">
     <div class="caja-header mt-2">
-      <div class= "py-2">
-<h2 class="title text-center">Personaliza tus botones</h2>
-     
-    {{-- <div class="caja-header bg-gradual5">
-      <h2 class="mt-4 mb-4 title text-white text-center">Personaliza tus botones</h2>
-      {{-- <hr class="mt-2 mb-4 hr"> --}}
-    </div> 
-  
-      </div>
+      <div class= "pb-2">
+        <h2 class="title text-center">Personaliza tus botones</h2>
+      </div> 
     </div>
-  {{-- <div class="grid grid-cols-2"> --}}
+  </div>
   <div class="caja">
-    {{-- <div class="caja-header">
-      <h2 class="mt-4 mb-2 title text-blue-30 text-center">Prueba cómo funcionan antes de elegir tus botones</h2>
-      <hr class="mt-2 mb-4 hr">
-    </div> --}}
-
-          <div class="caja-body">
+    <div class="caja-body">
       <h2  class="my-4 text-6 text-blue-30 text-center smallCaps">Prueba cómo funcionan antes de elegir</h2>
       <hr class="my-4 hr">
       <div class="grid grid-cols-1 md:grid-cols-3">
@@ -52,25 +41,51 @@
             </div>
             {{-- MÉTODOS, functions --}}
             <div class="plantilla-body">
-               <div class="bt90x90 no_border mx-auto my-4 bg-36 radius3">
+               <div class="bt90x90 no_border mx-auto bg-36 radius3">
                <button id="booleano_bt" onclick="nosi()" class="bt90x90 my-0 -mt--03 mx-auto bg-amarillo">Sí</button></div>
             </div>
           </div>
           {{-- selecciona materias --}}
-          <div class="plantilla-footer">Usar en la materia...
-            <label for="materia_id"></label>
-            <select class="d_block" name="materia_id" value="" id="materia_id" multiple>
-              @foreach($misMaterias as $materia)
-                <option value={{$materia->id}}>{{$materia->materia_name}}</option>
-              @endforeach
-                <option value={{$materia_id = 0}}>Todas</option>
-            </select>
-            @error('materia_id')
-              <small class="t_red">* {{ $message }}</small><br>
-            @enderror  
+          <div class="plantilla-footer">
+            <details class="bg-beige">
+              <summary class="bg-azul text-white no_border"> Usar en la materia...</summary>
+              <form id="clone_asistencia_bt" class=" grid sm:grid-cols-2 md:grid-cols-1 items-end" method="POST" action="">
+              @csrf
+              <div class="d_block">
+                <label for="materia_id"></label>
+                <select class="d_block" name="materia_id" value="" id="materia_id" >
+                  @foreach($misMaterias as $materia)
+                    <option value={{$materia->id}}>{{$materia->materia_name}}</option>
+                  @endforeach
+                    <option value={{$materia_id = 0}}>Todas</option>
+                </select>
+                @error('materia_id')
+                  <small class="t_red">* {{ $message }}</small><br>
+                @enderror  
+              </div>
+              <div class="d_block mt-4">¿Izquierda o derecha?
+                <div class="radio-bt-div ">
+                  <input type="radio" name="booleano2materia" id="boton_izq" checked="checked" class="hide" />
+                  <label for="boton_izq" class= "radio-label">Izq</label>
+                  <input type="radio" name="booleano2materia" id="boton_dcha" class="hide" />
+                  <label for="boton_dcha"  class= "radio-label ">Dcha</label>
+                  <div class="bg-gray-100 text-gray-900">
+                    Nombre apellidos
+                  </div>
+                </div>                
+              </div>
+              <div>
+                <button type="submit" 
+                  title="guardar botones en materia" 
+                  class="bt_xxl mt-6 enviar">Guardar</button>
+              </div>
+              </form>
+            </details>
           </div>
+
+
           {{-- FORMulario personalización --}}
-          <div class="personalizar  mb-2">
+          <div class="personalizar mb-2">
             @if(auth()->user()->paso >5)
               @include('configurar.botones.cloneBooleano')
             @endif
@@ -80,7 +95,7 @@
 
 {{-- GRADUAL --}}
         <div id="cloneGradual" class="plantilla-bt">
-          <div class="m-1 grid sm:grid-cols-2 md:grid-cols-1"> 
+          <div class="m-1 grid sm:grid-cols-2 md:grid-cols-1 items-end"> 
             {{-- Nombre --}}
             <div class="d_block">
               <h3 class="text-center pasos-title-2 mb-4">Gradual</h3>
@@ -91,25 +106,40 @@
             </div>
             {{-- MÉTODOS, functions --}}
             <div class="plantilla-body">
-              <button id="gradual_bt" class="bt90x90 mx-auto my-4 bg-gradual1"
+              <button id="gradual_bt" class="bt90x90 mx-auto bg-gradual1"
               onmousedown=" cal_gradual( 'gradual_bt',0,100,5, 'Participa')">0</button>
             </div>
           </div>
           {{-- selecciona materias --}}
-          <div class="plantilla-footer">Usar en la materia...
-            <label for="materia_id"></label>
-            <select class="d_block" name="materia_id" value="" id="materia_id" multiple>
-              @foreach($misMaterias as $materia)
-                <option value={{$materia->id}}>{{$materia->materia_name}}</option>
-              @endforeach
-                <option value={{$materia_id = 0}}>Todas</option>
-            </select>
-            @error('materia_id')
-              <small class="t_red">* {{ $message }}</small><br>
-            @enderror  
+          <div class="plantilla-footer">
+            <div class="m-1 grid sm:grid-cols-2 md:grid-cols-1 items-end">
+              <div class="d_block"> Usar en la materia...
+                <label for="materia_id"></label>
+                <select class="d_block h-24" name="materia_id" value="" id="materia_id" multiple>
+                  @foreach($misMaterias as $materia)
+                    <option value={{$materia->id}}>{{$materia->materia_name}}</option>
+                  @endforeach
+                    <option value={{$materia_id = 0}}>Todas</option>
+                </select>
+                @error('materia_id')
+                  <small class="t_red">* {{ $message }}</small><br>
+                @enderror  
+              </div>
+              <div class="d_block mt-4">¿Izquierda o derecha?
+                <div class="radio-bt-div">
+                  <input type="radio" name="gradual2materia" id="boton_izq" class="hide" />
+                  <label for="boton_izq" class= "radio-label">Izq</label>
+                  <input type="radio" name="gradual2materia" id="boton_dcha"  checked="checked" class="hide" />
+                  <label for="boton_dcha"  class= "radio-label">Dcha</label>
+                  <div class="nombre_mesa">
+                    Nombre apellidos
+                  </div>
+                </div>                
+              </div>
+            </div>
           </div>
           {{-- FORMulario personalización --}}
-          <div class="personalizar  mb-2">
+          <div class="personalizar mb-2">
             @if(auth()->user()->paso >5)
               @include('configurar.botones.cloneGradual')
             @endif
@@ -118,7 +148,7 @@
 
 {{-- ASISTENCIA --}}
         <div id= "cloneAsistencia" class="plantilla-bt">
-          <div class="m-1 grid sm:grid-cols-2 md:grid-cols-1"> 
+          <div class="m-1 grid sm:grid-cols-2 md:grid-cols-1 items-end"> 
             {{-- Nombre --}}
             <div class="d_block">
               <h3 class="text-center pasos-title-2  mb-4">Asistencia</h3>
@@ -129,13 +159,13 @@
             </div>
             {{-- MÉTODOS, functions --}}
             <div class="plantilla-body">
-              <button id="asistencia_bt" class="bt90x90 mx-auto condensed my-4 "onclick=" asistencia3()">Presente</button>
+              <button id="asistencia_bt" class="bt90x90 mx-auto condensed" onclick=" asistencia3()">Presente</button>
             </div>
           </div>
           {{-- selecciona materias --}}
           <div class="plantilla-footer">Usar en la materia...
             <label for="materia_id"></label>
-            <select class="d_block" name="materia_id" value="" id="materia_id"  multiple>
+            <select class="d_block h-24" name="materia_id" value="" id="materia_id"  multiple>
               @foreach($misMaterias as $materia)
                 <option value={{$materia->id}}>{{$materia->materia_name}}</option>
               @endforeach
@@ -144,9 +174,13 @@
             @error('materia_id')
               <small class="t_red">* {{ $message }}</small><br>
             @enderror  
+
+
+
           </div>
+
           {{-- FORMulario personalización --}}
-          <div class="personalizar  mb-2">
+          <div class="personalizar mb-2">
             @if(auth()->user()->paso >5)
               @include('configurar.botones.cloneAsistencia')
             @endif
@@ -158,7 +192,7 @@
   </div>
 
  
-
+      <div class="h-8"></div>
   </div>
 
 </div>
