@@ -17,7 +17,9 @@
           <div id={{$mesa->id}}
            class="mesa text-center " 
            title="mesa{{$mesa->id}} Columna{{$mesa->columna}} Fila{{$mesa->fila}}">
-            @if($mesa->is_ocupada == true)
+
+           @if($estudiantes->contains($mesa->estudiante_id))
+            {{-- @if($mesa->is_ocupada == true) --}}
               <div>       
                 <button id="bt_izq_{{$mesa->id}}" 
                     class="bt_mesa bg-amarillo text-gray-900"
@@ -32,10 +34,10 @@
               </div>
               <div>
                 <button id="name_{{$mesa->id}}"
-                    class="nombre_mesa d_block py-0" 
+                    class="nombre_mesa d_block py-0 " 
                     title="Estudiante id: {{$mesa->estudiante_id}}"
                     onclick= "desabilita({{$mesa->id}})">
-                    {{DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('nombre')}} {{Str::limit(DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('apellidos'),1)}}
+                    "{{DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('nombre')}} {{Str::limit(DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('apellidos'),1)}}"
                     </button>
               </div> 
             @else
