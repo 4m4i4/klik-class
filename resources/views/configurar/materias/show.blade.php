@@ -2,6 +2,8 @@
 @extends('layouts.app')
 @php
     use App\models\Mesa;
+    use App\models\Estudiante;
+    use Illuminate\Support\Str;
     $mesas = Mesa::all();
 @endphp
   @section('etapaUso')
@@ -17,17 +19,18 @@
           <div id={{$mesa->id}}
            class="mesa text-center " 
            title="mesa{{$mesa->id}} Columna{{$mesa->columna}} Fila{{$mesa->fila}}">
-
+             {{-- si el estudiante cursa esa materia --}}
            @if($estudiantes->contains($mesa->estudiante_id))
-            {{-- @if($mesa->is_ocupada == true) --}}
+            @php
+              
+              $esteEstudiante = Estudiante::find($mesa->estudiante_id);
+            @endphp
               <div>       
                 <button id="bt_izq_{{$mesa->id}}" 
                     class="bt_mesa bg-amarillo text-gray-900"
-                    {{-- title="Mesa id: {{$mesa->id}}. Columna {{$mesa->columna}}, Fila {{$mesa->fila}}" --}}
                     onclick="sino(bt_izq_{{$mesa->id}})">No</button>
                 <button id="bt_dcha_{{$mesa->id}}" 
                     class="bt_mesa bg-gradual1 f_right" 
-                    {{-- title="Mesa id: {{$mesa->id}}. Columna {{$mesa->columna}}, Fila {{$mesa->fila}}" --}}
                     onmousedown="lee('bt_dcha_{{$mesa->id}}')"
                     {{-- onmouseup="suma(bt_dcha_{{$mesa->id}},10)"  --}}
                     >0</button>
@@ -37,7 +40,9 @@
                     class="nombre_mesa d_block py-0 " 
                     title="Estudiante id: {{$mesa->estudiante_id}}"
                     onclick= "desabilita({{$mesa->id}})">
-                    "{{DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('nombre')}} {{Str::limit(DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('apellidos'),1)}}"
+                    {{Str::of("$esteEstudiante->nombre")->trim()}} {{Str::limit("$esteEstudiante->apellidos",1)}}
+
+                    {{-- {{DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('nombre')}} {{(DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('apellidos'),1)}} --}}
                     </button>
               </div> 
             @else

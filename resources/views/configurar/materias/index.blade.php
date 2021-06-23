@@ -173,10 +173,9 @@
                       {{ $materia->aula->aula_name }}
                           {{-- {{ $aula->aula_name }} --}}
                       </td>
-                    @endif
-                    @if($user->paso == 1) 
+ 
                       <td class="mx-auto">  <!-- Aula -->
-                          {{ $materia->aula->aula_name }}
+                          {{ $materia->aula_id }}
                       </td>
                     @endif
 

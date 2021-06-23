@@ -36,6 +36,7 @@ class EstudianteController extends Controller
         $materias = Materia::where('user_id',$user)->get();
         $num_estudiantes = DB::table('estudiante_materia')->where('materia_id',$materia_id)->count();
         $estudiantes = Estudiante::where('user_id',$user)->with('materias')->get();
+
         return view('configurar.estudiantes.index', compact('estudiantes','materia','materias','materia_id','num_estudiantes'));
     }
     
@@ -81,7 +82,8 @@ class EstudianteController extends Controller
                 
             $ids_estudiante = [];  
             $ids_materia = []; 
-            $lista_materias = [];array('estudiantes por materia'=>array('materias'=>$ids_materia,'estudiantes'=>$ids_estudiante)); 
+            $lista_materias = [];
+            array('estudiantes por materia'=>array('materias'=>$ids_materia,'estudiantes'=>$ids_estudiante)); 
             for($i= 0; $i < $num_materias; $i++){
                 $materia = $materias[$i];
                 $materia_id = $materia->id;
@@ -93,8 +95,6 @@ class EstudianteController extends Controller
                 $num_estudiantes = $estudiante_materia->count();
                 foreach($estudiante_materia as $estudiante){
                     $estudiante_id = $estudiante->estudiante_id;
-
-                    // array_push($lista_materias,$i,array_push($ids_estudiante,$estudiante_id ));
                     array_push($ids_estudiante,$estudiante_id );
                 }
                 $lista_materias[$i]=array('estudiantes por materia'=>array('materia'=>$ids_materia[$i]),array('estudiantes'=>$ids_estudiante));
@@ -102,22 +102,23 @@ class EstudianteController extends Controller
                  $ids_estudiante = [];
             }
         }
-        return response()->json(['success' => true, 'lista_materias'=>$lista_materias ], 200);
 
-       
+        return response()->json(['success' => true, 'lista_materias'=>$lista_materias ], 200);
     }
-public function estudianteMateriasMesa(){
-    $user_id = auth()->user()->id;
-    $materia = Materia::where('user_id',$user_id)->get();
-    $estudiante = DB::table('estudiantes')
-                ->crossJoin('materias')
-                ->get();
-            // ->join('materias','estudiante.id','=','materias.estudiante_id')
-            // ->join('mesas','estudiante.id','=','mesas.estudiante_id')
-            // ->select('estudiantes.*','materias.materia_name','mesas.columna','mesas.fila','mesas.aula_id')
-            // ->get();
-    return response()->header('Content-Type','application/json')->json(['success' => true, 'estudiante' => $estudiante], 200); 
-}
+
+    public function estudianteMateriasMesa(){
+        $user_id = auth()->user()->id;
+        $materia = Materia::where('user_id',$user_id)->get();
+        $estudiante = DB::table('estudiantes')
+                // ->crossJoin('materias')
+                // ->get();
+            ->join('materias','estudiante.id','=','materias.estudiante_id')
+            ->join('mesas','estudiante.id','=','mesas.estudiante_id')
+            ->select('estudiantes.*','materias.materia_name','mesas.columna','mesas.fila','mesas.aula_id')
+            ->get();
+
+        return response()->header('Content-Type','application/json')->json(['success' => true, 'estudiante' => $estudiante], 200); 
+    }
 
 
     /**
