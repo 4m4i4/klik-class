@@ -1784,22 +1784,26 @@ select {
   color: white;
 }
 
-#boton_izq:checked + .radio-label {
+#boton_izq:checked + .radio-label,
+#boton_dcha_b:checked + .radio-label {
   background: #00f0f0;
   color: #555;
 }
 
-#boton_izq:checked + .radio-label:hover {
+#boton_izq:checked + .radio-label:hover,
+#boton_dcha_b:checked + .radio-label:hover {
   background: #00d6d6;
   color: #fff;
 }
 
-#boton_dcha:checked + .radio-label {
+#boton_dcha:checked + .radio-label,
+#boton_izq_b:checked + .radio-label {
   background: #00f0f0;
   color: #555;
 }
 
-#boton_dcha:checked + .radio-label:hover {
+#boton_dcha:checked + .radio-label:hover,
+#boton_izq_b:checked + .radio-label:hover {
   background: #00d6d6;
   color: #fff;
 }

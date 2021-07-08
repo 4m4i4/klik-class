@@ -1321,7 +1321,8 @@ select{margin-top:-1px}
     }
 
 }
-#boton_izq:checked + .radio-label {
+#boton_izq:checked + .radio-label,
+#boton_dcha_b:checked + .radio-label {
   background: $cyanBrand;
   color: #555;
   &:hover {
@@ -1331,7 +1332,8 @@ select{margin-top:-1px}
   }
 }
 
-#boton_dcha:checked + .radio-label {
+#boton_dcha:checked + .radio-label,
+#boton_izq_b:checked + .radio-label  {
   background: $cyanBrand;
   color: #555;
   &:hover {
