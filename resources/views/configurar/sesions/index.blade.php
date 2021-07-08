@@ -87,36 +87,20 @@
 @endsection
 @section('script')
 <script>
-window.onload = function() { 
-  document.onkeyup =abrirFormulario; 
-}
-
-
-function  abrirFormulario(evObject) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST',`{{route('sesions.index')}}`,true);
-  xhr.setRequestHeader('Content-Type','application/json');
-  xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-  // var msg = ''; 
-  var tecla = evObject.keyCode;
-    console.log(tecla);
-  if(tecla == 171 ){
-    window.open("/configurar/sesions/create", '_self');
+  window.onload = function() { 
+    document.onkeyup =abrirFormulario; 
   }
-  // else if (tecla !== 32) {
-  //   msg = 'has pulsado '+tecla;
-  // }
-  // if (msg) {
-  //   control.innerHTML += msg + '<br/>';
-  // }
-  // xhr.send(location.replace(value_materia_id));
-}
 
- 
-
-
-
-
-
-  </script>
-  @endsection
+  function  abrirFormulario(evObject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST',`{{route('sesions.index')}}`,true);
+    xhr.setRequestHeader('Content-Type','application/json');
+    xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+    var tecla = evObject.keyCode;
+      console.log(tecla);
+    if(tecla == 171 ){
+      window.open("/configurar/sesions/create", '_self');
+    }
+  }
+</script>
+@endsection
