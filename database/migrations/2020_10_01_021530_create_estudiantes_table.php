@@ -17,7 +17,7 @@ class CreateEstudiantesTable extends Migration
             $table->id();
             $table->string('nombre',20);
             $table->string('apellidos',40);
-            $table->string('nombre_completo',60)->unique();
+            $table->string('nombre_completo',60);
             $table->boolean('check')->default(false);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')

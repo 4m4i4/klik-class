@@ -22,7 +22,6 @@
              {{-- si el estudiante cursa esa materia --}}
            @if($estudiantes->contains($mesa->estudiante_id))
             @php
-              
               $esteEstudiante = Estudiante::find($mesa->estudiante_id);
             @endphp
               <div>       
@@ -31,9 +30,7 @@
                     onclick="sino(bt_izq_{{$mesa->id}})">No</button>
                 <button id="bt_dcha_{{$mesa->id}}" 
                     class="bt_mesa bg-gradual1 f_right" 
-                    onmousedown="lee('bt_dcha_{{$mesa->id}}')"
-                    {{-- onmouseup="suma(bt_dcha_{{$mesa->id}},10)"  --}}
-                    >0</button>
+                    onmousedown="lee('bt_dcha_{{$mesa->id}}')">0</button>
               </div>
               <div>
                 <button id="name_{{$mesa->id}}"
@@ -41,9 +38,7 @@
                     title="Estudiante id: {{$mesa->estudiante_id}}"
                     onclick= "desabilita({{$mesa->id}})">
                     {{Str::of("$esteEstudiante->nombre")->trim()}} {{Str::limit("$esteEstudiante->apellidos",1)}}
-
-                    {{-- {{DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('nombre')}} {{(DB::table('estudiantes')->where('id',$mesa->estudiante_id)->value('apellidos'),1)}} --}}
-                    </button>
+                </button>
               </div> 
             @else
               <div>       

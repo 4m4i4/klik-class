@@ -17,7 +17,6 @@ class EstudianteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {   
         $user = auth()->user()->id;
@@ -40,6 +39,178 @@ class EstudianteController extends Controller
         return view('configurar.estudiantes.index', compact('estudiantes','materia','materias','materia_id','num_estudiantes'));
     }
     
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $current = url()->current();
+        $materia_id = Str::after($current, 'estudiantes/');
+        $materia = Materia::all();
+        return view('configurar.estudiantes.create', compact('materia_id','materia'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request, Materia $id)
+    {
+        // TO-DO: validación de lista de estudiantes
+        // if($request->validate([
+        //    'lista_completa' =>'required|regex: /^([\w+ ]*\w+(,).+(;).+)/',
+        //    'user_id'=>'required',
+        //    'check' =>'required|boolean',
+        //    'materia_id' => 'required'
+        // ])
+        // ){
+
+        $materia_id = request('create_materia_id');
+        $user_id = request('user_id');
+        $cadena = request('lista_completa');
+        $cuantos = 1;
+        $nuevos = 1;
+        $mns_nuevos='';
+        // Si la cadena acaba en punto y coma, lo quitamos
+        if(Str::endsWith($cadena,';')) 
+            $cadena = Str::beforeLast($cadena,';');
+        // obtenemos el array de estudiantes
+        $arrApellidosNombre = Str::of($cadena)->explode(";");
+        $num_estudiantes = count($arrApellidosNombre);
+
+        // recorremos el array, asignamos nombre y apellidos (separados por coma) a las variables
+        for ($i = 0; $i < $num_estudiantes; $i++) { 
+            $estudiante = Str::of( $arrApellidosNombre[$i])->explode(",");
+            $apellidos = $estudiante[0];
+            $nombre = $estudiante[1];
+            $apellidos = Str::of($apellidos)->ltrim();
+            $nombre = Str::of($nombre)->ltrim();
+            $nombre_completo = Str::of($nombre)->append(" ".$apellidos);
+            // la materia que cursa 
+            $materia = Materia::find($materia_id);
+            // comprobamos si el estudiante ya está registrado
+            $busca_estudiante = DB::table('estudiantes')->where('user_id',$user_id)->where('nombre_completo',$nombre_completo)->first();
+            // si NO está registrado
+            if($busca_estudiante == null){
+                // insertamos los datos del estudiante obteniendo su id 
+                $estudiante_id = DB::table('estudiantes')->insertGetId(['nombre'=>$nombre,'apellidos'=>$apellidos,'nombre_completo'=>$nombre_completo,'user_id'=>$user_id]);
+                // guardamos el registro en la tabla estudiante_materia
+                $materia->estudiantes()->attach($estudiante_id);
+                $mns_nuevos = ' Hay '.$nuevos.' estudiantes nuevos.';
+                $nuevos++;
+            }
+            // si SÍ está registrado
+            elseif($busca_estudiante !== null){
+                // obtenemos el id del estudiante;
+                $estudiante_id = DB::table('estudiantes')->where('user_id',$user_id)->where('nombre_completo',$nombre_completo)->value('id');
+                $materia->estudiantes()->attach($estudiante_id);   
+            }
+            // Creamos el mensaje informativo para el usuario y guardar el registro
+            $mns_estudiantes ='Se han registrado '.$cuantos.' estudiantes en la materia.';
+            $cuantos++;
+        }
+
+        return redirect()->route('materias.index')->with('info', $mns_estudiantes.$mns_nuevos);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $estudiante = Estudiante::find($id);
+        $current = url()->previous();
+        $materia_id = Str::after($current, 'estudiantes/');
+
+        return view('configurar.estudiantes.edit', compact( 'estudiante','materia_id'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $materia_id = request('materia_id');
+        $mns ='';
+        $user_id = request('user_id');
+        if($request->validate([
+            'nombre' =>'required',
+            'apellidos' =>'required'
+            ])
+        ){  $estudiante = Estudiante::find($id);
+            $nombre = request('nombre');
+            $apellidos = request('apellidos');
+            $estudiante->nombre = $nombre;
+            $estudiante->apellidos = $apellidos;
+            $estudiante->nombre_completo = $nombre." ".$apellidos;
+            $estudiante->user_id = $user_id;
+            $estudiante->save();
+            $mns='Los datos de '.$nombre." ".$apellidos.' se han actualizado con éxito' ;
+        }
+
+        return redirect()->route('estudiantes.porMateria',$materia_id)->with('info', $mns);   
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Estudiante $estudiante)
+    {
+        $mns_estudiante ='Estudiante borrado con éxito';
+        $estudiante->delete();
+
+        return redirect()->route('materias.index')->with('info', $mns_estudiante);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function borrarGrupo($materia_id)
+    {
+        $mns_grupo ='Grupo borrado con éxito';
+        $materia = Materia::find($materia_id);
+        $estudiantes = DB::table('estudiante_materia')->where('materia_id',$materia_id)->get();
+        $aula_id = $materia->aula_id;
+        foreach ($materia->estudiantes as $estudiante)
+            $estudiante->delete();
+        DB::table('aulas')->where('id',$aula_id)
+            ->update(['num_columnas'=>5,'num_filas'=>5,'num_mesas'=>25, 'check'=>0]);
+        DB::table('mesas')->where('aula_id',$aula_id)
+            ->delete();
+
+        return redirect()->route('materias.index')->with('info', $mns_grupo);
+    }
+
+
+
+
     // public function misEstudiantes(){
     //      if(Auth::check()){
     //         $user = Auth::user()->id;
@@ -121,181 +292,6 @@ class EstudianteController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
-    public function create()
-    {
-        $current = url()->current();
-        $materia_id = Str::after($current, 'estudiantes/');
-        $materia = Materia::all();
-        return view('configurar.estudiantes.create', compact('materia_id','materia'));
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
-    public function store(Request $request, Materia $id)
-    {
-        // TO-DO: validación de lista de estudiantes
-        // if($request->validate([
-        //    'lista_completa' =>'required|regex: /^([\w+ ]*\w+(,).+(;).+)/',
-        //    'user_id'=>'required',
-        //    'check' =>'required|boolean',
-        //    'materia_id' => 'required'
-        // ])
-        // )
-        // {
-        $materia_id = request('create_materia_id');
-        // dd($materia_id);
-        $user_id = request('user_id');
-        $cadena = request('lista_completa');
-        // $check = request('check');
-        $cuantos = 1;
-        $nuevos = 1;
-        $mns_nuevos='';
-        // Si la cadena acaba en punto y coma, lo quitamos
-        if(Str::endsWith($cadena,';')) $cadena = Str::beforeLast($cadena,';');
-
-        // obtenemos el array de estudiantes
-        $arrApellidosNombre = Str::of($cadena)->explode(";");
-        $num_estudiantes = count($arrApellidosNombre);
-
-        // recorrer el array, asignar nombre y apellidos (separados por coma) a las variables
-        for ($i = 0; $i < $num_estudiantes; $i++) { 
-            $estudiante = Str::of( $arrApellidosNombre[$i])->explode(",");
-            $apellidos = $estudiante[0];
-            $nombre = $estudiante[1];
-            // $nombre = Str::of($estudiante[1]);
-            $nombre_completo = $nombre." ".$apellidos;
-            // la materia que cursa 
-            $materia = Materia::find($materia_id);
-            // comprobamos si el estudiante ya está registrado
-            $busca_estudiante = DB::table('estudiantes')->where('user_id',$user_id)->where('nombre_completo',$nombre_completo)->first();
-            // si no está registrado
-            if($busca_estudiante == null){
-                // insertamos los datos del estudiante obteniendo su id 
-                $estudiante_id = DB::table('estudiantes')->insertGetId(['nombre'=>$nombre,'apellidos'=>$apellidos,'nombre_completo'=>$nombre_completo,'user_id'=>$user_id]);
-                // dd($estudiante_id);
-                // guardamos el registro en la tabla estudiante_materia
-                
-                $materia->estudiantes()->attach($estudiante_id);
-                // $estudiante_materia = DB::table('estudiante_materia')->insert(['materia_id'=>$materia_id, 'estudiante_id'=>$estudiante_id]);
-                $mns_nuevos = ' Hay '.$nuevos.' estudiantes nuevos.';
-                $nuevos++;
-                
-            // si está registrado
-            }elseif($busca_estudiante !== null){
-                // obtenemos el id del estudiante;
-                $estudiante_id = DB::table('estudiantes')->where('user_id',$user_id)->where('nombre_completo',$nombre_completo)->value('id');
-                $materia->estudiantes()->attach($estudiante_id);   
-            }
-            // Crear el mensaje informativo para el usuario y guardar el registro
-            $mns_estudiantes ='Se han registrado '.$cuantos.' estudiantes en la materia.';
-            // $estudiante->save();
-            $cuantos++;
-        }
-        return redirect()->route('materias.index')->with('info', $mns_estudiantes.$mns_nuevos);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-    public function show($id)
-    {
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-    public function edit($id)
-    {
-        $estudiante = Estudiante::find($id);
-        $current = url()->previous();
-        $materia_id = Str::after($current, 'estudiantes/');
-        return view('configurar.estudiantes.edit', compact( 'estudiante','materia_id'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-    public function update(Request $request, $id)
-    {
-        $materia_id = request('materia_id');
-        $mns ='';
-        $user_id = request('user_id');
-        if($request->validate([
-            'nombre' =>'required',
-            'apellidos' =>'required'
-            ])
-        )
-        {   $estudiante = Estudiante::find($id);
-            $nombre = request('nombre');
-            $apellidos = request('apellidos');
-            $estudiante->nombre = $nombre;
-            $estudiante->apellidos = $apellidos;
-            $estudiante->nombre_completo = $nombre." ".$apellidos;
-            $estudiante->user_id = $user_id;
-            $estudiante->save();
-            $mns='Los datos de '.$nombre." ".$apellidos.' se han actualizado con éxito' ;
-        }
-        return redirect()->route('estudiantes.porMateria',$materia_id)->with('info', $mns);   
-       
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-    public function destroy(Estudiante $estudiante)
-    {
-        $mns_estudiante ='Estudiante borrado con éxito';
-        $estudiante->delete();
-        return redirect()->route('materias.index')->with('info', $mns_estudiante);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-    public function borrarGrupo($materia_id)
-    {
-        $mns_grupo ='Grupo borrado con éxito';
-        $materia = Materia::find($materia_id);
-        $estudiantes = DB::table('estudiante_materia')->where('materia_id',$materia_id)->get();
-        $aula_id = $materia->aula_id;
-        
-        // $estudiantes = Estudiante::where('materia_id',$materia_id)->get();
-        foreach ($materia->estudiantes as $estudiante)
-        $estudiante->delete();
-        DB::table('aulas')->where('id',$aula_id)->update(['num_columnas'=>5,'num_filas'=>5,'num_mesas'=>25, 'check'=>0]);
-        DB::table('mesas')->where('aula_id',$aula_id)->delete();
-        return redirect()->route('materias.index')->with('info', $mns_grupo);
-    }
 }

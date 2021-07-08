@@ -125,7 +125,7 @@
                 <!--CAPTION: pasos 1, 2 y 3 -->
                 @if($user->paso < 4)
                   <caption>
-                    Puedes <strong>Añadir </strong>, <strong>Editar</strong>, y <strong>Borrar</strong>  las materias. <br> Pulsa <strong>Continuar </strong> cuando hayas registrado todas tus materias.
+                    Puedes <strong>Añadir</strong> una materia desde tu teclado pulsando <kbd>+</kbd>. Usando los botones puedes <strong>Añadir</strong>, <strong>Editar</strong>, y <strong>Borrar</strong> materias. <br> Pulsa <strong>Continuar </strong> cuando hayas registrado todas tus materias.
                   </caption>
                 @endif
 
@@ -296,10 +296,26 @@
       <div id="crear_estudiantes" class="modal">
         @include('configurar/estudiantes/create')
       </div>
-
-
-
     </div>  <!--fin de div-->
   </div>   <!--fin de container-->
         
+@endsection
+@section('script')
+<script>
+  window.onload = function() { 
+    document.onkeyup = abrirFormulario; 
+  }
+
+  function  abrirFormulario(evObject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST',`{{route('materias.index')}}`,true);
+    xhr.setRequestHeader('Content-Type','application/json');
+    xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+    var tecla = evObject.keyCode;
+      console.log(tecla);
+    if(tecla == 171 ){
+      window.open("/configurar/materias/create", '_self');
+    }
+  }
+</script>
 @endsection
