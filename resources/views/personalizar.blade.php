@@ -64,12 +64,12 @@
                 @enderror  
               </div>
               <div class="d_block mt-4">¿Izquierda o derecha?
-                <div class="radio-bt-div ">
-                  <input type="radio" name="booleano2materia" id="boton_izq" checked="checked" class="hide" />
+                <div class="radio-bt-div">
+                  <input type="radio" name="gradual2materia" id="boton_izq" class="hide" />
                   <label for="boton_izq" class= "radio-label">Izq</label>
-                  <input type="radio" name="booleano2materia" id="boton_dcha" class="hide" />
-                  <label for="boton_dcha"  class= "radio-label ">Dcha</label>
-                  <div class="bg-gray-100 text-gray-900">
+                  <input type="radio" name="gradual2materia" id="boton_dcha"  checked="checked" class="hide" />
+                  <label for="boton_dcha"  class= "radio-label">Dcha</label>
+                  <div class="nombre_mesa">
                     Nombre apellidos
                   </div>
                 </div>                
